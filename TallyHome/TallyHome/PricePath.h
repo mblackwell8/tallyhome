@@ -7,22 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PriceEvent.h"
 
-struct PricePoint {
-    NSDate *date;
-    double price;
-};
+#define TH_OneYearTimeInterval      365 * 24 * 60 * 60
+#define TH_FiveYearTimeInterval     365 * 24 * 60 * 60 * 5
+#define TH_TenYearTimeInterval      365 * 24 * 60 * 60 * 10
+
 
 @interface PricePath : NSObject {
     NSArray *priceEvents;
+    NSTimeInterval backwardsExtrapolationInterval;
+    NSTimeInterval forwardsExtrapolationInterval;
     
-    
+    NSArray *appliedPriceEvents;
 }
 
-@property NSArray *priceEvents;
+@property (retain) NSArray *priceEvents;
+@property NSTimeInterval backwardsExtrapolationInterval;
+@property NSTimeInterval forwardsExtrapolationInterval;
+@property (retain) NSArray *appliedPriceEvents;
+
 
 - (NSArray *) applyTo:(double) startingPrice from:(NSDate *) startDate to:(NSDate *) endDate;
 
-- (double) calcTrendGrowthForTimeInterval:(NSTimeInterval *) interval;
+// annual growth, trending forward (ie. using most recent data)
+- (double) calcTrendGrowth;
+- (double) calcTrendGrowthForTimeInterval:(NSTimeInterval) interval;
+
+- (double) calcBackwardsTrendGrowth;
 
 @end

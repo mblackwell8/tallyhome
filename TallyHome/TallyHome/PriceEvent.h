@@ -8,19 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
+#define TH_SOURCETYPE_EXTRAPOLATED @"Extrapolated"
 
 @interface PriceEvent : NSObject {
     NSDate *date;
-    double impact;
+    PriceEvent *last;
+    
+    //for first PriceEvent in collection this is ignored and last is null
+    double impactSinceLast;
     NSString *proximity;
     NSString *sourceType;
     BOOL shouldIgnore;
 }
 
-@property NSDate *date;
-@property double impact;
-@property NSString *proximity;
-@property NSString *sourceType;
+@property (retain) NSDate *date;
+@property double impactSinceLast;
+@property (copy) NSString *proximity;
+@property (copy) NSString *sourceType;
 @property BOOL shouldIgnore;
 
 @end

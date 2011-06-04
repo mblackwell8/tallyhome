@@ -8,7 +8,13 @@
 
 #import "PriceEvent.h"
 
-
 @implementation PriceEvent
+
+@synthesize date;
+@synthesize impactSinceLast;
+@synthesize proximity;
+@synthesize sourceType;
+@synthesize shouldIgnore;
+
 
 @end
