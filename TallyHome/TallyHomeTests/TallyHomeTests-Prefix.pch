@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'TallyHomeTests' target in the 'TallyHomeTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif

@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D055A63139A1E0600F13781 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A62139A1E0600F13781 /* UIKit.framework */; };
+		4D055A65139A1E0600F13781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A64139A1E0600F13781 /* Foundation.framework */; };
+		4D055A67139A1E0600F13781 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A66139A1E0600F13781 /* CoreGraphics.framework */; };
+		4D055A6D139A1E0600F13781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A6B139A1E0600F13781 /* InfoPlist.strings */; };
+		4D055A70139A1E0600F13781 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A6F139A1E0600F13781 /* main.m */; };
+		4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */; };
+		4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A74139A1E0600F13781 /* MainWindow.xib */; };
+		4D055A79139A1E0600F13781 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A78139A1E0600F13781 /* RootViewController.m */; };
+		4D055A7C139A1E0600F13781 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A7A139A1E0600F13781 /* RootViewController.xib */; };
+		4D055A83139A1E0600F13781 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A62139A1E0600F13781 /* UIKit.framework */; };
+		4D055A84139A1E0600F13781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A64139A1E0600F13781 /* Foundation.framework */; };
+		4D055A85139A1E0600F13781 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A66139A1E0600F13781 /* CoreGraphics.framework */; };
+		4D055A8D139A1E0600F13781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8B139A1E0600F13781 /* InfoPlist.strings */; };
+		4D055A90139A1E0600F13781 /* TallyHomeTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8F139A1E0600F13781 /* TallyHomeTests.h */; };
+		4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A91139A1E0600F13781 /* TallyHomeTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D055A86139A1E0600F13781 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D055A55139A1E0500F13781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D055A5D139A1E0600F13781;
+			remoteInfo = TallyHome;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4D055A5E139A1E0600F13781 /* TallyHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TallyHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D055A62139A1E0600F13781 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4D055A64139A1E0600F13781 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4D055A66139A1E0600F13781 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4D055A6A139A1E0600F13781 /* TallyHome-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TallyHome-Info.plist"; sourceTree = "<group>"; };
+		4D055A6C139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D055A6E139A1E0600F13781 /* TallyHome-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TallyHome-Prefix.pch"; sourceTree = "<group>"; };
+		4D055A6F139A1E0600F13781 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeAppDelegate.h; sourceTree = "<group>"; };
+		4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeAppDelegate.m; sourceTree = "<group>"; };
+		4D055A75139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		4D055A77139A1E0600F13781 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		4D055A78139A1E0600F13781 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		4D055A7B139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		4D055A82139A1E0600F13781 /* TallyHomeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TallyHomeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D055A8A139A1E0600F13781 /* TallyHomeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TallyHomeTests-Info.plist"; sourceTree = "<group>"; };
+		4D055A8C139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D055A8E139A1E0600F13781 /* TallyHomeTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TallyHomeTests-Prefix.pch"; sourceTree = "<group>"; };
+		4D055A8F139A1E0600F13781 /* TallyHomeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeTests.h; sourceTree = "<group>"; };
+		4D055A91139A1E0600F13781 /* TallyHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D055A5B139A1E0600F13781 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A63139A1E0600F13781 /* UIKit.framework in Frameworks */,
+				4D055A65139A1E0600F13781 /* Foundation.framework in Frameworks */,
+				4D055A67139A1E0600F13781 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D055A7E139A1E0600F13781 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A83139A1E0600F13781 /* UIKit.framework in Frameworks */,
+				4D055A84139A1E0600F13781 /* Foundation.framework in Frameworks */,
+				4D055A85139A1E0600F13781 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D055A53139A1E0500F13781 = {
+			isa = PBXGroup;
+			children = (
+				4D055A68139A1E0600F13781 /* TallyHome */,
+				4D055A88139A1E0600F13781 /* TallyHomeTests */,
+				4D055A61139A1E0600F13781 /* Frameworks */,
+				4D055A5F139A1E0600F13781 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4D055A5F139A1E0600F13781 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A5E139A1E0600F13781 /* TallyHome.app */,
+				4D055A82139A1E0600F13781 /* TallyHomeTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D055A61139A1E0600F13781 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A62139A1E0600F13781 /* UIKit.framework */,
+				4D055A64139A1E0600F13781 /* Foundation.framework */,
+				4D055A66139A1E0600F13781 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D055A68139A1E0600F13781 /* TallyHome */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
+				4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */,
+				4D055A74139A1E0600F13781 /* MainWindow.xib */,
+				4D055A77139A1E0600F13781 /* RootViewController.h */,
+				4D055A78139A1E0600F13781 /* RootViewController.m */,
+				4D055A7A139A1E0600F13781 /* RootViewController.xib */,
+				4D055A69139A1E0600F13781 /* Supporting Files */,
+			);
+			path = TallyHome;
+			sourceTree = "<group>";
+		};
+		4D055A69139A1E0600F13781 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A6A139A1E0600F13781 /* TallyHome-Info.plist */,
+				4D055A6B139A1E0600F13781 /* InfoPlist.strings */,
+				4D055A6E139A1E0600F13781 /* TallyHome-Prefix.pch */,
+				4D055A6F139A1E0600F13781 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4D055A88139A1E0600F13781 /* TallyHomeTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A8F139A1E0600F13781 /* TallyHomeTests.h */,
+				4D055A91139A1E0600F13781 /* TallyHomeTests.m */,
+				4D055A89139A1E0600F13781 /* Supporting Files */,
+			);
+			path = TallyHomeTests;
+			sourceTree = "<group>";
+		};
+		4D055A89139A1E0600F13781 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D055A8A139A1E0600F13781 /* TallyHomeTests-Info.plist */,
+				4D055A8B139A1E0600F13781 /* InfoPlist.strings */,
+				4D055A8E139A1E0600F13781 /* TallyHomeTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D055A5D139A1E0600F13781 /* TallyHome */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D055A95139A1E0600F13781 /* Build configuration list for PBXNativeTarget "TallyHome" */;
+			buildPhases = (
+				4D055A5A139A1E0600F13781 /* Sources */,
+				4D055A5B139A1E0600F13781 /* Frameworks */,
+				4D055A5C139A1E0600F13781 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TallyHome;
+			productName = TallyHome;
+			productReference = 4D055A5E139A1E0600F13781 /* TallyHome.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4D055A81139A1E0600F13781 /* TallyHomeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D055A98139A1E0600F13781 /* Build configuration list for PBXNativeTarget "TallyHomeTests" */;
+			buildPhases = (
+				4D055A7D139A1E0600F13781 /* Sources */,
+				4D055A7E139A1E0600F13781 /* Frameworks */,
+				4D055A7F139A1E0600F13781 /* Resources */,
+				4D055A80139A1E0600F13781 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D055A87139A1E0600F13781 /* PBXTargetDependency */,
+			);
+			name = TallyHomeTests;
+			productName = TallyHomeTests;
+			productReference = 4D055A82139A1E0600F13781 /* TallyHomeTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D055A55139A1E0500F13781 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4D055A58139A1E0500F13781 /* Build configuration list for PBXProject "TallyHome" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4D055A53139A1E0500F13781;
+			productRefGroup = 4D055A5F139A1E0600F13781 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D055A5D139A1E0600F13781 /* TallyHome */,
+				4D055A81139A1E0600F13781 /* TallyHomeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D055A5C139A1E0600F13781 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A6D139A1E0600F13781 /* InfoPlist.strings in Resources */,
+				4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */,
+				4D055A7C139A1E0600F13781 /* RootViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D055A7F139A1E0600F13781 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A8D139A1E0600F13781 /* InfoPlist.strings in Resources */,
+				4D055A90139A1E0600F13781 /* TallyHomeTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D055A80139A1E0600F13781 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D055A5A139A1E0600F13781 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A70139A1E0600F13781 /* main.m in Sources */,
+				4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */,
+				4D055A79139A1E0600F13781 /* RootViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D055A7D139A1E0600F13781 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D055A87139A1E0600F13781 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D055A5D139A1E0600F13781 /* TallyHome */;
+			targetProxy = 4D055A86139A1E0600F13781 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4D055A6B139A1E0600F13781 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D055A6C139A1E0600F13781 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4D055A74139A1E0600F13781 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D055A75139A1E0600F13781 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		4D055A7A139A1E0600F13781 /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D055A7B139A1E0600F13781 /* en */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+		4D055A8B139A1E0600F13781 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D055A8C139A1E0600F13781 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D055A93139A1E0600F13781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4D055A94139A1E0600F13781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		4D055A96139A1E0600F13781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TallyHome/TallyHome-Prefix.pch";
+				INFOPLIST_FILE = "TallyHome/TallyHome-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4D055A97139A1E0600F13781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TallyHome/TallyHome-Prefix.pch";
+				INFOPLIST_FILE = "TallyHome/TallyHome-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4D055A99139A1E0600F13781 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TallyHome.app/TallyHome";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TallyHomeTests/TallyHomeTests-Prefix.pch";
+				INFOPLIST_FILE = "TallyHomeTests/TallyHomeTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4D055A9A139A1E0600F13781 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TallyHome.app/TallyHome";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TallyHomeTests/TallyHomeTests-Prefix.pch";
+				INFOPLIST_FILE = "TallyHomeTests/TallyHomeTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D055A58139A1E0500F13781 /* Build configuration list for PBXProject "TallyHome" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D055A93139A1E0600F13781 /* Debug */,
+				4D055A94139A1E0600F13781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D055A95139A1E0600F13781 /* Build configuration list for PBXNativeTarget "TallyHome" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D055A96139A1E0600F13781 /* Debug */,
+				4D055A97139A1E0600F13781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4D055A98139A1E0600F13781 /* Build configuration list for PBXNativeTarget "TallyHomeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D055A99139A1E0600F13781 /* Debug */,
+				4D055A9A139A1E0600F13781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D055A55139A1E0500F13781 /* Project object */;
+}
