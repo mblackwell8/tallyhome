@@ -1,0 +1,26 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Lucinda Grande",fontsize="10",labelfontname="Lucinda Grande",labelfontsize="10"];
+  node [fontname="Lucinda Grande",fontsize="10",shape=record];
+  Node1 [label="CPTextLayer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node2 [label="CPLayer",height=0.2,width=0.4,color="black",URL="$interface_c_p_layer.html",tooltip="Base class for all Core Animation layers in Core Plot."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node3 [label="CALayer",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node4 [label="NSObject",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node5 [label="\<NSObject-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html"];
+  Node6 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node6 [label="\<NSKeyValueBindingCreation-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Protocols/NSKeyValueBindingCreation_Protocol/Reference/Reference.html"];
+  Node7 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node7 [label="\<NSCoding-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html"];
+  Node8 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node8 [label="\<CAMediaTiming-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/Introduction/Introduction.html"];
+  Node9 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node9 [label="\<CPResponder\>",height=0.2,width=0.4,color="black",URL="$protocol_c_p_responder-p.html",tooltip="The basis of all event processing in Core Plot."];
+  Node5 -> Node9 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node10 -> Node2 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="renderingRecursively",fontname="Lucinda Grande"];
+  Node10 [label="BOOL",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/mac/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html"];
+}

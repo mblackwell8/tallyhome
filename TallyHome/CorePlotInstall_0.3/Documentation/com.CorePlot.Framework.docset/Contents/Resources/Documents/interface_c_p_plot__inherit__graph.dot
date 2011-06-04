@@ -1,0 +1,36 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Lucinda Grande",fontsize="10",labelfontname="Lucinda Grande",labelfontsize="10"];
+  node [fontname="Lucinda Grande",fontsize="10",shape=record];
+  Node1 [label="CPPlot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node2 [label="CPAnnotationHostLayer",height=0.2,width=0.4,color="black",URL="$interface_c_p_annotation_host_layer.html",tooltip="An annotation host layer is a container layer for annotations."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node3 [label="CPLayer",height=0.2,width=0.4,color="black",URL="$interface_c_p_layer.html",tooltip="Base class for all Core Animation layers in Core Plot."];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node4 [label="CALayer",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node5 [label="NSObject",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html"];
+  Node6 -> Node5 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node6 [label="\<NSObject-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html"];
+  Node7 -> Node5 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node7 [label="\<NSKeyValueBindingCreation-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Protocols/NSKeyValueBindingCreation_Protocol/Reference/Reference.html"];
+  Node8 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node8 [label="\<NSCoding-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html"];
+  Node9 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node9 [label="\<CAMediaTiming-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/Introduction/Introduction.html"];
+  Node10 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node10 [label="\<CPResponder\>",height=0.2,width=0.4,color="black",URL="$protocol_c_p_responder-p.html",tooltip="The basis of all event processing in Core Plot."];
+  Node6 -> Node10 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node1 -> Node11 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node11 [label="CPBarPlot",height=0.2,width=0.4,color="black",URL="$interface_c_p_bar_plot.html",tooltip="A two-dimensional bar plot."];
+  Node1 -> Node12 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node12 [label="CPPieChart",height=0.2,width=0.4,color="black",URL="$interface_c_p_pie_chart.html",tooltip="A pie chart."];
+  Node1 -> Node13 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node13 [label="CPRangePlot",height=0.2,width=0.4,color="black",URL="$interface_c_p_range_plot.html",tooltip="A plot class representing a range of values in one coordinate, such as typically used to show errors..."];
+  Node1 -> Node14 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node14 [label="CPScatterPlot",height=0.2,width=0.4,color="black",URL="$interface_c_p_scatter_plot.html",tooltip="A two-dimensional scatter plot."];
+  Node1 -> Node15 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node15 [label="CPTradingRangePlot",height=0.2,width=0.4,color="black",URL="$interface_c_p_trading_range_plot.html",tooltip="A trading range financial plot."];
+}

@@ -1,0 +1,8 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Lucinda Grande",fontsize="10",labelfontname="Lucinda Grande",labelfontsize="10"];
+  node [fontname="Lucinda Grande",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="NSException(CPExtensions)",height=0.2,width=0.4,color="black",URL="$interface_n_s_exception_07_c_p_extensions_08.html",tooltip="Core Plot extensions to NSException."];
+}

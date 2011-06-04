@@ -1,0 +1,8 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Lucinda Grande",fontsize="10",labelfontname="Lucinda Grande",labelfontsize="10"];
+  node [fontname="Lucinda Grande",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="_CPNumericDataType",height=0.2,width=0.4,color="black",URL="$struct___c_p_numeric_data_type.html",tooltip="Struct that describes the encoding of numeric data samples."];
+}

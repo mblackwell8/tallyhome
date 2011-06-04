@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Lucinda Grande",fontsize="10",labelfontname="Lucinda Grande",labelfontsize="10"];
+  node [fontname="Lucinda Grande",fontsize="10",shape=record];
+  Node1 [label="\<CPPlotDataSource\>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node2 [label="\<NSObject-p\>",height=0.2,width=0.4,color="black",URL="doxygen-cocoa-tags.xml$http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node3 [label="\<CPBarPlotDataSource\>",height=0.2,width=0.4,color="black",URL="$protocol_c_p_bar_plot_data_source-p.html",tooltip="A bar plot data source."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node4 [label="\<CPPieChartDataSource\>",height=0.2,width=0.4,color="black",URL="$protocol_c_p_pie_chart_data_source-p.html",tooltip="A pie chart data source."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Lucinda Grande"];
+  Node5 [label="\<CPScatterPlotDataSource\>",height=0.2,width=0.4,color="black",URL="$protocol_c_p_scatter_plot_data_source-p.html",tooltip="A scatter plot data source."];
+}
