@@ -22,10 +22,12 @@
 		4D055A8D139A1E0600F13781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8B139A1E0600F13781 /* InfoPlist.strings */; };
 		4D055A90139A1E0600F13781 /* TallyHomeTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8F139A1E0600F13781 /* TallyHomeTests.h */; };
 		4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A91139A1E0600F13781 /* TallyHomeTests.m */; };
-		4D7383CD139A1FF60087CCDC /* PriceEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CA139A1FF60087CCDC /* PriceEvent.m */; };
 		4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CC139A1FF60087CCDC /* PricePath.m */; };
 		4D73841A139A20660087CCDC /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */; };
 		4D73841C139A21FF0087CCDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73841B139A21FF0087CCDC /* QuartzCore.framework */; };
+		4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCC5139B220C00E868A7 /* PricePathTests.m */; };
+		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
+		4DAABCCC139B8ABF00E868A7 /* Indice.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* Indice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +61,6 @@
 		4D055A8E139A1E0600F13781 /* TallyHomeTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TallyHomeTests-Prefix.pch"; sourceTree = "<group>"; };
 		4D055A8F139A1E0600F13781 /* TallyHomeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeTests.h; sourceTree = "<group>"; };
 		4D055A91139A1E0600F13781 /* TallyHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeTests.m; sourceTree = "<group>"; };
-		4D7383C9139A1FF60087CCDC /* PriceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceEvent.h; sourceTree = "<group>"; };
-		4D7383CA139A1FF60087CCDC /* PriceEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceEvent.m; sourceTree = "<group>"; };
 		4D7383CB139A1FF60087CCDC /* PricePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePath.h; sourceTree = "<group>"; };
 		4D7383CC139A1FF60087CCDC /* PricePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePath.m; sourceTree = "<group>"; };
 		4D7383D1139A20560087CCDC /* _CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillColor.h; sourceTree = "<group>"; };
@@ -137,6 +137,11 @@
 		4D738418139A20560087CCDC /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		4D73841B139A21FF0087CCDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
+		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
+		4DAABCC5139B220C00E868A7 /* PricePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePathTests.m; sourceTree = "<group>"; };
+		4DAABCC8139B2A1C00E868A7 /* price_events.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = price_events.xml; path = ../server/price_events.xml; sourceTree = "<group>"; };
+		4DAABCCA139B8ABF00E868A7 /* Indice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indice.h; sourceTree = "<group>"; };
+		4DAABCCB139B8ABF00E868A7 /* Indice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Indice.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +173,7 @@
 		4D055A53139A1E0500F13781 = {
 			isa = PBXGroup;
 			children = (
+				4DAABCC8139B2A1C00E868A7 /* price_events.xml */,
 				4D055A68139A1E0600F13781 /* TallyHome */,
 				4D055A88139A1E0600F13781 /* TallyHomeTests */,
 				4D055A61139A1E0600F13781 /* Frameworks */,
@@ -200,8 +206,8 @@
 			children = (
 				4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */,
 				4D7383D0139A20560087CCDC /* CorePlotHeaders */,
-				4D7383C9139A1FF60087CCDC /* PriceEvent.h */,
-				4D7383CA139A1FF60087CCDC /* PriceEvent.m */,
+				4DAABCCA139B8ABF00E868A7 /* Indice.h */,
+				4DAABCCB139B8ABF00E868A7 /* Indice.m */,
 				4D7383CB139A1FF60087CCDC /* PricePath.h */,
 				4D7383CC139A1FF60087CCDC /* PricePath.m */,
 				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
@@ -232,6 +238,8 @@
 				4D055A8F139A1E0600F13781 /* TallyHomeTests.h */,
 				4D055A91139A1E0600F13781 /* TallyHomeTests.m */,
 				4D055A89139A1E0600F13781 /* Supporting Files */,
+				4DAABCC4139B220C00E868A7 /* PricePathTests.h */,
+				4DAABCC5139B220C00E868A7 /* PricePathTests.m */,
 			);
 			path = TallyHomeTests;
 			sourceTree = "<group>";
@@ -395,6 +403,7 @@
 				4D055A6D139A1E0600F13781 /* InfoPlist.strings in Resources */,
 				4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */,
 				4D055A7C139A1E0600F13781 /* RootViewController.xib in Resources */,
+				4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,8 +442,8 @@
 				4D055A70139A1E0600F13781 /* main.m in Sources */,
 				4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */,
 				4D055A79139A1E0600F13781 /* RootViewController.m in Sources */,
-				4D7383CD139A1FF60087CCDC /* PriceEvent.m in Sources */,
 				4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */,
+				4DAABCCC139B8ABF00E868A7 /* Indice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */,
+				4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

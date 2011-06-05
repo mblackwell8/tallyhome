@@ -22,9 +22,12 @@
 }
 
 @property (retain) NSDate *date;
+@property (retain) PriceEvent *last;
 @property double impactSinceLast;
 @property (copy) NSString *proximity;
 @property (copy) NSString *sourceType;
 @property BOOL shouldIgnore;
+
+- (NSComparisonResult)compareByDate:(PriceEvent *)anotherEvent;
 
 @end
