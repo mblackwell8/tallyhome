@@ -11,20 +11,15 @@
 
 @implementation PricePath
 
-@synthesize indices;
-@synthesize backwardsExtrapolationInterval;
-@synthesize forwardsExtrapolationInterval;
-@synthesize subsetIndex;
-@synthesize extrapolatedSubsetIndex;
 @synthesize sources;
 @synthesize proximities;
+@synthesize innerIndexes = _indexes;
 
 - (id) init {
     if ((self = [super init])) {
-        backwardsExtrapolationInterval = TH_FiveYearTimeInterval;
-        forwardsExtrapolationInterval = TH_FiveYearTimeInterval;
         sources = TH_Source_AllKnown;
         proximities = TH_Proximity_AllKnown;
+        _indexes = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -59,48 +54,39 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
     //NSLog(@"Found start element: %@", elementName);
     if ([elementName isEqualToString:@"Indexes"]) {
-        if (xmlIndices) {
-            [xmlIndices release];
-            xmlIndices = nil;
+        if (_xmlIndices) {
+            [_xmlIndices release];
+            _xmlIndices = nil;
         }
         
-        xmlIndices = [[NSMutableArray alloc] init];
+        _xmlIndices = [[NSMutableArray alloc] init];
         return;
     }
     
     if ([elementName isEqualToString:@"Index"]) {
-        xmlCurrentIxName = [attributeDict valueForKey:@"name"];
-        xmlCurrentIxProx = [attributeDict valueForKey:@"prox"];
-        xmlCurrentIxSource = [attributeDict valueForKey:@"sourceType"];
+        _xmlCurrentIxName = [attributeDict valueForKey:@"name"];
+        _xmlCurrentIxProx = [attributeDict valueForKey:@"prox"];
+        _xmlCurrentIxSource = [attributeDict valueForKey:@"sourceType"];
         
         return;
     }
     
     if ([elementName isEqualToString:@"Indice"]) {
-        Indice *lastIndice = xmlIndice;
-        xmlIndice = [[Indice alloc] init];
-        xmlIndice.ixName = xmlCurrentIxName;
-        
-        if (!xmlDateFormatter) {
-            xmlDateFormatter = [[NSDateFormatter alloc] init];
-            [xmlDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-            [xmlDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+                
+        if (!_xmlDateFormatter) {
+            _xmlDateFormatter = [[NSDateFormatter alloc] init];
+            [_xmlDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+            [_xmlDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         }
         
         NSString *dateStr = [attributeDict valueForKey:@"date"];
-        NSDate *date = [xmlDateFormatter dateFromString:dateStr];
-        xmlIndice.date = date;
-        xmlIndice.proximityStr = xmlCurrentIxProx;
-        xmlIndice.sourceTypeStr = xmlCurrentIxSource;
+        NSDate *date = [_xmlDateFormatter dateFromString:dateStr];
         
         NSString *valStr = [attributeDict valueForKey:@"value"];
-        xmlIndice.val = [valStr doubleValue];
-        xmlIndice.last = lastIndice;
-        
-        [xmlIndices addObject:xmlIndice];
-        
-        if (lastIndice)
-            [lastIndice release];
+        double val = [valStr doubleValue];
+        THIndice *i = [[THIndice alloc] initWithVal:val at:date];
+                
+        [_xmlIndices addObject:i];
         
         return;
     }
@@ -111,15 +97,26 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     //NSLog(@"Found end element: %@", elementName);
     // ignore root and empty elements
-    if ([elementName isEqualToString:@"Indexes"]) {
+    if ([elementName isEqualToString:@"Index"]) {
         //sort the price events by date
-        indices = [xmlIndices sortedArrayUsingSelector:@selector(compareByDate:)];
+        [_xmlIndices sortUsingSelector:@selector(compareByDate:)];
+        HomePriceIndex *hpi = [[HomePriceIndex alloc] initWithIndices:_xmlIndices];
+        hpi.proximityStr = _xmlCurrentIxProx;
+        hpi.sourceTypeStr = _xmlCurrentIxSource;
         
-        [xmlDateFormatter release];
-        xmlDateFormatter = nil;
+        [_indexes addObject:hpi];
         
-        [xmlIndices release];
-        xmlIndices = nil;
+        [hpi release];
+        [_xmlIndices release];
+        _xmlIndices = nil;
+        
+        return;
+        
+    }
+    
+    if ([elementName isEqualToString:@"Indexes"]) {
+        [_xmlDateFormatter release];
+        _xmlDateFormatter = nil;
         
         return;
         
@@ -128,132 +125,78 @@
     return;
 }
 
-- (NSArray *) makeSubsetIndex {
+- (THIndex *) makeSubsetIndex {
     return [self makeSubsetIndexFromSources:sources proximities:proximities];
 }
-- (NSArray *) makeSubsetIndexFromSources:(int) srcs proximities:(int) proxs {
-    if (subsetIndex) {
-        [subsetIndex release];
-    }
+
+// computes an equally weighted index from the specified sources and proximities
+- (THIndex *) makeSubsetIndexFromSources:(int) srcs proximities:(int) proxs {
+    if (_indexes.count == 1)
+        return [_indexes objectAtIndex:0];
     
-    self.subsetIndex = [[NSMutableArray alloc] init];
-    
-    for (Indice *i in indices) {
-        if ((i.src & srcs) &&
-            (i.prox & proxs)) {
-            [subsetIndex addObject:i];
+    NSDate *firstDt = nil, *lastDt = nil;
+    NSMutableArray *relevantIndexes = [[NSMutableArray alloc] initWithCapacity:_indexes.count];
+    for (HomePriceIndex *hpi in _indexes) {
+        if ((hpi.src & srcs) &&
+            (hpi.prox & proxs)) {
+            [relevantIndexes addObject:hpi];
+            if (!firstDt || [firstDt timeIntervalSinceDate:[[hpi objectAtIndex:0] date]] < 0)
+                firstDt = [[hpi objectAtIndex:0] date];
+            if (!lastDt || [lastDt timeIntervalSinceDate:[[hpi lastObject] date]] > 0)
+                lastDt = [[hpi lastObject] date];
         }
     }
     
-    return subsetIndex;
-}
-
-- (NSArray *) makeExtrapolatedSubsetIndexFrom:(NSDate *) startDate to:(NSDate *) endDate {
-    if (extrapolatedSubsetIndex)
-        [extrapolatedSubsetIndex release];
+    if (relevantIndexes.count == 0)
+        return nil;
+    if (relevantIndexes.count == 1)
+        return [relevantIndexes objectAtIndex:0];
     
-    self.extrapolatedSubsetIndex = [[NSMutableArray alloc] initWithArray:[self makeSubsetIndex]];
+    NSAssert(firstDt, @"First date not set");
+    NSAssert(lastDt, @"Last date not set");
     
-    //if startDate is earlier than the first date in the PricePath then extrapolate backwards
-    int index = 0;
-    Indice *first = [extrapolatedSubsetIndex objectAtIndex:index];
-    if ([startDate timeIntervalSinceDate:first.date] < 0) {
-        Indice *newFirst = [[Indice alloc] init];
-        newFirst.date = startDate;
-        newFirst.sourceTypeStr = TH_Source_Extrapolated;
-        newFirst.prox = proximities;
-        
-        double periodInDays = [first.date timeIntervalSinceDate:newFirst.date] / (24.0 * 60 * 60);
-        newFirst.val = first.val * (1 + [self calcBackwardsTrendGrowth]) * periodInDays / 365.0;
-        
-        [extrapolatedSubsetIndex insertObject:newFirst atIndex:0];
-        [newFirst release];
-    }
-    else if ([startDate timeIntervalSinceDate:first.date] > 0) {
-        //else remove the price event before the start date
-        NSLog(@"Interpolating subset index not implemented");
-    }
-    else {
-        //do nothing
-    }
-        
-    //HACK: does not handle (unusual) case where the requested endDate doesn't need to be extrapolated
-    if ([endDate timeIntervalSinceDate:[[extrapolatedSubsetIndex lastObject] date]] < 0)
-        NSLog(@"Interpolating subset index not implemented");
-    
-    //if endDate is later than last date then extrapolate forwards
-    Indice *last = [extrapolatedSubsetIndex lastObject];
-    if ([endDate timeIntervalSinceDate:last.date] > 0) {
-        Indice *newLast = [[Indice alloc] init];
-        newLast.date = endDate;
-        newLast.sourceTypeStr = TH_Source_Extrapolated;
-        newLast.prox = proximities;
-        
-        double periodInDays = [newLast.date timeIntervalSinceDate:last.date] / (24.0 * 60 * 60);
-        newLast.val = last.val * (1 + [self calcTrendGrowth]) * periodInDays / 365.0;
-        
-        [extrapolatedSubsetIndex addObject:newLast];
-        [newLast release];
-    }
-    
-    return extrapolatedSubsetIndex;
-}
-
-- (double) calcTrendGrowth {
-    return [self calcTrendGrowthForTimeInterval: forwardsExtrapolationInterval];
-}
-
-- (double) calcTrendGrowthForTimeInterval:(NSTimeInterval) interval {
-    // find the closest price event, interval ago
-    NSDate *now = [NSDate date];
-    NSDate *ago = [now dateByAddingTimeInterval:-interval];
-    int trendIx = [self indexOfFirstEventBeforeDate:ago];
-    
-    trendIx = (trendIx == indices.count ? trendIx - 2 : trendIx);
-    
-    double totalGrowth = 0.0;
-    int index = trendIx;
-    while (index < indices.count) {
-        PriceEvent *ev = [indices objectAtIndex:index];
-        totalGrowth = (1.0 + totalGrowth) * (1.0 + ev.impactSinceLast) - 1.0;
-        index += 1;
-    }
-    
-    PriceEvent *last = [indices lastObject];
-    PriceEvent *trend = [indices objectAtIndex:trendIx];
-    double daysBetween = [last.date timeIntervalSinceDate:trend.date] / (24.0 * 60 * 60);
-    
-    //HACK: linear approximation of geometric growth
-    double annualisedGrowth = totalGrowth * 365.0 / daysBetween;
-    
-    [now release];
-    
-    return annualisedGrowth;
-}
-
-- (double) calcBackwardsTrendGrowth {
-    
-    
-    return 0.0;
-}
-
-- (int) indexOfFirstEventBeforeDate:(NSDate *)date {
-    int index = 0;
-    while ((index + 1) < indices.count) {
-        // will fail if price events are not in order
-        PriceEvent *first = [indices objectAtIndex:index];
-        PriceEvent *second = [indices objectAtIndex:(index + 1)];
-        NSAssert(first && second &&
-                 [second.date timeIntervalSinceDate:first.date] > 0, @"PricePath events out of order");
-        if ([first.date timeIntervalSinceDate:date] < 0 &&
-            [second.date timeIntervalSinceDate:date] >= 0) {
-            break;
+    THIndice *currIndice = [[THIndice alloc] initWithVal:100.0 at:firstDt];
+    NSMutableArray *subset = [[NSMutableArray alloc] init];
+    [subset addObject:currIndice];
+    NSDate *currDt = firstDt;
+    double lastRoc;
+    while ([currDt timeIntervalSinceDate:lastDt] <= 0) {
+        double roc = 0.0;
+        for (HomePriceIndex *hpi in relevantIndexes) {
+            roc += [hpi dailyRateOfChangeAt:currDt];
         }
-        index += 1;
+        roc /= relevantIndexes.count;
+        if (roc != lastRoc) {
+            NSDate *lastDt = [currDt dateByAddingTimeInterval:-24.0*60*60];
+            double numDays = [THIndex daysFrom:currIndice.date to:lastDt];
+            NSAssert(numDays > 0.0, @"ERROR");
+            double newVal = currIndice.val * pow((1.0 + lastRoc), numDays);
+            [currIndice release];
+            currIndice = [[THIndice alloc] initWithVal:newVal at:lastDt];
+            [subset addObject:currIndice];
+        }
+        
+        currDt = [currDt dateByAddingTimeInterval:(24.0 * 60 * 60)];
     }
     
-    return index;
+    [currIndice release];
+    [relevantIndexes release];
+        
+    [subset sortUsingSelector:@selector(compareByDate:)];
+    HomePriceIndex *retVal = [[HomePriceIndex alloc] initWithIndices:subset];
+    [subset release];
+    
+    retVal.prox = proxs;
+    retVal.src = srcs;
+    
+    return [retVal autorelease];
+}
 
+- (void) dealloc {
+    [_indexes release];
+    _indexes = nil;
+    
+    [super dealloc];
 }
 
 

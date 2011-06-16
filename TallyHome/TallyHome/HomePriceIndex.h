@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "THIndex.h"
 
 #define TH_Proximity_City_Str @"City"
 #define TH_Proximity_State_Str @"State"
@@ -16,7 +17,6 @@
 #define TH_Source_Govt_Str @"Government"
 #define TH_Source_Agency_Str @"Agency"
 #define TH_Source_Other_Str @"Other"
-#define TH_Source_Extrapolated @"Extrapolated"
 //
 //#define TH_Proximity_City       1
 //#define TH_Proximity_State      2
@@ -36,29 +36,19 @@ typedef enum { UnknownSource = 0, Govt=1, Agency=2, Other=4 } Source;
 #define TH_Source_AllKnown           7
 
 
-@interface Indice : NSObject {
-    NSString *ixName;
-    NSDate *date;
-    Indice *last;
-    double val;
+@interface HomePriceIndex : THIndex {
+
     Proximity prox;
     NSString *proximityStr;
     Source src;
     NSString *sourceTypeStr;
-    BOOL shouldIgnore;
 }
 
-@property (retain) NSString *ixName;
-@property (retain) NSDate *date;
-@property (retain) Indice *last;
-@property double val;
 @property Proximity prox;
 @property (copy) NSString *proximityStr;
 @property Source src;
 @property (copy) NSString *sourceTypeStr;
-@property BOOL shouldIgnore;
 
-- (NSComparisonResult)compareByDate:(Indice *)anotherEvent;
 
 - (NSString *)description;
 

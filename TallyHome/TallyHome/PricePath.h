@@ -7,37 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Indice.h"
-
-#define TH_OneYearTimeInterval      365 * 24 * 60 * 60
-#define TH_FiveYearTimeInterval     365 * 24 * 60 * 60 * 5
-#define TH_TenYearTimeInterval      365 * 24 * 60 * 60 * 10
+#import "HomePriceIndex.h"
+#import "THIndex.h"
 
 
 @interface PricePath : NSObject <NSXMLParserDelegate> {
-    NSArray *indices;
-    NSTimeInterval backwardsExtrapolationInterval;
-    NSTimeInterval forwardsExtrapolationInterval;
+    NSArray *_indexes;
     
     //bitmasked
     int sources;
     int proximities;
     
-    NSMutableArray *appliedIndices;
-    
-    NSString *xmlCurrentIxName;
-    NSString *xmlCurrentIxProx;
-    NSString *xmlCurrentIxSource;
-    NSMutableArray *xmlIndices;
-    Indice *xmlIndice;
-    NSMutableString *xmlChars;
-    NSDateFormatter *xmlDateFormatter;
+    NSString *_xmlCurrentIxName;
+    NSString *_xmlCurrentIxProx;
+    NSString *_xmlCurrentIxSource;
+    NSMutableArray *_xmlIndices;
+    NSDateFormatter *_xmlDateFormatter;
 }
 
-@property (retain) NSArray *indices;
-@property NSTimeInterval backwardsExtrapolationInterval;
-@property NSTimeInterval forwardsExtrapolationInterval;
-@property (retain) NSMutableArray *appliedIndices;
+@property (retain) NSArray *innerIndexes;
 @property int sources;
 @property int proximities;
 
@@ -46,16 +34,9 @@
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
 
 
+- (THIndex *) makeSubsetIndex;
+- (THIndex *) makeSubsetIndexFromSources:(int) sources proximities:(int) proximities;
 
-- (NSArray *) applyPathFrom:(NSDate *) startDate to:(NSDate *) endDate;
-
-// annual growth, trending forward (ie. using most recent data)
-- (double) calcTrendGrowth;
-- (double) calcTrendGrowthForTimeInterval:(NSTimeInterval) interval;
-
-- (double) calcBackwardsTrendGrowth;
-
-- (int) indexOfFirstEventBeforeDate:(NSDate *) date;
-
+- (void) dealloc;
 
 @end

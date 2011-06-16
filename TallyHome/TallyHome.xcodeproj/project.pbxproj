@@ -25,9 +25,11 @@
 		4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CC139A1FF60087CCDC /* PricePath.m */; };
 		4D73841A139A20660087CCDC /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */; };
 		4D73841C139A21FF0087CCDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73841B139A21FF0087CCDC /* QuartzCore.framework */; };
+		4DA28EC213A2DE6D001D13BD /* THIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THIndex.m */; };
+		4DA28EC613A2E97D001D13BD /* THIndice.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC513A2E97D001D13BD /* THIndice.m */; };
 		4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCC5139B220C00E868A7 /* PricePathTests.m */; };
 		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
-		4DAABCCC139B8ABF00E868A7 /* Indice.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* Indice.m */; };
+		4DAABCCC139B8ABF00E868A7 /* HomePriceIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,11 +139,15 @@
 		4D738418139A20560087CCDC /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		4D73841B139A21FF0087CCDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
+		4DA28EC013A2DE6D001D13BD /* THIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THIndex.h; sourceTree = "<group>"; };
+		4DA28EC113A2DE6D001D13BD /* THIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THIndex.m; sourceTree = "<group>"; };
+		4DA28EC413A2E97C001D13BD /* THIndice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THIndice.h; sourceTree = "<group>"; };
+		4DA28EC513A2E97D001D13BD /* THIndice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THIndice.m; sourceTree = "<group>"; };
 		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
 		4DAABCC5139B220C00E868A7 /* PricePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePathTests.m; sourceTree = "<group>"; };
 		4DAABCC8139B2A1C00E868A7 /* price_events.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = price_events.xml; path = ../server/price_events.xml; sourceTree = "<group>"; };
-		4DAABCCA139B8ABF00E868A7 /* Indice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indice.h; sourceTree = "<group>"; };
-		4DAABCCB139B8ABF00E868A7 /* Indice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Indice.m; sourceTree = "<group>"; };
+		4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; path = HomePriceIndex.h; sourceTree = "<group>"; };
+		4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePriceIndex.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +212,8 @@
 			children = (
 				4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */,
 				4D7383D0139A20560087CCDC /* CorePlotHeaders */,
-				4DAABCCA139B8ABF00E868A7 /* Indice.h */,
-				4DAABCCB139B8ABF00E868A7 /* Indice.m */,
+				4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */,
+				4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */,
 				4D7383CB139A1FF60087CCDC /* PricePath.h */,
 				4D7383CC139A1FF60087CCDC /* PricePath.m */,
 				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
@@ -217,6 +223,10 @@
 				4D055A78139A1E0600F13781 /* RootViewController.m */,
 				4D055A7A139A1E0600F13781 /* RootViewController.xib */,
 				4D055A69139A1E0600F13781 /* Supporting Files */,
+				4DA28EC013A2DE6D001D13BD /* THIndex.h */,
+				4DA28EC113A2DE6D001D13BD /* THIndex.m */,
+				4DA28EC413A2E97C001D13BD /* THIndice.h */,
+				4DA28EC513A2E97D001D13BD /* THIndice.m */,
 			);
 			path = TallyHome;
 			sourceTree = "<group>";
@@ -443,7 +453,9 @@
 				4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */,
 				4D055A79139A1E0600F13781 /* RootViewController.m in Sources */,
 				4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */,
-				4DAABCCC139B8ABF00E868A7 /* Indice.m in Sources */,
+				4DAABCCC139B8ABF00E868A7 /* HomePriceIndex.m in Sources */,
+				4DA28EC213A2DE6D001D13BD /* THIndex.m in Sources */,
+				4DA28EC613A2E97D001D13BD /* THIndice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

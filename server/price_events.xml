@@ -1,65 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TallyHomeDataFile version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <PriceEvents>
-    <PriceEvent>
-      <Date>2010-02-01</Date>
-      <Impact>0.03</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-03-01</Date>
-      <Impact>0.035</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-04-01</Date>
-      <Impact>0.001</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-05-01</Date>
-      <Impact>-0.03</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-06-01</Date>
-      <Impact>0.20</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-07-01</Date>
-      <Impact>0.035</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-08-01</Date>
-      <Impact>-0.0343234</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-09-11</Date>
-      <Impact>0.03</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-10-21</Date>
-      <Impact>0.03234</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-    <PriceEvent>
-      <Date>2010-11-05</Date>
-      <Impact>0.03</Impact>
-      <Proximity>Local</Proximity>
-      <SourceType>Government</SourceType>
-    </PriceEvent>
-  </PriceEvents>
+<Indexes>
+<Index name="ABS House Price Index (Sydney, Established homes)" prox="City" sourceType="Government">
+<Indice date="2002-03-01T00:00:00Z" value="75.9" />
+<Indice date="2002-06-01T00:00:00Z" value="81.6" />
+<Indice date="2002-09-01T00:00:00Z" value="85.4" />
+<Indice date="2002-12-01T00:00:00Z" value="88.5" />
+<Indice date="2003-03-01T00:00:00Z" value="89.7" />
+<Indice date="2003-06-01T00:00:00Z" value="93.7" />
+<Indice date="2003-09-01T00:00:00Z" value="98.4" />
+<Indice date="2003-12-01T00:00:00Z" value="102.4" />
+<Indice date="2004-03-01T00:00:00Z" value="101.5" />
+<Indice date="2004-06-01T00:00:00Z" value="97.7" />
+<Indice date="2004-09-01T00:00:00Z" value="97.1" />
+<Indice date="2004-12-01T00:00:00Z" value="97.6" />
+<Indice date="2005-03-01T00:00:00Z" value="95.5" />
+<Indice date="2005-06-01T00:00:00Z" value="94.2" />
+<Indice date="2005-09-01T00:00:00Z" value="92.7" />
+<Indice date="2005-12-01T00:00:00Z" value="93.5" />
+<Indice date="2006-03-01T00:00:00Z" value="92.5" />
+<Indice date="2006-06-01T00:00:00Z" value="94.3" />
+<Indice date="2006-09-01T00:00:00Z" value="94.4" />
+<Indice date="2006-12-01T00:00:00Z" value="94.8" />
+<Indice date="2007-03-01T00:00:00Z" value="94.6" />
+<Indice date="2007-06-01T00:00:00Z" value="98.2" />
+<Indice date="2007-09-01T00:00:00Z" value="100.7" />
+<Indice date="2007-12-01T00:00:00Z" value="103.1" />
+<Indice date="2008-03-01T00:00:00Z" value="102.5" />
+<Indice date="2008-06-01T00:00:00Z" value="101.1" />
+<Indice date="2008-09-01T00:00:00Z" value="98.8" />
+<Indice date="2008-12-01T00:00:00Z" value="97.2" />
+<Indice date="2009-03-01T00:00:00Z" value="95.6" />
+<Indice date="2009-06-01T00:00:00Z" value="100.3" />
+<Indice date="2009-09-01T00:00:00Z" value="104.8" />
+<Indice date="2009-12-01T00:00:00Z" value="110.6" />
+<Indice date="2010-03-01T00:00:00Z" value="114.2" />
+<Indice date="2010-06-01T00:00:00Z" value="117.3" />
+<Indice date="2010-09-01T00:00:00Z" value="117.0" />
+<Indice date="2010-12-01T00:00:00Z" value="117.2" />
+<Indice date="2011-03-01T00:00:00Z" value="115.1" />
+</Index>
+<Index name="ABS House Price Index (Sydney, Project homes)" prox="City" sourceType="Government">
+<Indice date="1986-06-01T00:00:00Z" value="42.1" />
+<Indice date="1986-09-01T00:00:00Z" value="43.3" />
+<Indice date="1986-12-01T00:00:00Z" value="43.9" />
+<Indice date="1987-03-01T00:00:00Z" value="44.7" />
+<Indice date="1987-06-01T00:00:00Z" value="45.4" />
+<Indice date="1987-09-01T00:00:00Z" value="45.9" />
+<Indice date="1987-12-01T00:00:00Z" value="47.2" />
+<Indice date="1988-03-01T00:00:00Z" value="49.0" />
+<Indice date="1988-06-01T00:00:00Z" value="52.1" />
+<Indice date="1988-09-01T00:00:00Z" value="56.7" />
+<Indice date="1988-12-01T00:00:00Z" value="59.3" />
+<Indice date="1989-03-01T00:00:00Z" value="62.3" />
+<Indice date="1989-06-01T00:00:00Z" value="63.5" />
+<Indice date="1989-09-01T00:00:00Z" value="65.2" />
+<Indice date="1989-12-01T00:00:00Z" value="65.5" />
+<Indice date="1990-03-01T00:00:00Z" value="66.5" />
+<Indice date="1990-06-01T00:00:00Z" value="67.4" />
+<Indice date="1990-09-01T00:00:00Z" value="67.5" />
+<Indice date="1990-12-01T00:00:00Z" value="68.2" />
+<Indice date="1991-03-01T00:00:00Z" value="68.3" />
+<Indice date="1991-06-01T00:00:00Z" value="68.3" />
+<Indice date="1991-09-01T00:00:00Z" value="68.6" />
+<Indice date="1991-12-01T00:00:00Z" value="68.1" />
+<Indice date="1992-03-01T00:00:00Z" value="68.2" />
+<Indice date="1992-06-01T00:00:00Z" value="68.0" />
+<Indice date="1992-09-01T00:00:00Z" value="68.2" />
+<Indice date="1992-12-01T00:00:00Z" value="68.6" />
+<Indice date="1993-03-01T00:00:00Z" value="68.4" />
+<Indice date="1993-06-01T00:00:00Z" value="68.9" />
+<Indice date="1993-09-01T00:00:00Z" value="69.8" />
+<Indice date="1993-12-01T00:00:00Z" value="69.6" />
+<Indice date="1994-03-01T00:00:00Z" value="70.1" />
+<Indice date="1994-06-01T00:00:00Z" value="70.5" />
+<Indice date="1994-09-01T00:00:00Z" value="70.9" />
+<Indice date="1994-12-01T00:00:00Z" value="71.8" />
+<Indice date="1995-03-01T00:00:00Z" value="70.9" />
+<Indice date="1995-06-01T00:00:00Z" value="71.9" />
+<Indice date="1995-09-01T00:00:00Z" value="72.9" />
+<Indice date="1995-12-01T00:00:00Z" value="72.7" />
+<Indice date="1996-03-01T00:00:00Z" value="73.0" />
+<Indice date="1996-06-01T00:00:00Z" value="73.0" />
+<Indice date="1996-09-01T00:00:00Z" value="72.4" />
+<Indice date="1996-12-01T00:00:00Z" value="73.0" />
+<Indice date="1997-03-01T00:00:00Z" value="73.0" />
+<Indice date="1997-06-01T00:00:00Z" value="73.6" />
+<Indice date="1997-09-01T00:00:00Z" value="74.1" />
+<Indice date="1997-12-01T00:00:00Z" value="74.1" />
+<Indice date="1998-03-01T00:00:00Z" value="74.2" />
+<Indice date="1998-06-01T00:00:00Z" value="74.4" />
+<Indice date="1998-09-01T00:00:00Z" value="75.1" />
+<Indice date="1998-12-01T00:00:00Z" value="75.2" />
+<Indice date="1999-03-01T00:00:00Z" value="77.1" />
+<Indice date="1999-06-01T00:00:00Z" value="77.3" />
+<Indice date="1999-09-01T00:00:00Z" value="79.1" />
+<Indice date="1999-12-01T00:00:00Z" value="81.2" />
+<Indice date="2000-03-01T00:00:00Z" value="82.4" />
+<Indice date="2000-06-01T00:00:00Z" value="83.1" />
+<Indice date="2000-09-01T00:00:00Z" value="91.2" />
+<Indice date="2000-12-01T00:00:00Z" value="91.5" />
+<Indice date="2001-03-01T00:00:00Z" value="91.4" />
+<Indice date="2001-06-01T00:00:00Z" value="92.0" />
+<Indice date="2001-09-01T00:00:00Z" value="92.5" />
+<Indice date="2001-12-01T00:00:00Z" value="93.2" />
+<Indice date="2002-03-01T00:00:00Z" value="93.5" />
+<Indice date="2002-06-01T00:00:00Z" value="94.5" />
+<Indice date="2002-09-01T00:00:00Z" value="95.0" />
+<Indice date="2002-12-01T00:00:00Z" value="95.5" />
+<Indice date="2003-03-01T00:00:00Z" value="96.7" />
+<Indice date="2003-06-01T00:00:00Z" value="97.2" />
+<Indice date="2003-09-01T00:00:00Z" value="98.4" />
+<Indice date="2003-12-01T00:00:00Z" value="99.2" />
+<Indice date="2004-03-01T00:00:00Z" value="100.4" />
+<Indice date="2004-06-01T00:00:00Z" value="102.0" />
+<Indice date="2004-09-01T00:00:00Z" value="103.1" />
+<Indice date="2004-12-01T00:00:00Z" value="104.8" />
+<Indice date="2005-03-01T00:00:00Z" value="106.1" />
+<Indice date="2005-06-01T00:00:00Z" value="107.0" />
+<Indice date="2005-09-01T00:00:00Z" value="107.4" />
+<Indice date="2005-12-01T00:00:00Z" value="107.7" />
+<Indice date="2006-03-01T00:00:00Z" value="107.5" />
+<Indice date="2006-06-01T00:00:00Z" value="108.0" />
+<Indice date="2006-09-01T00:00:00Z" value="107.9" />
+<Indice date="2006-12-01T00:00:00Z" value="107.6" />
+<Indice date="2007-03-01T00:00:00Z" value="108.1" />
+<Indice date="2007-06-01T00:00:00Z" value="108.9" />
+<Indice date="2007-09-01T00:00:00Z" value="110.3" />
+<Indice date="2007-12-01T00:00:00Z" value="110.9" />
+<Indice date="2008-03-01T00:00:00Z" value="113.2" />
+<Indice date="2008-06-01T00:00:00Z" value="114.8" />
+<Indice date="2008-09-01T00:00:00Z" value="115.9" />
+<Indice date="2008-12-01T00:00:00Z" value="116.7" />
+<Indice date="2009-03-01T00:00:00Z" value="116.7" />
+<Indice date="2009-06-01T00:00:00Z" value="119.1" />
+<Indice date="2009-09-01T00:00:00Z" value="119.9" />
+<Indice date="2009-12-01T00:00:00Z" value="120.9" />
+<Indice date="2010-03-01T00:00:00Z" value="122.1" />
+<Indice date="2010-06-01T00:00:00Z" value="122.6" />
+<Indice date="2010-09-01T00:00:00Z" value="122.8" />
+<Indice date="2010-12-01T00:00:00Z" value="124.3" />
+<Indice date="2011-03-01T00:00:00Z" value="125.6" />
+</Index>
+<Index name="ABS House Price Index (Australia, Project homes)" prox="Country" sourceType="Government">
+<Indice date="1986-06-01T00:00:00Z" value="45.0" />
+<Indice date="1986-09-01T00:00:00Z" value="45.7" />
+<Indice date="1986-12-01T00:00:00Z" value="46.1" />
+<Indice date="1987-03-01T00:00:00Z" value="46.7" />
+<Indice date="1987-06-01T00:00:00Z" value="47.2" />
+<Indice date="1987-09-01T00:00:00Z" value="47.8" />
+<Indice date="1987-12-01T00:00:00Z" value="48.8" />
+<Indice date="1988-03-01T00:00:00Z" value="50.1" />
+<Indice date="1988-06-01T00:00:00Z" value="52.3" />
+<Indice date="1988-09-01T00:00:00Z" value="55.1" />
+<Indice date="1988-12-01T00:00:00Z" value="58.0" />
+<Indice date="1989-03-01T00:00:00Z" value="60.7" />
+<Indice date="1989-06-01T00:00:00Z" value="62.5" />
+<Indice date="1989-09-01T00:00:00Z" value="63.8" />
+<Indice date="1989-12-01T00:00:00Z" value="64.5" />
+<Indice date="1990-03-01T00:00:00Z" value="64.9" />
+<Indice date="1990-06-01T00:00:00Z" value="65.3" />
+<Indice date="1990-09-01T00:00:00Z" value="65.7" />
+<Indice date="1990-12-01T00:00:00Z" value="66.2" />
+<Indice date="1991-03-01T00:00:00Z" value="66.2" />
+<Indice date="1991-06-01T00:00:00Z" value="65.8" />
+<Indice date="1991-09-01T00:00:00Z" value="66.0" />
+<Indice date="1991-12-01T00:00:00Z" value="66.0" />
+<Indice date="1992-03-01T00:00:00Z" value="66.0" />
+<Indice date="1992-06-01T00:00:00Z" value="65.9" />
+<Indice date="1992-09-01T00:00:00Z" value="66.2" />
+<Indice date="1992-12-01T00:00:00Z" value="66.5" />
+<Indice date="1993-03-01T00:00:00Z" value="66.6" />
+<Indice date="1993-06-01T00:00:00Z" value="66.9" />
+<Indice date="1993-09-01T00:00:00Z" value="68.1" />
+<Indice date="1993-12-01T00:00:00Z" value="68.0" />
+<Indice date="1994-03-01T00:00:00Z" value="68.3" />
+<Indice date="1994-06-01T00:00:00Z" value="69.1" />
+<Indice date="1994-09-01T00:00:00Z" value="69.4" />
+<Indice date="1994-12-01T00:00:00Z" value="70.0" />
+<Indice date="1995-03-01T00:00:00Z" value="69.8" />
+<Indice date="1995-06-01T00:00:00Z" value="70.2" />
+<Indice date="1995-09-01T00:00:00Z" value="70.8" />
+<Indice date="1995-12-01T00:00:00Z" value="70.7" />
+<Indice date="1996-03-01T00:00:00Z" value="70.7" />
+<Indice date="1996-06-01T00:00:00Z" value="70.8" />
+<Indice date="1996-09-01T00:00:00Z" value="70.7" />
+<Indice date="1996-12-01T00:00:00Z" value="70.5" />
+<Indice date="1997-03-01T00:00:00Z" value="70.6" />
+<Indice date="1997-06-01T00:00:00Z" value="70.6" />
+<Indice date="1997-09-01T00:00:00Z" value="71.0" />
+<Indice date="1997-12-01T00:00:00Z" value="71.1" />
+<Indice date="1998-03-01T00:00:00Z" value="71.3" />
+<Indice date="1998-06-01T00:00:00Z" value="71.6" />
+<Indice date="1998-09-01T00:00:00Z" value="72.0" />
+<Indice date="1998-12-01T00:00:00Z" value="72.6" />
+<Indice date="1999-03-01T00:00:00Z" value="73.5" />
+<Indice date="1999-06-01T00:00:00Z" value="74.2" />
+<Indice date="1999-09-01T00:00:00Z" value="75.6" />
+<Indice date="1999-12-01T00:00:00Z" value="77.9" />
+<Indice date="2000-03-01T00:00:00Z" value="79.1" />
+<Indice date="2000-06-01T00:00:00Z" value="79.4" />
+<Indice date="2000-09-01T00:00:00Z" value="86.8" />
+<Indice date="2000-12-01T00:00:00Z" value="87.1" />
+<Indice date="2001-03-01T00:00:00Z" value="87.3" />
+<Indice date="2001-06-01T00:00:00Z" value="87.5" />
+<Indice date="2001-09-01T00:00:00Z" value="88.1" />
+<Indice date="2001-12-01T00:00:00Z" value="88.9" />
+<Indice date="2002-03-01T00:00:00Z" value="89.5" />
+<Indice date="2002-06-01T00:00:00Z" value="90.4" />
+<Indice date="2002-09-01T00:00:00Z" value="91.3" />
+<Indice date="2002-12-01T00:00:00Z" value="92.1" />
+<Indice date="2003-03-01T00:00:00Z" value="93.5" />
+<Indice date="2003-06-01T00:00:00Z" value="95.6" />
+<Indice date="2003-09-01T00:00:00Z" value="97.7" />
+<Indice date="2003-12-01T00:00:00Z" value="99.3" />
+<Indice date="2004-03-01T00:00:00Z" value="100.7" />
+<Indice date="2004-06-01T00:00:00Z" value="102.3" />
+<Indice date="2004-09-01T00:00:00Z" value="103.6" />
+<Indice date="2004-12-01T00:00:00Z" value="105.4" />
+<Indice date="2005-03-01T00:00:00Z" value="107.1" />
+<Indice date="2005-06-01T00:00:00Z" value="108.2" />
+<Indice date="2005-09-01T00:00:00Z" value="109.1" />
+<Indice date="2005-12-01T00:00:00Z" value="110.0" />
+<Indice date="2006-03-01T00:00:00Z" value="110.4" />
+<Indice date="2006-06-01T00:00:00Z" value="111.7" />
+<Indice date="2006-09-01T00:00:00Z" value="111.9" />
+<Indice date="2006-12-01T00:00:00Z" value="112.6" />
+<Indice date="2007-03-01T00:00:00Z" value="113.7" />
+<Indice date="2007-06-01T00:00:00Z" value="114.9" />
+<Indice date="2007-09-01T00:00:00Z" value="116.2" />
+<Indice date="2007-12-01T00:00:00Z" value="117.8" />
+<Indice date="2008-03-01T00:00:00Z" value="119.9" />
+<Indice date="2008-06-01T00:00:00Z" value="121.1" />
+<Indice date="2008-09-01T00:00:00Z" value="122.8" />
+<Indice date="2008-12-01T00:00:00Z" value="123.1" />
+<Indice date="2009-03-01T00:00:00Z" value="122.5" />
+<Indice date="2009-06-01T00:00:00Z" value="124.3" />
+<Indice date="2009-09-01T00:00:00Z" value="125.9" />
+<Indice date="2009-12-01T00:00:00Z" value="126.6" />
+<Indice date="2010-03-01T00:00:00Z" value="127.7" />
+<Indice date="2010-06-01T00:00:00Z" value="128.6" />
+<Indice date="2010-09-01T00:00:00Z" value="129.2" />
+<Indice date="2010-12-01T00:00:00Z" value="130.2" />
+<Indice date="2011-03-01T00:00:00Z" value="131.3" />
+</Index>
+</Indexes>
 </TallyHomeDataFile>

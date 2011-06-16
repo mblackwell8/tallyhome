@@ -29,7 +29,7 @@
     NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/price_events.xml"];    
     NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
     testPath = [[PricePath alloc] initWithURL:url];
-    NSLog(@"TestPath has %d price events", testPath.indices.count);
+    NSLog(@"TestPath has %d indexes", testPath.innerIndexes.count);
 }
 
 - (void)tearDown {
@@ -50,23 +50,23 @@
 - (void)testLoadFromURL {
     
     STAssertNotNil(testPath, @"PricePath not loading from price_events.xml");
-    STAssertTrue(testPath.indices.count > 0, @"No price events found or loaded");
+    STAssertTrue(testPath.innerIndexes.count > 0, @"No price events found or loaded");
 }
 
 - (void)testTrendGrowthCalcs {
-    double trGr = [testPath calcTrendGrowth];
+    double trGr = [[testPath makeSubsetIndex] calcTrendGrowth];
     NSLog(@"Trend growth is %5.2f", trGr);
     
-    double trGr_back = [testPath calcTrendGrowth];
+    double trGr_back = [[testPath makeSubsetIndex] calcBackwardsTrendGrowth];
     NSLog(@"Backwards trend growth is %5.2f", trGr_back);
     
 }
 
 - (void)testApplyPricePath {
     NSDate *start = [[NSDate alloc] initWithTimeIntervalSinceNow:(-2.0 * 365 * 24 * 60 * 60)];
-    NSArray *pes = [testPath applyPathFrom:start to:[NSDate date]];
-    for (PriceEvent *pe in pes) {
-        NSLog(@"%@", pe);
+    THIndex *thi = [testPath makeSubsetIndex];
+    for (THIndice *i in thi) {
+        NSLog(@"%@", i);
     }
 }
 

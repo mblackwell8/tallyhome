@@ -6,18 +6,21 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "Indice.h"
+#import "HomePriceIndex.h"
 
 
-@implementation Indice 
+@implementation HomePriceIndex
 
-@synthesize ixName;
-@synthesize date;
-@synthesize last;
-@synthesize val;
 //@synthesize proximityStr;
 //@synthesize sourceTypeStr;
-@synthesize shouldIgnore;
+
+- (id) initWithVal:(double)v at:(NSDate *)dt {
+    if ((self = [super initWithVal:v at:dt])) {
+        
+    }
+    
+    return self;
+}
 
 - (NSString *)proximityStr {
     return proximityStr;
@@ -59,6 +62,10 @@
         src = UnknownSource;
 }
 
+- (Proximity) prox {
+    return prox;
+}
+
 - (void)setProx:(Proximity) p {
     prox = p;
     switch (p) {
@@ -81,6 +88,10 @@
     }
 }
 
+- (Source) src {
+    return src;
+}
+
 - (void)setSrc:(Source) s {
     src = s;
     switch (s) {
@@ -100,16 +111,5 @@
     }
 }
 
-- (NSComparisonResult)compareByDate:(Indice *)another {
-    //if other event is null or has a null date, this event is considered later
-    if (!another || !(another.date))
-        return NSOrderedDescending;
-    
-    return [date compare:another.date];
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"%@: val=%5.2f, prox=%@, src=%@, ignore=%@", date, val, proximityStr, sourceTypeStr, shouldIgnore];
-}
 
 @end
