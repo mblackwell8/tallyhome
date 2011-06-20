@@ -30,6 +30,7 @@
     NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
     testPath = [[PricePath alloc] initWithURL:url];
     NSLog(@"TestPath has %d indexes", testPath.innerIndexes.count);
+    //NSLog(@"Distant past is %@", [NSDate distantPast]);
 }
 
 - (void)tearDown {
@@ -55,10 +56,7 @@
 
 - (void)testTrendGrowthCalcs {
     double trGr = [[testPath makeSubsetIndex] calcTrendGrowth];
-    NSLog(@"Trend growth is %5.2f", trGr);
-    
-    double trGr_back = [[testPath makeSubsetIndex] calcBackwardsTrendGrowth];
-    NSLog(@"Backwards trend growth is %5.2f", trGr_back);
+    NSLog(@"Trend growth is %5.2f", trGr * 100.0);
     
 }
 

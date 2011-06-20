@@ -22,6 +22,7 @@
 		4D055A8D139A1E0600F13781 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8B139A1E0600F13781 /* InfoPlist.strings */; };
 		4D055A90139A1E0600F13781 /* TallyHomeTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8F139A1E0600F13781 /* TallyHomeTests.h */; };
 		4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A91139A1E0600F13781 /* TallyHomeTests.m */; };
+		4D47236A13ADB5DA00309C25 /* THDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D47236913ADB5DA00309C25 /* THDate.m */; };
 		4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CC139A1FF60087CCDC /* PricePath.m */; };
 		4D73841A139A20660087CCDC /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */; };
 		4D73841C139A21FF0087CCDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73841B139A21FF0087CCDC /* QuartzCore.framework */; };
@@ -63,6 +64,8 @@
 		4D055A8E139A1E0600F13781 /* TallyHomeTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TallyHomeTests-Prefix.pch"; sourceTree = "<group>"; };
 		4D055A8F139A1E0600F13781 /* TallyHomeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeTests.h; sourceTree = "<group>"; };
 		4D055A91139A1E0600F13781 /* TallyHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeTests.m; sourceTree = "<group>"; };
+		4D47236813ADB5DA00309C25 /* THDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDate.h; sourceTree = "<group>"; };
+		4D47236913ADB5DA00309C25 /* THDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDate.m; sourceTree = "<group>"; };
 		4D7383CB139A1FF60087CCDC /* PricePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePath.h; sourceTree = "<group>"; };
 		4D7383CC139A1FF60087CCDC /* PricePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePath.m; sourceTree = "<group>"; };
 		4D7383D1139A20560087CCDC /* _CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillColor.h; sourceTree = "<group>"; };
@@ -146,7 +149,7 @@
 		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
 		4DAABCC5139B220C00E868A7 /* PricePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePathTests.m; sourceTree = "<group>"; };
 		4DAABCC8139B2A1C00E868A7 /* price_events.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = price_events.xml; path = ../server/price_events.xml; sourceTree = "<group>"; };
-		4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; path = HomePriceIndex.h; sourceTree = "<group>"; };
+		4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePriceIndex.h; sourceTree = "<group>"; };
 		4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePriceIndex.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +230,8 @@
 				4DA28EC113A2DE6D001D13BD /* THIndex.m */,
 				4DA28EC413A2E97C001D13BD /* THIndice.h */,
 				4DA28EC513A2E97D001D13BD /* THIndice.m */,
+				4D47236813ADB5DA00309C25 /* THDate.h */,
+				4D47236913ADB5DA00309C25 /* THDate.m */,
 			);
 			path = TallyHome;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				4DAABCCC139B8ABF00E868A7 /* HomePriceIndex.m in Sources */,
 				4DA28EC213A2DE6D001D13BD /* THIndex.m in Sources */,
 				4DA28EC613A2E97D001D13BD /* THIndice.m in Sources */,
+				4D47236A13ADB5DA00309C25 /* THDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

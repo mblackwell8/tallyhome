@@ -54,12 +54,7 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
     //NSLog(@"Found start element: %@", elementName);
     if ([elementName isEqualToString:@"Indexes"]) {
-        if (_xmlIndices) {
-            [_xmlIndices release];
-            _xmlIndices = nil;
-        }
         
-        _xmlIndices = [[NSMutableArray alloc] init];
         return;
     }
     
@@ -67,6 +62,13 @@
         _xmlCurrentIxName = [attributeDict valueForKey:@"name"];
         _xmlCurrentIxProx = [attributeDict valueForKey:@"prox"];
         _xmlCurrentIxSource = [attributeDict valueForKey:@"sourceType"];
+        
+        if (_xmlIndices) {
+            [_xmlIndices release];
+            _xmlIndices = nil;
+        }
+        
+        _xmlIndices = [[NSMutableArray alloc] init];
         
         return;
     }
@@ -134,16 +136,17 @@
     if (_indexes.count == 1)
         return [_indexes objectAtIndex:0];
     
-    NSDate *firstDt = nil, *lastDt = nil;
+    NSDate *firstDt = nil, *finalDt = nil;
     NSMutableArray *relevantIndexes = [[NSMutableArray alloc] initWithCapacity:_indexes.count];
     for (HomePriceIndex *hpi in _indexes) {
-        if ((hpi.src & srcs) &&
+        if (hpi.count > 0 &&
+            (hpi.src & srcs) &&
             (hpi.prox & proxs)) {
             [relevantIndexes addObject:hpi];
-            if (!firstDt || [firstDt timeIntervalSinceDate:[[hpi objectAtIndex:0] date]] < 0)
+            if (!firstDt || [firstDt isAfter:[[hpi objectAtIndex:0] date]])
                 firstDt = [[hpi objectAtIndex:0] date];
-            if (!lastDt || [lastDt timeIntervalSinceDate:[[hpi lastObject] date]] > 0)
-                lastDt = [[hpi lastObject] date];
+            if (!finalDt || [finalDt isAfter:[[hpi lastObject] date]])
+                finalDt = [[hpi lastObject] date];
         }
     }
     
@@ -153,33 +156,37 @@
         return [relevantIndexes objectAtIndex:0];
     
     NSAssert(firstDt, @"First date not set");
-    NSAssert(lastDt, @"Last date not set");
+    NSAssert(finalDt, @"Last date not set");
     
-    THIndice *currIndice = [[THIndice alloc] initWithVal:100.0 at:firstDt];
+    THIndice *lastIndice = [[THIndice alloc] initWithVal:100.0 at:firstDt];
     NSMutableArray *subset = [[NSMutableArray alloc] init];
-    [subset addObject:currIndice];
-    NSDate *currDt = firstDt;
-    double lastRoc;
-    while ([currDt timeIntervalSinceDate:lastDt] <= 0) {
+    [subset addObject:lastIndice];
+    NSDate *currDt = [firstDt addOneDay];
+    double lastRoc = 0.0;
+    BOOL lastRocCalced = NO;
+    while ([currDt isBeforeOrEqualTo:finalDt]) {
         double roc = 0.0;
         for (HomePriceIndex *hpi in relevantIndexes) {
             roc += [hpi dailyRateOfChangeAt:currDt];
         }
+        NSAssert(relevantIndexes.count > 0, @"Should have been checked above");
         roc /= relevantIndexes.count;
-        if (roc != lastRoc) {
-            NSDate *lastDt = [currDt dateByAddingTimeInterval:-24.0*60*60];
-            double numDays = [THIndex daysFrom:currIndice.date to:lastDt];
+        if (lastRocCalced && roc != lastRoc) {
+            NSDate *yday = [currDt subtractOneDay];
+            double numDays = [lastIndice.date daysUntil:yday];
             NSAssert(numDays > 0.0, @"ERROR");
-            double newVal = currIndice.val * pow((1.0 + lastRoc), numDays);
-            [currIndice release];
-            currIndice = [[THIndice alloc] initWithVal:newVal at:lastDt];
-            [subset addObject:currIndice];
+            double newVal = lastIndice.val * pow((1.0 + lastRoc), numDays);
+            [lastIndice release];
+            lastIndice = [[THIndice alloc] initWithVal:newVal at:yday];
+            [subset addObject:lastIndice];
         }
         
-        currDt = [currDt dateByAddingTimeInterval:(24.0 * 60 * 60)];
+        lastRoc = roc;
+        lastRocCalced = YES;
+        currDt = [currDt addOneDay];
     }
     
-    [currIndice release];
+    [lastIndice release];
     [relevantIndexes release];
         
     [subset sortUsingSelector:@selector(compareByDate:)];
