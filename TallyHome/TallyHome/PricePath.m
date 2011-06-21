@@ -158,36 +158,73 @@
     NSAssert(firstDt, @"First date not set");
     NSAssert(finalDt, @"Last date not set");
     
-    THIndice *lastIndice = [[THIndice alloc] initWithVal:100.0 at:firstDt];
     NSMutableArray *subset = [[NSMutableArray alloc] init];
-    [subset addObject:lastIndice];
-    NSDate *currDt = [firstDt addOneDay];
-    double lastRoc = 0.0;
-    BOOL lastRocCalced = NO;
-    while ([currDt isBeforeOrEqualTo:finalDt]) {
-        double roc = 0.0;
+    NSDate *currDt = firstDt;
+    double ixVal = 100.0;
+    NSDate *lastIxDt = firstDt;
+    double roc = 0.0;
+    do {
+        NSDate *tmDt = [currDt addOneDay];
+        double tmRoc = 0.0;
         for (HomePriceIndex *hpi in relevantIndexes) {
-            roc += [hpi dailyRateOfChangeAt:currDt];
-        }
+            double thisRoc = [hpi dailyRateOfChangeAt:tmDt];
+            //NSLog(@"RoC is %5.5f\%", thisRoc * 100.0);
+            tmRoc += thisRoc;
+        }  
         NSAssert(relevantIndexes.count > 0, @"Should have been checked above");
-        roc /= relevantIndexes.count;
-        if (lastRocCalced && roc != lastRoc) {
-            NSDate *yday = [currDt subtractOneDay];
-            double numDays = [lastIndice.date daysUntil:yday];
-            NSAssert(numDays > 0.0, @"ERROR");
-            double newVal = lastIndice.val * pow((1.0 + lastRoc), numDays);
-            [lastIndice release];
-            lastIndice = [[THIndice alloc] initWithVal:newVal at:yday];
-            [subset addObject:lastIndice];
+        tmRoc /= relevantIndexes.count;
+        //NSLog(@"Av RoC is %5.5f\%", tmRoc * 100.0);
+        if ([currDt isEqualToDate:firstDt] || 
+            [currDt isEqualToDate:finalDt] ||
+            tmRoc != roc) {
+            double numDays = [lastIxDt daysUntil:currDt];
+            NSAssert([currDt isEqualToDate:firstDt] || numDays > 0.0, @"ERROR");
+            ixVal = ixVal * pow((1.0 + roc), numDays);
+            THIndice *i = [[THIndice alloc] initWithVal:ixVal at:currDt];
+            [subset addObject:i];
+            [i release];
+            
+            lastIxDt = currDt;
         }
-        
-        lastRoc = roc;
-        lastRocCalced = YES;
-        currDt = [currDt addOneDay];
-    }
+        currDt = tmDt;
+        roc = tmRoc;
+    } while ([currDt isBeforeOrEqualTo:finalDt]);
     
-    [lastIndice release];
-    [relevantIndexes release];
+    
+    
+//    THIndice *lastIndice = [[THIndice alloc] initWithVal:100.0 at:firstDt];
+//    NSMutableArray *subset = [[NSMutableArray alloc] init];
+//    [subset addObject:lastIndice];
+//    NSDate *currDt = [firstDt addOneDay];
+//    double lastRoc = 0.0;
+//    BOOL lastRocCalced = NO;
+//    while ([currDt isBeforeOrEqualTo:finalDt]) {
+//        double roc = 0.0;
+//        for (HomePriceIndex *hpi in relevantIndexes) {
+//            double thisRoc = [hpi dailyRateOfChangeAt:currDt];
+//            //NSLog(@"RoC is %5.5f\%", thisRoc * 100.0);
+//            roc += thisRoc;
+//        }
+//        NSAssert(relevantIndexes.count > 0, @"Should have been checked above");
+//        roc /= relevantIndexes.count;
+//        //NSLog(@"Av RoC is %5.5f\%", roc * 100.0);
+//        if (lastRocCalced && roc != lastRoc) {
+//            NSDate *yday = [currDt subtractOneDay];
+//            double numDays = [lastIndice.date daysUntil:yday];
+//            NSAssert(numDays > 0.0, @"ERROR");
+//            double newVal = lastIndice.val * pow((1.0 + lastRoc), numDays);
+//            [lastIndice release];
+//            lastIndice = [[THIndice alloc] initWithVal:newVal at:yday];
+//            [subset addObject:lastIndice];
+//        }
+//        
+//        lastRoc = roc;
+//        lastRocCalced = YES;
+//        currDt = [currDt addOneDay];
+//    }
+//    
+//    [lastIndice release];
+//    [relevantIndexes release];
         
     [subset sortUsingSelector:@selector(compareByDate:)];
     HomePriceIndex *retVal = [[HomePriceIndex alloc] initWithIndices:subset];

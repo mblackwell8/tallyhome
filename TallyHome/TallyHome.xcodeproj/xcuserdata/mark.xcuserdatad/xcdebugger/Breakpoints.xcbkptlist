@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
          landmarkName = "-calcIndiceAt:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -51,11 +51,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "203"
+         endingLineNumber = "203"
          landmarkName = "-firstBefore:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -78,26 +78,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TallyHome/PricePath.m"
-         timestampString = "330155427.989365"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
-         landmarkName = "-makeSubsetIndexFromSources:proximities:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "38"
-         endingLineNumber = "38"
+         startingLineNumber = "42"
+         endingLineNumber = "42"
          landmarkName = "-dailyRateOfChangeAt:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -107,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "119"
-         endingLineNumber = "119"
+         startingLineNumber = "123"
+         endingLineNumber = "123"
          landmarkName = "-calcTrendGrowthOver:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -121,11 +107,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "155"
-         endingLineNumber = "155"
+         startingLineNumber = "159"
+         endingLineNumber = "159"
          landmarkName = "+calcTrendGrowthFrom:to:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -149,11 +135,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/THIndex.m"
-         timestampString = "330265644.038856"
+         timestampString = "330348199.116328"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
+         startingLineNumber = "57"
+         endingLineNumber = "57"
          landmarkName = "+dailyRateOfChangeFrom:to:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -176,12 +162,40 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TallyHome/PricePath.m"
-         timestampString = "330261228.107426"
+         filePath = "TallyHome/THIndex.m"
+         timestampString = "330345656.520288"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "175"
-         endingLineNumber = "175"
+         startingLineNumber = "34"
+         endingLineNumber = "34"
+         landmarkName = "-dailyRateOfChangeAt:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/PricePath.m"
+         timestampString = "330348421.121719"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
+         landmarkName = "-makeSubsetIndexFromSources:proximities:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/PricePath.m"
+         timestampString = "330350991.611866"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "167"
+         endingLineNumber = "167"
          landmarkName = "-makeSubsetIndexFromSources:proximities:"
          landmarkType = "5">
       </FileBreakpoint>

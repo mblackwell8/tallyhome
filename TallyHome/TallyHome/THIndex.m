@@ -33,8 +33,12 @@
 - (double)dailyRateOfChangeAt:(NSDate *)date {
     THIndice *firstBefore = [self firstBefore:date];
     if (firstBefore == nil) {
+        // calc backwards growth, which needs to be negated
+        
         double annGr = [self calcTrendGrowthOver:-trendExtrapolationInterval];
-        return pow(1.0 + annGr, 1.0 / 365.0) - 1.0;
+        double dailyGr = -(pow(1.0 + annGr, 1.0 / 365.0) - 1.0);
+        
+        return dailyGr;
     }
     
     THIndice *firstAfterOrEqualTo = [self indiceAt:date];
