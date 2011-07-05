@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <math.h>
-#import "THIndice.h"
+#import "THDateVal.h"
 #import "THDate.h"
 
 #define TH_OneYearTimeInterval      365 * 24 * 60 * 60
@@ -17,8 +17,8 @@
 
 //@class Indice;
 
-@interface THIndex : NSObject <NSFastEnumeration> {
-    NSMutableArray  *_innerIndex;
+@interface THTimeSeries : NSObject <NSFastEnumeration, NSCoding> {
+    NSMutableArray  *_innerSeries;
     //NSTimeInterval backwardsExtrapolationInterval;
     NSTimeInterval trendExtrapolationInterval;
     
@@ -29,29 +29,31 @@
 //@property NSTimeInterval backwardsExtrapolationInterval;
 @property NSTimeInterval trendExtrapolationInterval;
 
-- (id) initWithIndices:(NSArray *)indices;
+- (id) initWithValues:(NSArray *)indices;
 
 - (double)dailyRateOfChangeAt:(NSDate *)date;
-+ (double)dailyRateOfChangeFrom:(THIndice *)first to:(THIndice *)last;
++ (double)dailyRateOfChangeFrom:(THDateVal *)first to:(THDateVal *)last;
 //+ (double)daysFrom:(NSDate *)first to:(NSDate *)last;
-- (THIndice *)calcIndiceAt:(NSDate *)date;
-- (THIndice *)calcIndiceAt:(NSDate *)date usingBaseIndice:(THIndice *)i;
+- (THDateVal *)calcValueAt:(NSDate *)date;
+- (THDateVal *)calcValueAt:(NSDate *)date usingBaseValue:(THDateVal *)i;
 
 // annual growth, trending forward (ie. using most recent data)
-- (double) calcTrendGrowth;
-- (double) calcTrendGrowthOver:(NSTimeInterval) interval;
+- (double)calcTrendGrowth;
+- (double)calcTrendGrowthOver:(NSTimeInterval) interval;
 //- (double) calcBackwardsTrendGrowth;
 //- (double) calcBackwardsTrendGrowthOver:(NSTimeInterval) interval;
-+ (double) calcTrendGrowthFrom:(THIndice *)first to:(THIndice *)last;
++ (double)calcTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last;
 //- (int) indexOfFirstBefore:(NSDate *)date;
-- (THIndice *) firstBefore:(NSDate *)date;
-- (THIndice *) firstAfter:(NSDate *)date;
-- (THIndice *) indiceAt:(NSDate *)date;
-- (THIndice *) binarySearch:(NSDate *)date minIndex:(int)min maxIndex:(int)max;
+- (THDateVal *)firstBefore:(NSDate *)date;
+- (THDateVal *)firstAfter:(NSDate *)date;
+- (THDateVal *)valueAt:(NSDate *)date;
+- (THDateVal *)binarySearch:(NSDate *)date minIndex:(int)min maxIndex:(int)max;
 
+- (THDateVal *)maxValue;
+- (THDateVal *)minValue;
 
-- (NSEnumerator *) dailyEnumerator;
-- (NSEnumerator *) dailyEnumeratorStartingAt:(NSDate *)date;
+- (NSEnumerator *)dailyEnumerator;
+- (NSEnumerator *)dailyEnumeratorStartingAt:(NSDate *)date;
 
 // add a few convenience access methods to underlying array
 - (NSUInteger)count;

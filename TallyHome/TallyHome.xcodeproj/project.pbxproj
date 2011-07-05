@@ -14,8 +14,6 @@
 		4D055A70139A1E0600F13781 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A6F139A1E0600F13781 /* main.m */; };
 		4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */; };
 		4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A74139A1E0600F13781 /* MainWindow.xib */; };
-		4D055A79139A1E0600F13781 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A78139A1E0600F13781 /* RootViewController.m */; };
-		4D055A7C139A1E0600F13781 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A7A139A1E0600F13781 /* RootViewController.xib */; };
 		4D055A83139A1E0600F13781 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A62139A1E0600F13781 /* UIKit.framework */; };
 		4D055A84139A1E0600F13781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A64139A1E0600F13781 /* Foundation.framework */; };
 		4D055A85139A1E0600F13781 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055A66139A1E0600F13781 /* CoreGraphics.framework */; };
@@ -23,14 +21,25 @@
 		4D055A90139A1E0600F13781 /* TallyHomeTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D055A8F139A1E0600F13781 /* TallyHomeTests.h */; };
 		4D055A92139A1E0600F13781 /* TallyHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D055A91139A1E0600F13781 /* TallyHomeTests.m */; };
 		4D47236A13ADB5DA00309C25 /* THDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D47236913ADB5DA00309C25 /* THDate.m */; };
-		4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CC139A1FF60087CCDC /* PricePath.m */; };
+		4D7383CE139A1FF60087CCDC /* THHomePricePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7383CC139A1FF60087CCDC /* THHomePricePath.m */; };
 		4D73841A139A20660087CCDC /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */; };
 		4D73841C139A21FF0087CCDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73841B139A21FF0087CCDC /* QuartzCore.framework */; };
-		4DA28EC213A2DE6D001D13BD /* THIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THIndex.m */; };
-		4DA28EC613A2E97D001D13BD /* THIndice.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC513A2E97D001D13BD /* THIndice.m */; };
+		4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A8F13B58C05008EF6AF /* THDateVal.m */; };
+		4D8F2A9713B58FF8008EF6AF /* PropertyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */; };
+		4D8F2A9813B58FF8008EF6AF /* PropertyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */; };
+		4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9A13B74536008EF6AF /* THURLCreator.m */; };
+		4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */; };
+		4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */; };
 		4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCC5139B220C00E868A7 /* PricePathTests.m */; };
 		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
-		4DAABCCC139B8ABF00E868A7 /* HomePriceIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */; };
+		4DAABCCC139B8ABF00E868A7 /* THHomePriceIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* THHomePriceIndex.m */; };
+		4DD54B8E13C037E800E6DE8E /* TextEntryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */; };
+		4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */; };
+		4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BDB13C07BF600E6DE8E /* RootViewController.m */; };
+		4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */; };
+		4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */; };
+		4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */; };
+		4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,9 +64,6 @@
 		4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeAppDelegate.h; sourceTree = "<group>"; };
 		4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeAppDelegate.m; sourceTree = "<group>"; };
 		4D055A75139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		4D055A77139A1E0600F13781 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		4D055A78139A1E0600F13781 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		4D055A7B139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
 		4D055A82139A1E0600F13781 /* TallyHomeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TallyHomeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D055A8A139A1E0600F13781 /* TallyHomeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TallyHomeTests-Info.plist"; sourceTree = "<group>"; };
 		4D055A8C139A1E0600F13781 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -66,8 +72,8 @@
 		4D055A91139A1E0600F13781 /* TallyHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeTests.m; sourceTree = "<group>"; };
 		4D47236813ADB5DA00309C25 /* THDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDate.h; sourceTree = "<group>"; };
 		4D47236913ADB5DA00309C25 /* THDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDate.m; sourceTree = "<group>"; };
-		4D7383CB139A1FF60087CCDC /* PricePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePath.h; sourceTree = "<group>"; };
-		4D7383CC139A1FF60087CCDC /* PricePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePath.m; sourceTree = "<group>"; };
+		4D7383CB139A1FF60087CCDC /* THHomePricePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHomePricePath.h; sourceTree = "<group>"; };
+		4D7383CC139A1FF60087CCDC /* THHomePricePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = THHomePricePath.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4D7383D1139A20560087CCDC /* _CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillColor.h; sourceTree = "<group>"; };
 		4D7383D2139A20560087CCDC /* _CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillGradient.h; sourceTree = "<group>"; };
 		4D7383D3139A20560087CCDC /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
@@ -142,15 +148,33 @@
 		4D738418139A20560087CCDC /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		4D73841B139A21FF0087CCDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
-		4DA28EC013A2DE6D001D13BD /* THIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THIndex.h; sourceTree = "<group>"; };
-		4DA28EC113A2DE6D001D13BD /* THIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THIndex.m; sourceTree = "<group>"; };
-		4DA28EC413A2E97C001D13BD /* THIndice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THIndice.h; sourceTree = "<group>"; };
-		4DA28EC513A2E97D001D13BD /* THIndice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THIndice.m; sourceTree = "<group>"; };
+		4D8F2A8E13B58C05008EF6AF /* THDateVal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDateVal.h; sourceTree = "<group>"; };
+		4D8F2A8F13B58C05008EF6AF /* THDateVal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDateVal.m; sourceTree = "<group>"; };
+		4D8F2A9413B58FF8008EF6AF /* PropertyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyDetailVC.h; sourceTree = "<group>"; };
+		4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PropertyDetailVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyDetailVC.xib; sourceTree = "<group>"; };
+		4D8F2A9913B74535008EF6AF /* THURLCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THURLCreator.h; sourceTree = "<group>"; };
+		4D8F2A9A13B74536008EF6AF /* THURLCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THURLCreator.m; sourceTree = "<group>"; };
+		4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppDefaults.plist; sourceTree = "<group>"; };
+		4D8F2AA013B756B7008EF6AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4DA28EC013A2DE6D001D13BD /* THTimeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = THTimeSeries.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = THTimeSeries.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
-		4DAABCC5139B220C00E868A7 /* PricePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePathTests.m; sourceTree = "<group>"; };
+		4DAABCC5139B220C00E868A7 /* PricePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PricePathTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DAABCC8139B2A1C00E868A7 /* price_events.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = price_events.xml; path = ../server/price_events.xml; sourceTree = "<group>"; };
-		4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePriceIndex.h; sourceTree = "<group>"; };
-		4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePriceIndex.m; sourceTree = "<group>"; };
+		4DAABCCA139B8ABF00E868A7 /* THHomePriceIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHomePriceIndex.h; sourceTree = "<group>"; };
+		4DAABCCB139B8ABF00E868A7 /* THHomePriceIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHomePriceIndex.m; sourceTree = "<group>"; };
+		4DD54B8B13C037E700E6DE8E /* TextEntryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEntryVC.h; sourceTree = "<group>"; };
+		4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEntryVC.m; sourceTree = "<group>"; };
+		4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextEntryVC.xib; sourceTree = "<group>"; };
+		4DD54BDA13C07BF600E6DE8E /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		4DD54BDB13C07BF600E6DE8E /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		4DD54BDF13C07DFC00E6DE8E /* PropertySettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertySettingsVC.h; sourceTree = "<group>"; };
+		4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertySettingsVC.m; sourceTree = "<group>"; };
+		4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertySettingsVC.xib; sourceTree = "<group>"; };
+		4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyDetailVC.h; sourceTree = "<group>"; };
+		4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyDetailVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +226,7 @@
 		4D055A61139A1E0600F13781 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D8F2AA013B756B7008EF6AF /* CoreLocation.framework */,
 				4D73841B139A21FF0087CCDC /* QuartzCore.framework */,
 				4D055A62139A1E0600F13781 /* UIKit.framework */,
 				4D055A64139A1E0600F13781 /* Foundation.framework */,
@@ -213,25 +238,11 @@
 		4D055A68139A1E0600F13781 /* TallyHome */ = {
 			isa = PBXGroup;
 			children = (
+				4DD54B9113C03A6000E6DE8E /* UI */,
 				4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */,
 				4D7383D0139A20560087CCDC /* CorePlotHeaders */,
-				4DAABCCA139B8ABF00E868A7 /* HomePriceIndex.h */,
-				4DAABCCB139B8ABF00E868A7 /* HomePriceIndex.m */,
-				4D7383CB139A1FF60087CCDC /* PricePath.h */,
-				4D7383CC139A1FF60087CCDC /* PricePath.m */,
-				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
-				4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */,
-				4D055A74139A1E0600F13781 /* MainWindow.xib */,
-				4D055A77139A1E0600F13781 /* RootViewController.h */,
-				4D055A78139A1E0600F13781 /* RootViewController.m */,
-				4D055A7A139A1E0600F13781 /* RootViewController.xib */,
+				4DD54B9013C03A2C00E6DE8E /* Core */,
 				4D055A69139A1E0600F13781 /* Supporting Files */,
-				4DA28EC013A2DE6D001D13BD /* THIndex.h */,
-				4DA28EC113A2DE6D001D13BD /* THIndex.m */,
-				4DA28EC413A2E97C001D13BD /* THIndice.h */,
-				4DA28EC513A2E97D001D13BD /* THIndice.m */,
-				4D47236813ADB5DA00309C25 /* THDate.h */,
-				4D47236913ADB5DA00309C25 /* THDate.m */,
 			);
 			path = TallyHome;
 			sourceTree = "<group>";
@@ -239,6 +250,7 @@
 		4D055A69139A1E0600F13781 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */,
 				4D055A6A139A1E0600F13781 /* TallyHome-Info.plist */,
 				4D055A6B139A1E0600F13781 /* InfoPlist.strings */,
 				4D055A6E139A1E0600F13781 /* TallyHome-Prefix.pch */,
@@ -348,6 +360,49 @@
 			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
+		4DD54B9013C03A2C00E6DE8E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4DA28EC013A2DE6D001D13BD /* THTimeSeries.h */,
+				4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */,
+				4D47236813ADB5DA00309C25 /* THDate.h */,
+				4D47236913ADB5DA00309C25 /* THDate.m */,
+				4D8F2A8E13B58C05008EF6AF /* THDateVal.h */,
+				4D8F2A8F13B58C05008EF6AF /* THDateVal.m */,
+				4DAABCCA139B8ABF00E868A7 /* THHomePriceIndex.h */,
+				4DAABCCB139B8ABF00E868A7 /* THHomePriceIndex.m */,
+				4D7383CB139A1FF60087CCDC /* THHomePricePath.h */,
+				4D7383CC139A1FF60087CCDC /* THHomePricePath.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		4DD54B9113C03A6000E6DE8E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4DD54BDA13C07BF600E6DE8E /* RootViewController.h */,
+				4DD54BDB13C07BF600E6DE8E /* RootViewController.m */,
+				4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */,
+				4D8F2A9413B58FF8008EF6AF /* PropertyDetailVC.h */,
+				4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */,
+				4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */,
+				4D8F2A9913B74535008EF6AF /* THURLCreator.h */,
+				4D8F2A9A13B74536008EF6AF /* THURLCreator.m */,
+				4DD54B8B13C037E700E6DE8E /* TextEntryVC.h */,
+				4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */,
+				4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */,
+				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
+				4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */,
+				4D055A74139A1E0600F13781 /* MainWindow.xib */,
+				4DD54BDF13C07DFC00E6DE8E /* PropertySettingsVC.h */,
+				4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */,
+				4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */,
+				4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */,
+				4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -417,8 +472,12 @@
 			files = (
 				4D055A6D139A1E0600F13781 /* InfoPlist.strings in Resources */,
 				4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */,
-				4D055A7C139A1E0600F13781 /* RootViewController.xib in Resources */,
 				4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */,
+				4D8F2A9813B58FF8008EF6AF /* PropertyDetailVC.xib in Resources */,
+				4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */,
+				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
+				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
+				4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,12 +515,17 @@
 			files = (
 				4D055A70139A1E0600F13781 /* main.m in Sources */,
 				4D055A73139A1E0600F13781 /* TallyHomeAppDelegate.m in Sources */,
-				4D055A79139A1E0600F13781 /* RootViewController.m in Sources */,
-				4D7383CE139A1FF60087CCDC /* PricePath.m in Sources */,
-				4DAABCCC139B8ABF00E868A7 /* HomePriceIndex.m in Sources */,
-				4DA28EC213A2DE6D001D13BD /* THIndex.m in Sources */,
-				4DA28EC613A2E97D001D13BD /* THIndice.m in Sources */,
+				4D7383CE139A1FF60087CCDC /* THHomePricePath.m in Sources */,
+				4DAABCCC139B8ABF00E868A7 /* THHomePriceIndex.m in Sources */,
+				4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */,
 				4D47236A13ADB5DA00309C25 /* THDate.m in Sources */,
+				4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */,
+				4D8F2A9713B58FF8008EF6AF /* PropertyDetailVC.m in Sources */,
+				4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */,
+				4DD54B8E13C037E800E6DE8E /* TextEntryVC.m in Sources */,
+				4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */,
+				4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */,
+				4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,14 +563,6 @@
 				4D055A75139A1E0600F13781 /* en */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		4D055A7A139A1E0600F13781 /* RootViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D055A7B139A1E0600F13781 /* en */,
-			);
-			name = RootViewController.xib;
 			sourceTree = "<group>";
 		};
 		4D055A8B139A1E0600F13781 /* InfoPlist.strings */ = {

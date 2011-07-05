@@ -28,8 +28,8 @@
     // Set-up code here.
     NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/price_events.xml"];    
     NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
-    testPath = [[PricePath alloc] initWithURL:url];
-    NSLog(@"TestPath has %d indexes", testPath.innerIndexes.count);
+    testPath = [[THHomePricePath alloc] initWithURL:url];
+    NSLog(@"TestPath has %d indexes", testPath.innerSerieses.count);
     //NSLog(@"Distant past is %@", [NSDate distantPast]);
 }
 
@@ -51,19 +51,19 @@
 - (void)testLoadFromURL {
     
     STAssertNotNil(testPath, @"PricePath not loading from price_events.xml");
-    STAssertTrue(testPath.innerIndexes.count > 0, @"No price events found or loaded");
+    STAssertTrue(testPath.innerSerieses.count > 0, @"No price events found or loaded");
 }
 
 - (void)testTrendGrowthCalcs {
-    double trGr = [[testPath makeSubsetIndex] calcTrendGrowth];
+    double trGr = [[testPath makePricePath] calcTrendGrowth];
     NSLog(@"Trend growth is %5.2f", trGr * 100.0);
     
 }
 
 - (void)testApplyPricePath {
     NSDate *start = [[NSDate alloc] initWithTimeIntervalSinceNow:(-2.0 * 365 * 24 * 60 * 60)];
-    THIndex *thi = [testPath makeSubsetIndex];
-    for (THIndice *i in thi) {
+    THTimeSeries *thi = [testPath makePricePath];
+    for (THDateVal *i in thi) {
         NSLog(@"%@", i);
     }
 }

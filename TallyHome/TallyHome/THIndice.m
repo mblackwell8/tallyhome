@@ -9,20 +9,10 @@
 #import "THIndice.h"
 
 
-// per http://stackoverflow.com/questions/2736762/initializing-a-readonly-property
-
-@interface THIndice ()
-
-@property (readwrite, retain) NSDate *date;
-@property (readwrite) double val;
-
-
-@end
-
 @implementation THIndice
 
 
-@synthesize ix = _ix, date = _date, last = _last, val;
+@synthesize ix = _ix, last = _last;
 
 - (id) init {
     if ((self = [super init])) {
@@ -31,25 +21,13 @@
     return self;
 }
 
-- (id) initWithVal:(double)v at:(NSDate *)dt {
-    if ((self = [self init])) {
-        self.val = v;
-        self.date = dt;
+- (void)dealloc {
+    if (_last) {
+        [_last release];
+        _last = nil;
     }
     
-    return self;
-}
-
-- (NSComparisonResult)compareByDate:(THIndice *)another {
-    //if other index is null or has a null date, this event is considered later
-    if (!another || !(another.date))
-        return NSOrderedDescending;
-    
-    return [_date compare:another.date];
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"%@: val=%5.2f", _date, val];
+    [super dealloc];
 }
 
 @end

@@ -15,11 +15,11 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 //#import "application_headers" as required
-#import "PricePath.h"
+#import "THHomePricePath.h"
 
 
 @interface PricePathTests : SenTestCase {
-    PricePath *testPath;
+    THHomePricePath *testPath;
 }
 
 #if USE_APPLICATION_UNIT_TEST
