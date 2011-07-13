@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 #import "TallyHomeAppDelegate.h"
 #import "TallyDetailVC.h"
-#import "PropertyDetailVC.h"
+#import "ScrollingTallyDetailVC.h"
 
 @implementation RootViewController
 
@@ -25,9 +25,9 @@
     
     // if there are no detail controllers, then create a PropertyDetailVC for current locn
     if (_detailControllers.count == 0) {
-        PropertyDetailVC *pdvc = [[PropertyDetailVC alloc] init];
-        [_detailControllers addObject:pdvc];
-        [pdvc release];
+        ScrollingTallyDetailVC *vc = [[ScrollingTallyDetailVC alloc] init];
+        [_detailControllers addObject:vc];
+        [vc release];
     }
 
     

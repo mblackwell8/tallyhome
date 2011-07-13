@@ -40,6 +40,11 @@
 		4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */; };
 		4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */; };
 		4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */; };
+		4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */; };
+		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
+		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
+		4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */; };
+		4DD54C1E13C9B28A00E6DE8E /* TouchedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +180,14 @@
 		4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertySettingsVC.xib; sourceTree = "<group>"; };
 		4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyDetailVC.m; sourceTree = "<group>"; };
+		4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectorVC.h; sourceTree = "<group>"; };
+		4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectorVC.m; sourceTree = "<group>"; };
+		4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateSelectorVC.xib; sourceTree = "<group>"; };
+		4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
+		4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
+		4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
+		4DD54C1C13C9B28200E6DE8E /* TouchedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedScrollView.h; sourceTree = "<group>"; };
+		4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchedScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +412,14 @@
 				4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */,
 				4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */,
 				4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */,
+				4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */,
+				4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */,
+				4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */,
+				4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */,
+				4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */,
+				4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */,
+				4DD54C1C13C9B28200E6DE8E /* TouchedScrollView.h */,
+				4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -478,6 +499,8 @@
 				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
 				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
 				4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */,
+				4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */,
+				4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +549,9 @@
 				4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */,
 				4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */,
 				4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */,
+				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
+				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
+				4DD54C1E13C9B28A00E6DE8E /* TouchedScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
