@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TallyDetailVC.h"
-#import "TouchedScrollView.h"
+#import "TallyView.h"
 
 #ifdef DEBUG
 #   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -19,10 +19,10 @@
 // ALog always displays output regardless of the DEBUG setting
 #define LALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
-@interface ScrollingTallyDetailVC : TallyDetailVC <UIScrollViewDelegate> {
+@interface ScrollingTallyDetailVC : TallyDetailVC {
     
     UIImageView *_customizeAlertImage;
-    TouchedScrollView *_scrollView;
+    TallyView *_scrollView;
     
     NSMutableArray *_labels;
     
@@ -35,7 +35,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView *customizeAlertImage;
-@property (nonatomic, retain) IBOutlet TouchedScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet TallyView *scrollView;
 
 
 - (void)_scrollLabels:(CGFloat)points;

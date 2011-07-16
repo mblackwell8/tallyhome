@@ -134,13 +134,27 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "332254252.61141"
+         filePath = "TallyHome/TallyView.m"
+         timestampString = "332506213.299912"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "237"
-         endingLineNumber = "237"
-         landmarkName = "-_scrollLabels:"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
+         landmarkName = "-pan:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/TallyView.m"
+         timestampString = "332513194.042738"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "88"
+         endingLineNumber = "88"
+         landmarkName = "-pan:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

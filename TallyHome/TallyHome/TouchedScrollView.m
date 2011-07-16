@@ -40,8 +40,8 @@
 }
 
 - (ScrollDirection) scrollDirection {
-    if (![super isDragging] && ![super isDecelerating])
-        return ScrollNone;
+//    if (![super isDragging] && ![super isDecelerating])
+//        return ScrollNone;
     
     if (!_touchesBeganAt)
         return ScrollNone;
@@ -51,22 +51,22 @@
         return ScrollNone;
     
     UITouch *nextTouch = nil;
-    if ([super isDragging]) {
-        if (!_touchesMovedTo)
-            return ScrollNone;
-        
-        nextTouch = [[_touchesMovedTo allObjects] objectAtIndex:0];
-        if (!nextTouch)
-            return ScrollNone;
-    }
-    if ([super isDecelerating]) {
-        if (!_touchesEndedAt)
-            return ScrollNone;
-        
-        nextTouch = [[_touchesEndedAt allObjects] objectAtIndex:0];
-        if (!nextTouch)
-            return ScrollNone;
-    }
+//    if ([super isDragging]) {
+//        if (!_touchesMovedTo)
+//            return ScrollNone;
+//        
+//        nextTouch = [[_touchesMovedTo allObjects] objectAtIndex:0];
+//        if (!nextTouch)
+//            return ScrollNone;
+//    }
+//    if ([super isDecelerating]) {
+//        if (!_touchesEndedAt)
+//            return ScrollNone;
+//        
+//        nextTouch = [[_touchesEndedAt allObjects] objectAtIndex:0];
+//        if (!nextTouch)
+//            return ScrollNone;
+//    }
     
     CGPoint beginLocn = [beginTouch locationInView:self];
     CGPoint nextLocn = [nextTouch locationInView:self];

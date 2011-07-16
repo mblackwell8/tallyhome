@@ -17,7 +17,7 @@ typedef enum ScrollDirection  {
     ScrollRight = 8
     } ScrollDirection;
 
-@interface TouchedScrollView : UIScrollView {
+@interface TouchedScrollView : UIView {
     NSSet *_touchesBeganAt, *_touchesEndedAt, *_touchesMovedTo;
 }
 

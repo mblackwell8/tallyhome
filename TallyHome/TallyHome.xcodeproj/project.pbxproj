@@ -44,7 +44,7 @@
 		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
 		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
 		4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */; };
-		4DD54C1E13C9B28A00E6DE8E /* TouchedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */; };
+		4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C3213D1470E00E6DE8E /* TallyView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,8 +186,8 @@
 		4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
 		4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
-		4DD54C1C13C9B28200E6DE8E /* TouchedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedScrollView.h; sourceTree = "<group>"; };
-		4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchedScrollView.m; sourceTree = "<group>"; };
+		4DD54C3113D1470C00E6DE8E /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
+		4DD54C3213D1470E00E6DE8E /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,8 +418,8 @@
 				4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */,
 				4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */,
 				4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */,
-				4DD54C1C13C9B28200E6DE8E /* TouchedScrollView.h */,
-				4DD54C1D13C9B28500E6DE8E /* TouchedScrollView.m */,
+				4DD54C3113D1470C00E6DE8E /* TallyView.h */,
+				4DD54C3213D1470E00E6DE8E /* TallyView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -551,7 +551,7 @@
 				4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */,
 				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
 				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
-				4DD54C1E13C9B28A00E6DE8E /* TouchedScrollView.m in Sources */,
+				4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +606,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mark Blackwell (9UDPXYJ84Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Blackwell (9UDPXYJ84Z)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -614,7 +615,9 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
+				PROVISIONING_PROFILE = "7A1CB00C-E9F4-41B4-9EC9-BA76AD2BB7C5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7A1CB00C-E9F4-41B4-9EC9-BA76AD2BB7C5";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -623,13 +626,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mark Blackwell (9UDPXYJ84Z)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "7A1CB00C-E9F4-41B4-9EC9-BA76AD2BB7C5";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -638,6 +643,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Blackwell (9UDPXYJ84Z)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -652,6 +659,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7A1CB00C-E9F4-41B4-9EC9-BA76AD2BB7C5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -660,6 +669,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TallyHome/TallyHome-Prefix.pch";
@@ -673,6 +683,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
