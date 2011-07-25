@@ -188,6 +188,7 @@
 		4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
 		4DD54C3113D1470C00E6DE8E /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
 		4DD54C3213D1470E00E6DE8E /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
+		4DEEFDD513DD918500C9BA06 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +257,7 @@
 				4D7383D0139A20560087CCDC /* CorePlotHeaders */,
 				4DD54B9013C03A2C00E6DE8E /* Core */,
 				4D055A69139A1E0600F13781 /* Supporting Files */,
+				4DEEFDD513DD918500C9BA06 /* DebugMacros.h */,
 			);
 			path = TallyHome;
 			sourceTree = "<group>";

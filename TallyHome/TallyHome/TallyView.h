@@ -30,8 +30,8 @@
     
     NSMutableArray *_views;
     
-    CGFloat panPointsSinceLastShift;
-    
+    CGFloat panPointsSinceLastReshuffle;
+        
 }
 
 //@property (retain, nonatomic) NSArray *views;

@@ -10,14 +10,7 @@
 #import "TallyDetailVC.h"
 #import "TallyView.h"
 
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#   define DLog(...)
-#endif
 
-// ALog always displays output regardless of the DEBUG setting
-#define LALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 @interface ScrollingTallyDetailVC : TallyDetailVC {
     
@@ -31,18 +24,12 @@
     UILabel *_cLabel;
     UILabel *_dLabel;
     UILabel *_eLabel;
+    UILabel *_fLabel;
+    UILabel *_gLabel;
     
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView *customizeAlertImage;
 @property (nonatomic, retain) IBOutlet TallyView *scrollView;
-
-
-- (void)_scrollLabels:(CGFloat)points;
-
-//determines whether a given drag has taken the labels
-//more than a critical point (50%?) of the gap between them
-//if so, then animate the last little bit
-- (void)_reshuffle;
 
 @end

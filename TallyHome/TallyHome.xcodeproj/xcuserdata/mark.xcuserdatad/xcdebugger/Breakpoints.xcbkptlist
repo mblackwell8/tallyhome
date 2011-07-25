@@ -135,25 +135,25 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/TallyView.m"
-         timestampString = "332506213.299912"
+         timestampString = "333291052.71918"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-pan:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/TallyView.m"
-         timestampString = "332513194.042738"
+         timestampString = "333291052.71918"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "88"
-         endingLineNumber = "88"
+         startingLineNumber = "190"
+         endingLineNumber = "190"
          landmarkName = "-pan:"
          landmarkType = "5">
       </FileBreakpoint>

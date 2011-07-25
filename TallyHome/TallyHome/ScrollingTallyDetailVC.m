@@ -76,33 +76,24 @@
 //    [_scrollView setContentOffset:CGPointMake(0, 600.0)];
     
     // make the five labels, with starting locations
-    _aLabel = [[UILabel alloc] initWithFrame:CGRectMake(TH_L0_X, TH_L0_Y, TH_L0_W, TH_L0_H)];
+    _aLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _bLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _cLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _dLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _eLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _fLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _gLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     
-    _bLabel = [[UILabel alloc] initWithFrame:CGRectMake(TH_L0_X - TH_XGAP, 
-                                                        TH_L0_Y + TH_OFFSET - TH_YGAP, 
-                                                        TH_L0_W + TH_XGAP * 2.0, 
-                                                        TH_L0_H + TH_YGAP * 2.0)];
+    _labels = [[NSArray alloc] initWithObjects:_aLabel, _bLabel, _cLabel, _dLabel, _eLabel, _fLabel, _gLabel, nil];
     
-    _cLabel = [[UILabel alloc] initWithFrame:CGRectMake(TH_L0_X - TH_XGAP * 2.0, 
-                                                        TH_L0_Y + (TH_OFFSET - TH_YGAP) * 2.0, 
-                                                        TH_L0_W + (TH_XGAP * 2.0) * 2.0, 
-                                                        TH_L0_H + (TH_YGAP * 2.0) * 2.0)];
-    
-    _dLabel = [[UILabel alloc] initWithFrame:CGRectMake(TH_L0_X - TH_XGAP, 
-                                                        TH_L0_Y + TH_OFFSET * 3.0 - TH_YGAP, 
-                                                        TH_L0_W + TH_XGAP * 2.0, 
-                                                        TH_L0_H + TH_YGAP * 2.0)];
-    
-    _eLabel = [[UILabel alloc] initWithFrame:CGRectMake(TH_L0_X, 
-                                                        TH_L0_Y + TH_OFFSET * 4.0, 
-                                                        TH_L0_W, 
-                                                        TH_L0_H)];
-    
-    _labels = [[NSArray alloc] initWithObjects:_aLabel, _bLabel, _cLabel, _dLabel, _eLabel, nil];
-    
+    UIFont *f = [UIFont fontWithName:@"Helvetica" size:50.0];
     for (UILabel *l in _labels) {
-        l.backgroundColor = [UIColor blackColor];
-        l.text = @"label";
+        l.font = f;
+        l.backgroundColor = [UIColor blueColor];
+        l.text = @"lorem ipsum blah";
+        l.numberOfLines = 1;
+        l.adjustsFontSizeToFitWidth = YES;
+        l.minimumFontSize = 4.0;
     }
         
 //    [_scrollView addSubview:_aLabel];
@@ -133,189 +124,7 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma UIScrollViewDelegate
-
-
-
-
-// The UIScrollView class can have a delegate that must adopt the UIScrollViewDelegate protocol. For zooming and panning to work, the delegate must implement both viewForZoomingInScrollView: and scrollViewDidEndZooming:withView:atScale:; in addition, the maximum (maximumZoomScale) and minimum ( minimumZoomScale) zoom scale must be different. 
-
-
-//
-//
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//	DLog();
-//}
-//
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//	DLog();
-//    
-//    
-////    
-////	//update positions of views
-////    if (!_lastTouch) {
-////        if (!_scrollView.touchesBeganAt) {
-////            DLog(@"Touches began at is nil");
-////            return;
-////        }
-////        
-////        _lastTouch = [[[_scrollView.touchesBeganAt allObjects] objectAtIndex:0] retain];
-////        DLog(@"last touch set %@", _lastTouch);
-////        return;
-////    }
-//    
-//    UITouch *thisTouch = [[_scrollView.touchesMovedTo allObjects] objectAtIndex:0];
-//    DLog(@"this touch is %@", thisTouch);
-//    if (!thisTouch)
-//        return;
-//    
-//    if (thisTouch.phase != UITouchPhaseMoved)
-//        return;
-//    
-//    float yDist = [thisTouch locationInView:_scrollView].y - 
-//                  [thisTouch previousLocationInView:_scrollView].y;
-//    DLog(@"moved %7.5f", yDist);
-//
-//    [self _scrollLabels:yDist];
-//    
-//	//increase size of total canvas so that scroll view thinks more to go
-//	//http://stackoverflow.com/questions/1493950
-//}
-//
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-//	DLog();
-//    
-//	if (!decelerate)
-//		[self _reshuffle];
-//}
-//
-//- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-//    DLog();
-//}
-//
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    DLog();
-//    
-//    [self _reshuffle];
-//}
-//
-//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-//    DLog();
-//}
-//
-//- (void)_scrollLabels:(CGFloat)points {
-//    if (points == 0.0)
-//        return;
-//    
-//    NSAssert(fabsf(points) < TH_OFFSET, @"reqd points more than offset");
-//    CGFloat scale = fabsf(points) / TH_OFFSET;
-//    int ix = 0;
-//    for (UIView *lbl in (points > 0.0 ? _labels : [[_labels reverseObjectEnumerator] allObjects])) {
-//        CGRect f = lbl.frame;
-//        //lbls 1 and 2 get bigger
-//        if (ix < 2) {
-//            f.origin.x -= TH_XGAP * scale;
-//            f.origin.y -= TH_YGAP * scale;
-//            f.size.width += (TH_XGAP * scale) * 2.0;
-//            f.size.height += (TH_YGAP * scale) * 2.0;
-//        }
-//        //lbls 3, 4 and 5 get smaller
-//        else {
-//            f.origin.x += TH_XGAP * scale;
-//            f.origin.y += TH_YGAP * scale;
-//            f.size.width -= (TH_XGAP * scale) * 2.0;
-//            f.size.height -= (TH_YGAP * scale) * 2.0;
-//        }
-//        lbl.frame = f;
-//        
-//        ix += 1;
-//    }
-//    
-//    //lbl 1 may need to fall off screen and reappear at posn 5 (or reverse)
-//    UIView *firstLbl = [_labels objectAtIndex:0];
-//    if (firstLbl.frame.origin.y >= TH_L0_Y + TH_OFFSET - TH_YGAP) {
-//        DLog(@"First label at %5.2f, shuffling", firstLbl.frame.origin.y);
-//        UIView *lastLbl = [_labels lastObject];
-//        [_labels removeLastObject];
-//        [_labels insertObject:lastLbl atIndex:0];
-//    }
-//}
-
-- (void)_reshuffle {
-    DLog();
-    
-    //calc if the drag was far enough to make an animated transition to next slot
-//    [_scrollView setContentOffset:CGPointMake(0, 600.0)];
-}
-
-
-
-
-
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    DLog();
-    
-    return YES;
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    DLog();
-}
-
-
-
-
-
-// **********  ZOOMING ********
-
-//- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-//    DLog();
-//}
-//
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-//    DLog();
-//}
-//
-//- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-//    DLog();
-//}
-//
-//- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-//    DLog();
-//}
-
-
-
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    DLog();
-//    //store location of touch
-//	
-//    [super touchesBegan:touches withEvent:event];
-//}
-//     
-//- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-//    DLog();
-//    
-//    [super touchesCancelled:touches withEvent:event];
-//}
-//     
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//    DLog();
-//    
-//    [super touchesEnded:touches withEvent:event];
-//}
-//     
-//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-//    DLog();
-//    
-//    [super touchesMoved:touches withEvent:event];
-//}
-//     
-     
+}     
      
 
 @end
