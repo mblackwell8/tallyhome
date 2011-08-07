@@ -7,25 +7,45 @@
 //
 
 #import "THTimeSeries.h"
-
+#import "DebugMacros.h"
 
 @implementation THTimeSeries
 
 @synthesize innerIndex = _innerSeries, trendExtrapolationInterval;
 
-- (id) init {
+//- (id)init {
+//    if ((self = [super init])) {
+//        trendExtrapolationInterval = TH_FiveYearTimeInterval;
+//        _innerSeries = nil;
+//        _calcedIndices = nil;
+//    }
+//    
+//    return self;
+//}
+
+- (id)initWithValues:(NSArray *)indices {
     if ((self = [super init])) {
         trendExtrapolationInterval = TH_FiveYearTimeInterval;
-    }
-    
-    return self;
-}
-
-- (id) initWithValues:(NSArray *)indices {
-    if ((self = [self init])) {
-        _innerSeries = [[NSMutableArray alloc] initWithArray:indices];
+        _calcedIndices = nil;
+        NSMutableArray *tmpInnerSeries = [[NSMutableArray alloc] initWithArray:indices];
         //sort the indices by date
-        [_innerSeries sortUsingSelector:@selector(compareByDate:)];
+        [tmpInnerSeries sortUsingSelector:@selector(compareByDate:)];
+        THDateVal *last = nil;
+        for (THDateVal *v in tmpInnerSeries) {
+            NSAssert(!v.ix && !v.last, @"Should not insert THDateVal in >1 time series... make a copy!");
+            v.ix = self;
+            v.last = last;
+            last = v;
+        }
+        THDateVal *next = nil;
+        for (THDateVal *v in [tmpInnerSeries reverseObjectEnumerator]) {
+            NSAssert(!v.next, @"Should not insert THDateVal in >1 time series... make a copy!");
+            v.next = next;
+            next = v;
+        }
+        _innerSeries = [[NSArray alloc] initWithArray:tmpInnerSeries];
+        [tmpInnerSeries release];
+        //_calcedIndices = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -47,6 +67,21 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeDouble:trendExtrapolationInterval forKey:kTrendExtrapCoder];
     [coder encodeObject:_innerSeries forKey:kInnerSeriesCoder];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    THTimeSeries *copy = [[THTimeSeries allocWithZone:zone] initWithValues:_innerSeries];
+    copy.trendExtrapolationInterval = trendExtrapolationInterval;
+    //don't worry about calced indices
+    
+    return copy;
+}
+
+- (void)dealloc {
+    [_innerSeries release];
+    [_calcedIndices release];
+    
+    [super dealloc];
 }
 
 
@@ -92,6 +127,9 @@
     if (equalTo)
         return equalTo;
     
+    if (!_calcedIndices)
+        _calcedIndices = [[NSMutableDictionary alloc] init];
+    
     equalTo = [_calcedIndices objectForKey:date];
     if (equalTo)
         return equalTo;
@@ -124,22 +162,21 @@
     double daysBetween = [i.date daysUntil:date];
     double roc = [self dailyRateOfChangeAt:date];
     double val = i.val * pow(1.0 + roc, daysBetween);
-    THDateVal *retVal = [THDateVal initWithVal:val at:date];
+    THDateVal *retVal = [[THDateVal alloc] initWithVal:val at:date];
     
     if (!_calcedIndices)
-        _calcedIndices = [[NSMutableArray alloc] init];
+        _calcedIndices = [[NSMutableDictionary alloc] init];
     
-    [_calcedIndices addObject:retVal];
-    [retVal release];
+    [_calcedIndices setObject:retVal forKey:retVal.date];
     
-    return retVal;
+    return [retVal autorelease];
 }
 
-- (double) calcTrendGrowth {
+- (double)calcTrendGrowth {
     return [self calcTrendGrowthOver:trendExtrapolationInterval];
 }
 
-- (double) calcTrendGrowthOver:(NSTimeInterval) interval {
+- (double)calcTrendGrowthOver:(NSTimeInterval) interval {
     THDateVal *first = nil, *last = nil;
     if (interval > 0) {
         last = [_innerSeries lastObject];
@@ -175,8 +212,8 @@
     
 }
 
-+ (double) calcTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last {
-    double daysBetween = ABS([first.date daysUntil:last.date]);
++ (double)calcTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last {
+    double daysBetween = fabs([first.date daysUntil:last.date]);
     if (daysBetween == 0.0)
         return 0.0;
     
@@ -186,30 +223,7 @@
 
 }
 
-//- (double) calcBackwardsTrendGrowth {
-//    return [self calcBackwardsTrendGrowthOver:backwardsExtrapolationInterval];
-//}
-//
-//// calcs trend growth going backwards in time (on same basis as fwd growth, so will mostly be negative)
-//- (double) calcBackwardsTrendGrowthOver:(NSTimeInterval) interval {
-//    THDateVal *firstIndice = [_innerIndex objectAtIndex:0];
-//    NSDate *last = [firstIndice.date dateByAddingTimeInterval:interval];
-//    
-//    THDateVal *lastIndice = nil;
-//    if ([last timeIntervalSinceDate:[[_innerIndex lastObject] date]] >= 0) {
-//        lastIndice = [_innerIndex lastObject];
-//    }
-//    else {
-//        // use the indice that is the first after the interval, to maximise the length
-//        // of the interval
-//        lastIndice = [self firstAfter:last];
-//    }
-//    
-//    return [THIndex calcTrendGrowthFrom:lastIndice to:firstIndice];
-//    
-//}
-
-- (THDateVal *) firstBefore:(NSDate *)date {
+- (THDateVal *)firstBefore:(NSDate *)date {
     //if date is before or at the start of the index, return nil
     if ([date isBeforeOrEqualTo:[[_innerSeries objectAtIndex:0] date]])
         return nil;
@@ -230,7 +244,7 @@
     return [_innerSeries lastObject];
 }
 
-- (THDateVal *) firstAfter:(NSDate *)date {
+- (THDateVal *)firstAfter:(NSDate *)date {
     //if date is after or at the end of the index, return nil
     if ([date isAfterOrEqualTo:[[_innerSeries lastObject] date]])
         return nil;
@@ -251,13 +265,13 @@
     return [_innerSeries objectAtIndex:0];
 }
 
-- (THDateVal *) valueAt:(NSDate *)date {
+- (THDateVal *)valueAt:(NSDate *)date {
     if (date == nil)
         return nil;
     return [self binarySearch:date minIndex:0 maxIndex:_innerSeries.count - 1];
 }
 
-- (THDateVal *) binarySearch:(NSDate *)date minIndex:(int)min maxIndex:(int)max {
+- (THDateVal *)binarySearch:(NSDate *)date minIndex:(int)min maxIndex:(int)max {
     // If the subarray is empty, return not found
     if (max < min) 
         return nil;
@@ -274,7 +288,7 @@
         return [self binarySearch:date minIndex:mid + 1 maxIndex:max];
 }
 
-- (THDateVal *) maxValue {
+- (THDateVal *)maxValue {
     THDateVal *max = nil;
     for (THDateVal *i in _innerSeries) {
         if (!max || i.val > max.val)
@@ -282,7 +296,7 @@
     }
     return max;
 }
-- (THDateVal *) minValue {
+- (THDateVal *)minValue {
     THDateVal *min = nil;
     for (THDateVal *i in _innerSeries) {
         if (!min || i.val < min.val)
@@ -302,11 +316,11 @@
     return [_innerSeries objectAtIndex:index];
 }
 
-- (NSEnumerator *) dailyEnumerator {
+- (NSEnumerator *)dailyEnumerator {
     NSAssert(FALSE, @"Method not implemented");
     return nil;
 }
-- (NSEnumerator *) dailyEnumeratorStartingAt:(NSDate *)date {
+- (NSEnumerator *)dailyEnumeratorStartingAt:(NSDate *)date {
     NSAssert(FALSE, @"Method not implemented");
     return nil;
 }
@@ -315,11 +329,9 @@
     return [_innerSeries countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 
-- (void) dealloc {
-    [_innerSeries release];
-    [_calcedIndices release];
-    
-    [super dealloc];
+- (NSString *)description {
+    return [_innerSeries description];
 }
+
 
 @end

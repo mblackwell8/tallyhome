@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+//put in a . directory in the documents folder
+#define kUseArchive                 NO
+#define kTallyHomeArchivePath       @".tallyhome.archive"
+#define kTallyHomeSettingsPath      @".settings.plist"
+
 @interface TallyHomeAppDelegate : NSObject <UIApplicationDelegate> {
     
 }

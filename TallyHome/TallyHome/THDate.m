@@ -47,5 +47,43 @@
     return -[self daysSince:date];
 }
 
++ (NSDate *) localDateFromString:(NSString *)dateStr {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setTimeStyle:NSDateFormatterNoStyle];
+    [df setDateStyle:NSDateFormatterShortStyle];
+    [df setLocale:[NSLocale currentLocale]];
+    NSDate *retVal = [df dateFromString:dateStr];
+    [df release];
+    
+    return retVal;
+}
+
+@end
+
+@implementation NSDate (Fuzzy)
+
+- (NSString *)fuzzyRelativeDateString {
+    return [self fuzzyRelativeDateString:[NSDate date]];
+}
+
+- (NSString *)fuzzyRelativeDateString:(NSDate *)compareDt {
+    // works on relatively large increments (number of years)
+    NSTimeInterval interval = [self timeIntervalSinceDate:compareDt];
+    NSInteger nYears = (NSInteger)round(interval / (TH_OneDayInSecs * 365.0));
+    if (nYears > 1) {
+        return [NSString stringWithFormat:@"%d years from now", nYears];
+    }
+    else if (nYears == 1) {
+        return @"One year from now";
+    }
+    else if (nYears == -1) {
+        return @"One year ago";
+    }
+    else if (nYears < -1) {
+        return [NSString stringWithFormat:@"%d years ago", -nYears];
+    }
+    //else
+    return @"Now";
+}
 
 @end

@@ -12,8 +12,8 @@
 
 
 @interface THHomePricePath : NSObject <NSXMLParserDelegate, NSCoding> {
-    NSArray *_serieses;
-    NSArray *_manualPriceAdjustments;
+    NSMutableArray *_serieses;
+    NSMutableArray *_manualPriceAdjustments;
     THDateVal *_buyPrice;
     
     //bitmasked
@@ -25,6 +25,7 @@
     NSString *_xmlCurrentIxSource;
     NSMutableArray *_xmlIndices;
     NSDateFormatter *_xmlDateFormatter;
+    BOOL isReadingAvgPrice;
 }
 
 @property (nonatomic, retain) NSArray *innerSerieses;

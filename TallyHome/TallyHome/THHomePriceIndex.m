@@ -32,6 +32,17 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInt:prox forKey:kProxCoder];
     [encoder encodeInt:src forKey:kSrcCoder];
+    
+    [super encodeWithCoder:encoder];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    THHomePriceIndex *copy = [[THHomePriceIndex allocWithZone:zone] initWithValues:_innerSeries];
+    copy.trendExtrapolationInterval = trendExtrapolationInterval;
+    copy.prox = prox;
+    copy.src = src;
+    
+    return copy;
 }
 
 - (NSString *)proximityStr {
@@ -123,5 +134,9 @@
     }
 }
 
+- (void)dealloc {
+    
+    [super dealloc];
+}
 
 @end

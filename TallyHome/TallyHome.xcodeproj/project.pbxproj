@@ -25,8 +25,6 @@
 		4D73841A139A20660087CCDC /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D738419139A20660087CCDC /* libCorePlot-CocoaTouch.a */; };
 		4D73841C139A21FF0087CCDC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73841B139A21FF0087CCDC /* QuartzCore.framework */; };
 		4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A8F13B58C05008EF6AF /* THDateVal.m */; };
-		4D8F2A9713B58FF8008EF6AF /* PropertyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */; };
-		4D8F2A9813B58FF8008EF6AF /* PropertyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */; };
 		4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9A13B74536008EF6AF /* THURLCreator.m */; };
 		4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */; };
 		4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */; };
@@ -45,6 +43,7 @@
 		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
 		4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */; };
 		4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C3213D1470E00E6DE8E /* TallyView.m */; };
+		4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,9 +154,6 @@
 		4D73841B139A21FF0087CCDC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
 		4D8F2A8E13B58C05008EF6AF /* THDateVal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDateVal.h; sourceTree = "<group>"; };
 		4D8F2A8F13B58C05008EF6AF /* THDateVal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDateVal.m; sourceTree = "<group>"; };
-		4D8F2A9413B58FF8008EF6AF /* PropertyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyDetailVC.h; sourceTree = "<group>"; };
-		4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PropertyDetailVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyDetailVC.xib; sourceTree = "<group>"; };
 		4D8F2A9913B74535008EF6AF /* THURLCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THURLCreator.h; sourceTree = "<group>"; };
 		4D8F2A9A13B74536008EF6AF /* THURLCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THURLCreator.m; sourceTree = "<group>"; };
 		4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppDefaults.plist; sourceTree = "<group>"; };
@@ -189,6 +185,8 @@
 		4DD54C3113D1470C00E6DE8E /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
 		4DD54C3213D1470E00E6DE8E /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
 		4DEEFDD513DD918500C9BA06 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
+		4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyViewCell.h; sourceTree = "<group>"; };
+		4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,9 +396,6 @@
 				4DD54BDA13C07BF600E6DE8E /* RootViewController.h */,
 				4DD54BDB13C07BF600E6DE8E /* RootViewController.m */,
 				4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */,
-				4D8F2A9413B58FF8008EF6AF /* PropertyDetailVC.h */,
-				4D8F2A9513B58FF8008EF6AF /* PropertyDetailVC.m */,
-				4D8F2A9613B58FF8008EF6AF /* PropertyDetailVC.xib */,
 				4D8F2A9913B74535008EF6AF /* THURLCreator.h */,
 				4D8F2A9A13B74536008EF6AF /* THURLCreator.m */,
 				4DD54B8B13C037E700E6DE8E /* TextEntryVC.h */,
@@ -422,6 +417,8 @@
 				4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */,
 				4DD54C3113D1470C00E6DE8E /* TallyView.h */,
 				4DD54C3213D1470E00E6DE8E /* TallyView.m */,
+				4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */,
+				4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -496,7 +493,6 @@
 				4D055A6D139A1E0600F13781 /* InfoPlist.strings in Resources */,
 				4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */,
 				4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */,
-				4D8F2A9813B58FF8008EF6AF /* PropertyDetailVC.xib in Resources */,
 				4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */,
 				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
 				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
@@ -545,7 +541,6 @@
 				4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */,
 				4D47236A13ADB5DA00309C25 /* THDate.m in Sources */,
 				4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */,
-				4D8F2A9713B58FF8008EF6AF /* PropertyDetailVC.m in Sources */,
 				4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */,
 				4DD54B8E13C037E800E6DE8E /* TextEntryVC.m in Sources */,
 				4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */,
@@ -554,6 +549,7 @@
 				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
 				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
 				4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */,
+				4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,24 +13,37 @@
 
 @implementation RootViewController
 
-@synthesize detailControllers = _detailControllers;
+@synthesize detailControllers = _tallyViewDetailControllers;
+
+
+
+// The designated initializer. Override to perform setup that is required before the view is loaded.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+			
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
-    // look for a previous archive
-    //NSSearchPathForDirectoriesInDomains
     
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    self.detailControllers = array;
-    [array release];
+    if (!_tallyViewDetailControllers) {
+        DLog(@"_tallyViewDataControllers nil, creating new object")
+        NSMutableArray *dcs = [[NSMutableArray alloc] init];
+        self.detailControllers = dcs;
+        [dcs release];
+    }
     
     // if there are no detail controllers, then create a PropertyDetailVC for current locn
-    if (_detailControllers.count == 0) {
+    if (_tallyViewDetailControllers.count == 0) {
+        DLog(@"_tallyViewDetailControllers.count == 0, creating default");
         ScrollingTallyDetailVC *vc = [[ScrollingTallyDetailVC alloc] init];
-        [_detailControllers addObject:vc];
+        [_tallyViewDetailControllers addObject:vc];
         [vc release];
     }
 
-    
     [super viewDidLoad];
 }
 
@@ -68,7 +81,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _detailControllers.count;
+    return _tallyViewDetailControllers.count;
 }
 
 // Customize the appearance of table view cells.
@@ -82,7 +95,7 @@
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    TallyDetailVC *ctrlr = [_detailControllers objectAtIndex:indexPath.row];
+    TallyDetailVC *ctrlr = [_tallyViewDetailControllers objectAtIndex:indexPath.row];
     cell.textLabel.text = ctrlr.rowTitle;
     cell.imageView.image = ctrlr.rowImage;
     cell.detailTextLabel.text = ctrlr.rowLatestData;
@@ -137,7 +150,7 @@
 //     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
 //     
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:[_detailControllers objectAtIndex:indexPath.row] animated:YES];
+     [self.navigationController pushViewController:[_tallyViewDetailControllers objectAtIndex:indexPath.row] animated:YES];
      
 }
 
@@ -155,7 +168,11 @@
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
+
+    
 }
+
+
 
 - (void)dealloc {
     [super dealloc];

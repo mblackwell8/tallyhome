@@ -24,4 +24,14 @@
 - (double) daysSince:(NSDate *)date;
 - (double) daysUntil:(NSDate *)date;
 
++ (NSDate *) localDateFromString:(NSString *)dateStr;
+
+@end
+
+@interface NSDate (Fuzzy)
+
+- (NSString *)fuzzyRelativeDateString;
+
+- (NSString *)fuzzyRelativeDateString:(NSDate *)compareDt;
+
 @end

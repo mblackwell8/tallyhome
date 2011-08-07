@@ -15,21 +15,22 @@
 #define TH_FiveYearTimeInterval     365 * 24 * 60 * 60 * 5
 #define TH_TenYearTimeInterval      365 * 24 * 60 * 60 * 10
 
-//@class Indice;
-
-@interface THTimeSeries : NSObject <NSFastEnumeration, NSCoding> {
-    NSMutableArray  *_innerSeries;
+//immutable, ordered collection of THDateVal objects
+@interface THTimeSeries : NSObject <NSFastEnumeration, NSCoding, NSCopying> {
+    NSArray  *_innerSeries;
     //NSTimeInterval backwardsExtrapolationInterval;
     NSTimeInterval trendExtrapolationInterval;
     
     NSMutableDictionary *_calcedIndices;
 }
 
-@property (retain) NSMutableArray *innerIndex;
+@property (retain, nonatomic) NSArray *innerIndex;
 //@property NSTimeInterval backwardsExtrapolationInterval;
 @property NSTimeInterval trendExtrapolationInterval;
 
-- (id) initWithValues:(NSArray *)indices;
+- (id)initWithValues:(NSArray *)indices;
+
+- (id)copyWithZone:(NSZone *)zone;
 
 - (double)dailyRateOfChangeAt:(NSDate *)date;
 + (double)dailyRateOfChangeFrom:(THDateVal *)first to:(THDateVal *)last;

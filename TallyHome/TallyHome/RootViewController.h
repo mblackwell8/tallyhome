@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-//put in a . directory in the documents folder
-#define kTallyHomeArchivePath       @".tallyhome/tallyhome.archive"
-#define kTallyHOmeSettingsPath      @".tallyhome/settings.plist"
+
 
 
 @interface RootViewController : UITableViewController /*<UITableViewDelegate, UITableViewDataSource>*/ {
-    NSArray *_detailControllers;
+    NSMutableArray *_tallyViewDetailControllers;
 }
 
 @property (nonatomic, retain) NSArray *detailControllers;
+
+
 
 
 @end

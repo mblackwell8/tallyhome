@@ -36,7 +36,7 @@ typedef enum { UnknownSource = 0, Govt=1, Agency=2, Other=4 } Source;
 #define TH_Source_AllKnown           7
 
 
-@interface THHomePriceIndex : THTimeSeries <NSCoding> {
+@interface THHomePriceIndex : THTimeSeries <NSCoding, NSCopying> {
 
     Proximity prox;
     NSString *proximityStr;
@@ -49,6 +49,7 @@ typedef enum { UnknownSource = 0, Govt=1, Agency=2, Other=4 } Source;
 @property Source src;
 @property (copy) NSString *sourceTypeStr;
 
+- (id)copyWithZone:(NSZone *)zone;
 
 - (NSString *)description;
 

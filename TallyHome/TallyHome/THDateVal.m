@@ -5,31 +5,42 @@
 
 @interface THDateVal ()
 
-@property (readwrite, retain) NSDate *date;
-@property (readwrite) double val;
-
+@property (readwrite, retain, nonatomic) NSDate *date;
+@property (readwrite, assign) double val;
 
 @end
 
 @implementation THDateVal
 
 
-@synthesize date = _date, val;
+@synthesize date = _date, val, ix = _ix, last = _last, next = _next;
 
-- (id) init {
+- (id)init {
     if ((self = [super init])) {
+        _date = nil;
+        _ix = nil;
+        _last = nil;
+        _next = nil;
+        val = 0;
     }
     
     return self;
 }
 
-- (id) initWithVal:(double)v at:(NSDate *)dt {
+- (id)initWithVal:(double)v at:(NSDate *)dt {
+    NSAssert(dt, @"date should not be nil");
     if ((self = [self init])) {
-        self.val = v;
-        self.date = dt;
+        val = v;
+        _date = [dt retain];
     }
     
     return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    THDateVal *copy = [[THDateVal allocWithZone:zone] initWithVal:self.val at:self.date];
+    //don't copy first, last or ix... these are mutable
+    return copy;
 }
 
 #define kDateEncodeKey  @"Date"
@@ -62,7 +73,6 @@
 - (void)dealloc {
     if (_date) {
         [_date release];
-        _date = nil;
     }
     
     [super dealloc];

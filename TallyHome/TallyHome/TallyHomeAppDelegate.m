@@ -7,6 +7,8 @@
 //
 
 #import "TallyHomeAppDelegate.h"
+#import "DebugMacros.h"
+#import "RootViewController.h"
 
 @implementation TallyHomeAppDelegate
 
@@ -15,9 +17,68 @@
 
 @synthesize navigationController=_navigationController;
 
++ (NSString *)dataFilePath {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *docsDirectory = [paths objectAtIndex:0];
+	return [docsDirectory stringByAppendingPathComponent:kTallyHomeArchivePath];
+}
+
++ (NSString *)settingsFilePath {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *docsDirectory = [paths objectAtIndex:0];
+	return [docsDirectory stringByAppendingPathComponent:kTallyHomeSettingsPath];
+}
+
+- (void)unArchive {
+    NSString *archivePath = [TallyHomeAppDelegate dataFilePath];
+    if (kUseArchive && [[NSFileManager defaultManager] isReadableFileAtPath:archivePath]) {
+        DLog(@"Recovering last use from %@...", archivePath);
+        
+        @try {
+            NSMutableArray *detailControllers = [NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
+            RootViewController *rvc = (RootViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+            rvc.detailControllers = detailControllers;
+        } 
+        @catch ( NSException *e ) {
+            DLog(@"Exception on archive load %@", e);
+        }
+    }
+    
+}
+
+
+
+- (void)doArchive {
+	
+	DLog(@"Archiving...");
+	
+    RootViewController *rvc = (RootViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+	NSString *archivePath = [TallyHomeAppDelegate dataFilePath];
+	NSString *archivePath_TMP = [archivePath stringByAppendingString:@".tmp"];
+	BOOL wasSuccess = [NSKeyedArchiver archiveRootObject:rvc.detailControllers toFile:archivePath_TMP];
+	NSFileManager *dfltMgr = [NSFileManager defaultManager];
+	if (wasSuccess) {
+		//check that a file exists at the path first, because on the first run it won't, so no need to remove
+		BOOL shouldMove = (![dfltMgr fileExistsAtPath:archivePath]) ||
+        ([dfltMgr fileExistsAtPath:archivePath] && [dfltMgr removeItemAtPath:archivePath error:NULL]);
+		if (shouldMove) {
+			[dfltMgr moveItemAtPath:archivePath_TMP
+							 toPath:archivePath
+							  error:NULL];
+		}
+	}
+	
+	DLog(@"Finished archiving... %d", wasSuccess);
+    
+}
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self unArchive];
+    
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
@@ -34,6 +95,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    DLog(@"applicationDidEnterBackground called...");
+    [self doArchive];
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -56,6 +119,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    DLog(@"applicationWillTerminate called...");
+    [self doArchive];
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
