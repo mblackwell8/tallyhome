@@ -135,11 +135,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/TallyView.m"
-         timestampString = "333715216.297887"
+         timestampString = "334653121.07076"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "249"
+         endingLineNumber = "249"
          landmarkName = "-pan:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -149,11 +149,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/TallyView.m"
-         timestampString = "333715216.297887"
+         timestampString = "334653121.07076"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
+         startingLineNumber = "273"
+         endingLineNumber = "273"
          landmarkName = "-pan:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -163,11 +163,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/TallyView.m"
-         timestampString = "333547030.897034"
+         timestampString = "334647993.761807"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
          landmarkName = "-_positionViews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -176,26 +176,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334407509.678201"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
-         landmarkName = "-tallyView:willShuffleCell:fromIndexPosition:toIndexPosition:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "TallyHome/RootViewController.m"
-         timestampString = "333978331.170004"
+         timestampString = "334666117.160799"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "24"
-         endingLineNumber = "24"
+         startingLineNumber = "25"
+         endingLineNumber = "25"
          landmarkName = "-initWithNibName:bundle:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -219,26 +205,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334387890.102548"
+         timestampString = "334673351.426415"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "-encodeWithCoder:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334407509.678201"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "226"
-         endingLineNumber = "226"
-         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -457,11 +429,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334407509.678201"
+         timestampString = "334673351.426415"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -471,11 +443,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334387890.102548"
+         timestampString = "334673351.426415"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
+         startingLineNumber = "117"
+         endingLineNumber = "117"
          landmarkName = "-rowLatestData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -485,11 +457,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334407509.678201"
+         timestampString = "334673351.426415"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "222"
-         endingLineNumber = "222"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -526,13 +498,111 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TallyHome/ScrollingTallyDetailVC.m"
-         timestampString = "334407509.678201"
+         filePath = "TallyHome/TallyViewCell.m"
+         timestampString = "334640284.531513"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
-         landmarkName = "-_applyData:toTallyViewCell:atIndex:"
+         startingLineNumber = "58"
+         endingLineNumber = "58"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/TallyViewCell.m"
+         timestampString = "334640284.531513"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/TallyView.m"
+         timestampString = "334645883.375731"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "69"
+         endingLineNumber = "69"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/TallyView.m"
+         timestampString = "334653695.988393"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "202"
+         endingLineNumber = "202"
+         landmarkName = "-_reshuffleViewsBy:criticalPortionDone:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/ScrollingTallyDetailVC.m"
+         timestampString = "334673351.426415"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "176"
+         endingLineNumber = "176"
+         landmarkName = "-tallyView:dataForCell:atIndexPosition:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/ScrollingTallyDetailVC.m"
+         timestampString = "334673351.426415"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
+         landmarkName = "-tallyView:didShuffleCell:fromIndexPosition:toIndexPosition:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/TallyView.m"
+         timestampString = "334673389.756311"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
+         landmarkName = "-layoutSubviews"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TallyHome/ScrollingTallyDetailVC.m"
+         timestampString = "334673505.805127"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
+         landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

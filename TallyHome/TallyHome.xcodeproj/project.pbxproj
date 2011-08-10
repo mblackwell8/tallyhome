@@ -36,7 +36,6 @@
 		4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BDB13C07BF600E6DE8E /* RootViewController.m */; };
 		4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */; };
 		4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */; };
-		4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */; };
 		4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */; };
 		4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */; };
 		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
@@ -173,7 +172,6 @@
 		4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		4DD54BDF13C07DFC00E6DE8E /* PropertySettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertySettingsVC.h; sourceTree = "<group>"; };
 		4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertySettingsVC.m; sourceTree = "<group>"; };
-		4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertySettingsVC.xib; sourceTree = "<group>"; };
 		4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyDetailVC.m; sourceTree = "<group>"; };
 		4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectorVC.h; sourceTree = "<group>"; };
@@ -406,7 +404,6 @@
 				4D055A74139A1E0600F13781 /* MainWindow.xib */,
 				4DD54BDF13C07DFC00E6DE8E /* PropertySettingsVC.h */,
 				4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */,
-				4DD54BE113C07DFC00E6DE8E /* PropertySettingsVC.xib */,
 				4DD54BE713C081B200E6DE8E /* TallyDetailVC.h */,
 				4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */,
 				4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */,
@@ -496,7 +493,6 @@
 				4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */,
 				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
 				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
-				4DD54BE313C07DFC00E6DE8E /* PropertySettingsVC.xib in Resources */,
 				4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */,
 				4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */,
 			);

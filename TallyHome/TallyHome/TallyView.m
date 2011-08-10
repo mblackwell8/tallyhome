@@ -30,9 +30,12 @@
     [super addGestureRecognizer:pang];
     [pang release];
     
+    [super setBackgroundColor:[UIColor grayColor]];
+    
     _panPointsSinceLastReshuffle = 0.0;
     _scrollPosition = 0;
     _shldReloadCells = YES;
+    _shldRedrawBackground = YES;
     
 }
 
@@ -56,18 +59,61 @@
 
 
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    if (!_shldRedrawBackground)
+        return;
+        
+    UIBezierPath *bgrd = [UIBezierPath bezierPath];
+    
+    CGFloat ht = self.frame.size.height;
+    CGFloat wd = self.frame.size.width;
+    CGFloat offset = 10.0;
+    CGPoint topLeft = CGPointMake(wd * (1- TH_POSN0_SCALE) / 2.0 - offset, 
+                                  ht / TH_NUMVISIBLECELLS * (1 - TH_POSN0_SCALE) / 2.0 - offset);
+    [bgrd moveToPoint:topLeft];
+    
+    CGPoint topright = CGPointMake(topLeft.x + wd * TH_POSN0_SCALE + offset * 2.0,
+                                   topLeft.y);
+    [bgrd addLineToPoint:topright];
+    
+    CGPoint midUpperRight = CGPointMake(wd - (wd * (1 - TH_POSN3_SCALE) / 2.0) + offset, 
+                                        ht / TH_NUMVISIBLECELLS * 2.0);
+    CGPoint midUpperRightCtrl = CGPointMake(midUpperRight.x, (topright.y + midUpperRight.y) / 2.0);
+    [bgrd addQuadCurveToPoint:midUpperRight controlPoint:midUpperRightCtrl];
+    
+    CGPoint midLowerRight = CGPointMake(midUpperRight.x, ht / TH_NUMVISIBLECELLS * 3.0);
+    [bgrd addLineToPoint:midLowerRight];
+    
+    CGPoint bottomRight = CGPointMake(topright.x, ht - topright.y);
+    CGPoint midLowerRightCtrl = CGPointMake(midUpperRight.x, (midLowerRight.y + bottomRight.y) / 2.0);
+    [bgrd addQuadCurveToPoint:bottomRight controlPoint:midLowerRightCtrl];
+    
+    CGPoint bottomLeft = CGPointMake(topLeft.x, bottomRight.y);
+    [bgrd addLineToPoint:bottomLeft];
+    
+    CGPoint midLowerLeft = CGPointMake(wd * (1 - TH_POSN3_SCALE) / 2.0 - offset, midLowerRight.y);
+    CGPoint midLowerLeftCtrl = CGPointMake(midLowerLeft.x, midLowerRightCtrl.y);
+    [bgrd addQuadCurveToPoint:midLowerLeft controlPoint:midLowerLeftCtrl];
+    
+    CGPoint midUpperLeft = CGPointMake(midLowerLeft.x, midUpperRight.y);
+    [bgrd addLineToPoint:midUpperLeft];
+    
+    CGPoint midUpperLeftCtrl = CGPointMake(midLowerLeftCtrl.x, midUpperRightCtrl.y);
+    [bgrd addQuadCurveToPoint:topLeft controlPoint:midUpperLeftCtrl];
+
+    [[UIColor whiteColor] setFill];
+    [bgrd fill];
+    
+    _shldRedrawBackground = NO;
+}
+
+ 
 
 - (void)dealloc {
-    self.cells = nil;
-    self.delegate = nil;
+    [_cells release];
     [super dealloc];
 }
 
@@ -90,6 +136,7 @@
         CGFloat scaleFactor = h / v.frame.size.height;
         [_delegate tallyView:self willAdjustCellSize:v by:scaleFactor];
         v.frame = CGRectMake(x, y, w, h);
+        [v scaleFontsBy:scaleFactor];
         [_delegate tallyView:self didAdjustCellSize:v by:scaleFactor];
         
         currY += height;
@@ -110,6 +157,8 @@
     
     [_delegate tallyView:self willAdjustCellSize:view by:scale];
     view.frame = CGRectMake(x, y, w, h);
+    [view scaleFontsBy:scale];
+    [view setNeedsDisplay];
     [_delegate tallyView:self didAdjustCellSize:view by:scale];
 }
 
@@ -132,18 +181,16 @@
     [super layoutSubviews];
 }
 
+- (void)reloadData {
+    //not sure if this will be enough...
+    NSInteger i = 0;
+    for (TallyViewCell *v in self.subviews) {
+        [_delegate tallyView:self dataForCell:v atIndexPosition:i];
+        [v setNeedsDisplay];
+        i += 1;
+    } 
+}
 
-// arrange in 5 rows
-//- (void)setViews:(NSArray *)views {
-//    _views = [NSMutableArray arrayWithArray:views];
-//    NSAssert(_views.count == 7, @"Need seven views in the array");
-//    [self _positionViews];
-//    for (UIView *v in _views) {
-//        [self addSubview:v];
-//    }
-//    
-//    [_views retain];
-//}
 
 //returns YES if the views are shuffled forwards
 - (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion {
@@ -161,25 +208,27 @@
             TallyViewCell *tmp = [_cells lastObject];
             [_delegate tallyView:self willShuffleCell:tmp fromIndexPosition:6 toIndexPosition:0];
             [_cells removeLastObject];
+            _scrollPosition += 1;
             [_delegate tallyView:self dataForCell:tmp atIndexPosition:0];
             [_cells insertObject:tmp atIndex:0];
             [self _positionViews];
             [_delegate tallyView:self didShuffleCell:tmp fromIndexPosition:6 toIndexPosition:0];
             
             _panPointsSinceLastReshuffle = fmaxf(_panPointsSinceLastReshuffle - cellHeight, 0.0);
-            _scrollPosition += 1;
+            
         }
         else if (_panPointsSinceLastReshuffle < 0.0) {
             TallyViewCell *tmp = [_cells objectAtIndex:0];
             [_delegate tallyView:self willShuffleCell:tmp fromIndexPosition:0 toIndexPosition:6];
             [_cells removeObjectAtIndex:0];
+            _scrollPosition -= 1;
             [_delegate tallyView:self dataForCell:tmp atIndexPosition:6];
             [_cells addObject:tmp];
             [self _positionViews];
             [_delegate tallyView:self didShuffleCell:tmp fromIndexPosition:0 toIndexPosition:6];
             
             _panPointsSinceLastReshuffle = fminf(_panPointsSinceLastReshuffle + cellHeight, 0.0);
-            _scrollPosition -= 1;
+            
         }
         
         

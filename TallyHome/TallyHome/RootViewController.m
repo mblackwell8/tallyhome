@@ -10,6 +10,7 @@
 #import "TallyHomeAppDelegate.h"
 #import "TallyDetailVC.h"
 #import "ScrollingTallyDetailVC.h"
+#import "DebugMacros.h"
 
 @implementation RootViewController
 
@@ -30,7 +31,7 @@
 - (void)viewDidLoad {
     
     if (!_tallyViewDetailControllers) {
-        DLog(@"_tallyViewDataControllers nil, creating new object")
+        DLog(@"_tallyViewDataControllers nil, creating new object");
         NSMutableArray *dcs = [[NSMutableArray alloc] init];
         self.detailControllers = dcs;
         [dcs release];
@@ -49,7 +50,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    // if there is only one detail controller, then navigate to it
+    //data may have changed, so reload it
+    [self.tableView reloadData];
     
     [super viewWillAppear:animated];
 }
@@ -90,7 +92,8 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+                                       reuseIdentifier:CellIdentifier] autorelease];
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

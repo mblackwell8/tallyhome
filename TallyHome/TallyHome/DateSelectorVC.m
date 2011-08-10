@@ -14,8 +14,8 @@
 
 @synthesize datePicker;
 @synthesize dateTableView;
-@synthesize date;
-//@synthesize delegate;
+@synthesize date = _date;
+@synthesize delegate = _delegate;
 
 -(IBAction)dateChanged {
     self.date = [datePicker date];
@@ -31,7 +31,12 @@
     return self;
 }
 
-
+- (void)dealloc  {
+    [datePicker release];
+    [dateTableView release];
+    [_date release];
+    [super dealloc];
+}
 
 
 
@@ -97,24 +102,24 @@
 //}
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (self.date != nil)
-        [self.datePicker setDate:date animated:YES];
+    if (_date != nil)
+        [self.datePicker setDate:_date animated:YES];
     else 
         [self.datePicker setDate:[NSDate date] animated:YES];
     
     [super viewWillAppear:animated];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [_delegate setDate:_date];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc  {
-    [datePicker release];
-    [dateTableView release];
-    [date release];
-    [super dealloc];
-}
+
 #pragma mark -
 #pragma mark Table View Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -131,7 +136,7 @@
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMMM dd, yyyy"];
-    cell.textLabel.text = [formatter stringFromDate:date];
+    cell.textLabel.text = [formatter stringFromDate:_date];
     [formatter release];
     
     

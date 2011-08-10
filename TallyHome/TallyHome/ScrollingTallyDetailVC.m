@@ -7,13 +7,20 @@
 //
 
 #import "ScrollingTallyDetailVC.h"
+#import "DebugMacros.h"
 
 #define kUnknownLocation @"Unknown"
+
+@interface ScrollingTallyDetailVC ()
+
+@property (nonatomic, retain, readwrite) THTimeSeries *displayedData;
+@end
 
 @implementation ScrollingTallyDetailVC
 @synthesize customizeAlertImage = _customizeAlertImage;
 @synthesize scrollView = _scrollView;
-@synthesize propertyName = _propertyName, pricePath = _pricePath, location = _location;
+@synthesize propertyName = _propertyName, pricePath = _pricePath, 
+        location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData;
 
 
 static NSDateFormatter *dateLblFormatter;
@@ -26,12 +33,15 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     normalValueLblFormatter = [[NSNumberFormatter alloc] init];
     [normalValueLblFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [normalValueLblFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [normalValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.05]];
+    [normalValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
+    
+    //HACK: this seems to work, but looks inappropriate... may not localize
+    [normalValueLblFormatter setMaximumFractionDigits:0];
     
     middleValueLblFormatter = [[NSNumberFormatter alloc] init]; 
     [middleValueLblFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [middleValueLblFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [normalValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
+    [middleValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
 
 }
 
@@ -47,9 +57,9 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        self.location = kUnknownLocation;
-        self.propertyName = self.location;
+        //HACK: these are released... problematic?
+        _location = kUnknownLocation;
+        _propertyName = kUnknownLocation;
 
     }
     return self;
@@ -59,8 +69,6 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
 
 #define kVerNoCoding    @"VerNo"
 #define kLocation       @"Location"
-//#define kPurchDate      @"PurchDate"
-//#define kPurchPrice     @"PurchPrice"
 #define kPropertyName   @"PropName"
 #define kPricePath      @"PricePath"
 
@@ -68,10 +76,7 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
 - (void) encodeWithCoder:(NSCoder *)encoder {
     DLog(@"Encoding ScrollingTallyDetailVC");
     [encoder encodeObject:GetTallyHomeVersionNum forKey:kVerNoCoding];
-    
     [encoder encodeObject:_location forKey:kLocation];
-    //    [encoder encodeObject:_purchDate forKey:kPurchDate];
-    //    [encoder encodeDouble:purchasePrice forKey:kPurchPrice];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
 }
@@ -80,20 +85,31 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     
     if ((self = [self init])) {
         DLog(@"Decoding ScrollingTallyDetailVC");
-        if (!(self.location = [decoder decodeObjectForKey:kLocation])) {
-            self.location = kUnknownLocation;
+        if (!(_location = [[decoder decodeObjectForKey:kLocation] retain])) {
+            _location = kUnknownLocation;
         }
-        if (!(self.propertyName = [decoder decodeObjectForKey:kPropertyName])) {
-            self.propertyName = self.location;
+        if (!(_propertyName = [[decoder decodeObjectForKey:kPropertyName] retain])) {
+            _propertyName = kUnknownLocation;
         }
-        if (!(self.pricePath = [decoder decodeObjectForKey:kPricePath])) {
-            self.pricePath = nil;
+        if (!(_pricePath = [[decoder decodeObjectForKey:kPricePath] retain])) {
+            _pricePath = nil;
         }
     }
     
     return self;
 }
 
+- (void)dealloc {
+    [_location release];
+    [_propertyName release];
+    [_pricePath release];
+    [_displayedData release];
+    
+    [_customizeAlertImage release];
+    [_scrollView release];
+    [_waitingForDataIndicator release];
+    [super dealloc];
+}
 
 #pragma mark TallyDetailVC
 
@@ -116,60 +132,44 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     //make an arbitrary height, so that construction works
     TallyViewCell *cell = [[TallyViewCell alloc] initWithFrame:CGRectMake(0, 0, tallyView.frame.size.width, tallyView.frame.size.height / 7.0)];
     
-    cell.dateLabel.backgroundColor = [UIColor grayColor];
-    cell.dateLabel.text = @"30 June 2011";
-    cell.valueLabel.backgroundColor = [UIColor whiteColor];
-    cell.valueLabel.text = @"$X,XXX,XXX.00";
-    cell.commentLabel.backgroundColor = [UIColor grayColor];
-    cell.commentLabel.text = @"Increased by 3%";
-    
-    cell.layer.borderColor = [UIColor blackColor].CGColor;
-    cell.layer.borderWidth = 2.0f;
-    cell.layer.cornerRadius = 0.0f;//10.0f;
-    
     return [cell autorelease];
 }
 
 - (void)tallyView:(TallyView *)tallyView willAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor {
-    for(UILabel *lbl in cell.subviews) {
-        CGFloat newSz = lbl.font.pointSize * scaleFactor;
-        lbl.font = [lbl.font fontWithSize:newSz];
-    }
+
 }
 
 - (void)tallyView:(TallyView *)tallyView didAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor {
-    //do nothing for now
     
-    return;
 }
 
 - (void)tallyView:(TallyView *)tallyView willShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx {
     
-    THDateVal *newData = nil;
-    if (fromIx == 6 && toIx == 0) {
-        THDateVal *ixZero = cell.data;
-        newData = [_displayedData calcValueAt:[ixZero.date addDays:365]];  // add one year to ixZero date
-    }
-    else if (fromIx == 0 && toIx == 6) {
-        THDateVal *ixSix = cell.data;
-        newData = [_displayedData calcValueAt:[ixSix.date addDays:-365]];  // subtract one year from ixSix date
-    }
-    else {
-        // adjust colors???
-        
-        return;
-    }
-    
-    //NSAssert(newData, @"New data not initialized");
-    if (!newData)
-        DLog(@"newData is nil at fromIx %d toIx %d", fromIx, toIx);
-    [self _applyData:newData toTallyViewCell:cell atIndex:toIx];
 }
 
 - (void)tallyView:(TallyView *)tallyView didShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx {
-    // reformat the middle label
+    if (fromIx == toIx) {
+        DLog(@"ERROR: fromIx == toIx == %d", fromIx);
+        return;
+    }
+    
+    // reformat the incoming middle label
     TallyViewCell *middleLbl = [_scrollView.cells objectAtIndex:3];
-    [self _applyData:middleLbl.data toTallyViewCell:middleLbl atIndex:3];
+    middleLbl.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:middleLbl.data.val]]; 
+    [middleLbl setNeedsDisplay];
+    
+    // reformat the outgoing middle label
+    TallyViewCell *oldMiddleLbl = nil;
+    if (fromIx < toIx) {
+        //moving up, so old middle label is now at position 2
+        oldMiddleLbl = [_scrollView.cells objectAtIndex:2];
+    }
+    else {
+        oldMiddleLbl = [_scrollView.cells objectAtIndex:4];
+    }
+    oldMiddleLbl.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:oldMiddleLbl.data.val]]; 
+    [oldMiddleLbl setNeedsDisplay];
+    
 }
 
 - (void)tallyView:(TallyView *)tallyView dataForCell:(TallyViewCell *)cell atIndexPosition:(NSInteger)ix {
@@ -181,28 +181,38 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
 
 - (void)_applyData:(THDateVal *)data toTallyViewCell:(TallyViewCell *)cell atIndex:(NSInteger)ix {
     
-    UILabel *dateLbl = [cell.subviews objectAtIndex:0];
-    dateLbl.text = [data.date fuzzyRelativeDateString];
+    cell.dateLabel = [data.date fuzzyRelativeDateString];
     
-    UILabel *valueLbl = [cell.subviews objectAtIndex:1];
     if (ix == 3)
-        valueLbl.text = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithFloat:data.val]];
+        cell.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
     else
-        valueLbl.text = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithFloat:data.val]];
+        cell.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
     
-    UILabel *changeLbl = [cell.subviews objectAtIndex:2];
-    changeLbl.text = @"TODO: Change label";
+    cell.commentLabel = @"TODO: Change label";
     cell.data = data;
+
+    [cell setNeedsDisplay];
 }
 
-
-
-- (void)dealloc {
-    [_customizeAlertImage release];
-    [_scrollView release];
-    [_displayedData release];
-    [super dealloc];
+- (void)_editProperty {
+    PropertySettingsVC *propSettings = [[PropertySettingsVC alloc] initWithStyle:UITableViewStyleGrouped];
+    propSettings.delegate = self;
+    [self.navigationController pushViewController:propSettings animated:YES];
+    [propSettings release];
 }
+
+//- (NSString *)location;
+//- (NSString *)propertyName;
+- (THDateVal *)buyPrice {
+    return _pricePath.buyPrice;
+}
+
+//- (void)setLocation:(NSString *)location;
+//- (void)setPropertyName:(NSString *)propName;
+- (void)setBuyPrice:(THDateVal *)dateVal {
+    _pricePath.buyPrice = dateVal;
+}
+
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -217,15 +227,24 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _scrollView.delegate = self;
+    
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(_editProperty)];          
+    self.navigationItem.rightBarButtonItem = editButton;
+    [editButton release];
+    
     if (!_pricePath) {
         DLog(@"_pricePath nil, initializing");
         [self _initPricePath];
     }
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     DLog(@"making price path...");
-    _displayedData = [_pricePath makePricePath];
-    DLog(@"...done");
-    [_displayedData retain];
+    self.displayedData = [_pricePath makePricePath];
+    [_scrollView reloadData];
 }
 
 - (void)_initPricePath {

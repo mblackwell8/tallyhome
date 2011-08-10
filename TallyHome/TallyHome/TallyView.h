@@ -44,7 +44,7 @@
 
 
 @interface TallyView : UIView {
-    id <TallyViewDelegate> _delegate;
+    id<TallyViewDelegate> _delegate;
             
     CGFloat _panPointsSinceLastReshuffle;
     
@@ -57,13 +57,17 @@
     NSInteger _scrollPosition;
     
     BOOL _shldReloadCells;
+    BOOL _shldRedrawBackground;
         
 }
 
 @property (retain, nonatomic) NSArray *cells;
 
-@property (retain, nonatomic) id <TallyViewDelegate> delegate;
+//not retained
+@property (assign, nonatomic) id<TallyViewDelegate> delegate;
 
 @property NSInteger scrollPosition;
+
+- (void)reloadData;
 
 @end

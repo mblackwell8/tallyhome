@@ -8,25 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-//@protocol DateViewDelegate <NSObject>
-//@required
-//- (void)takeNewDate:(NSDate *)newDate;
+@protocol DateSelectorDelegate <NSObject>
+@required
+- (void)setDate:(NSDate *)newDate;
 //- (UINavigationController *)navController;          // Return the navigation controller
-//@end
+@end
 
 @interface DateSelectorVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UITableView  *dateTableView;
-    NSDate *date;
+    NSDate *_date;
     
-    //    id <DateViewDelegate>   delegate;   // weak ref
+    id <DateSelectorDelegate> _delegate;   // weak ref
 }
 
 @property (nonatomic, retain) UIDatePicker *datePicker;
 @property (nonatomic, retain) UITableView *dateTableView;
 @property (nonatomic, retain) NSDate *date;
-//@property (nonatomic, assign)  id <DateViewDelegate> delegate;
+@property (nonatomic, assign)  id <DateSelectorDelegate> delegate;
 -(IBAction)dateChanged;
 
 @end
