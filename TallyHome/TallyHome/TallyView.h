@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TallyViewCell.h"
+#import "FlickDynamics.h"
+#import <QuartzCore/CADisplayLink.h>
 
 @class TallyView;
 
@@ -47,6 +49,7 @@
     id<TallyViewDelegate> _delegate;
             
     CGFloat _panPointsSinceLastReshuffle;
+    CGFloat _movePointsSinceLastMove;
     
     NSMutableArray *_cells;
     
@@ -58,6 +61,12 @@
     
     BOOL _shldReloadCells;
     BOOL _shldRedrawBackground;
+    
+    CGFloat _panDecelerationCurrentVerticalSpeed;
+    CADisplayLink *_displayLink;
+    BOOL _isDecelerating;
+    BOOL _shldStopDecelerating;
+    CFTimeInterval _lastDecelTimestamp;
         
 }
 
@@ -67,6 +76,12 @@
 @property (assign, nonatomic) id<TallyViewDelegate> delegate;
 
 @property NSInteger scrollPosition;
+
+- (void)_positionViews:(BOOL)animate;
+- (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion animated:(BOOL)animated;
+- (void)_scrollBy:(CGFloat)move panningFast:(BOOL)isPanningFast;
+- (void)_drawDecelaratingFrame:(CADisplayLink *)sender;
+- (void)_endPan;
 
 - (void)reloadData;
 

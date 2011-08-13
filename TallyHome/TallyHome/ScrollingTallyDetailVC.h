@@ -40,13 +40,13 @@
 @property (nonatomic, retain) IBOutlet TallyView *scrollView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *waitingForDataIndicator;
 
-@property (nonatomic, retain) NSString *location;
-@property (nonatomic, retain) NSString *propertyName;
+@property (nonatomic, copy) NSString *location;
+@property (nonatomic, copy) NSString *propertyName;
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 
 - (void)_initPricePath;
-- (void)_applyData:(THDateVal *)data toTallyViewCell:(UIView *)cell atIndex:(NSInteger)ix;
+//- (void)_applyData:(THDateVal *)data toTallyViewCell:(UIView *)cell atIndex:(NSInteger)ix;
 - (void)_editProperty;
 
 

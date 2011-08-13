@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "THDateVal.h"
 
+@class PropertySettingsVC;
+
 @protocol PropertySettingsDelegate <NSObject>
 
-- (NSString *)location;
-- (NSString *)propertyName;
-- (THDateVal *)buyPrice;
-- (void)setLocation:(NSString *)location;
-- (void)setPropertyName:(NSString *)propName;
-- (void)setBuyPrice:(THDateVal *)dateVal;
+@optional
+
+- (void)propertySettingsWillFinishDone:(PropertySettingsVC *)propSettings;
+- (void)propertySettingsWillFinishCancelled:(PropertySettingsVC *)propSettings;
 
 @end
 
@@ -33,6 +33,9 @@
 @property (copy, nonatomic) NSString *location;
 @property (copy, nonatomic) NSString *propertyName;
 @property (retain, nonatomic) THDateVal *buyPrice;
+
+- (void)_done;
+- (void)_cancel;
 
 
 @end

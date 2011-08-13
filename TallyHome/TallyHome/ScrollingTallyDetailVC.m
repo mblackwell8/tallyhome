@@ -23,27 +23,6 @@
         location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData;
 
 
-static NSDateFormatter *dateLblFormatter;
-static NSNumberFormatter *normalValueLblFormatter;
-static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places see setRoundingIncrement
-
-+ (void) initialize {
-    dateLblFormatter = [[NSDateFormatter alloc] init];
-    
-    normalValueLblFormatter = [[NSNumberFormatter alloc] init];
-    [normalValueLblFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [normalValueLblFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [normalValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
-    
-    //HACK: this seems to work, but looks inappropriate... may not localize
-    [normalValueLblFormatter setMaximumFractionDigits:0];
-    
-    middleValueLblFormatter = [[NSNumberFormatter alloc] init]; 
-    [middleValueLblFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [middleValueLblFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [middleValueLblFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
-
-}
 
 - (id)init {
     if ((self = [self initWithNibName:@"ScrollingTallyDetailVC" bundle:nil])) {
@@ -148,27 +127,27 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
 }
 
 - (void)tallyView:(TallyView *)tallyView didShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx {
-    if (fromIx == toIx) {
-        DLog(@"ERROR: fromIx == toIx == %d", fromIx);
-        return;
-    }
-    
-    // reformat the incoming middle label
-    TallyViewCell *middleLbl = [_scrollView.cells objectAtIndex:3];
-    middleLbl.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:middleLbl.data.val]]; 
-    [middleLbl setNeedsDisplay];
-    
-    // reformat the outgoing middle label
-    TallyViewCell *oldMiddleLbl = nil;
-    if (fromIx < toIx) {
-        //moving up, so old middle label is now at position 2
-        oldMiddleLbl = [_scrollView.cells objectAtIndex:2];
-    }
-    else {
-        oldMiddleLbl = [_scrollView.cells objectAtIndex:4];
-    }
-    oldMiddleLbl.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:oldMiddleLbl.data.val]]; 
-    [oldMiddleLbl setNeedsDisplay];
+//    if (fromIx == toIx) {
+//        DLog(@"ERROR: fromIx == toIx == %d", fromIx);
+//        return;
+//    }
+//    
+//    // reformat the incoming middle label
+//    TallyViewCell *middleLbl = [_scrollView.cells objectAtIndex:3];
+//    middleLbl.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:middleLbl.data.val]]; 
+//    [middleLbl setNeedsDisplay];
+//    
+//    // reformat the outgoing middle label
+//    TallyViewCell *oldMiddleLbl = nil;
+//    if (fromIx < toIx) {
+//        //moving up, so old middle label is now at position 2
+//        oldMiddleLbl = [_scrollView.cells objectAtIndex:2];
+//    }
+//    else {
+//        oldMiddleLbl = [_scrollView.cells objectAtIndex:4];
+//    }
+//    oldMiddleLbl.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:oldMiddleLbl.data.val]]; 
+//    [oldMiddleLbl setNeedsDisplay];
     
 }
 
@@ -176,41 +155,53 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     NSInteger yearsAhead = tallyView.scrollPosition + (3 - ix);
     THDateVal *data = [_displayedData calcValueAt:[[NSDate date] addDays:(yearsAhead * 365)]];
     cell.data = data;
-    [self _applyData:data toTallyViewCell:cell atIndex:ix];
-}
-
-- (void)_applyData:(THDateVal *)data toTallyViewCell:(TallyViewCell *)cell atIndex:(NSInteger)ix {
-    
-    cell.dateLabel = [data.date fuzzyRelativeDateString];
-    
-    if (ix == 3)
-        cell.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
-    else
-        cell.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
-    
-    cell.commentLabel = @"TODO: Change label";
-    cell.data = data;
-
     [cell setNeedsDisplay];
 }
+
+//- (void)_applyData:(THDateVal *)data toTallyViewCell:(TallyViewCell *)cell atIndex:(NSInteger)ix {
+//    
+//    cell.dateLabel = [data.date fuzzyRelativeDateString];
+//    
+//    if (ix == 3)
+//        cell.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
+//    else
+//        cell.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
+//    
+//    cell.commentLabel = @"TODO: Change label";
+//    cell.data = data;
+//
+//    [cell setNeedsDisplay];
+//}
 
 - (void)_editProperty {
     PropertySettingsVC *propSettings = [[PropertySettingsVC alloc] initWithStyle:UITableViewStyleGrouped];
     propSettings.delegate = self;
-    [self.navigationController pushViewController:propSettings animated:YES];
+    propSettings.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    propSettings.location = _location;
+    propSettings.propertyName = _propertyName;
+    propSettings.buyPrice = _pricePath.buyPrice;
+    
+    //[self.navigationController pushViewController:propSettings animated:YES];
+    
+    //following http://developer.apple.com/library/ios/#featuredarticles/ViewControllerPGforiPhoneOS/ModalViewControllers/ModalViewControllers.html
+    
+    UINavigationController *navCtrlr = [[UINavigationController alloc]
+                                                    initWithRootViewController:propSettings];
+    [self presentModalViewController:navCtrlr animated:YES];
+    
     [propSettings release];
+    [navCtrlr release]; 
 }
 
-//- (NSString *)location;
-//- (NSString *)propertyName;
-- (THDateVal *)buyPrice {
-    return _pricePath.buyPrice;
+- (void)propertySettingsWillFinishDone:(PropertySettingsVC *)propSettings {
+    self.location = propSettings.location;
+    self.propertyName = propSettings.propertyName;
+    _pricePath.buyPrice = propSettings.buyPrice;
+    
+    [self dismissModalViewControllerAnimated:YES];
 }
-
-//- (void)setLocation:(NSString *)location;
-//- (void)setPropertyName:(NSString *)propName;
-- (void)setBuyPrice:(THDateVal *)dateVal {
-    _pricePath.buyPrice = dateVal;
+- (void)propertySettingsWillFinishCancelled:(PropertySettingsVC *)propSettings {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

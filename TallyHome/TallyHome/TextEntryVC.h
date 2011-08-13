@@ -8,16 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
+@class TextEntryVC;
+
+@protocol TextEntryVCDelegate <NSObject>
+
+@optional
+
+- (BOOL)textEntryShouldEndEditing:(TextEntryVC *)textEntry;
+- (BOOL)textEntryShouldReturn:(TextEntryVC *)textEntry;
+
+@end
+
 
 @interface TextEntryVC : UIViewController {
-    IBOutlet UITextField *_textField;
-    NSString *_checkRegex;
+    UITextField *_textField;
     
-    //some setting for the keyboard to show
+    id <TextEntryVCDelegate> _delegate;
+    
     
 }
 
-@property (nonatomic, retain) NSString *enteredText;
+@property (nonatomic, readonly, retain) IBOutlet UITextField *textField;
+
+@property (nonatomic, assign) id <TextEntryVCDelegate> delegate;
 
 
 @end

@@ -12,21 +12,21 @@
 @interface TallyViewCell : UIView {
     NSString *_dateLabel;
     NSString *_valueLabel;
-    NSString *_commentLabel;
     
     UIFont *_dateFont;  
+    UIFont *_panningFastDateFont;
     UIFont *_valueFont;
     UIFont *_commentFont;
     
     // this is just a convenience tag
     THDateVal *_data;
     
+    BOOL _isPanningFast;
+    
 }
 
-@property (retain, nonatomic) NSString *dateLabel;
-@property (retain, nonatomic) NSString *valueLabel;
-@property (retain, nonatomic) NSString *commentLabel;
-@property (retain, nonatomic) THDateVal *data;
+@property (copy, nonatomic) THDateVal *data;
+@property (assign, nonatomic) BOOL isPanningFast;
 
 - (void)scaleFontsBy:(CGFloat)scaleFactor;
 

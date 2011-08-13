@@ -39,6 +39,16 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)_done {
+    if ([_delegate respondsToSelector:@selector(propertySettingsWillFinishDone:)])
+        [_delegate propertySettingsWillFinishDone:self];
+}
+
+- (void)_cancel {
+    if ([_delegate respondsToSelector:@selector(propertySettingsWillFinishCancelled:)])
+        [_delegate propertySettingsWillFinishCancelled:self];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -47,10 +57,22 @@
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
-    self.title = @"Settings";
+    self.title = @"Property Settings";
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(_done)]; 
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(_cancel)]; 
+    
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
+    [doneButton release];
+    [cancelButton release];
 }
 
 - (void)viewDidUnload
@@ -63,10 +85,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    self.location = [_delegate location];
-    self.propertyName = [_delegate propertyName];
-    self.buyPrice = [_delegate buyPrice];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -75,10 +93,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [_delegate setLocation:_location];
-    [_delegate setPropertyName:_propertyName];
-    [_delegate setBuyPrice:_buyPrice];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -143,7 +158,7 @@
 
         default:
             break;
-}
+    }
     
     return cell;
 }
@@ -197,6 +212,29 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+    
+    switch (indexPath.row) {
+        case 0:
+            //Location, edit with text
+            break;
+            
+        case 1:
+            //Purchase date, edit with date control
+            
+            break;
+            
+        case 2:
+            // buy price, edit with 
+            break;
+            
+        case 3:
+            //Label, edit with text
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 @end

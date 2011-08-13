@@ -8,8 +8,16 @@
 
 #import "TextEntryVC.h"
 
+@interface TextEntryVC ()
+
+@property (nonatomic, readwrite, retain) UITextField *textField;
+
+@end
+
 
 @implementation TextEntryVC
+
+@synthesize textField = _textField, delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +31,13 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (IBAction)textFieldDoneEditing:(id)sender {
+    if ([_delegate respondsToSelector:@selector(textEntryShouldReturn:)] &&
+        [_delegate textEntryShouldReturn:self]) {
+        [sender resignFirstResponder];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +54,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)viewDidUnload
@@ -54,4 +70,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+     - (IBAction)textFieldDoneEditing:(id)sender {
+     }
 @end
