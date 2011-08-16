@@ -14,6 +14,24 @@
 
 @synthesize delegate = _delegate, location = _location, propertyName = _propertyName, buyPrice = _buyPrice;
 
+static NSDateFormatter *dateFormatter;
+static NSNumberFormatter *priceFormatter;
+
++ (void) initialize {
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    //HACK: this seems to work, but looks inappropriate... may not localize
+    [priceFormatter setMaximumFractionDigits:0];
+    
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -135,17 +153,11 @@
             
         case 1:
             cell.textLabel.text = @"Purchase date";
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
             cell.detailTextLabel.text = [dateFormatter stringFromDate:_buyPrice.date];
             break;
             
         case 2:
             cell.textLabel.text = @"Price";
-            NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
-            [priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-            [priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
             NSNumber *price = [[NSNumber alloc] initWithDouble:_buyPrice.val];
             cell.detailTextLabel.text = [priceFormatter stringFromNumber:price];
             [price release];
@@ -202,38 +214,55 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-    
-    switch (indexPath.row) {
-        case 0:
-            //Location, edit with text
-            break;
-            
-        case 1:
-            //Purchase date, edit with date control
-            
-            break;
-            
-        case 2:
-            // buy price, edit with 
-            break;
-            
-        case 3:
-            //Label, edit with text
-            break;
-            
-        default:
-            break;
-    }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+//    TextEntryVC *locnEntryVC = nil;
+//    DateSelectorVC *buyDateEntryVC = nil;
+//    TextEntryVC *buyPriceEntryVC = nil;
+//    TextEntryVC *labelEntryVC = nil;
+//    
+//    switch (indexPath.row) {
+//        case 0:
+//            //Location, edit with text        
+//            locnEntryVC = [[TextEntryVC alloc] init];
+//            locnEntryVC.delegate = self;
+//            locnEntryVC.textField.text = _location;
+//            locnEntryVC.view.tag = 0;
+//            [self.navigationController pushViewController:locnEntryVC animated:YES];
+//            [locnEntryVC release];
+//            break;
+//            
+//        case 1:
+//            //Purchase date, edit with date control
+//            buyDateEntryVC = [[DateSelectorVC alloc] init];
+//            buyDateEntryVC.delegate = self;
+//            buyDateEntryVC.datePicker.date = _buyPrice.date;
+//            [self.navigationController pushViewController:buyDateEntryVC animated:YES];
+//            [buyDateEntryVC release];
+//            break;
+//            
+//        case 2:
+//            // buy price, edit with 
+//            buyPriceEntryVC = [[TextEntryVC alloc] init];
+//            buyPriceEntryVC.delegate = self;
+//            NSNumber *value = [NSNumber numberWithDouble:_buyPrice.val];
+//            buyPriceEntryVC.textField.text = [priceFormatter stringFromNumber:value];
+//            [self.navigationController pushViewController:buyPriceEntryVC animated:YES];
+//            [buyPriceEntryVC release];
+//            break;
+//            
+//        case 3:
+//            //Label, edit with text
+//            labelEntryVC = [[TextEntryVC alloc] init];
+//            labelEntryVC.delegate = self;
+//            labelEntryVC.textField.text = _propertyName;
+//            [self.navigationController pushViewController:labelEntryVC animated:YES];
+//            [labelEntryVC release];
+//            break;
+//            
+//        default:
+//            break;
+//    }
 
 }
 

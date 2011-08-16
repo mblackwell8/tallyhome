@@ -21,17 +21,10 @@
 
 #define TH_NUMVISIBLECELLS 5.0
 
-//#define TH_MAXSPEED_FULLYDRAWINGCELLS           50.0
-#define TH_DECELERATION_START_VERTSPEED_MIN     250.0
-//#define TH_DECELERATION_MOVE_MIN                3.0
-#define TH_DECELERATION_DAMP                    0.95
-#define TH_DECELERATION_MOTION_MIN              0.1
-#define TH_DECELERATION_STOP_VERTSPEED_MIN      20.0
-#define TH_TALLYVIEWANIM_FRAMEINTERVAL          3
-
 @interface TallyView ()
 
 @property (retain, nonatomic) CADisplayLink *animationTimer;
+
 
 @end
 
@@ -40,9 +33,6 @@
 @synthesize cells = _cells, delegate = _delegate, scrollPosition = _scrollPosition, animationTimer = _animationTimer;
 
 - (void)doInit {
-    UIGestureRecognizer *pang = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)];
-    [super addGestureRecognizer:pang];
-    [pang release];
     
     [super setBackgroundColor:[UIColor grayColor]];
     
@@ -50,7 +40,9 @@
     _scrollPosition = 0;
     _shldReloadCells = YES;
     _shldRedrawBackground = YES;
-    _prePanTouchDownPt = CGPointZero;
+    _decelerationRate = 1000.0;
+    _isTouchedDown = NO;
+    _currentSpeedY = 0.0;
     
 }
 
@@ -80,9 +72,9 @@
 - (void)drawRect:(CGRect)rect {
     DLog(@"called");
     
-//    if (!_shldRedrawBackground)
-//        return;
-        
+    //    if (!_shldRedrawBackground)
+    //        return;
+    
     UIBezierPath *bgrd = [UIBezierPath bezierPath];
     
     CGFloat ht = self.frame.size.height;
@@ -120,68 +112,18 @@
     
     CGPoint midUpperLeftCtrl = CGPointMake(midLowerLeftCtrl.x, midUpperRightCtrl.y);
     [bgrd addQuadCurveToPoint:topLeft controlPoint:midUpperLeftCtrl];
-
+    
     [[UIColor whiteColor] setFill];
     [bgrd fill];
     
     _shldRedrawBackground = NO;
 }
 
- 
+
 
 - (void)dealloc {
     [_cells release];
     [super dealloc];
-}
-
-- (void)_slotViewsWithAnimation:(BOOL)animate {
-    NSAssert(_cells.count == 7, @"Need seven views in the array");
-    DLog(@"positioning views...");
-    CGFloat height = self.frame.size.height / TH_NUMVISIBLECELLS;
-    //DLog(@"curr height: %5.2f", height);
-    CGFloat currY = -height;
-    CGFloat scales[7] = TH_POSN_SCALES;
-    int i = 0;
-    if (animate)
-        [UIView beginAnimations:nil context:nil];
-    for (TallyViewCell *v in _cells) {
-        if (animate)
-            [UIView setAnimationsEnabled:(i > 0 && i < 6)];
-        CGFloat h = height * scales[i];
-        CGFloat w = self.frame.size.width * scales[i];
-        CGFloat x = (self.frame.size.width - w) / 2.0;
-        CGFloat y = currY + (height - h) / 2.0;
-        
-        CGFloat scaleFactor = h / v.frame.size.height;
-        [_delegate tallyView:self willAdjustCellSize:v by:scaleFactor];
-        [v scaleFontsBy:scaleFactor];
-        v.frame = CGRectMake(x, y, w, h);
-        [v setNeedsDisplay];
-        [_delegate tallyView:self didAdjustCellSize:v by:scaleFactor];
-        
-        currY += height;
-        i += 1;
-    }
-    if (animate)
-        [UIView commitAnimations];
-    
-    
-    _panPointsSinceLastReshuffle = 0.0;
-}
-
-- (void)_scaleView:(TallyViewCell *)view by:(CGFloat)scale {
-    CGFloat oldHeight = view.frame.size.height;
-    CGFloat oldWidth = view.frame.size.width;
-    CGFloat h = oldHeight * scale;
-    CGFloat w = oldWidth * scale;
-    CGFloat x = view.frame.origin.x + (oldWidth - w) / 2.0;
-    CGFloat y = view.frame.origin.y + (oldHeight - h) / 2.0;
-    
-    [_delegate tallyView:self willAdjustCellSize:view by:scale];
-    view.frame = CGRectMake(x, y, w, h);
-    [view scaleFontsBy:scale];
-    [view setNeedsDisplay];
-    [_delegate tallyView:self didAdjustCellSize:view by:scale];
 }
 
 - (void)layoutSubviews {
@@ -215,7 +157,57 @@
 }
 
 
-//returns YES if the views are shuffled forwards
+- (void)_slotViewsWithAnimation:(BOOL)animated {
+    NSAssert(_cells.count == 7, @"Need seven views in the array");
+    DLog(@"slotting views...");
+    CGFloat height = self.frame.size.height / TH_NUMVISIBLECELLS;
+    //DLog(@"curr height: %5.2f", height);
+    CGFloat currY = -height;
+    CGFloat scales[7] = TH_POSN_SCALES;
+    int i = 0;
+    if (animated)
+        [UIView beginAnimations:nil context:nil];
+    
+    for (TallyViewCell *v in _cells) {
+        if (animated)
+            [UIView setAnimationsEnabled:(i > 0 && i < 6)];
+        CGFloat h = height * scales[i];
+        CGFloat w = self.frame.size.width * scales[i];
+        CGFloat x = (self.frame.size.width - w) / 2.0;
+        CGFloat y = currY + (height - h) / 2.0;
+        
+        CGFloat scaleFactor = h / v.frame.size.height;
+        [_delegate tallyView:self willAdjustCellSize:v by:scaleFactor];
+        v.frame = CGRectMake(x, y, w, h);
+        [v scaleFontsBy:scaleFactor];
+        [_delegate tallyView:self didAdjustCellSize:v by:scaleFactor];
+        
+        currY += height;
+        i += 1;
+    }
+    
+    if (animated)
+        [UIView commitAnimations];
+}
+
+- (void)_scaleView:(TallyViewCell *)view by:(CGFloat)scale {
+    CGFloat oldHeight = view.frame.size.height;
+    CGFloat oldWidth = view.frame.size.width;
+    CGFloat h = oldHeight * scale;
+    CGFloat w = oldWidth * scale;
+    CGFloat x = view.frame.origin.x + (oldWidth - w) / 2.0;
+    CGFloat y = view.frame.origin.y + (oldHeight - h) / 2.0;
+    
+    [_delegate tallyView:self willAdjustCellSize:view by:scale];
+    view.frame = CGRectMake(x, y, w, h);
+    [view scaleFontsBy:scale];
+    [view setNeedsDisplay];
+    [_delegate tallyView:self didAdjustCellSize:view by:scale];
+}
+
+
+
+//returns YES if the views are shuffled
 - (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion {
     _panPointsSinceLastReshuffle += move;
     //DLog(@"%5.2f", panPointsSinceLastReshuffle);
@@ -259,99 +251,115 @@
     return NO;
 }
 
+#define TH_TALLYVIEWANIM_FRAMEINTERVAL                  3
+#define TH_TALLYVIEWANIM_DECELERATION_VERTSPEED_MIN     100.0
+#define TH_TALLYVIEWANIM_DECELERATION_VERTSPEED_MAX     1000.0
 
-- (void)_pan:(UIPanGestureRecognizer *)recognizer {
-    CGPoint panSpeed = [recognizer velocityInView:self];
-    DLog(@"pan speed is %5.2f", panSpeed.y);
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_animationTimer)
+        [self _stopScrollingAnimation];
     
-//    if (_isDecelerating && recognizer.state != UIGestureRecognizerStateEnded) {
-//        // if the pan is in the same direction as current then ignore the pan until it ends
-//        // where we will use the pan speed to reaccelerate (or slow down)
-//        if ((panSpeed.y > 0 && _panDecelerationCurrentVerticalSpeed > 0) ||
-//            (panSpeed.y < 0 && _panDecelerationCurrentVerticalSpeed < 0)) {
-//            DLog(@"Ignoring pan for now");
-//            return;
-//        }
-//        
-//        _shldStopDecelerating = YES;
-//    }
+    _touchDown = [[touches anyObject] locationInView:self];
+    DLog(@"Touches began at y=%5.2f", _touchDown.y);
+    _lastTouchDown = _touchDown;
+    _currentTouchDown = _touchDown;
+    _isTouchedDown = YES;
     
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        CGPoint panStart = [recognizer locationInView:self];
-        _prePanOffset = panStart.y - _prePanTouchDownPt.y;
-        DLog(@"Pan gesture began at y=%5.2f. Prepan begain at y=%5.2f", 
-             panStart.y, _prePanTouchDownPt.y);
-        _prePanTouchDownPt = CGPointZero;
-        [self _setCellsPanningFastTo:YES];
-    }    
-    else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        DLog(@"Pan gesture changed");
-        CGPoint translation = [recognizer translationInView:self];
-        [self _scrollBy:translation.y + _prePanOffset];
-        
-        [recognizer setTranslation:CGPointZero inView:self];
-        _prePanOffset = 0.0;
-        
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded) {        
-        DLog(@"Pan gesture ended");
-        
-        //gives effect of re-accelerating or slowing down
-        _panDecelerationCurrentVerticalSpeed = [recognizer velocityInView:self].y;
-        DLog(@"ending pan speed is %5.2f", _panDecelerationCurrentVerticalSpeed);
-        
-        if (!_isDecelerating && 
-            fabsf(_panDecelerationCurrentVerticalSpeed) > TH_DECELERATION_START_VERTSPEED_MIN) {
-            [self _startScrollingAnimation];
-        }
-        else {
-            [self _reshuffleViewsBy:0.0 criticalPortionDone:0.6];
-            [self _slotViewsWithAnimation:YES];
-            [self _setCellsPanningFastTo:NO];
-        }
+    [self _startScrollingAnimation];
+    
+    //not calling super, so need to implement all events
+}
 
-
-    }
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    DLog(@"Touches cancelled");
+    //do nothing?
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    DLog(@"Touches ended");
+    _touchDown = CGPointZero;
+    _lastTouchDown = _touchDown;
+    _currentTouchDown = _touchDown;
+    _isTouchedDown = NO;
+    
+    _currentSpeedY = (_currentSpeedY > 0 ? 
+                      fminf(_currentSpeedY, TH_TALLYVIEWANIM_DECELERATION_VERTSPEED_MAX) : 
+                      fmaxf(_currentSpeedY, -1.0 * TH_TALLYVIEWANIM_DECELERATION_VERTSPEED_MAX));
+}
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    DLog(@"Touches moved");
+    if (!_isTouchedDown)
+        return;
+    _currentTouchDown = [[touches anyObject] locationInView:self];
+    DLog(@"Touches moved to y=%5.2f", _currentTouchDown.y);
 }
 
 - (void)_startScrollingAnimation {
     DLog(@"Starting animation");
-    _isDecelerating = YES;
-    _shldStopDecelerating = NO;
-    _lastDecelTimestamp = 0.0;
-
-    CADisplayLink *animTimer = [self.window.screen displayLinkWithTarget:self 
-                                                                selector:@selector(_updateScrollingAnimation:)];
+    for (TallyViewCell *v in _cells) {
+        if (!v.isPanningFast) {
+            v.isPanningFast = YES;
+            [v setNeedsDisplay];
+        }
+    }
     
-    animTimer.frameInterval = TH_TALLYVIEWANIM_FRAMEINTERVAL;
+    CADisplayLink *animTimer = [self.window.screen displayLinkWithTarget:self 
+                                                               selector:@selector(_updateScrollingAnimation:)];
+    
     [animTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    _lastDecelTimestamp = CFAbsoluteTimeGetCurrent();
+    animTimer.frameInterval = TH_TALLYVIEWANIM_FRAMEINTERVAL;
     self.animationTimer = animTimer;
 }
 
 - (void)_stopScrollingAnimation {
     DLog(@"Ending scrolling");
-    _isDecelerating = NO;
+    for (TallyViewCell *v in _cells) {
+        if (v.isPanningFast) {
+            v.isPanningFast = NO;
+            [v setNeedsDisplay];
+        }
+    }
     
     [_animationTimer invalidate];
     self.animationTimer = nil;
-    
-    [self _reshuffleViewsBy:0.0 criticalPortionDone:0.6];
-    [self _slotViewsWithAnimation:YES];
-    [self _setCellsPanningFastTo:NO];
 }
 
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_isDecelerating) {
-        _shldStopDecelerating = YES;
+- (void)_updateScrollingAnimation:(CADisplayLink *)sender {
+    if (_isTouchedDown) {
+        
+        //scroll to the current mouse point
+        DLog(@"curr y=%5.2f", _currentTouchDown.y);
+        DLog(@"last y=%5.2f", _lastTouchDown.y);
+        CGFloat moveY = _currentTouchDown.y - _lastTouchDown.y;
+        _currentSpeedY = moveY / sender.duration;
+        
+        DLog(@"Moving %5.2f pts at speed %5.2f pts per sec", moveY, _currentSpeedY);
+        _lastTouchDown = _currentTouchDown;
     }
     else {
-        _prePanTouchDownPt = [[touches anyObject] locationInView:self];
+        
+        //decelerate gradually
+        CGFloat changeSpeedY = _decelerationRate * sender.duration;
+        DLog(@"Curr speed %5.2f, decelerating by %5.2f pts/sec", _currentSpeedY, changeSpeedY);
+        if (fabsf(_currentSpeedY) > TH_TALLYVIEWANIM_DECELERATION_VERTSPEED_MIN &&
+            changeSpeedY < fabsf(_currentSpeedY)) {
+            _currentSpeedY -= (_currentSpeedY > 0 ? 1 : -1) * changeSpeedY;
+        }
+        else {
+            _currentSpeedY = 0.0;
+            [self _stopScrollingAnimation];
+        }
+        
     }
+    
+    CGFloat scrollY = _currentSpeedY * sender.duration;
+    DLog(@"Scrolling by %5.2f pts", scrollY);
+    [self _scrollBy:scrollY];
+    if (!_animationTimer) {
+        [self _reshuffleViewsBy:0.0 criticalPortionDone:0.6];
+        [self _slotViewsWithAnimation:YES];
+    }    
 }
-
-
 
 - (void)_scrollBy:(CGFloat)move {
     if ([self _reshuffleViewsBy:move criticalPortionDone:1.0]) {
@@ -382,43 +390,6 @@
     }
 }
 
-- (void)_updateScrollingAnimation:(CADisplayLink *)sender {
-    CFTimeInterval currentTime = CFAbsoluteTimeGetCurrent();
-    NSAssert(_lastDecelTimestamp, @"lastDecelTimestamp not set!");
-    CFTimeInterval time = currentTime - _lastDecelTimestamp;
-    DLog(@"Time since last = %5.5f, FPS = %5.2f", time, 1.0 / time);
-    _lastDecelTimestamp = sender.timestamp;
-    _panDecelerationCurrentVerticalSpeed *= pow(TH_DECELERATION_DAMP, time / sender.duration);
-    DLog(@"vert speed: %5.2f", _panDecelerationCurrentVerticalSpeed);
-    double move = _panDecelerationCurrentVerticalSpeed * time;
-    //DLog(@"called with move = %5.2f", move);
-    if (!_shldStopDecelerating && 
-        fabsf(move) > TH_DECELERATION_MOTION_MIN && 
-        fabsf(_panDecelerationCurrentVerticalSpeed) > TH_DECELERATION_STOP_VERTSPEED_MIN) {
-        
-        [self _scrollBy:move];
-    }
-    else {
-        DLog(@"Ending scrolling: move=%5.2f, shouldStop=%d", move, _shldStopDecelerating);
-        [self _stopScrollingAnimation];
-    }
-
-    _lastDecelTimestamp = currentTime;
-    
-}
-- (void)_setCellsPanningFastTo:(BOOL)shldPanFast {
-    for (TallyViewCell *v in _cells) {
-        if (v.isPanningFast != shldPanFast) {
-            v.isPanningFast = shldPanFast;
-            [v setNeedsDisplay];
-        }
-    }
-}
-
 
 
 @end
-
-
-
-

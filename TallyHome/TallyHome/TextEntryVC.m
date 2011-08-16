@@ -19,6 +19,12 @@
 
 @synthesize textField = _textField, delegate = _delegate;
 
+- (id)init {
+    self = [self initWithNibName:@"TextEntryVC" bundle:nil];
+    
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,8 +40,7 @@
 }
 
 - (IBAction)textFieldDoneEditing:(id)sender {
-    if ([_delegate respondsToSelector:@selector(textEntryShouldReturn:)] &&
-        [_delegate textEntryShouldReturn:self]) {
+    if ([_delegate textEntryShouldReturn:self]) {
         [sender resignFirstResponder];
     }
 }
@@ -70,6 +75,5 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-     - (IBAction)textFieldDoneEditing:(id)sender {
-     }
+
 @end

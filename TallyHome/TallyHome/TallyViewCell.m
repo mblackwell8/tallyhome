@@ -114,8 +114,8 @@ static NSNumberFormatter *middleValueLblFormatter; // has extra decimal places s
     // clear the context first
     [[UIColor whiteColor] setFill];
     UIRectFill(rect);
-    [[UIColor whiteColor] setStroke];
-    UIRectFrame(rect);
+//    [[UIColor whiteColor] setStroke];
+//    UIRectFrame(rect);
     
     CGFloat cornerRadius = self.frame.size.height * kDefaultTallyViewCellCornerRadiusHeight;
         

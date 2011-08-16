@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class DateSelectorVC;
+
 @protocol DateSelectorDelegate <NSObject>
 @required
-- (void)setDate:(NSDate *)newDate;
-//- (UINavigationController *)navController;          // Return the navigation controller
+- (BOOL)dateEntryShouldReturn:(DateSelectorVC *)textEntry;
 @end
 
 @interface DateSelectorVC : UIViewController <UITableViewDelegate, UITableViewDataSource>

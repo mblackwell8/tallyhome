@@ -27,6 +27,7 @@
 		4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A8F13B58C05008EF6AF /* THDateVal.m */; };
 		4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9A13B74536008EF6AF /* THURLCreator.m */; };
 		4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */; };
+		4D9FA77913F95CB600CC9418 /* TallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FA77813F95CB500CC9418 /* TallyView.m */; };
 		4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */; };
 		4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCC5139B220C00E868A7 /* PricePathTests.m */; };
 		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
@@ -41,7 +42,6 @@
 		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
 		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
 		4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */; };
-		4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C3213D1470E00E6DE8E /* TallyView.m */; };
 		4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +157,8 @@
 		4D8F2A9A13B74536008EF6AF /* THURLCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THURLCreator.m; sourceTree = "<group>"; };
 		4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppDefaults.plist; sourceTree = "<group>"; };
 		4D8F2AA013B756B7008EF6AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4D9FA77713F95CB500CC9418 /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
+		4D9FA77813F95CB500CC9418 /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
 		4DA28EC013A2DE6D001D13BD /* THTimeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = THTimeSeries.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = THTimeSeries.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
@@ -180,8 +182,6 @@
 		4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
 		4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
-		4DD54C3113D1470C00E6DE8E /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
-		4DD54C3213D1470E00E6DE8E /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
 		4DEEFDD513DD918500C9BA06 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
 		4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyViewCell.h; sourceTree = "<group>"; };
 		4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyViewCell.m; sourceTree = "<group>"; };
@@ -391,6 +391,8 @@
 		4DD54B9113C03A6000E6DE8E /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4D9FA77713F95CB500CC9418 /* TallyView.h */,
+				4D9FA77813F95CB500CC9418 /* TallyView.m */,
 				4DD54BDA13C07BF600E6DE8E /* RootViewController.h */,
 				4DD54BDB13C07BF600E6DE8E /* RootViewController.m */,
 				4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */,
@@ -412,8 +414,6 @@
 				4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */,
 				4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */,
 				4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */,
-				4DD54C3113D1470C00E6DE8E /* TallyView.h */,
-				4DD54C3213D1470E00E6DE8E /* TallyView.m */,
 				4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */,
 				4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */,
 			);
@@ -544,8 +544,8 @@
 				4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */,
 				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
 				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
-				4DD54C3313D1471A00E6DE8E /* TallyView.m in Sources */,
 				4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */,
+				4D9FA77913F95CB600CC9418 /* TallyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

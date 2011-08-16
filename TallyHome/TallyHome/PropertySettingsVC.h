@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "THDateVal.h"
+#import "TextEntryVC.h"
+#import "DateSelectorVC.h"
+
 
 @class PropertySettingsVC;
 
@@ -20,12 +23,14 @@
 
 @end
 
-@interface PropertySettingsVC : UITableViewController {
+@interface PropertySettingsVC : UITableViewController <TextEntryVCDelegate, DateSelectorDelegate> {
     id <PropertySettingsDelegate> _delegate;
     
     NSString *_location;
     NSString *_propertyName;
     THDateVal *_buyPrice;
+    
+    //NSUInteger 
 }
 
 @property (assign, nonatomic) id <PropertySettingsDelegate> delegate;

@@ -22,6 +22,12 @@
     [dateTableView reloadData];
 }
 
+- (id)init {
+    self = [self initWithNibName:@"DateSelectorVC" bundle:nil];
+    
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

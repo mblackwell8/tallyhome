@@ -49,6 +49,7 @@
     id<TallyViewDelegate> _delegate;
             
     CGFloat _panPointsSinceLastReshuffle;
+    CGFloat _movePointsSinceLastMove;
     
     NSMutableArray *_cells;
     
@@ -61,14 +62,12 @@
     BOOL _shldReloadCells;
     BOOL _shldRedrawBackground;
     
-    CGPoint _prePanTouchDownPt;
-    CGFloat _prePanOffset;
-    
     CGFloat _panDecelerationCurrentVerticalSpeed;
     CADisplayLink *_animationTimer;
-    BOOL _isDecelerating;
-    BOOL _shldStopDecelerating;
-    CFTimeInterval _lastDecelTimestamp;
+    CGPoint _touchDown, _lastTouchDown, _currentTouchDown;
+    BOOL _isTouchedDown;
+    CGFloat _currentSpeedY;
+    CGFloat _decelerationRate;
         
 }
 
@@ -79,19 +78,16 @@
 
 @property NSInteger scrollPosition;
 
+
+- (void)reloadData;
+
 - (void)_scaleView:(TallyViewCell *)view by:(CGFloat)scale;
 - (void)_slotViewsWithAnimation:(BOOL)animated;
 - (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion; 
 
 - (void)_scrollBy:(CGFloat)move;
-
 - (void)_startScrollingAnimation;
 - (void)_updateScrollingAnimation:(CADisplayLink *)sender;
 - (void)_stopScrollingAnimation;
-
-- (void)_pan:(UIPanGestureRecognizer *)recognizer;
-- (void)_setCellsPanningFastTo:(BOOL)shldPanFast;
-
-- (void)reloadData;
 
 @end

@@ -12,9 +12,6 @@
 
 @protocol TextEntryVCDelegate <NSObject>
 
-@optional
-
-- (BOOL)textEntryShouldEndEditing:(TextEntryVC *)textEntry;
 - (BOOL)textEntryShouldReturn:(TextEntryVC *)textEntry;
 
 @end
