@@ -1,424 +1,493 @@
-//
-//  TallyView.m
-//  TallyHome
-//
-//  Created by Mark Blackwell on 16/07/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+/**
+ * Copyright (c) 2009 Alex Fajkowski, Apparent Logic LLC
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 #import "TallyView.h"
+#import "TallyHomeConstants.h"
 #import "DebugMacros.h"
 
-#define TH_POSN0_SCALE 0.55
-#define TH_POSN1_SCALE TH_POSN0_SCALE
-#define TH_POSN2_SCALE 0.75
-#define TH_POSN3_SCALE 0.9
-#define TH_POSN4_SCALE TH_POSN2_SCALE
-#define TH_POSN5_SCALE TH_POSN0_SCALE
-#define TH_POSN6_SCALE TH_POSN0_SCALE
 
-#define TH_POSN_SCALES {TH_POSN0_SCALE,TH_POSN1_SCALE,TH_POSN2_SCALE,TH_POSN3_SCALE,TH_POSN4_SCALE,TH_POSN5_SCALE,TH_POSN6_SCALE}
+@interface TallyView (hidden)
 
-#define TH_NUMVISIBLECELLS 5.0
-
-//#define TH_MAXSPEED_FULLYDRAWINGCELLS           50.0
-#define TH_DECELERATION_START_VERTSPEED_MIN     250.0
-//#define TH_DECELERATION_MOVE_MIN                3.0
-#define TH_DECELERATION_DAMP                    0.95
-#define TH_DECELERATION_MOTION_MIN              0.1
-#define TH_DECELERATION_STOP_VERTSPEED_MIN      20.0
-#define TH_TALLYVIEWANIM_FRAMEINTERVAL          3
-
-@interface TallyView ()
-
-@property (retain, nonatomic) CADisplayLink *animationTimer;
+- (void)setUpInitialState;
+- (TallyViewCell *)cellForIndex:(int)cellIndex;
+- (void)updateCell:(TallyViewCell *)aCell;
+- (TallyViewCell *)dequeueReusableCell;
+- (void)layoutCells:(int)selected fromCell:(int)lowerBound toCell:(int)upperBound;
+- (void)layoutCell:(TallyViewCell *)aCell selectedCell:(int)selectedIndex animated:(BOOL)animated;
+- (TallyViewCell *)findCellOnscreen:(CALayer *)targetLayer;
 
 @end
 
+@implementation TallyView (hidden)
+
+- (void)setUpInitialState {
+    // Set up the default image for the cellflow.
+    //self.defaultImage = [self.dataSource defaultImage];
+    
+    [super setBackgroundColor:TH_TALLYVIEW_BACK_COLOR];
+    
+    // Create data holders for onscreen & offscreen cells & UIImage objects.
+    _offscreenCells = [[NSMutableSet alloc] init];
+    _onscreenCells = [[NSMutableDictionary alloc] init];
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    _scrollView.userInteractionEnabled = NO;
+    _scrollView.multipleTouchEnabled = NO;
+    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:_scrollView];
+    
+    self.multipleTouchEnabled = NO;
+    self.userInteractionEnabled = YES;
+    self.autoresizesSubviews = YES;
+    self.layer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    
+    // Initialize the visible and selected cell range.
+    _lowerVisibleCell = _upperVisibleCell = -1;
+    _selectedCellView = nil;
+    
+    // Set up the cell's left & right transforms.
+    _upperTransform = CATransform3DIdentity;
+    _upperTransform = CATransform3DRotate(_upperTransform, M_PI, -1.0f, 0.0f, 0.0f);
+    _lowerTransform = CATransform3DIdentity;
+    _lowerTransform = CATransform3DRotate(_lowerTransform, M_PI, 1.0f, 0.0f, 0.0f);
+    
+    // Set some perspective
+    // Applying the 3D perspective relies on a poorly-documented feature of Core Animationís CATransform3D structure, 
+    // a 4-by-4 matrix used to perform matrix transformations. Apple's documentation says that changes to CATransform3D.m34 
+    // affect the sharpness of the transform. For our purposes, this means ìmake things look 3Dî.
+    
+    CATransform3D sublayerTransform = CATransform3DIdentity;
+    sublayerTransform.m34 = -0.01;
+    [_scrollView.layer setSublayerTransform:sublayerTransform];
+    
+    [self setBounds:self.frame];
+}
+
+- (TallyViewCell *)cellForIndex:(int)cellIndex {
+    TallyViewCell *cell = [self dequeueReusableCell];
+    if (!cell) {
+        cell = [_delegate tallyView:self cellForRowAtIndex:cellIndex];
+        
+    }
+    
+    cell.number = cellIndex;
+    
+    return cell;
+}
+
+- (void)updateCell:(TallyViewCell *)aCell {
+    [_delegate tallyView:self dataForCell:aCell];
+}
+
+- (TallyViewCell *)dequeueReusableCell {
+    TallyViewCell *aCell = [_offscreenCells anyObject];
+    if (aCell) {
+        [[aCell retain] autorelease];
+        [_offscreenCells removeObject:aCell];
+    }
+    return aCell;
+}
+
+- (void)layoutCell:(TallyViewCell *)aCell selectedCell:(int)selectedIndex animated:(BOOL)animated  {
+    int cellNumber = aCell.number;
+    CATransform3D newTransform;
+    CGFloat newZPosition = 0;
+    CGPoint newPosition;
+    
+//    newFrame.size.width = self.frame.size.width * TH_CELL_DISPLAY_PROPORTION;
+//    newFrame.size.height = _cellSpacing * TH_CELL_DISPLAY_PROPORTION;
+//    newFrame.origin.x = (self.frame.size.width - newFrame.size.width) / 2.0;
+//    newFrame.origin.y = aCell.number * _cellSpacing + (self.frame.size.height - newFrame.size.height) / 2.0;
+    newPosition.x = _halfScreenWidth;
+    newPosition.y = _halfScreenHeight + aCell.number * _cellSpacing;
+    DLog(@"Laying out cellnum %d, selected is %d", aCell.number, selectedIndex);
+    if (cellNumber < selectedIndex) {
+        DLog(@"Cell above center");
+        newTransform = _upperTransform;
+        newZPosition = TH_SIDECELL_ZPOS;
+        newPosition.y -= TH_CENTRE_OFFSET;
+        aCell.isSummaryDisplayOnly = YES;
+    } else if (cellNumber > selectedIndex) {
+        DLog(@"Cell below center");
+        newTransform = _lowerTransform;
+        newZPosition = TH_SIDECELL_ZPOS;
+        newPosition.y += TH_CENTRE_OFFSET;
+        aCell.isSummaryDisplayOnly = YES;
+    } else {
+        DLog(@"Cell at center");
+        newZPosition = 0;
+        newTransform = CATransform3DIdentity;
+        aCell.isSummaryDisplayOnly = NO;
+    }
+    
+    [aCell setNeedsDisplay];
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.25];
+    }
+    
+    aCell.layer.position = newPosition;
+    
+    if (animated) {
+        [UIView commitAnimations];
+    }
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.5];
+    }
+    
+    aCell.layer.zPosition = newZPosition;
+    aCell.layer.transform = newTransform;
+    
+    if (animated) {
+        [UIView commitAnimations];
+    }
+
+}
+
+- (void)layoutCells:(int)selected fromCell:(int)lowerBound toCell:(int)upperBound {
+    
+    //HACK: frame or bounds???
+    CGFloat ht = self.frame.size.height;
+    _cellSpacing = (ht - TH_CENTRE_OFFSET * 2.0) / TH_NUMVISIBLECELLS;
+    
+    _halfScreenWidth = self.bounds.size.width / 2;
+    _halfScreenHeight = ht / 2;
+
+    TallyViewCell *cell;
+    NSNumber *cellNumber;
+    DLog(@"Laying out cells %d to %d", lowerBound, upperBound);
+    for (int i = lowerBound; i <= upperBound; i++) {
+        cellNumber = [NSNumber numberWithInt:i];
+        cell = [_onscreenCells objectForKey:cellNumber];
+        [self layoutCell:cell selectedCell:selected animated:YES];
+    }
+}
+
+- (TallyViewCell *)findCellOnscreen:(CALayer *)targetLayer {
+    // See if this layer is one of our cells.
+    NSEnumerator *cellEnumerator = [_onscreenCells objectEnumerator];
+    TallyViewCell *aCell = nil;
+    while ((aCell = (TallyViewCell *)[cellEnumerator nextObject]))
+        if ([aCell.layer isEqual:targetLayer])
+            break;
+    
+    return aCell;
+}
+@end
+
+
 @implementation TallyView
+@synthesize delegate = _delegate, numberOfCells = _numberOfCells;
 
-@synthesize cells = _cells, delegate = _delegate, scrollPosition = _scrollPosition, animationTimer = _animationTimer;
 
-- (void)doInit {
-    UIGestureRecognizer *pang = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)];
-    [super addGestureRecognizer:pang];
-    [pang release];
-    
-    [super setBackgroundColor:[UIColor grayColor]];
-    
-    _panPointsSinceLastReshuffle = 0.0;
-    _scrollPosition = 0;
-    _shldReloadCells = YES;
-    _shldRedrawBackground = YES;
-    _prePanTouchDownPt = CGPointZero;
-    
+
+- (void)awakeFromNib {
+    [self setUpInitialState];
 }
 
 - (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self doInit];
-        
+    if ((self = [super initWithFrame:frame])) {
+        [self setUpInitialState];
     }
+    
     return self;
 }
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self doInit];
-    }
-    return self;
-}
-
-
-
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    DLog(@"called");
-    
-//    if (!_shldRedrawBackground)
-//        return;
-        
-    UIBezierPath *bgrd = [UIBezierPath bezierPath];
-    
-    CGFloat ht = self.frame.size.height;
-    CGFloat wd = self.frame.size.width;
-    CGFloat offset = 10.0;
-    CGPoint topLeft = CGPointMake(wd * (1- TH_POSN0_SCALE) / 2.0 - offset, 
-                                  ht / TH_NUMVISIBLECELLS * (1 - TH_POSN0_SCALE) / 2.0 - offset);
-    [bgrd moveToPoint:topLeft];
-    
-    CGPoint topright = CGPointMake(topLeft.x + wd * TH_POSN0_SCALE + offset * 2.0,
-                                   topLeft.y);
-    [bgrd addLineToPoint:topright];
-    
-    CGPoint midUpperRight = CGPointMake(wd - (wd * (1 - TH_POSN3_SCALE) / 2.0) + offset, 
-                                        ht / TH_NUMVISIBLECELLS * 2.0);
-    CGPoint midUpperRightCtrl = CGPointMake(midUpperRight.x, (topright.y + midUpperRight.y) / 2.0);
-    [bgrd addQuadCurveToPoint:midUpperRight controlPoint:midUpperRightCtrl];
-    
-    CGPoint midLowerRight = CGPointMake(midUpperRight.x, ht / TH_NUMVISIBLECELLS * 3.0);
-    [bgrd addLineToPoint:midLowerRight];
-    
-    CGPoint bottomRight = CGPointMake(topright.x, ht - topright.y);
-    CGPoint midLowerRightCtrl = CGPointMake(midUpperRight.x, (midLowerRight.y + bottomRight.y) / 2.0);
-    [bgrd addQuadCurveToPoint:bottomRight controlPoint:midLowerRightCtrl];
-    
-    CGPoint bottomLeft = CGPointMake(topLeft.x, bottomRight.y);
-    [bgrd addLineToPoint:bottomLeft];
-    
-    CGPoint midLowerLeft = CGPointMake(wd * (1 - TH_POSN3_SCALE) / 2.0 - offset, midLowerRight.y);
-    CGPoint midLowerLeftCtrl = CGPointMake(midLowerLeft.x, midLowerRightCtrl.y);
-    [bgrd addQuadCurveToPoint:midLowerLeft controlPoint:midLowerLeftCtrl];
-    
-    CGPoint midUpperLeft = CGPointMake(midLowerLeft.x, midUpperRight.y);
-    [bgrd addLineToPoint:midUpperLeft];
-    
-    CGPoint midUpperLeftCtrl = CGPointMake(midLowerLeftCtrl.x, midUpperRightCtrl.y);
-    [bgrd addQuadCurveToPoint:topLeft controlPoint:midUpperLeftCtrl];
-
-    [[UIColor whiteColor] setFill];
-    [bgrd fill];
-    
-    _shldRedrawBackground = NO;
-}
-
- 
 
 - (void)dealloc {
-    [_cells release];
+    [_scrollView release];
+    
+    [_offscreenCells removeAllObjects];
+    [_offscreenCells release];
+    
+    [_onscreenCells removeAllObjects];
+    [_onscreenCells release];
+    
     [super dealloc];
 }
 
-- (void)_slotViewsWithAnimation:(BOOL)animate {
-    NSAssert(_cells.count == 7, @"Need seven views in the array");
-    DLog(@"positioning views...");
-    CGFloat height = self.frame.size.height / TH_NUMVISIBLECELLS;
-    //DLog(@"curr height: %5.2f", height);
-    CGFloat currY = -height;
-    CGFloat scales[7] = TH_POSN_SCALES;
-    int i = 0;
-    if (animate)
-        [UIView beginAnimations:nil context:nil];
-    for (TallyViewCell *v in _cells) {
-        if (animate)
-            [UIView setAnimationsEnabled:(i > 0 && i < 6)];
-        CGFloat h = height * scales[i];
-        CGFloat w = self.frame.size.width * scales[i];
-        CGFloat x = (self.frame.size.width - w) / 2.0;
-        CGFloat y = currY + (height - h) / 2.0;
-        
-        CGFloat scaleFactor = h / v.frame.size.height;
-        [_delegate tallyView:self willAdjustCellSize:v by:scaleFactor];
-        [v scaleFontsBy:scaleFactor];
-        v.frame = CGRectMake(x, y, w, h);
-        [v setNeedsDisplay];
-        [_delegate tallyView:self didAdjustCellSize:v by:scaleFactor];
-        
-        currY += height;
-        i += 1;
-    }
-    if (animate)
-        [UIView commitAnimations];
+- (void)setBounds:(CGRect)newSize {
+    [super setBounds:newSize];
     
     
-    _panPointsSinceLastReshuffle = 0.0;
+    int lowerBound = MAX(0, _selectedCellView.number - TH_COVER_BUFFER);
+    int upperBound = MIN(self.numberOfCells - 1, _selectedCellView.number + TH_COVER_BUFFER);
+    
+    [self layoutCells:_selectedCellView.number fromCell:lowerBound toCell:upperBound];
+    [self centerOnSelectedCellWithAnimation:NO];
 }
 
-- (void)_scaleView:(TallyViewCell *)view by:(CGFloat)scale {
-    CGFloat oldHeight = view.frame.size.height;
-    CGFloat oldWidth = view.frame.size.width;
-    CGFloat h = oldHeight * scale;
-    CGFloat w = oldWidth * scale;
-    CGFloat x = view.frame.origin.x + (oldWidth - w) / 2.0;
-    CGFloat y = view.frame.origin.y + (oldHeight - h) / 2.0;
+//sets the total number of cells, not the visible number
+- (void)setNumberOfCells:(int)newNumberOfCells {
+    _numberOfCells = newNumberOfCells;
+    _scrollView.contentSize = CGSizeMake(self.bounds.size.width, newNumberOfCells * _cellSpacing + self.bounds.size.height);
     
-    [_delegate tallyView:self willAdjustCellSize:view by:scale];
-    view.frame = CGRectMake(x, y, w, h);
-    [view scaleFontsBy:scale];
-    [view setNeedsDisplay];
-    [_delegate tallyView:self didAdjustCellSize:view by:scale];
-}
-
-- (void)layoutSubviews {
-    if (_shldReloadCells) {
-        NSMutableArray *cls = [[NSMutableArray alloc] initWithCapacity:TH_NUMVISIBLECELLS + 2];
-        self.cells = cls;
-        [cls release];
-        for (NSInteger i = 0; i < TH_NUMVISIBLECELLS + 2; i++) {
-            TallyViewCell *v = [_delegate tallyView:self cellForRowAtIndex:i];
-            [_delegate tallyView:self dataForCell:v atIndexPosition:i];
-            [self addSubview:v];
-            [_cells addObject:v];
-        }
-        
-        [self _slotViewsWithAnimation:NO];
-        _shldReloadCells = NO;
-        
-    }
+    int lowerBound = MAX(0, _selectedCellView.number - TH_COVER_BUFFER);
+    int upperBound = MIN(self.numberOfCells - 1, _selectedCellView.number + TH_COVER_BUFFER);
     
-    [super layoutSubviews];
+    if (_selectedCellView)
+        [self layoutCells:_selectedCellView.number fromCell:lowerBound toCell:upperBound];
+    else
+        [self setSelectedCell:0];
+    
+    [self centerOnSelectedCellWithAnimation:NO];
 }
 
 - (void)reloadData {
     //not sure if this will be enough...
-    NSInteger i = 0;
-    for (TallyViewCell *v in _cells) {
-        [_delegate tallyView:self dataForCell:v atIndexPosition:i];
-        [v setNeedsDisplay];
-        i += 1;
-    } 
+//    for (TallyViewCell *v in [_onscreenCells allValues]) {
+//        [_dataSource tallyView:self dataForCell:v];
+//        [self layoutCell:v selectedCell:_selectedCellView.number animated:NO];
+//    } 
+    
+    int lowerBound = MAX(0, _selectedCellView.number - TH_COVER_BUFFER);
+    int upperBound = MIN(self.numberOfCells - 1, _selectedCellView.number + TH_COVER_BUFFER);
+    [self layoutCells:_selectedCellView.number fromCell:lowerBound toCell:upperBound];
+    [self setSelectedCell:(int)(_numberOfCells / 2)];
+    [self centerOnSelectedCellWithAnimation:NO];
 }
 
-
-//returns YES if the views are shuffled forwards
-- (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion {
-    _panPointsSinceLastReshuffle += move;
-    //DLog(@"%5.2f", panPointsSinceLastReshuffle);
-    
-    if (portion < 0.0)
-        return NO; 
-    
-    CGFloat cellHeight = self.frame.size.height / TH_NUMVISIBLECELLS;
-    if (fabsf(_panPointsSinceLastReshuffle) / cellHeight > portion) {
-        DLog(@"reshuffling...");
-        NSAssert(_panPointsSinceLastReshuffle != 0.0, @"Error");
-        if (_panPointsSinceLastReshuffle > 0.0) {
-            TallyViewCell *tmp = [_cells lastObject];
-            [_delegate tallyView:self willShuffleCell:tmp fromIndexPosition:6 toIndexPosition:0];
-            [_cells removeLastObject];
-            _scrollPosition += 1;
-            [_delegate tallyView:self dataForCell:tmp atIndexPosition:0];
-            [_cells insertObject:tmp atIndex:0];
-            [_delegate tallyView:self didShuffleCell:tmp fromIndexPosition:6 toIndexPosition:0];
-            
-            _panPointsSinceLastReshuffle = fmaxf(_panPointsSinceLastReshuffle - cellHeight, 0.0);
-            
-        }
-        else if (_panPointsSinceLastReshuffle < 0.0) {
-            TallyViewCell *tmp = [_cells objectAtIndex:0];
-            [_delegate tallyView:self willShuffleCell:tmp fromIndexPosition:0 toIndexPosition:6];
-            [_cells removeObjectAtIndex:0];
-            _scrollPosition -= 1;
-            [_delegate tallyView:self dataForCell:tmp atIndexPosition:6];
-            [_cells addObject:tmp];
-            [_delegate tallyView:self didShuffleCell:tmp fromIndexPosition:0 toIndexPosition:6];
-            
-            _panPointsSinceLastReshuffle = fminf(_panPointsSinceLastReshuffle + cellHeight, 0.0);
-            
-        }
-        
-        
-        return YES;
-    }
-    
-    return NO;
-}
-
-
-- (void)_pan:(UIPanGestureRecognizer *)recognizer {
-    CGPoint panSpeed = [recognizer velocityInView:self];
-    DLog(@"pan speed is %5.2f", panSpeed.y);
-    
-//    if (_isDecelerating && recognizer.state != UIGestureRecognizerStateEnded) {
-//        // if the pan is in the same direction as current then ignore the pan until it ends
-//        // where we will use the pan speed to reaccelerate (or slow down)
-//        if ((panSpeed.y > 0 && _panDecelerationCurrentVerticalSpeed > 0) ||
-//            (panSpeed.y < 0 && _panDecelerationCurrentVerticalSpeed < 0)) {
-//            DLog(@"Ignoring pan for now");
-//            return;
-//        }
-//        
-//        _shldStopDecelerating = YES;
+//- (void)setDefaultImage:(UIImage *)newDefaultImage {
+//    [defaultImage release];
+//    defaultImageHeight = newDefaultImage.size.height;
+//    defaultImage = [[newDefaultImage addImageReflection:kReflectionFraction] retain];
+//}
+//
+//- (void)setImage:(UIImage *)image forIndex:(int)index {
+//    // Create a reflection for this image.
+//    UIImage *imageWithReflection = [image addImageReflection:kReflectionFraction];
+//    NSNumber *cellNumber = [NSNumber numberWithInt:index];
+//    [cellImages setObject:imageWithReflection forKey:cellNumber];
+//    [cellImageHeights setObject:[NSNumber numberWithFloat:image.size.height] forKey:cellNumber];
+//    
+//    // If this cell is onscreen, set its image and call layoutCell.
+//    TallyViewCell *aCell = (TallyViewCell *)[onscreenCells objectForKey:[NSNumber numberWithInt:index]];
+//    if (aCell) {
+//        [aCell setImage:imageWithReflection originalImageHeight:image.size.height reflectionFraction:kReflectionFraction];
+//        [self layoutCell:aCell selectedCell:selectedCellView.number animated:NO];
 //    }
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        CGPoint panStart = [recognizer locationInView:self];
-        _prePanOffset = panStart.y - _prePanTouchDownPt.y;
-        DLog(@"Pan gesture began at y=%5.2f. Prepan begain at y=%5.2f", 
-             panStart.y, _prePanTouchDownPt.y);
-        _prePanTouchDownPt = CGPointZero;
-        [self _setCellsPanningFastTo:YES];
-    }    
-    else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        DLog(@"Pan gesture changed");
-        CGPoint translation = [recognizer translationInView:self];
-        [self _scrollBy:translation.y + _prePanOffset];
-        
-        [recognizer setTranslation:CGPointZero inView:self];
-        _prePanOffset = 0.0;
-        
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded) {        
-        DLog(@"Pan gesture ended");
-        
-        //gives effect of re-accelerating or slowing down
-        _panDecelerationCurrentVerticalSpeed = [recognizer velocityInView:self].y;
-        DLog(@"ending pan speed is %5.2f", _panDecelerationCurrentVerticalSpeed);
-        
-        if (!_isDecelerating && 
-            fabsf(_panDecelerationCurrentVerticalSpeed) > TH_DECELERATION_START_VERTSPEED_MIN) {
-            [self _startScrollingAnimation];
-        }
-        else {
-            [self _reshuffleViewsBy:0.0 criticalPortionDone:0.6];
-            [self _slotViewsWithAnimation:YES];
-            [self _setCellsPanningFastTo:NO];
-        }
-
-
-    }
-}
-
-- (void)_startScrollingAnimation {
-    DLog(@"Starting animation");
-    _isDecelerating = YES;
-    _shldStopDecelerating = NO;
-    _lastDecelTimestamp = 0.0;
-
-    CADisplayLink *animTimer = [self.window.screen displayLinkWithTarget:self 
-                                                                selector:@selector(_updateScrollingAnimation:)];
-    
-    animTimer.frameInterval = TH_TALLYVIEWANIM_FRAMEINTERVAL;
-    [animTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    _lastDecelTimestamp = CFAbsoluteTimeGetCurrent();
-    self.animationTimer = animTimer;
-}
-
-- (void)_stopScrollingAnimation {
-    DLog(@"Ending scrolling");
-    _isDecelerating = NO;
-    
-    [_animationTimer invalidate];
-    self.animationTimer = nil;
-    
-    [self _reshuffleViewsBy:0.0 criticalPortionDone:0.6];
-    [self _slotViewsWithAnimation:YES];
-    [self _setCellsPanningFastTo:NO];
-}
-
+//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_isDecelerating) {
-        _shldStopDecelerating = YES;
-    }
-    else {
-        _prePanTouchDownPt = [[touches anyObject] locationInView:self];
-    }
-}
-
-
-
-- (void)_scrollBy:(CGFloat)move {
-    if ([self _reshuffleViewsBy:move criticalPortionDone:1.0]) {
-        [self _slotViewsWithAnimation:NO];
-        move = _panPointsSinceLastReshuffle;
-    }
+    CGPoint startPoint = [[touches anyObject] locationInView:self];
+    _isDraggingACell = NO;
     
-    if (move != 0.0) {
-        CGFloat scales[7] = TH_POSN_SCALES;
-        CGFloat cellHeight = self.frame.size.height / TH_NUMVISIBLECELLS;
-        int thisScaleIx = 1; //(move > 0.0 ? 1 : 2);
-        int nextScaleIx = 2; //(move > 0.0 ? 2 : 1);
-        int nScalesDone = 0;
-        int ix = 0;
-        for (TallyViewCell *v in _cells) { 
-            NSAssert(v.isPanningFast, @"Cell should have been set to panning fast"); 
-            v.center = CGPointMake(v.center.x, v.center.y + move);
-            if (thisScaleIx == (move > 0.0 ? ix : ix - 1) && nScalesDone < 4) {
-                CGFloat scale = powf((scales[nextScaleIx] / scales[thisScaleIx]), (move / cellHeight));
-                [self _scaleView:v by:scale];
-                thisScaleIx += 1;
-                nextScaleIx += 1;
-                nScalesDone += 1;
-            }
-            
-            ix += 1;
-        }
+    // Which cell did the user tap?
+    CALayer *targetLayer = (CALayer *)[_scrollView.layer hitTest:startPoint];
+    TallyViewCell *targetCell = [self findCellOnscreen:targetLayer];
+    _isDraggingACell = (targetCell != nil);
+    
+    _beginningDragCell = _selectedCellView.number;
+    
+    // Make sure the user is tapping on a cell.
+    //HACK: NOT SURE WHY DIVIDING BY 1.5??
+    _startPositionY = (startPoint.y / 1.5) + _scrollView.contentOffset.y;
+    
+    //if we already have a tap before a move, then it's a doubletap
+    if (_isSingleTap)
+        _isDoubleTap = YES;
+    
+    _isSingleTap = ([touches count] == 1);
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    _isSingleTap = NO;
+    _isDoubleTap = NO;
+    
+    // Only scroll if the user started on a cell.
+    if (!_isDraggingACell)
+        return;
+    
+    CGPoint movedPoint = [[touches anyObject] locationInView:self];
+    
+    //HACK: NOT SURE WHY DIVIDING BY 1.5??
+    CGFloat offset = _startPositionY - (movedPoint.y / 1.5);
+    CGPoint newPoint = CGPointMake(0, offset);
+    _scrollView.contentOffset = newPoint;
+    int newCell = offset / _cellSpacing;
+    if (newCell != _selectedCellView.number) {
+        if (newCell < 0)
+            [self setSelectedCell:0];
+        else if (newCell >= self.numberOfCells)
+            [self setSelectedCell:self.numberOfCells - 1];
+        else
+            [self setSelectedCell:newCell];
     }
 }
 
-- (void)_updateScrollingAnimation:(CADisplayLink *)sender {
-    CFTimeInterval currentTime = CFAbsoluteTimeGetCurrent();
-    NSAssert(_lastDecelTimestamp, @"lastDecelTimestamp not set!");
-    CFTimeInterval time = currentTime - _lastDecelTimestamp;
-    DLog(@"Time since last = %5.5f, FPS = %5.2f", time, 1.0 / time);
-    _lastDecelTimestamp = sender.timestamp;
-    _panDecelerationCurrentVerticalSpeed *= pow(TH_DECELERATION_DAMP, time / sender.duration);
-    DLog(@"vert speed: %5.2f", _panDecelerationCurrentVerticalSpeed);
-    double move = _panDecelerationCurrentVerticalSpeed * time;
-    //DLog(@"called with move = %5.2f", move);
-    if (!_shldStopDecelerating && 
-        fabsf(move) > TH_DECELERATION_MOTION_MIN && 
-        fabsf(_panDecelerationCurrentVerticalSpeed) > TH_DECELERATION_STOP_VERTSPEED_MIN) {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_isSingleTap) {
+        // Which cell did the user tap?
+        CGPoint targetPoint = [[touches anyObject] locationInView:self];
+        CALayer *targetLayer = (CALayer *)[_scrollView.layer hitTest:targetPoint];
+        TallyViewCell *targetCell = [self findCellOnscreen:targetLayer];
+        if (targetCell && (targetCell.number != _selectedCellView.number))
+            [self setSelectedCell:targetCell.number];
+    }
+    [self centerOnSelectedCellWithAnimation:YES];
+    
+    // And send the delegate the newly selected cell message.
+    if (_beginningDragCell != _selectedCellView.number &&
+        [self.delegate respondsToSelector:@selector(tallyView:selectionDidChange:)])
+        [self.delegate tallyView:self selectionDidChange:_selectedCellView.number];
+}
+
+- (void)centerOnSelectedCellWithAnimation:(BOOL)animated {
+    CGPoint selectedOffset = CGPointMake(0, _cellSpacing * _selectedCellView.number);
+    [_scrollView setContentOffset:selectedOffset animated:animated];
+    //[_scrollView setContentOffset:_selectedCellView.center];
+}
+
+- (void)setSelectedCell:(int)newSelectedCell {
+    if (_selectedCellView && (newSelectedCell == _selectedCellView.number))
+        return;
+    
+    DLog(@"... newSelectedCell = %d", newSelectedCell);
+    TallyViewCell *cell;
+    int newLowerBound = MAX(0, newSelectedCell - TH_COVER_BUFFER);
+    int newUpperBound = MIN(self.numberOfCells - 1, newSelectedCell + TH_COVER_BUFFER);
+    if (!_selectedCellView) {
+        // Allocate and display cells from newLower to newUpper bounds.
+        for (int i = newLowerBound; i <= newUpperBound; i++) {
+            cell = [self cellForIndex:i];
+            [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:i]];
+            [self updateCell:cell];
+            [_scrollView.layer addSublayer:cell.layer];
+            //[scrollView addSubview:cell];
+            [self layoutCell:cell selectedCell:newSelectedCell animated:NO];
+        }
         
-        [self _scrollBy:move];
+        _lowerVisibleCell = newLowerBound;
+        _upperVisibleCell = newUpperBound;
+        _selectedCellView = [_onscreenCells objectForKey:[NSNumber numberWithInt:newSelectedCell]];
+        
+        return;
     }
-    else {
-        DLog(@"Ending scrolling: move=%5.2f, shouldStop=%d", move, _shldStopDecelerating);
-        [self _stopScrollingAnimation];
-    }
-
-    _lastDecelTimestamp = currentTime;
     
-}
-- (void)_setCellsPanningFastTo:(BOOL)shldPanFast {
-    for (TallyViewCell *v in _cells) {
-        if (v.isPanningFast != shldPanFast) {
-            v.isPanningFast = shldPanFast;
-            [v setNeedsDisplay];
+    // Check to see if the new & current ranges overlap.
+    if ((newLowerBound > _upperVisibleCell) || (newUpperBound < _lowerVisibleCell)) {
+        // They do not overlap at all.
+        // This does not animate--assuming it's programmatically set from view controller.
+        // Recycle all onscreen cells.
+        TallyViewCell *cell;
+        for (int i = _lowerVisibleCell; i <= _upperVisibleCell; i++) {
+            cell = [_onscreenCells objectForKey:[NSNumber numberWithInt:i]];
+            [_offscreenCells addObject:cell];
+            [cell removeFromSuperview];
+            [_onscreenCells removeObjectForKey:[NSNumber numberWithInt:cell.number]];
         }
+        
+        // Move all available cells to new location.
+        for (int i = newLowerBound; i <= newUpperBound; i++) {
+            cell = [self cellForIndex:i];
+            [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:i]];
+            [self updateCell:cell];
+            [_scrollView.layer addSublayer:cell.layer];
+        }
+        
+        _lowerVisibleCell = newLowerBound;
+        _upperVisibleCell = newUpperBound;
+        _selectedCellView = [_onscreenCells objectForKey:[NSNumber numberWithInt:newSelectedCell]];
+        [self layoutCells:newSelectedCell fromCell:newLowerBound toCell:newUpperBound];
+        
+        return;
+    } else if (newSelectedCell > _selectedCellView.number) {
+        // Move cells that are now out of range on the left to the right side,
+        // but only if appropriate (within the range set by newUpperBound).
+        for (int i = _lowerVisibleCell; i < newLowerBound; i++) {
+            cell = [_onscreenCells objectForKey:[NSNumber numberWithInt:i]];
+            if (_upperVisibleCell < newUpperBound) {
+                // Tack it on the right side.
+                _upperVisibleCell += 1;
+                cell.number = _upperVisibleCell;
+                [self updateCell:cell];
+                [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:cell.number]];
+                [self layoutCell:cell selectedCell:newSelectedCell animated:NO];
+            } else {
+                // Recycle this cell.
+                [_offscreenCells addObject:cell];
+                [cell removeFromSuperview];
+            }
+            [_onscreenCells removeObjectForKey:[NSNumber numberWithInt:i]];
+        }
+        _lowerVisibleCell = newLowerBound;
+        
+        // Add in any missing cells on the right up to the newUpperBound.
+        for (int i = _upperVisibleCell + 1; i <= newUpperBound; i++) {
+            cell = [self cellForIndex:i];
+            [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:i]];
+            [self updateCell:cell];
+            [_scrollView.layer addSublayer:cell.layer];
+            [self layoutCell:cell selectedCell:newSelectedCell animated:NO];
+        }
+        _upperVisibleCell = newUpperBound;
+    } else {
+        // Move cells that are now out of range on the right to the left side,
+        // but only if appropriate (within the range set by newLowerBound).
+        for (int i = _upperVisibleCell; i > newUpperBound; i--) {
+            cell = [_onscreenCells objectForKey:[NSNumber numberWithInt:i]];
+            if (_lowerVisibleCell > newLowerBound) {
+                // Tack it on the left side.
+                _lowerVisibleCell --;
+                cell.number = _lowerVisibleCell;
+                [self updateCell:cell];
+                [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:_lowerVisibleCell]];
+                [self layoutCell:cell selectedCell:newSelectedCell animated:NO];
+            } else {
+                // Recycle this cell.
+                [_offscreenCells addObject:cell];
+                [cell removeFromSuperview];
+            }
+            [_onscreenCells removeObjectForKey:[NSNumber numberWithInt:i]];
+        }
+        _upperVisibleCell = newUpperBound;
+        
+        // Add in any missing cells on the left down to the newLowerBound.
+        for (int i = _lowerVisibleCell - 1; i >= newLowerBound; i--) {
+            cell = [self cellForIndex:i];
+            [_onscreenCells setObject:cell forKey:[NSNumber numberWithInt:i]];
+            [self updateCell:cell];
+            [_scrollView.layer addSublayer:cell.layer];
+            //[scrollView addSubview:cell];
+            [self layoutCell:cell selectedCell:newSelectedCell animated:NO];
+        }
+        _lowerVisibleCell = newLowerBound;
     }
+    
+    if (_selectedCellView.number > newSelectedCell)
+        [self layoutCells:newSelectedCell fromCell:newSelectedCell toCell:_selectedCellView.number];
+    else if (newSelectedCell > _selectedCellView.number)
+        [self layoutCells:newSelectedCell fromCell:_selectedCellView.number toCell:newSelectedCell];
+    
+    _selectedCellView = (TallyViewCell *)[_onscreenCells objectForKey:[NSNumber numberWithInt:newSelectedCell]];
 }
-
-
 
 @end
-
-
-
-

@@ -6,92 +6,85 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+
+/**
+ * Copyright (c) 2009 Alex Fajkowski, Apparent Logic LLC
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
 #import <UIKit/UIKit.h>
 #import "TallyViewCell.h"
-#import "FlickDynamics.h"
-#import <QuartzCore/CADisplayLink.h>
-
-@class TallyView;
-
-@protocol TallyViewDelegate<NSObject>
-
-// data methods
-
-@required
-
-//- (NSInteger)numberOfVisibleRows;
-
-@optional
-// initialise the cells (numberOfVisibleRows + 2)
-- (TallyViewCell *)tallyView:(TallyView *)tallyView cellForRowAtIndex:(NSInteger)ix;
-
-// 
-- (void)tallyView:(TallyView *)tallyView dataForCell:(TallyViewCell *)cell atIndexPosition:(NSInteger)ix;
+#import <QuartzCore/QuartzCore.h>
 
 
+@protocol TallyViewDelegate;
 
-// event methods
+@interface TallyView : UIView {
+	id <TallyViewDelegate> _delegate;
+	NSMutableSet *_offscreenCells;
+	NSMutableDictionary *_onscreenCells;
+    
+	CGFloat	_defaultImageHeight;
+    
+	UIScrollView *_scrollView;
+	int _lowerVisibleCell;
+	int _upperVisibleCell;
+	int _numberOfCells;
+	int _beginningDragCell;
+	
+	TallyViewCell *_selectedCellView;
+    
+	CATransform3D _upperTransform, _lowerTransform;
+	
+	CGFloat _halfScreenHeight;
+	CGFloat _halfScreenWidth;
+    
+    CGFloat _cellSpacing;
+	
+	BOOL _isSingleTap;
+	BOOL _isDoubleTap;
+	BOOL _isDraggingACell;
+	CGFloat _startPositionY;
+}
 
-- (void)tallyView:(TallyView *)tallyView willAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor;
+@property (nonatomic, assign) id <TallyViewDelegate> delegate;
+@property (nonatomic, assign) int numberOfCells;
 
-- (void)tallyView:(TallyView *)tallyView didAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor;
-
-- (void)tallyView:(TallyView *)tallyView willShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx;
-
-- (void)tallyView:(TallyView *)tallyView didShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx;
-
-
+- (void)reloadData;
+- (void)setSelectedCell:(int)newSelectedCellIx;
+- (void)centerOnSelectedCellWithAnimation:(BOOL)animated;
 
 @end
 
+@protocol TallyViewDelegate <NSObject>
+@optional
 
-@interface TallyView : UIView {
-    id<TallyViewDelegate> _delegate;
-            
-    CGFloat _panPointsSinceLastReshuffle;
-    
-    NSMutableArray *_cells;
-    
-    //NSInteger _nCells;
-    
-    //number of slots forward or backward
-    //(up = forward = positive)
-    NSInteger _scrollPosition;
-    
-    BOOL _shldReloadCells;
-    BOOL _shldRedrawBackground;
-    
-    CGPoint _prePanTouchDownPt;
-    CGFloat _prePanOffset;
-    
-    CGFloat _panDecelerationCurrentVerticalSpeed;
-    CADisplayLink *_animationTimer;
-    BOOL _isDecelerating;
-    BOOL _shldStopDecelerating;
-    CFTimeInterval _lastDecelTimestamp;
-        
-}
+// event methods
 
-@property (retain, nonatomic) NSArray *cells;
 
-//not retained
-@property (assign, nonatomic) id<TallyViewDelegate> delegate;
+- (void)tallyView:(TallyView *)tallyView selectionDidChange:(int)index;
 
-@property NSInteger scrollPosition;
+- (TallyViewCell *)tallyView:(TallyView *)tallyView cellForRowAtIndex:(NSInteger)ix;
 
-- (void)_scaleView:(TallyViewCell *)view by:(CGFloat)scale;
-- (void)_slotViewsWithAnimation:(BOOL)animated;
-- (BOOL)_reshuffleViewsBy:(CGFloat)move criticalPortionDone:(CGFloat)portion; 
-
-- (void)_scrollBy:(CGFloat)move;
-
-- (void)_startScrollingAnimation;
-- (void)_updateScrollingAnimation:(CADisplayLink *)sender;
-- (void)_stopScrollingAnimation;
-
-- (void)_pan:(UIPanGestureRecognizer *)recognizer;
-- (void)_setCellsPanningFastTo:(BOOL)shldPanFast;
-
-- (void)reloadData;
+- (void)tallyView:(TallyView *)tallyView dataForCell:(TallyViewCell *)cell;
 
 @end

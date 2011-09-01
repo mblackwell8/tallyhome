@@ -27,7 +27,6 @@
 		4D8F2A9013B58C05008EF6AF /* THDateVal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A8F13B58C05008EF6AF /* THDateVal.m */; };
 		4D8F2A9B13B74536008EF6AF /* THURLCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9A13B74536008EF6AF /* THURLCreator.m */; };
 		4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */; };
-		4D9FA77913F95CB600CC9418 /* TallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FA77813F95CB500CC9418 /* TallyView.m */; };
 		4DA28EC213A2DE6D001D13BD /* THTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */; };
 		4DAABCC6139B220C00E868A7 /* PricePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCC5139B220C00E868A7 /* PricePathTests.m */; };
 		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
@@ -41,8 +40,9 @@
 		4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */; };
 		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
 		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
-		4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */; };
-		4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */; };
+		8F9527E1140A0368000F2780 /* ScrollWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9527E0140A0368000F2780 /* ScrollWheel.m */; };
+		8F9527E4140BB4BE000F2780 /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */; };
+		8FEF28BA140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF28B9140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +73,7 @@
 		4D055A8E139A1E0600F13781 /* TallyHomeTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TallyHomeTests-Prefix.pch"; sourceTree = "<group>"; };
 		4D055A8F139A1E0600F13781 /* TallyHomeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TallyHomeTests.h; sourceTree = "<group>"; };
 		4D055A91139A1E0600F13781 /* TallyHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TallyHomeTests.m; sourceTree = "<group>"; };
+		4D1A519113FD28860061D2B3 /* TallyHomeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyHomeConstants.h; sourceTree = "<group>"; };
 		4D47236813ADB5DA00309C25 /* THDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDate.h; sourceTree = "<group>"; };
 		4D47236913ADB5DA00309C25 /* THDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDate.m; sourceTree = "<group>"; };
 		4D7383CB139A1FF60087CCDC /* THHomePricePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHomePricePath.h; sourceTree = "<group>"; };
@@ -157,8 +158,6 @@
 		4D8F2A9A13B74536008EF6AF /* THURLCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THURLCreator.m; sourceTree = "<group>"; };
 		4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppDefaults.plist; sourceTree = "<group>"; };
 		4D8F2AA013B756B7008EF6AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		4D9FA77713F95CB500CC9418 /* TallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyView.h; sourceTree = "<group>"; };
-		4D9FA77813F95CB500CC9418 /* TallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyView.m; sourceTree = "<group>"; };
 		4DA28EC013A2DE6D001D13BD /* THTimeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = THTimeSeries.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4DA28EC113A2DE6D001D13BD /* THTimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = THTimeSeries.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DAABCC4139B220C00E868A7 /* PricePathTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePathTests.h; sourceTree = "<group>"; };
@@ -181,10 +180,11 @@
 		4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateSelectorVC.xib; sourceTree = "<group>"; };
 		4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
-		4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
 		4DEEFDD513DD918500C9BA06 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
-		4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyViewCell.h; sourceTree = "<group>"; };
-		4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyViewCell.m; sourceTree = "<group>"; };
+		8F9527DF140A0368000F2780 /* ScrollWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollWheel.h; sourceTree = "<group>"; };
+		8F9527E0140A0368000F2780 /* ScrollWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollWheel.m; sourceTree = "<group>"; };
+		8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
+		8FEF28B9140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "istockphoto_11457748-ivy-on-brick-wall.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +261,7 @@
 		4D055A69139A1E0600F13781 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FEF28B9140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg */,
 				4D8F2A9C13B74C3F008EF6AF /* AppDefaults.plist */,
 				4D055A6A139A1E0600F13781 /* TallyHome-Info.plist */,
 				4D055A6B139A1E0600F13781 /* InfoPlist.strings */,
@@ -391,8 +392,6 @@
 		4DD54B9113C03A6000E6DE8E /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4D9FA77713F95CB500CC9418 /* TallyView.h */,
-				4D9FA77813F95CB500CC9418 /* TallyView.m */,
 				4DD54BDA13C07BF600E6DE8E /* RootViewController.h */,
 				4DD54BDB13C07BF600E6DE8E /* RootViewController.m */,
 				4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */,
@@ -413,9 +412,10 @@
 				4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */,
 				4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */,
 				4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */,
-				4DD54C1913C5C8F400E6DE8E /* ScrollingTallyDetailVC.xib */,
-				4DEEFDD913DEF21F00C9BA06 /* TallyViewCell.h */,
-				4DEEFDDA13DEF21F00C9BA06 /* TallyViewCell.m */,
+				8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */,
+				4D1A519113FD28860061D2B3 /* TallyHomeConstants.h */,
+				8F9527DF140A0368000F2780 /* ScrollWheel.h */,
+				8F9527E0140A0368000F2780 /* ScrollWheel.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -494,7 +494,8 @@
 				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
 				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
 				4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */,
-				4DD54C1B13C5C8F700E6DE8E /* ScrollingTallyDetailVC.xib in Resources */,
+				8F9527E4140BB4BE000F2780 /* ScrollingTallyDetailVC.xib in Resources */,
+				8FEF28BA140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,8 +545,7 @@
 				4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */,
 				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
 				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
-				4DEEFDDB13DEF21F00C9BA06 /* TallyViewCell.m in Sources */,
-				4D9FA77913F95CB600CC9418 /* TallyView.m in Sources */,
+				8F9527E1140A0368000F2780 /* ScrollWheel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,7 +654,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7A1CB00C-E9F4-41B4-9EC9-BA76AD2BB7C5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "837FADEF-AA79-4355-8987-FD7B784C50D0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

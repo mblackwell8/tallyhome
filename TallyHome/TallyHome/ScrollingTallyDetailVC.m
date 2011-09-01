@@ -9,7 +9,9 @@
 #import "ScrollingTallyDetailVC.h"
 #import "DebugMacros.h"
 
+
 #define kUnknownLocation @"Unknown"
+#define TH_AUTO_UPDATE_HZ 60.0
 
 @interface ScrollingTallyDetailVC ()
 
@@ -18,19 +20,8 @@
 
 @implementation ScrollingTallyDetailVC
 @synthesize customizeAlertImage = _customizeAlertImage;
-@synthesize scrollView = _scrollView;
 @synthesize propertyName = _propertyName, pricePath = _pricePath, 
-        location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData;
-
-
-
-- (id)init {
-    if ((self = [self initWithNibName:@"ScrollingTallyDetailVC" bundle:nil])) {
-        
-    }
-    
-    return self;
-}
+        location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData, currentValueLabel = _currentValueLbl, scroller = _scroller, currentValue = _currentValue, currentDateLabel = _currentDateLbl, commentLabel = _commentLbl, activityIndicator = _activityIndicator, backgroundRect = _backgroundRect;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,10 +76,49 @@
     [_displayedData release];
     
     [_customizeAlertImage release];
-    [_scrollView release];
     [_waitingForDataIndicator release];
+    
+    [_valueFormatter release];
+    
+    [_scroller release];
+    [_currentValueLbl release];
+    [_currentValue release];
     [super dealloc];
 }
+
+- (void)_updateCurrentValueAuto {
+    if (_scroller.isRotating)
+        return;
+    
+    NSDate *newDt = [_currentValue.date addTimeInterval:60.0 / TH_AUTO_UPDATE_HZ];
+    [self performSelectorOnMainThread:@selector(_setCurrentValueTo:) withObject:newDt waitUntilDone:NO];
+}
+
+- (void)_setCurrentValueTo:(NSDate *)date {
+    self.currentValue = [_displayedData calcValueAt:date];
+    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_currentValue.val]];
+    _currentValueLbl.text = valueText;
+    _currentDateLbl.text = [_currentValue.date fuzzyRelativeDateString];
+    
+}
+
+//@protocol ScrollWheelDelegate <NSObject>
+
+//@required
+
+
+- (void)scrollWheel:(ScrollWheel *)sw didRotate:(NSInteger)years {   
+    DLog(@"scrolling %d years", years);
+    [self _setCurrentValueTo:[_currentValue.date addDays:years * 365]];
+}
+- (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
+    [self _setCurrentValueTo:[NSDate date]];
+}
+
+
+
+//@end
+
 
 #pragma mark TallyDetailVC
 
@@ -105,73 +135,6 @@
 - (NSString *)rowTitle {
     return _propertyName;
 }
-
-- (TallyViewCell *)tallyView:(TallyView *)tallyView cellForRowAtIndex:(NSInteger)ix {
-    
-    //make an arbitrary height, so that construction works
-    TallyViewCell *cell = [[TallyViewCell alloc] initWithFrame:CGRectMake(0, 0, tallyView.frame.size.width, tallyView.frame.size.height / 7.0)];
-    
-    return [cell autorelease];
-}
-
-- (void)tallyView:(TallyView *)tallyView willAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor {
-
-}
-
-- (void)tallyView:(TallyView *)tallyView didAdjustCellSize:(TallyViewCell *)cell by:(CGFloat)scaleFactor {
-    
-}
-
-- (void)tallyView:(TallyView *)tallyView willShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx {
-    
-}
-
-- (void)tallyView:(TallyView *)tallyView didShuffleCell:(TallyViewCell *)cell fromIndexPosition:(NSInteger)fromIx toIndexPosition:(NSInteger)toIx {
-//    if (fromIx == toIx) {
-//        DLog(@"ERROR: fromIx == toIx == %d", fromIx);
-//        return;
-//    }
-//    
-//    // reformat the incoming middle label
-//    TallyViewCell *middleLbl = [_scrollView.cells objectAtIndex:3];
-//    middleLbl.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:middleLbl.data.val]]; 
-//    [middleLbl setNeedsDisplay];
-//    
-//    // reformat the outgoing middle label
-//    TallyViewCell *oldMiddleLbl = nil;
-//    if (fromIx < toIx) {
-//        //moving up, so old middle label is now at position 2
-//        oldMiddleLbl = [_scrollView.cells objectAtIndex:2];
-//    }
-//    else {
-//        oldMiddleLbl = [_scrollView.cells objectAtIndex:4];
-//    }
-//    oldMiddleLbl.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:oldMiddleLbl.data.val]]; 
-//    [oldMiddleLbl setNeedsDisplay];
-    
-}
-
-- (void)tallyView:(TallyView *)tallyView dataForCell:(TallyViewCell *)cell atIndexPosition:(NSInteger)ix {
-    NSInteger yearsAhead = tallyView.scrollPosition + (3 - ix);
-    THDateVal *data = [_displayedData calcValueAt:[[NSDate date] addDays:(yearsAhead * 365)]];
-    cell.data = data;
-    [cell setNeedsDisplay];
-}
-
-//- (void)_applyData:(THDateVal *)data toTallyViewCell:(TallyViewCell *)cell atIndex:(NSInteger)ix {
-//    
-//    cell.dateLabel = [data.date fuzzyRelativeDateString];
-//    
-//    if (ix == 3)
-//        cell.valueLabel = [middleValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
-//    else
-//        cell.valueLabel = [normalValueLblFormatter stringFromNumber:[NSNumber numberWithDouble:data.val]];
-//    
-//    cell.commentLabel = @"TODO: Change label";
-//    cell.data = data;
-//
-//    [cell setNeedsDisplay];
-//}
 
 - (void)_editProperty {
     PropertySettingsVC *propSettings = [[PropertySettingsVC alloc] initWithStyle:UITableViewStyleGrouped];
@@ -217,7 +180,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _scrollView.delegate = self;
     
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" 
                                                                    style:UIBarButtonItemStylePlain 
@@ -225,6 +187,19 @@
                                                                   action:@selector(_editProperty)];          
     self.navigationItem.rightBarButtonItem = editButton;
     [editButton release];
+    
+    _scroller.fullCircleScale = 20.0;
+    _scroller.stepScale = 1.0;
+    _scroller.delegate = self;
+
+    _valueFormatter = [[NSNumberFormatter alloc] init]; 
+    [_valueFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [_valueFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [_valueFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
+    [_valueFormatter retain];
+    
+    _backgroundRect.backgroundColor = [UIColor colorWithRed:10.0/255.0 green:68.0/255.0 blue:151.0/255.0 alpha:1.0];
+    _backgroundRect.layer.cornerRadius = 5.0;
     
     if (!_pricePath) {
         DLog(@"_pricePath nil, initializing");
@@ -234,8 +209,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     DLog(@"making price path...");
-    self.displayedData = [_pricePath makePricePath];
-    [_scrollView reloadData];
+    self.displayedData = [_pricePath makePricePath];    
+    [self _setCurrentValueTo:[NSDate date]];
+    
+    _autoUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 / TH_AUTO_UPDATE_HZ 
+                                                         target:self
+                                                       selector:@selector(_updateCurrentValueAuto) 
+                                                       userInfo:nil 
+                                                        repeats:YES] retain];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [_autoUpdateTimer invalidate];
+    [_autoUpdateTimer release];
+    _autoUpdateTimer = nil;
 }
 
 - (void)_initPricePath {
@@ -245,11 +232,11 @@
 }
 
 - (void)viewDidUnload {
-    [self setCustomizeAlertImage:nil];
-    [self setScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.customizeAlertImage = nil;
+//    self.scrollView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
