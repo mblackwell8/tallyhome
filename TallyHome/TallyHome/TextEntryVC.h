@@ -16,18 +16,22 @@
 
 @end
 
-
-@interface TextEntryVC : UIViewController {
+@interface TextEntryVC : UIViewController <UITextFieldDelegate> {  
     UITextField *_textField;
-    
     id <TextEntryVCDelegate> _delegate;
     
+    NSString *_guidanceMsg, *_preData;
+    UIKeyboardType _kbdType;
     
 }
 
-@property (nonatomic, readonly, retain) IBOutlet UITextField *textField;
-
 @property (nonatomic, assign) id <TextEntryVCDelegate> delegate;
+@property (nonatomic, readonly) UITextField *textField;
+@property (nonatomic, copy) NSString *guidanceMessage, *previousData;
+@property (nonatomic) UIKeyboardType keyboardType;
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+
+- (void)textFieldEditingDidEnd:(id)sender;
 
 @end

@@ -1,0 +1,116 @@
+State,Location,RegionSeriesName,RegionNameSource,Country
+CT,,New England(SA),FHFA,USA
+ME,,New England(SA),FHFA,USA
+MA,,New England(SA),FHFA,USA
+NH,,New England(SA),FHFA,USA
+RI,,New England(SA),FHFA,USA
+VT,,New England(SA),FHFA,USA
+NJ,,Middle Atlantic(SA),FHFA,USA
+NY,,Middle Atlantic(SA),FHFA,USA
+PA,,Middle Atlantic(SA),FHFA,USA
+IL,,East North Central(SA),FHFA,USA
+IN,,East North Central(SA),FHFA,USA
+MI,,East North Central(SA),FHFA,USA
+OH,,East North Central(SA),FHFA,USA
+WI,,East North Central(SA),FHFA,USA
+IA,,West North Central(SA),FHFA,USA
+KS,,West North Central(SA),FHFA,USA
+MN,,West North Central(SA),FHFA,USA
+MO,,West North Central(SA),FHFA,USA
+NE,,West North Central(SA),FHFA,USA
+ND,,West North Central(SA),FHFA,USA
+SD,,West North Central(SA),FHFA,USA
+DE,,South Atlantic(SA),FHFA,USA
+DC,,South Atlantic(SA),FHFA,USA
+FL,,South Atlantic(SA),FHFA,USA
+GA,,South Atlantic(SA),FHFA,USA
+MD,,South Atlantic(SA),FHFA,USA
+NC,,South Atlantic(SA),FHFA,USA
+SC,,South Atlantic(SA),FHFA,USA
+VA,,South Atlantic(SA),FHFA,USA
+WV,,South Atlantic(SA),FHFA,USA
+AL,,East South Central(SA),FHFA,USA
+KY,,East South Central(SA),FHFA,USA
+MS,,East South Central(SA),FHFA,USA
+TN,,East South Central(SA),FHFA,USA
+AR,,West South Central(SA),FHFA,USA
+LA,,West South Central(SA),FHFA,USA
+OK,,West South Central(SA),FHFA,USA
+TX,,West South Central(SA),FHFA,USA
+AZ,,Mountain(SA),FHFA,USA
+CO,,Mountain(SA),FHFA,USA
+ID,,Mountain(SA),FHFA,USA
+MT,,Mountain(SA),FHFA,USA
+NV,,Mountain(SA),FHFA,USA
+NM,,Mountain(SA),FHFA,USA
+UT,,Mountain(SA),FHFA,USA
+WY,,Mountain(SA),FHFA,USA
+AK,,Pacific(SA),FHFA,USA
+CA,,Pacific(SA),FHFA,USA
+HI,,Pacific(SA),FHFA,USA
+OR,,Pacific(SA),FHFA,USA
+WA,,Pacific(SA),FHFA,USA
+CT,,CT,FHFA,USA
+ME,,ME,FHFA,USA
+MA,,MA,FHFA,USA
+NH,,NH,FHFA,USA
+RI,,RI,FHFA,USA
+VT,,VT,FHFA,USA
+NJ,,NJ,FHFA,USA
+NY,,NY,FHFA,USA
+PA,,PA,FHFA,USA
+IL,,IL,FHFA,USA
+IN,,IN,FHFA,USA
+MI,,MI,FHFA,USA
+OH,,OH,FHFA,USA
+WI,,WI,FHFA,USA
+IA,,IA,FHFA,USA
+KS,,KS,FHFA,USA
+MN,,MN,FHFA,USA
+MO,,MO,FHFA,USA
+NE,,NE,FHFA,USA
+ND,,ND,FHFA,USA
+SD,,SD,FHFA,USA
+DE,,DE,FHFA,USA
+DC,,DC,FHFA,USA
+FL,,FL,FHFA,USA
+GA,,GA,FHFA,USA
+MD,,MD,FHFA,USA
+NC,,NC,FHFA,USA
+SC,,SC,FHFA,USA
+VA,,VA,FHFA,USA
+WV,,WV,FHFA,USA
+AL,,AL,FHFA,USA
+KY,,KY,FHFA,USA
+MS,,MS,FHFA,USA
+TN,,TN,FHFA,USA
+AR,,AR,FHFA,USA
+LA,,LA,FHFA,USA
+OK,,OK,FHFA,USA
+TX,,TX,FHFA,USA
+AZ,,AZ,FHFA,USA
+CO,,CO,FHFA,USA
+ID,,ID,FHFA,USA
+MT,,MT,FHFA,USA
+NV,,NV,FHFA,USA
+NM,,NM,FHFA,USA
+UT,,UT,FHFA,USA
+WY,,WY,FHFA,USA
+AK,,AK,FHFA,USA
+CA,,CA,FHFA,USA
+HI,,HI,FHFA,USA
+OR,,OR,FHFA,USA
+WA,,WA,FHFA,USA
+NSW,,,,Australia
+Victoria,,,,Australia
+Queensland,,,,Australia
+South Australia,,,,Australia
+Western Australia,,,,Australia
+Tasmania,,,,Australia
+Northern Territory,,,,Australia
+ACT,,,,Australia
+NSW,,HNSW,Rismark,Australia
+Victoria,,HVIC,Rismark,Australia
+Queensland,,HQLD,Rismark,Australia
+South Australia,,HSA,Rismark,Australia
+Western Australia,,HWA,Rismark,Australia

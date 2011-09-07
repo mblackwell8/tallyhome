@@ -11,43 +11,43 @@
 
 @implementation NSDate (THDate)
 
-- (BOOL) isBefore:(NSDate *)date {
+- (BOOL)isBefore:(NSDate *)date {
     return ([self timeIntervalSinceDate:date] < 0);
 }
-- (BOOL) isAfter:(NSDate *)date {
+- (BOOL)isAfter:(NSDate *)date {
     return ([self timeIntervalSinceDate:date] > 0);
 }
-- (BOOL) isBeforeOrEqualTo:(NSDate *)date {
+- (BOOL)isBeforeOrEqualTo:(NSDate *)date {
     return [self isBefore:date] || [self isEqualToDate:date];
 }
-- (BOOL) isAfterOrEqualTo:(NSDate *)date {
+- (BOOL)isAfterOrEqualTo:(NSDate *)date {
     return [self isAfter:date] || [self isEqualToDate:date];
 }
 
 
-- (NSDate *) addDays:(double)days {
+- (NSDate *)addDays:(double)days {
     return [self dateByAddingTimeInterval:(TH_OneDayInSecs * days)];
 }
 
-- (NSDate *) addOneDay {
+- (NSDate *)addOneDay {
     return [self dateByAddingTimeInterval:(TH_OneDayInSecs)];
 }
 
-- (NSDate *) subtractOneDay {
+- (NSDate *)subtractOneDay {
     return [self dateByAddingTimeInterval:-(TH_OneDayInSecs)];
 }
 
-- (double) daysSince:(NSDate *)date {
+- (double)daysSince:(NSDate *)date {
     double daysBetween = [self timeIntervalSinceDate:date] / (TH_OneDayInSecs);
     
     return daysBetween;
 }
 
-- (double) daysUntil:(NSDate *)date {
+- (double)daysUntil:(NSDate *)date {
     return -[self daysSince:date];
 }
 
-+ (NSDate *) localDateFromString:(NSString *)dateStr {
++ (NSDate *)localDateFromString:(NSString *)dateStr {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setTimeStyle:NSDateFormatterNoStyle];
     [df setDateStyle:NSDateFormatterShortStyle];

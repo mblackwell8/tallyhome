@@ -62,32 +62,35 @@
 //-(IBAction)cancel {
 //    [[self.delegate navController] popViewControllerAnimated:YES];
 //}
-//-(IBAction)save {
-//    [self.delegate takeNewDate:date];
-//    [[self.delegate navController] popViewControllerAnimated:YES];
-//}
-//- (void)loadView {
-//    UIView *theView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    self.view = theView;
-//    [theView release];
-//    
-//    UITableView *theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 67.0, 320.0, 480.0) style:UITableViewStyleGrouped];
-//    theTableView.delegate = self;
-//    theTableView.dataSource = self;
-//    [self.view addSubview:theTableView];
-//    self.dateTableView = theTableView;
-//    [theTableView release];
-//    
-//    UIDatePicker *theDatePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 200.0, 320.0, 216.0)];
-//    theDatePicker.datePickerMode = UIDatePickerModeDate;
-//    self.datePicker = theDatePicker;
-//    [theDatePicker release];
-//    [datePicker addTarget:self action:@selector(dateChanged) forControlEvents:UIControlEventValueChanged];
-//    [self.view addSubview:datePicker];
-//    
-//    
-//    
-//    
+-(IBAction)save {
+    self.date = [datePicker date];
+    //just alert, ignore response
+    [_delegate dateEntryShouldReturn:self];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)loadView {
+    UIView *theView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.view = theView;
+    [theView release];
+    
+    UITableView *theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 67.0, 320.0, 480.0) style:UITableViewStyleGrouped];
+    theTableView.delegate = self;
+    theTableView.dataSource = self;
+    [self.view addSubview:theTableView];
+    self.dateTableView = theTableView;
+    [theTableView release];
+    
+    UIDatePicker *theDatePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 200.0, 320.0, 216.0)];
+    theDatePicker.datePickerMode = UIDatePickerModeDate;
+    self.datePicker = theDatePicker;
+    [theDatePicker release];
+    [datePicker addTarget:self action:@selector(dateChanged) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:datePicker];
+    
+    
+    
+    
 //    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
 //                                     initWithTitle:NSLocalizedString(@"Cancel", @"Cancel - for button to cancel changes")
 //                                     style:UIBarButtonItemStylePlain
@@ -95,17 +98,17 @@
 //                                     action:@selector(cancel)];
 //    self.navigationItem.leftBarButtonItem = cancelButton;
 //    [cancelButton release];
-//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
-//                                   initWithTitle:NSLocalizedString(@"Save", @"Save - for button to save changes")
-//                                   style:UIBarButtonItemStylePlain
-//                                   target:self
-//                                   action:@selector(save)];
-//    self.navigationItem.rightBarButtonItem = saveButton;
-//    [saveButton release];
-//    
-//    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    
-//}
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:NSLocalizedString(@"Done", @"Done - to save changes")
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(save)];
+    self.navigationItem.rightBarButtonItem = saveButton;
+    [saveButton release];
+    
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     if (_date != nil)
@@ -117,7 +120,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [_delegate setDate:_date];
+//    [_delegate setDate:_date];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

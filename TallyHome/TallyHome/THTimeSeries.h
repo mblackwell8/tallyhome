@@ -21,7 +21,8 @@
     //NSTimeInterval backwardsExtrapolationInterval;
     NSTimeInterval trendExtrapolationInterval;
     
-    NSMutableDictionary *_calcedIndices;
+    BOOL _fwdGrowthCalced, _backwardGrowthCalced;
+    double _fwdDailyGrowth, _backwardDailyGrowth;
 }
 
 @property (retain, nonatomic) NSArray *innerIndex;
@@ -33,17 +34,18 @@
 - (id)copyWithZone:(NSZone *)zone;
 
 - (double)dailyRateOfChangeAt:(NSDate *)date;
-+ (double)dailyRateOfChangeFrom:(THDateVal *)first to:(THDateVal *)last;
+//+ (double)dailyRateOfChangeFrom:(THDateVal *)first to:(THDateVal *)last;
 //+ (double)daysFrom:(NSDate *)first to:(NSDate *)last;
 - (THDateVal *)calcValueAt:(NSDate *)date;
 - (THDateVal *)calcValueAt:(NSDate *)date usingBaseValue:(THDateVal *)i;
 
 // annual growth, trending forward (ie. using most recent data)
-- (double)calcTrendGrowth;
-- (double)calcTrendGrowthOver:(NSTimeInterval) interval;
+- (double)calcDailyTrendGrowth;
+- (double)calcDailyTrendGrowthPreSeries;
+- (double)calcDailyTrendGrowthOver:(NSTimeInterval) interval;
 //- (double) calcBackwardsTrendGrowth;
 //- (double) calcBackwardsTrendGrowthOver:(NSTimeInterval) interval;
-+ (double)calcTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last;
++ (double)calcSMADailyTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last;
 //- (int) indexOfFirstBefore:(NSDate *)date;
 - (THDateVal *)firstBefore:(NSDate *)date;
 - (THDateVal *)firstAfter:(NSDate *)date;

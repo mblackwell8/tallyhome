@@ -21,7 +21,7 @@
 @implementation ScrollingTallyDetailVC
 @synthesize customizeAlertImage = _customizeAlertImage;
 @synthesize propertyName = _propertyName, pricePath = _pricePath, 
-        location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData, currentValueLabel = _currentValueLbl, scroller = _scroller, currentValue = _currentValue, currentDateLabel = _currentDateLbl, commentLabel = _commentLbl, activityIndicator = _activityIndicator, backgroundRect = _backgroundRect;
+        location = _location, waitingForDataIndicator = _waitingForDataIndicator, displayedData = _displayedData, currentValueLabel = _currentValueLbl, scroller = _scroller, currentValue = _displayedValue, currentDateLabel = _currentDateLbl, commentLabel = _commentLbl, activityIndicator = _activityIndicator, backgroundRect = _backgroundRect;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +41,7 @@
 #define kLocation       @"Location"
 #define kPropertyName   @"PropName"
 #define kPricePath      @"PricePath"
+#define kLastNowValue   @"LastNowValue"
 
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
@@ -49,6 +50,8 @@
     [encoder encodeObject:_location forKey:kLocation];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
+    [encoder encodeObject:_nowValueToEncode forKey:kLastNowValue];
+    [_nowValueToEncode release];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -64,6 +67,9 @@
         if (!(_pricePath = [[decoder decodeObjectForKey:kPricePath] retain])) {
             _pricePath = nil;
         }
+        if (!(_lastNowValue = [[decoder decodeObjectForKey:kLastNowValue] retain])) {
+            _lastNowValue = nil;
+        }
     }
     
     return self;
@@ -74,15 +80,17 @@
     [_propertyName release];
     [_pricePath release];
     [_displayedData release];
+    [_lastNowValue release];
     
     [_customizeAlertImage release];
     [_waitingForDataIndicator release];
     
     [_valueFormatter release];
+    [_commentValueFormatter release];
     
     [_scroller release];
     [_currentValueLbl release];
-    [_currentValue release];
+    [_displayedValue release];
     [super dealloc];
 }
 
@@ -90,32 +98,63 @@
     if (_scroller.isRotating)
         return;
     
-    NSDate *newDt = [_currentValue.date addTimeInterval:60.0 / TH_AUTO_UPDATE_HZ];
-    [self performSelectorOnMainThread:@selector(_setCurrentValueTo:) withObject:newDt waitUntilDone:NO];
+    NSDate *newDt = [_displayedValue.date addTimeInterval:60.0 / TH_AUTO_UPDATE_HZ];
+    [self performSelectorOnMainThread:@selector(_setDisplayedDateValueTo:) withObject:newDt waitUntilDone:NO];
 }
 
-- (void)_setCurrentValueTo:(NSDate *)date {
+- (void)_setDisplayedDateValueTo:(NSDate *)date {
     self.currentValue = [_displayedData calcValueAt:date];
-    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_currentValue.val]];
+    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_displayedValue.val]];
     _currentValueLbl.text = valueText;
-    _currentDateLbl.text = [_currentValue.date fuzzyRelativeDateString];
+    _currentDateLbl.text = [_displayedValue.date fuzzyRelativeDateString];
     
+    double diff = 0.0;
+    NSString *comparator = nil;
+    // if in future or past, then tell user how much more/less than now
+    if (ABS([_displayedValue.date daysSince:_nowValue.date]) >= (365.0/2.0)) {
+        diff = _displayedValue.val - _nowValue.val;
+        comparator = @"now";
+    }
+//    // if in past, then tell user change vs purch date
+//    else if ([_currentValue.date daysUntil:_nowValue.date] >= 365) {
+//        diff = _currentValue.val - _pricePath.buyPrice.val;
+//        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit 
+//                                                                       fromDate:_pricePath.buyPrice.date];
+//        comparator = [NSString stringWithFormat:@"%d", [components year]];
+//    }
+    // otherwise, tell user change since last check in
+    else {
+        if (_lastNowValue) {
+            diff = _displayedValue.val - _lastNowValue.val;
+        }
+        // else diff will be zero
+        comparator = @"last check in";
+    }
+    
+    NSString *diffStr = [_commentValueFormatter stringFromNumber:[NSNumber numberWithDouble:ABS(diff)]];
+
+    if (diff != 0.0) {
+        _commentLbl.text = [NSString stringWithFormat:@"%@ %@ than %@",
+                            diffStr,
+                            diff > 0.0 ? @"higher" : @"lower",
+                            comparator];
+    }
+    else {
+        _commentLbl.text = [NSString stringWithFormat:@"Same as %@", comparator];;
+    }
 }
 
 //@protocol ScrollWheelDelegate <NSObject>
 
 //@required
 
-
 - (void)scrollWheel:(ScrollWheel *)sw didRotate:(NSInteger)years {   
     DLog(@"scrolling %d years", years);
-    [self _setCurrentValueTo:[_currentValue.date addDays:years * 365]];
+    [self _setDisplayedDateValueTo:[_displayedValue.date addDays:years * 365]];
 }
 - (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
-    [self _setCurrentValueTo:[NSDate date]];
+    [self _setDisplayedDateValueTo:[NSDate date]];
 }
-
-
 
 //@end
 
@@ -137,6 +176,8 @@
 }
 
 - (void)_editProperty {
+    //TODO: _autoUpdateTimer stop or pause somehow??
+    
     PropertySettingsVC *propSettings = [[PropertySettingsVC alloc] initWithStyle:UITableViewStyleGrouped];
     propSettings.delegate = self;
     propSettings.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -198,6 +239,14 @@
     [_valueFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
     [_valueFormatter retain];
     
+    _commentValueFormatter = [[NSNumberFormatter alloc] init]; 
+    [_commentValueFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [_commentValueFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [_commentValueFormatter setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
+    [_commentValueFormatter setMaximumFractionDigits:0];
+    [_commentValueFormatter retain];
+
+    
     _backgroundRect.backgroundColor = [UIColor colorWithRed:10.0/255.0 green:68.0/255.0 blue:151.0/255.0 alpha:1.0];
     _backgroundRect.layer.cornerRadius = 5.0;
     
@@ -205,12 +254,16 @@
         DLog(@"_pricePath nil, initializing");
         [self _initPricePath];
     }
+    
+    DLog(@"making price path...");
+    self.displayedData = [_pricePath makePricePath];
+    _nowValue = [[_displayedData calcValueAt:[NSDate date]] copy];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    DLog(@"making price path...");
-    self.displayedData = [_pricePath makePricePath];    
-    [self _setCurrentValueTo:[NSDate date]];
+    [self _setDisplayedDateValueTo:[NSDate date]];
+    
+    self.title = _propertyName;
     
     _autoUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 / TH_AUTO_UPDATE_HZ 
                                                          target:self
@@ -223,6 +276,8 @@
     [_autoUpdateTimer invalidate];
     [_autoUpdateTimer release];
     _autoUpdateTimer = nil;
+    
+    
 }
 
 - (void)_initPricePath {
@@ -237,6 +292,9 @@
     // e.g. self.myOutlet = nil;
     self.customizeAlertImage = nil;
 //    self.scrollView = nil;
+    
+    _nowValueToEncode = [_nowValue retain];
+    [_nowValue release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

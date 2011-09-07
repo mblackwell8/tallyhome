@@ -16,9 +16,9 @@
 #import "ScrollWheel.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define TH_FIRST_RGB_STEP_IX 0
-#define TH_MIDDLE_RGB_STEP_IX 10
-#define TH_LAST_RGB_STEP_IX 20
+//#define TH_FIRST_RGB_STEP_IX 0
+//#define TH_MIDDLE_RGB_STEP_IX 10
+//#define TH_LAST_RGB_STEP_IX 20
 
 
 @interface ScrollingTallyDetailVC : TallyDetailVC <ScrollWheelDelegate, PropertySettingsDelegate, NSCoding> {
@@ -29,9 +29,13 @@
     UILabel *_currentValueLbl;
     UILabel *_currentDateLbl;
     UILabel *_commentLbl;
-    THDateVal *_currentValue;
+    THDateVal *_displayedValue;
+    THDateVal *_nowValue;
+    THDateVal *_nowValueToEncode;
+    THDateVal *_lastNowValue;
     UIView *_backgroundRect;
     NSNumberFormatter *_valueFormatter;
+    NSNumberFormatter *_commentValueFormatter;
     ScrollWheel *_scroller;
     
     UIActivityIndicatorView *_activityIndicator;

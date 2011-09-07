@@ -26,7 +26,6 @@
 - (id)initWithValues:(NSArray *)indices {
     if ((self = [super init])) {
         trendExtrapolationInterval = TH_FiveYearTimeInterval;
-        _calcedIndices = nil;
         NSMutableArray *tmpInnerSeries = [[NSMutableArray alloc] initWithArray:indices];
         //sort the indices by date
         [tmpInnerSeries sortUsingSelector:@selector(compareByDate:)];
@@ -79,58 +78,33 @@
 
 - (void)dealloc {
     [_innerSeries release];
-    [_calcedIndices release];
     
     [super dealloc];
 }
 
-
 - (double)dailyRateOfChangeAt:(NSDate *)date {
     THDateVal *firstBefore = [self firstBefore:date];
     if (firstBefore == nil) {
-        // calc backwards growth, which needs to be negated
-        
-        double annGr = [self calcTrendGrowthOver:-trendExtrapolationInterval];
-        double dailyGr = -(pow(1.0 + annGr, 1.0 / 365.0) - 1.0);
+        double dailyGr = [self calcDailyTrendGrowthPreSeries];
         
         return dailyGr;
     }
     
-    THDateVal *firstAfterOrEqualTo = [self valueAt:date];
-    if (!firstAfterOrEqualTo) {
-        firstAfterOrEqualTo = [self firstAfter:date];
-    }
-    if (firstAfterOrEqualTo == nil) {
-        double annGr = [self calcTrendGrowth];
-        return pow(1.0 + annGr, 1.0 / 365.0) - 1.0;
+    if (firstBefore.next == nil) {
+        double dailyGr = [self calcDailyTrendGrowth];
+        
+        return dailyGr;
     }
     
-    return [THTimeSeries dailyRateOfChangeFrom:firstBefore to:firstAfterOrEqualTo];
-}
-
-+ (double)dailyRateOfChangeFrom:(THDateVal *)first to:(THDateVal *)last {
-    double daysBetween = [first.date daysUntil:last.date];
+    double daysBetween = [firstBefore.date daysUntil:firstBefore.next.date];
+    double dailyRoC = pow(firstBefore.next.val / firstBefore.val, (1.0 / daysBetween)) - 1.0;
     
-    double dailyRoC = pow(last.val / first.val, (1.0 / daysBetween)) - 1.0;
-    
+    //DLog(@"ROC %5.5f", dailyRoC);
     return dailyRoC;
 }
 
-//+ (double)daysFrom:(NSDate *)first to:(NSDate *)last {
-//    double daysBetween = [last timeIntervalSinceDate:first] / (24.0 * 60 * 60);
-//    
-//    return daysBetween;
-//}
-
 - (THDateVal *)calcValueAt:(NSDate *)date {
     THDateVal *equalTo = [self valueAt:date];
-    if (equalTo)
-        return equalTo;
-    
-    if (!_calcedIndices)
-        _calcedIndices = [[NSMutableDictionary alloc] init];
-    
-    equalTo = [_calcedIndices objectForKey:date];
     if (equalTo)
         return equalTo;
     
@@ -158,25 +132,57 @@
     NSAssert(FALSE, @"Should not get here");
 }
 
-- (THDateVal *)calcValueAt:(NSDate *)date usingBaseValue:(THDateVal *)i {
-    double daysBetween = [i.date daysUntil:date];
-    double roc = [self dailyRateOfChangeAt:date];
-    double val = i.val * pow(1.0 + roc, daysBetween);
+- (THDateVal *)calcValueAt:(NSDate *)date usingBaseValue:(THDateVal *)baseVal {
+    if ([date isEqualToDate:baseVal.date])
+        return baseVal;
+    
+    double val = 0.0;
+    
+    // if the series encloses the base value (ie. we have next and date is after baseVal)
+    // then do linear interpolation
+    if (baseVal.next && [date isAfter:baseVal.date]) {
+        double dailyGr = (baseVal.next.val - baseVal.val) / [baseVal.next.date daysSince:baseVal.date];
+        val = baseVal.val + dailyGr * [date daysSince:baseVal.date];
+    }
+    // if there's no next and date is after, forecast using forward daily trend
+    else if (!baseVal.next && [date isAfter:baseVal.date]) {
+        double daysBetween = [baseVal.date daysUntil:date];
+        val = baseVal.val * pow(1.0 + [self calcDailyTrendGrowth], daysBetween);
+    }
+    // if there is a next, but the date is before, precast using backwards daily trend
+    else if (baseVal.next && [date isBefore:baseVal.date]) {
+        double daysBetween = [baseVal.date daysUntil:date];
+        val = baseVal.val * pow(1.0 + [self calcDailyTrendGrowthPreSeries], daysBetween);
+    }
+    else {
+        NSAssert(FALSE, @"Should not get here");
+    }
+    
+    
     THDateVal *retVal = [[THDateVal alloc] initWithVal:val at:date];
-    
-    if (!_calcedIndices)
-        _calcedIndices = [[NSMutableDictionary alloc] init];
-    
-    [_calcedIndices setObject:retVal forKey:retVal.date];
     
     return [retVal autorelease];
 }
 
-- (double)calcTrendGrowth {
-    return [self calcTrendGrowthOver:trendExtrapolationInterval];
+- (double)calcDailyTrendGrowth {
+    if (!_fwdGrowthCalced) {
+        _fwdDailyGrowth = [self calcDailyTrendGrowthOver:trendExtrapolationInterval];
+        _fwdGrowthCalced = YES;
+    }
+    
+    return _fwdDailyGrowth;
 }
 
-- (double)calcTrendGrowthOver:(NSTimeInterval) interval {
+- (double)calcDailyTrendGrowthPreSeries {
+    if (!_backwardGrowthCalced) {
+        _backwardDailyGrowth = [self calcDailyTrendGrowthOver:-trendExtrapolationInterval];
+        _backwardGrowthCalced = YES;
+    }
+    
+    return _backwardDailyGrowth;
+}
+
+- (double)calcDailyTrendGrowthOver:(NSTimeInterval) interval {
     THDateVal *first = nil, *last = nil;
     if (interval > 0) {
         last = [_innerSeries lastObject];
@@ -189,38 +195,49 @@
             // of the interval
             first = [self firstBefore:firstDate];
         }
+        
+        return [THTimeSeries calcSMADailyTrendGrowthFrom:first to:last];
     }
     else if (interval < 0) {
-        last = [_innerSeries objectAtIndex:0];
-        NSDate *firstDate = [last.date dateByAddingTimeInterval:-interval];
+        first = [_innerSeries objectAtIndex:0];
+        NSDate *firstDate = [first.date dateByAddingTimeInterval:-interval];
         if ([firstDate isAfterOrEqualTo:[[_innerSeries lastObject] date]]) {
-            first = [_innerSeries lastObject];
+            last = [_innerSeries lastObject];
         }
         else {
             // use the indice that is the first after the interval, to maximise the length
             // of the interval
-            first = [self firstAfter:firstDate];
+            last = [self firstAfter:firstDate];
         }
-
+        
+        return [THTimeSeries calcSMADailyTrendGrowthFrom:first to:last];
+        
     }
     else {
         return 0.0;
     }
-            
-    NSAssert(first && last, @"Dates not initialised");
-    return [THTimeSeries calcTrendGrowthFrom:first to:last];
     
+    NSAssert(FALSE, @"Should not get here");
+    
+    return 0.0;
 }
 
-+ (double)calcTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last {
-    double daysBetween = fabs([first.date daysUntil:last.date]);
-    if (daysBetween == 0.0)
++ (double)calcSMADailyTrendGrowthFrom:(THDateVal *)first to:(THDateVal *)last {
+    if (first == last || ABS([first.date daysUntil:last.date]) == 0.0)
         return 0.0;
     
-    double annualisedGrowth = pow(last.val / first.val, 365.0 / daysBetween) - 1.0;
+    // calc the SMA daily growth between two points
+    double n = 0.0;
+    double sum = 0.0;
+    THDateVal *current = first;
+    while (current.next && current != last) {
+        double days = [current.date daysUntil:current.next.date];
+        sum += pow(current.next.val / current.val, 1.0 / days) - 1.0;
+        n += 1.0;
+        current = current.next;
+    }
     
-    return annualisedGrowth;
-
+    return (sum / n);
 }
 
 - (THDateVal *)firstBefore:(NSDate *)date {

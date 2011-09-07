@@ -1,0 +1,596 @@
+City,Location,RegionSeriesName,RegionNameSource,State
+Abilene,"32.454514,-99.738147","Abilene, TX",FHFA,TX
+Aguadilla zona urbana,,,,PR
+Albany,"31.577669,-84.179453","Albany, GA",FHFA,GA
+Albany,"42.665745,-73.798353","Albany-Schenectady-Troy, NY",FHFA,NY
+Schenectady,"42.80184,-73.927295","Albany-Schenectady-Troy, NY",FHFA,NY
+Troy,"42.735812,-73.675321","Albany-Schenectady-Troy, NY",FHFA,NY
+Saratoga Springs,"43.06781,-73.777636","Albany-Schenectady-Troy, NY",FHFA,NY
+Albuquerque,"35.105552,-106.647388","Albuquerque, NM",FHFA,NM
+Alexandria,"31.293449,-92.470189","Alexandria, LA",FHFA,LA
+Allentown,"40.593966,-75.47816","Allentown-Bethlehem-Easton, PA-NJ",FHFA,PA
+Bethlehem,"40.626424,-75.367898","Allentown-Bethlehem-Easton, PA-NJ",FHFA,PA
+Altoona,"40.50819,-78.401306","Altoona, PA",FHFA,PA
+Amarillo,"35.19784,-101.828746","Amarillo, TX",FHFA,TX
+Anchorage,"61.177549,-149.274354","Anchorage, AK",FHFA,AK
+Anniston,"33.673441,-85.810918","Anniston-Oxford, AL",FHFA,AL
+Appleton,"44.278819,-88.392626",,,WI
+Oshkosh,"44.022628,-88.562352",,,WI
+Neenah,"44.167597,-88.475999",,,WI
+Asheville,"35.570977,-82.552738","Asheville, NC",FHFA,NC
+Athens,,"Athens-Clarke County, GA",FHFA,GA
+Atlanta,"33.762909,-84.422675","Atlanta-Sandy Springs-Marietta, GA",FHFA,GA
+Auburn,"32.607722,-85.489545","Auburn-Opelika, AL",FHFA,AL
+Opelika,"32.660739,-85.37889","Auburn-Opelika, AL",FHFA,AL
+Augusta-Richmond,,"Augusta-Richmond County, GA-SC",FHFA,GA
+Aiken,,"Augusta-Richmond County, GA-SC",FHFA,GA
+Austin,"30.307182,-97.755996",,,TX
+San Marcos,"29.876898,-97.93157",,,TX
+Bakersfield,"35.321213,-119.018292","Bakersfield-Delano, CA",FHFA,CA
+Bangor,"44.830629,-68.792397","Bangor, ME",FHFA,ME
+Barnstable Town,"41.662727,-70.357208",,,MA
+Yarmouth,,,,MA
+Baton Rouge,"30.448454,-91.125899","Baton Rouge, LA",FHFA,LA
+Beaumont,"30.084343,-94.145774","Beaumont-Port Arthur, TX",FHFA,TX
+Port Arthur,"29.833402,-93.96632","Beaumont-Port Arthur, TX",FHFA,TX
+Bellingham,"48.75262,-122.469657","Bellingham, WA",FHFA,WA
+Benton Harbor,"42.114158,-86.446772",,,MI
+Billings,"45.789518,-108.549891","Billings, MT",FHFA,MT
+Biloxi,"30.433711,-88.953409",,,MS
+Gulfport,"30.416058,-89.071845",,,MS
+Pascagoula,"30.360067,-88.556327",,,MS
+Binghamton,"42.101331,-75.909369","Binghamton, NY",FHFA,NY
+Birmingham,"33.527444,-86.799047","Birmingham-Hoover, AL",FHFA,AL
+Bismarck,"46.811038,-100.770102","Bismarck, ND",FHFA,ND
+Bloomington,"39.1637,-86.524264","Bloomington, IN",FHFA,IN
+Bloomington,"40.475777,-88.969912","Bloomington-Normal, IL",FHFA,IL
+Normal,"40.52228,-88.986931","Bloomington-Normal, IL",FHFA,IL
+Boise City,"43.598488,-116.231084","Boise City-Nampa, ID",FHFA,ID
+Nampa,"43.582381,-116.563875","Boise City-Nampa, ID",FHFA,ID
+Boston,"42.33196,-71.020173","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Cambridge,"42.375967,-71.118275","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Lynn,"42.474862,-70.962185","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Waltham,"42.388921,-71.242268","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Gloucester,"42.629024,-70.685828","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Brockton,"42.082543,-71.024638","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Fitchburg,"42.601979,-71.815876","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Leominster,"42.520838,-71.770876","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Lawrence,"42.700273,-71.161357","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Lowell,"42.638893,-71.322107","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Manchester,,"Boston-Quincy, MA  (MSAD)",FHFA,MA
+Nashua,,"Boston-Quincy, MA  (MSAD)",FHFA,MA
+New Bedford,"41.661303,-70.937913","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Rochester,,"Boston-Quincy, MA  (MSAD)",FHFA,MA
+Portsmouth,,"Boston-Quincy, MA  (MSAD)",FHFA,MA
+Worcester,"42.269478,-71.807783","Boston-Quincy, MA  (MSAD)",FHFA,MA
+Brownsville,"26.018326,-97.453826",,,TX
+Harlingen,"26.191204,-97.697383",,,TX
+San Benito,"26.129398,-97.64405",,,TX
+Bryan,"30.666576,-96.36552",,,TX
+College Station,"30.588623,-96.29601",,,TX
+Buffalo,"42.892492,-78.859686","Buffalo-Niagara Falls, NY",FHFA,NY
+Niagara Falls,"43.092841,-79.014743","Buffalo-Niagara Falls, NY",FHFA,NY
+Burlington,"44.491991,-73.239363","Burlington-South Burlington, VT",FHFA,VT
+Canton,"40.80765,-81.367228","Canton-Massillon, OH",FHFA,OH
+Massillon,"40.783773,-81.526604","Canton-Massillon, OH",FHFA,OH
+Casper,"42.840532,-106.320168","Casper, WY",FHFA,WY
+Cedar Rapids,"41.967048,-91.67776","Cedar Rapids, IA",FHFA,IA
+Champaign,"40.115057,-88.273652","Champaign-Urbana, IL",FHFA,IL
+Urbana,"40.110126,-88.197323","Champaign-Urbana, IL",FHFA,IL
+Charleston,"32.817922,-79.958927","Charleston-North Charleston-Summerville, SC",FHFA,SC
+North Charleston,"32.917342,-80.06515","Charleston-North Charleston-Summerville, SC",FHFA,SC
+Charleston,"38.348692,-81.632324","Charleston, WV",FHFA,WV
+Charlotte,"35.208707,-80.830739","Charlotte-Gastonia-Rock Hill, NC-SC",FHFA,NC
+Gastonia,"35.249223,-81.182939","Charlotte-Gastonia-Rock Hill, NC-SC",FHFA,NC
+Rock Hill,,"Charlotte-Gastonia-Rock Hill, NC-SC",FHFA,NC
+Kannapolis,"35.47658,-80.6386","Charlotte-Gastonia-Rock Hill, NC-SC",FHFA,NC
+Concord,"35.392048,-80.635543","Charlotte-Gastonia-Rock Hill, NC-SC",FHFA,NC
+Charlottesville,"38.037658,-78.485381","Charlottesville, VA",FHFA,VA
+Chattanooga,"35.066464,-85.247065","Chattanooga, TN-GA",FHFA,TN
+Cheyenne,"41.152195,-104.783238","Cheyenne, WY",FHFA,WY
+Chicago,"41.837551,-87.681844","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Aurora,"41.763455,-88.290099","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Elgin,"42.039639,-88.321709","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Joliet,"41.518066,-88.158354","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Evanston,"42.046391,-87.694353","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+North Chicago,"42.316696,-87.859201","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+DeKalb,"41.930614,-88.74783","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Gary,,"Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+East Chicago,,"Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Kankakee,"41.103202,-87.867177","Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Kenosha,,"Chicago-Joliet-Naperville, IL  (MSAD)",FHFA,IL
+Chico,"39.755159,-121.818797",,,CA
+Paradise,"39.754192,-121.6064",,,CA
+Cincinnati,"39.139902,-84.506447","Cincinnati-Middletown, OH-KY-IN",FHFA,OH
+Hamilton,"39.394328,-84.565522","Cincinnati-Middletown, OH-KY-IN",FHFA,OH
+Middletown,"39.502952,-84.364893","Cincinnati-Middletown, OH-KY-IN",FHFA,OH
+Clarksville,"36.56643,-87.345216",,,TN
+Hopkinsville,,,,TN
+Akron,"41.080456,-81.52143","Cleveland-Elyria-Mentor, OH",FHFA,OH
+Kent,"41.149143,-81.361122","Cleveland-Elyria-Mentor, OH",FHFA,OH
+Cleveland,"41.478138,-81.679486","Cleveland-Elyria-Mentor, OH",FHFA,OH
+Lorain,"41.438805,-82.179722","Cleveland-Elyria-Mentor, OH",FHFA,OH
+Elyria,"41.373539,-82.108008","Cleveland-Elyria-Mentor, OH",FHFA,OH
+Colorado Springs,"38.867255,-104.760749","Colorado Springs, CO",FHFA,CO
+Columbia,"38.947939,-92.326097","Columbia, MO",FHFA,MO
+Columbia,"34.029783,-80.896566","Columbia, SC",FHFA,SC
+Columbus,"32.510197,-84.874946","Columbus, GA-AL",FHFA,GA
+Columbus,"39.984799,-82.985044","Columbus, OH",FHFA,OH
+Newark,"40.069732,-82.424925","Columbus, OH",FHFA,OH
+Lancaster,"39.724737,-82.605275","Columbus, OH",FHFA,OH
+Corpus Christi,"27.754252,-97.173385","Corpus Christi, TX",FHFA,TX
+Corvallis,"44.569949,-123.278286","Corvallis, OR",FHFA,OR
+Cumberland,"39.651739,-78.757948","Cumberland, MD-WV",FHFA,MD
+Dallas,"32.794176,-96.765503","Dallas-Plano-Irving, TX  (MSAD)",FHFA,TX
+Irving,"32.857748,-96.970022","Dallas-Plano-Irving, TX  (MSAD)",FHFA,TX
+Denton,"33.215139,-97.141687","Dallas-Plano-Irving, TX  (MSAD)",FHFA,TX
+Fort Worth,"32.779542,-97.346335","Dallas-Plano-Irving, TX  (MSAD)",FHFA,TX
+Arlington,"32.700708,-97.124691","Dallas-Plano-Irving, TX  (MSAD)",FHFA,TX
+Danville,"36.583334,-79.408071","Danville, VA",FHFA,VA
+Davenport,"41.554104,-90.603997","Davenport-Moline-Rock Island, IA-IL",FHFA,IA
+Moline,,"Davenport-Moline-Rock Island, IA-IL",FHFA,IA
+Rock Island,,"Davenport-Moline-Rock Island, IA-IL",FHFA,IA
+Dayton,"39.777394,-84.199632","Dayton, OH",FHFA,OH
+Springfield,"39.933758,-83.795757","Dayton, OH",FHFA,OH
+Fairborn,"39.795267,-84.011271","Dayton, OH",FHFA,OH
+Daytona Beach,"29.197328,-81.088145",,,FL
+Decatur,"34.573039,-86.991684","Decatur, AL",FHFA,AL
+Decatur,"39.855983,-88.933746","Decatur, IL",FHFA,IL
+Boulder,"40.027443,-105.25174","Denver-Aurora-Broomfield, CO",FHFA,CO
+Longmont,"40.169853,-105.101841","Denver-Aurora-Broomfield, CO",FHFA,CO
+Denver,"39.761849,-104.880625","Denver-Aurora-Broomfield, CO",FHFA,CO
+Greeley,"40.414406,-104.771245","Denver-Aurora-Broomfield, CO",FHFA,CO
+Des Moines,"41.573946,-93.616708","Des Moines-West Des Moines, IA",FHFA,IA
+Ann Arbor,"42.275641,-83.731333","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Detroit,"42.383038,-83.102237","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Dearborn,"42.313057,-83.211488","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Pontiac,"42.649228,-83.287363","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Port Huron,"42.993766,-82.433743","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Flint,"43.024425,-83.691983","Detroit-Livonia-Dearborn, MI  (MSAD)",FHFA,MI
+Dothan,"31.233698,-85.406823","Dothan, AL",FHFA,AL
+Dover,"39.160606,-75.521659","Dover, DE",FHFA,DE
+Dubuque,"42.502385,-90.705102","Dubuque, IA",FHFA,IA
+Duluth,"46.783229,-92.11871",,,MN
+Superior,,,,MN
+Eau Claire,"44.821307,-91.494844","Eau Claire, WI",FHFA,WI
+El Paso,"31.84836,-106.426979","El Paso, TX",FHFA,TX
+Elkhart,"41.691167,-85.965132","Elkhart-Goshen, IN",FHFA,IN
+Goshen,"41.574921,-85.830793","Elkhart-Goshen, IN",FHFA,IN
+Elmira,"42.093388,-76.80961","Elmira, NY",FHFA,NY
+Enid,"36.405687,-97.869862",,,OK
+Erie,"42.116594,-80.073503","Erie, PA",FHFA,PA
+Eugene,"44.056748,-123.116207","Eugene-Springfield, OR",FHFA,OR
+Springfield,"44.053947,-122.981225","Eugene-Springfield, OR",FHFA,OR
+Evansville,"37.987734,-87.534703",,,IN
+Henderson,,,,IN
+Fargo,"46.865206,-96.829005",,,ND
+Moorhead,,,,ND
+Fayetteville,"35.08511,-78.980263","Fayetteville, NC",FHFA,NC
+Fayetteville,"36.071561,-94.16654","Fayetteville-Springdale-Rogers, AR-MO",FHFA,AR
+Springdale,"36.186549,-94.15304","Fayetteville-Springdale-Rogers, AR-MO",FHFA,AR
+Rogers,"36.315975,-94.154618","Fayetteville-Springdale-Rogers, AR-MO",FHFA,AR
+Flagstaff,"35.185217,-111.620726","Flagstaff, AZ-UT",FHFA,AZ
+Florence,"34.830349,-87.666096","Florence, SC",FHFA,AL
+Florence,"34.17756,-79.782594","Florence, SC",FHFA,SC
+Fort Collins,"40.548216,-105.064833","Fort Collins-Loveland, CO",FHFA,CO
+Loveland,"40.41708,-105.061855","Fort Collins-Loveland, CO",FHFA,CO
+Fort Myers,"26.61901,-81.831956",,,FL
+Cape Coral,"26.643119,-81.997331",,,FL
+Fort Pierce,"27.430257,-80.335924",,,FL
+Port St. Lucie,"27.280951,-80.383762",,,FL
+Fort Smith,"35.349276,-94.370883","Fort Smith, AR-OK",FHFA,AR
+Fort Walton Beach,"30.424738,-86.620332",,,FL
+Fort Wayne,"41.088173,-85.14388","Fort Wayne, IN",FHFA,IN
+Fresno,"36.782674,-119.794492","Fresno, CA",FHFA,CA
+Madera,"36.963983,-120.080244","Fresno, CA",FHFA,CA
+Gadsden,"34.009563,-86.015643","Gadsden, AL",FHFA,AL
+Gainesville,"29.678831,-82.345878","Gainesville, FL",FHFA,FL
+Glens Falls,"43.31116,-73.645287","Glens Falls, NY",FHFA,NY
+Goldsboro,"35.379951,-77.973247","Goldsboro, NC",FHFA,NC
+Grand Forks,"47.912789,-97.07501","Grand Forks, ND-MN",FHFA,ND
+Grand Junction,"39.086366,-108.568747","Grand Junction, CO",FHFA,CO
+Grand Rapids,"42.961156,-85.65557","Grand Rapids-Wyoming, MI",FHFA,MI
+Muskegon,"43.228218,-86.255415","Grand Rapids-Wyoming, MI",FHFA,MI
+Holland,"42.768074,-86.098598","Grand Rapids-Wyoming, MI",FHFA,MI
+Great Falls,"47.501439,-111.299975","Great Falls, MT",FHFA,MT
+Green Bay,"44.520676,-87.984169","Green Bay, WI",FHFA,WI
+Greensboro,"36.096484,-79.827108",,,NC
+Winston-Salem,"36.103262,-80.260578",,,NC
+High Point,"35.98547,-79.990243",,,NC
+Burlington,"36.082561,-79.459748",,,NC
+Greenville,"35.596611,-77.375153","Greenville, NC",FHFA,NC
+Greenville,"34.836902,-82.362997","Greenville, NC",FHFA,SC
+Spartanburg,"34.942294,-81.926907","Greenville, NC",FHFA,SC
+Anderson,"34.521166,-82.647326","Greenville, NC",FHFA,SC
+Harrisburg,"40.275891,-76.88502",,,PA
+Lebanon,"40.341192,-76.422735",,,PA
+Carlisle,,,,PA
+Hartford,"41.766045,-72.683339","Hartford-West Hartford-East Hartford, CT",FHFA,CT
+Middletown,"41.549534,-72.657719","Hartford-West Hartford-East Hartford, CT",FHFA,CT
+Hattiesburg,"31.307296,-89.317412","Hattiesburg, MS",FHFA,MS
+Hickory,"35.741466,-81.32377",,,NC
+Morganton,"35.740771,-81.700297",,,NC
+Lenoir,"35.905667,-81.526969",,,NC
+Honolulu,"21.325852,-157.845315","Honolulu, HI",FHFA,HI
+Houma,"29.57863,-90.708032","Houma-Bayou Cane-Thibodaux, LA",FHFA,LA
+Galveston,"29.18326,-94.969755","Houston-Sugar Land-Baytown, TX",FHFA,TX
+Texas City,"29.433717,-94.892695","Houston-Sugar Land-Baytown, TX",FHFA,TX
+Houston,"29.780472,-95.386343","Houston-Sugar Land-Baytown, TX",FHFA,TX
+Baytown,"29.756974,-94.967955","Houston-Sugar Land-Baytown, TX",FHFA,TX
+Conroe,"30.316017,-95.469993","Houston-Sugar Land-Baytown, TX",FHFA,TX
+Huntington,"38.410651,-82.434689","Huntington-Ashland, WV-KY-OH",FHFA,WV
+Ashland,,"Huntington-Ashland, WV-KY-OH",FHFA,WV
+Huntsville,"34.784271,-86.538996","Huntsville, AL",FHFA,AL
+Indianapolis,,"Indianapolis-Carmel, IN",FHFA,IN
+Anderson,"40.089766,-85.689449","Indianapolis-Carmel, IN",FHFA,IN
+Iowa City,"41.656041,-91.531272","Iowa City, IA",FHFA,IA
+Jackson,,,,I 
+Jackson,"32.315831,-90.212823","Jackson, MS",FHFA,MS
+Jackson,"35.649137,-88.830597","Jackson, TN",FHFA,TN
+Jacksonville,"30.337019,-81.661302","Jacksonville, FL",FHFA,FL
+Jacksonville,"34.736866,-77.392666","Jacksonville, NC",FHFA,NC
+Jamestown,"42.097603,-79.236135",,,NY
+Janesville,"42.684699,-89.01317","Janesville, WI",FHFA,WI
+Beloit,"42.523506,-89.01766","Janesville, WI",FHFA,WI
+Johnson City,"36.338218,-82.377427",,,TN
+Kingsport,"36.524936,-82.547384",,,TN
+Bristol,"36.558788,-82.216961",,,TN
+Bristol,"36.558788,-82.216961",,,TN
+Johnstown,"40.326132,-78.919139","Johnstown, PA",FHFA,PA
+Jonesboro,"35.819733,-90.67905","Jonesboro, AR",FHFA,AR
+Joplin,"37.077509,-94.502262","Joplin, MO",FHFA,MO
+Kalamazoo,"42.275164,-85.588501","Kalamazoo-Portage, MI",FHFA,MI
+Battle Creek,"42.299176,-85.229267","Kalamazoo-Portage, MI",FHFA,MI
+Kansas City,"39.125212,-94.551136","Kansas City, MO-KS",FHFA,MO
+Kansas City,"39.125212,-94.551136","Kansas City, MO-KS",FHFA,MO
+Olathe,,"Kansas City, MO-KS",FHFA,MO
+Leavenworth,,"Kansas City, MO-KS",FHFA,MO
+Killeen,"31.077669,-97.731952","Killeen-Temple-Fort Hood, TX",FHFA,TX
+Temple,"31.105656,-97.382522","Killeen-Temple-Fort Hood, TX",FHFA,TX
+Knoxville,"35.970875,-83.946479","Knoxville, TN",FHFA,TN
+Oak Ridge,"35.966483,-84.290549","Knoxville, TN",FHFA,TN
+Kokomo,"40.475317,-86.132763","Kokomo, IN",FHFA,IN
+La Crosse,"43.825866,-91.224245","La Crosse, WI-MN",FHFA,WI
+Lafayette,"30.211573,-92.031394","Lafayette, LA",FHFA,LA
+Lafayette,"40.399425,-86.861699","Lafayette, IN",FHFA,IN
+Lake Charles,"30.202699,-93.214742","Lake Charles, LA",FHFA,LA
+Lakeland,"28.055964,-81.953682","Lakeland-Winter Haven, FL",FHFA,FL
+Winter Haven,"28.045835,-81.732742","Lakeland-Winter Haven, FL",FHFA,FL
+Lancaster,"40.042061,-76.30099","Lancaster, PA",FHFA,PA
+Lansing,"42.709787,-84.556222","Lansing-East Lansing, MI",FHFA,MI
+East Lansing,"42.748913,-84.482442","Lansing-East Lansing, MI",FHFA,MI
+Laredo,"27.547681,-99.486931","Laredo, TX",FHFA,TX
+Las Cruces,"32.326444,-106.789695","Las Cruces, NM",FHFA,NM
+Las Vegas,"36.227712,-115.264045","Las Vegas-Paradise, NV",FHFA,NV
+Lawrence,"38.960323,-95.263223","Lawrence, KS",FHFA,KS
+Lawton,"34.617048,-98.4204","Lawton, OK",FHFA,OK
+Lewiston,"44.089594,-70.172185","Lewiston-Auburn, ME",FHFA,ME
+Auburn,"44.084537,-70.249649","Lewiston-Auburn, ME",FHFA,ME
+Lexington-Fayette,,"Lexington-Fayette, KY",FHFA,KY
+Lima,"40.740679,-84.112091","Lima, OH",FHFA,OH
+Lincoln,"40.808957,-96.680354","Lincoln, NE",FHFA,NE
+Little Rock,"34.725432,-92.358556","Little Rock-North Little Rock-Conway, AR",FHFA,AR
+North Little Rock,"34.781873,-92.234937","Little Rock-North Little Rock-Conway, AR",FHFA,AR
+Jacksonville,"34.878455,-92.132186","Little Rock-North Little Rock-Conway, AR",FHFA,AR
+Conway,"35.074323,-92.467072","Little Rock-North Little Rock-Conway, AR",FHFA,AR
+Longview,"32.519305,-94.76481",,,TX
+Marshall,"32.539159,-94.353173",,,TX
+Los Angeles,"34.019394,-118.410825","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Long Beach,"33.809102,-118.155327","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Pasadena,"34.160592,-118.139593","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Lancaster,"34.693558,-118.175305","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Santa Ana,"33.736478,-117.882593","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Anaheim,"33.855497,-117.760071","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Irvine,"33.678399,-117.771254","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Riverside,"33.938143,-117.393168","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+San Bernardino,"34.139261,-117.295317","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Palm Springs,"33.800898,-116.537993","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Hemet,"33.735226,-116.994604","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Temecula,"33.501923,-117.124563","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Palm Desert,"33.738363,-116.363619","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+San Buenaventura (Ventura),"34.268127,-119.255026","Los Angeles-Long Beach-Glendale, CA  (MSAD)",FHFA,CA
+Louisville,,"Louisville-Jefferson County, KY-IN",FHFA,KY
+New Albany,,"Louisville-Jefferson County, KY-IN",FHFA,KY
+Lubbock,"33.566479,-101.886677","Lubbock, TX",FHFA,TX
+Lynchburg,"37.399016,-79.195458","Lynchburg, VA",FHFA,VA
+Macon,"32.830953,-83.648918","Macon, GA",FHFA,GA
+Madison,"43.087806,-89.430121","Madison, WI",FHFA,WI
+Mansfield,"40.76672,-82.53082","Mansfield, OH",FHFA,OH
+Mayaguez zona urbana,,,,PR
+McAllen,"26.218513,-98.246145","McAllen-Edinburg-Mission, TX",FHFA,TX
+Edinburg,"26.314392,-98.163196","McAllen-Edinburg-Mission, TX",FHFA,TX
+Mission,"26.202638,-98.32148","McAllen-Edinburg-Mission, TX",FHFA,TX
+Medford,"42.336896,-122.854244",,,OR
+Ashland,"42.192172,-122.700426",,,OR
+Melbourne,"28.116326,-80.645713",,,FL
+Titusville,"28.573368,-80.819404",,,FL
+Palm Bay,"27.985624,-80.662621",,,FL
+Memphis,"35.103543,-89.978498","Memphis, TN-MS-AR",FHFA,TN
+West Memphis,,"Memphis, TN-MS-AR",FHFA,TN
+Merced,"37.305577,-120.477717","Merced, CA",FHFA,CA
+Fort Lauderdale,"26.141305,-80.143896","Miami-Miami Beach-Kendall, FL  (MSAD)",FHFA,FL
+Miami,"25.775163,-80.208615","Miami-Miami Beach-Kendall, FL  (MSAD)",FHFA,FL
+Miami Beach,"25.815265,-80.139721","Miami-Miami Beach-Kendall, FL  (MSAD)",FHFA,FL
+Milwaukee,"43.063348,-87.966695","Milwaukee-Waukesha-West Allis, WI",FHFA,WI
+Waukesha,"43.009084,-88.245062","Milwaukee-Waukesha-West Allis, WI",FHFA,WI
+Racine,"42.728284,-87.807086","Milwaukee-Waukesha-West Allis, WI",FHFA,WI
+Minneapolis,"44.963324,-93.268284","Minneapolis-St. Paul-Bloomington, MN-WI",FHFA,MN
+St. Paul,"44.94887,-93.103855","Minneapolis-St. Paul-Bloomington, MN-WI",FHFA,MN
+Missoula,"46.869322,-114.010346","Missoula, MT",FHFA,MT
+Mobile,"30.668426,-88.100226","Mobile, AL",FHFA,AL
+Modesto,"37.660909,-120.989052","Modesto, CA",FHFA,CA
+Turlock,"37.505214,-120.858764","Modesto, CA",FHFA,CA
+Monroe,"32.519552,-92.077482","Monroe, LA",FHFA,LA
+Montgomery,"32.346251,-86.268593","Montgomery, AL",FHFA,AL
+Muncie,"40.198978,-85.393346","Muncie, IN",FHFA,IN
+Myrtle Beach,"33.710801,-78.885862","Myrtle Beach-North Myrtle Beach-Conway, SC",FHFA,SC
+Naples,"26.14994,-81.795215","Naples-Marco Island, FL",FHFA,FL
+Nashville-Davidson,,"Nashville-Davidson--Murfreesboro--Franklin, TN",FHFA,TN
+Murfreesboro,"35.852209,-86.416062","Nashville-Davidson--Murfreesboro--Franklin, TN",FHFA,TN
+New London,"41.330607,-72.093918",,,CT
+Norwich,"41.54786,-72.089488",,,CT
+New Orleans,"30.068636,-89.939007","New Orleans-Metairie-Kenner, LA",FHFA,LA
+Slidell,"30.289335,-89.783279","New Orleans-Metairie-Kenner, LA",FHFA,LA
+Bridgeport,"41.187386,-73.195734","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Danbury,"41.401839,-73.472285","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Poughkeepsie,,"New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NT
+Jersey City,"40.711417,-74.06476","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NJ
+Bayonne,"40.662411,-74.110228","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NJ
+Dover,"40.8856,-74.559163","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NJ
+New Haven,"41.310809,-72.924953","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Meriden,"41.536777,-72.794543","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+New York,"40.664274,-73.9385","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NY
+White Plains,"41.025336,-73.752137","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NY
+Newark,"40.72422,-74.172574","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NJ
+Newburgh,"41.503249,-74.01964","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NY
+Stamford,"41.079857,-73.546028","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Norwalk,"41.092739,-73.419796","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Trenton,"40.223748,-74.764001","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,NJ
+Waterbury,"41.5585,-73.036685","New York-White Plains-Wayne, NY-NJ  (MSAD)",FHFA,CT
+Norfolk,"36.923015,-76.244641",,,VA
+Virginia Beach,"36.779322,-76.02402",,,VA
+Newport News,"37.075978,-76.521719",,,VA
+Hampton,"37.04803,-76.297149",,,VA
+Portsmouth,"36.85943,-76.356269",,,VA
+Suffolk,"36.697157,-76.634781",,,VA
+Ocala,"29.180314,-82.148787","Ocala, FL",FHFA,FL
+Odessa,"31.880378,-102.343406",,,TX
+Midland,"32.029931,-102.109697",,,TX
+Oklahoma City,"35.46708,-97.513657","Oklahoma City, OK",FHFA,OK
+Norman,"35.240577,-97.345306","Oklahoma City, OK",FHFA,OK
+Shawnee,"35.363903,-96.960453","Oklahoma City, OK",FHFA,OK
+Omaha,"41.264675,-96.041927","Omaha-Council Bluffs, NE-IA",FHFA,NE
+Council Bluffs,,"Omaha-Council Bluffs, NE-IA",FHFA,NE
+Orlando,"28.415886,-81.29875","Orlando-Kissimmee-Sanford, FL",FHFA,FL
+Owensboro,"37.757172,-87.117398","Owensboro, KY",FHFA,KY
+Panama City,"30.167122,-85.672509","Panama City-Lynn Haven-Panama City Beach, FL",FHFA,FL
+Parkersburg,"39.261353,-81.543376","Parkersburg-Marietta-Vienna, WV-OH",FHFA,WV
+Marietta,,"Parkersburg-Marietta-Vienna, WV-OH",FHFA,WV
+Pensacola,"30.441266,-87.189943","Pensacola-Ferry Pass-Brent, FL",FHFA,FL
+Peoria,"40.752309,-89.617097",,,IL
+Pekin,"40.567527,-89.6249",,,IL
+Atlantic City,"39.377297,-74.451082","Philadelphia, PA  (MSAD)",FHFA,NJ
+Philadelphia,"40.009376,-75.133346","Philadelphia, PA  (MSAD)",FHFA,PA
+Camden,"39.936787,-75.106644","Philadelphia, PA  (MSAD)",FHFA,NJ
+Vineland,"39.465007,-74.997115","Philadelphia, PA  (MSAD)",FHFA,NJ
+Millville,"39.390094,-75.054797","Philadelphia, PA  (MSAD)",FHFA,NJ
+Bridgeton,"39.427518,-75.227954","Philadelphia, PA  (MSAD)",FHFA,NJ
+Wilmington,"39.735226,-75.529289","Philadelphia, PA  (MSAD)",FHFA,DE
+Newark,"39.677569,-75.757308","Philadelphia, PA  (MSAD)",FHFA,DE
+Phoenix,"33.572163,-112.087966","Phoenix-Mesa-Glendale, AZ",FHFA,AZ
+Mesa,"33.401926,-111.717379","Phoenix-Mesa-Glendale, AZ",FHFA,AZ
+Tempe,"33.388414,-111.931782","Phoenix-Mesa-Glendale, AZ",FHFA,AZ
+Scottsdale,"33.668727,-111.823682","Phoenix-Mesa-Glendale, AZ",FHFA,AZ
+Pine Bluff,"34.211591,-92.017555","Pine Bluff, AR",FHFA,AR
+Pittsburgh,"40.439753,-79.976592","Pittsburgh, PA",FHFA,PA
+Pittsfield,"42.452045,-73.26054","Pittsfield, MA",FHFA,MA
+Pocatello,"42.871588,-112.465573","Pocatello, ID",FHFA,ID
+Ponce zona urbana,,,,PR
+Portland,"43.633192,-70.185644","Portland-South Portland-Biddeford, ME",FHFA,ME
+Portland,"45.536951,-122.649971",,,OR
+Vancouver,,,,OR
+Salem,"44.923694,-123.023119",,,OR
+Providence,"41.823056,-71.41878",,,RI
+Fall River,,,,RI
+Warwick,"41.700757,-71.420334",,,RI
+Pawtucket,"41.874368,-71.375678",,,RI
+Woonsocket,"42.001706,-71.499949",,,RI
+Attleboro,,,,RI
+Provo,"40.24533,-111.644807","Provo-Orem, UT",FHFA,UT
+Orem,"40.298709,-111.699191","Provo-Orem, UT",FHFA,UT
+Pueblo,"38.273147,-104.612378","Pueblo, CO",FHFA,CO
+Punta Gorda,"26.86337,-82.032416","Punta Gorda, FL",FHFA,FL
+Raleigh,"35.830204,-78.641439",,,NC
+Durham,"35.980964,-78.905647",,,NC
+Chapel Hill,"35.925942,-79.038271",,,NC
+Rapid City,"44.071071,-103.217924","Rapid City, SD",FHFA,SD
+Reading,"40.33922,-75.926277","Reading, PA",FHFA,PA
+Redding,"40.567432,-122.364827","Redding, CA",FHFA,CA
+Reno,"39.474487,-119.776538","Reno-Sparks, NV",FHFA,NV
+Richland,"46.289428,-119.291794",,,WA
+Kennewick,"46.198265,-119.173645",,,WA
+Pasco,"46.250954,-119.131303",,,WA
+Richmond,"37.531399,-77.476009","Richmond, VA",FHFA,VA
+Petersburg,"37.20473,-77.392368","Richmond, VA",FHFA,VA
+Roanoke,"37.27783,-79.958472","Roanoke, VA",FHFA,VA
+Rochester,"44.015442,-92.477211","Rochester, MN",FHFA,MN
+Rochester,"43.169927,-77.616891","Rochester, NY",FHFA,NY
+Rockford,"42.263394,-89.062827","Rockford, IL",FHFA,IL
+Rocky Mount,"35.968508,-77.808283","Rocky Mount, NC",FHFA,NC
+Sacramento,"38.566592,-121.468632","Sacramento-Arden-Arcade-Roseville, CA",FHFA,CA
+Davis,"38.556147,-121.737793","Sacramento-Arden-Arcade-Roseville, CA",FHFA,CA
+Woodland,"38.671167,-121.750033","Sacramento-Arden-Arcade-Roseville, CA",FHFA,CA
+Saginaw,"43.417678,-83.954716","Saginaw-Saginaw Township North, MI",FHFA,MI
+Bay City,"43.590062,-83.888421","Saginaw-Saginaw Township North, MI",FHFA,MI
+Midland,"43.624796,-84.231984","Saginaw-Saginaw Township North, MI",FHFA,MI
+St. Cloud,"45.526681,-94.171056","St. Cloud, MN",FHFA,MN
+St. Joseph,"39.75969,-94.821142","St. Joseph, MO-KS",FHFA,MO
+St. Louis,"38.635699,-90.244582","St. Louis, MO-IL",FHFA,MO
+St. Charles,"38.795702,-90.515364","St. Louis, MO-IL",FHFA,MO
+Belleville,,"St. Louis, MO-IL",FHFA,MO
+East St. Louis,,"St. Louis, MO-IL",FHFA,MO
+Alton,"36.691382,-91.392266","St. Louis, MO-IL",FHFA,MO
+Granite City,,"St. Louis, MO-IL",FHFA,MO
+Salinas,"36.690182,-121.633715","Salinas, CA",FHFA,CA
+Monterey,"36.60129,-121.882557","Salinas, CA",FHFA,CA
+Salt Lake City,"40.77852,-111.931414","Salt Lake City, UT",FHFA,UT
+Ogden,"41.227927,-111.96608","Salt Lake City, UT",FHFA,UT
+Clearfield,"41.096778,-112.017469","Salt Lake City, UT",FHFA,UT
+San Angelo,"31.438912,-100.45185","San Angelo, TX",FHFA,TX
+San Antonio,"29.472403,-98.525142","San Antonio-New Braunfels, TX",FHFA,TX
+New Braunfels,"29.699301,-98.115109","San Antonio-New Braunfels, TX",FHFA,TX
+San Diego,"32.8153,-117.134993","San Diego-Carlsbad-San Marcos, CA",FHFA,CA
+Escondido,"33.133648,-117.073223","San Diego-Carlsbad-San Marcos, CA",FHFA,CA
+Coronado,"32.657202,-117.156137","San Diego-Carlsbad-San Marcos, CA",FHFA,CA
+Oakland,"37.769857,-122.22564","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Berkeley,"37.866702,-122.299066","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Alameda,"37.764471,-122.283273","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+San Francisco,"37.727239,-123.032229","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+San Jose,"37.296867,-121.819306","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Sunnyvale,"37.385784,-122.026323","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Santa Clara,"37.364613,-121.967934","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Palo Alto,"37.399782,-122.142776","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Gilroy,"37.006407,-121.585321","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Santa Cruz,"36.974385,-122.035268","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Watsonville,"36.919608,-121.77025","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Santa Rosa,"38.446816,-122.706136","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Petaluma,"38.242618,-122.628434","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Vallejo,"38.107911,-122.26388","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Fairfield,"38.256757,-122.039719","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Napa,"38.297872,-122.300741","San Francisco-San Mateo-Redwood City, CA  (MSAD)",FHFA,CA
+Arecibo zona urbana,,,,PR
+Caguas zona urbana,,,,PR
+Cayey zona urbana,,,,PR
+San Juan zona urbana,,,,PR
+Bayamon zona urbana,,,,PR
+Fajardo zona urbana,,,,PR
+Vega Baja zona urbana,,,,PR
+Humacao zona urbana,,,,PR
+Manati zona urbana,,,,PR
+San Luis Obispo,"35.26848,-120.669756","San Luis Obispo-Paso Robles, CA",FHFA,CA
+Atascadero,"35.485821,-120.689675","San Luis Obispo-Paso Robles, CA",FHFA,CA
+El Paso de Robles (Paso Robles),"35.64074,-120.654268","San Luis Obispo-Paso Robles, CA",FHFA,CA
+Santa Barbara,"34.398899,-119.713356","Santa Barbara-Santa Maria-Goleta, CA",FHFA,CA
+Santa Maria,"34.933214,-120.443815","Santa Barbara-Santa Maria-Goleta, CA",FHFA,CA
+Lompoc,"34.662689,-120.470837","Santa Barbara-Santa Maria-Goleta, CA",FHFA,CA
+Santa Fe,"35.666039,-105.973721","Santa Fe, NM",FHFA,NM
+Sarasota,"27.338256,-82.545766",,,FL
+Bradenton,"27.490921,-82.574862",,,FL
+Savannah,"32.002512,-81.153557","Savannah, GA",FHFA,GA
+Scranton,"41.404178,-75.665908",,,PA
+Wilkes-Barre,"41.246561,-75.875689",,,PA
+Bremerton,"47.539801,-122.716971","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Olympia,"47.041398,-122.896774","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Seattle,"47.620499,-122.350876","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Bellevue,"47.597839,-122.15649","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Everett,"48.003267,-122.174223","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Tacoma,"47.252199,-122.459832","Seattle-Bellevue-Everett, WA  (MSAD)",FHFA,WA
+Sharon,"41.233969,-80.499812",,,PA
+Sheboygan,"43.746002,-87.730546","Sheboygan, WI",FHFA,WI
+Sherman,"33.605733,-96.621911","Sherman-Denison, TX",FHFA,TX
+Denison,"33.757822,-96.565262","Sherman-Denison, TX",FHFA,TX
+Shreveport,"32.46702,-93.792685","Shreveport-Bossier City, LA",FHFA,LA
+Bossier City,"32.523661,-93.65559","Shreveport-Bossier City, LA",FHFA,LA
+Sioux City,"42.495252,-96.391462","Sioux City, IA-NE-SD",FHFA,IA
+Sioux Falls,"43.538335,-96.731999","Sioux Falls, SD",FHFA,SD
+South Bend,"41.67685,-86.269043","South Bend-Mishawaka, IN-MI",FHFA,IN
+Spokane,"47.673555,-117.416596","Spokane, WA",FHFA,WA
+Springfield,"39.763908,-89.670832","Springfield, IL",FHFA,IL
+Springfield,"37.194152,-93.291305","Springfield, MO",FHFA,MO
+Springfield,"42.115454,-72.539978","Springfield, MA",FHFA,MA
+Holyoke,"42.211656,-72.642448","Springfield, MA",FHFA,MA
+Westfield,"42.138838,-72.755911","Springfield, MA",FHFA,MA
+Northampton,"42.327045,-72.67463","Springfield, MA",FHFA,MA
+State College,,"State College, PA",FHFA,PA
+Steubenville,"40.36632,-80.657069","Steubenville-Weirton, WV-OH",FHFA,OH
+Weirton,,"Steubenville-Weirton, WV-OH",FHFA,OH
+Stockton,"37.976342,-121.313304",,,CA
+Lodi,"38.12161,-121.290765",,,CA
+Sumter,"33.940848,-80.395543","Sumter, SC",FHFA,SC
+Syracuse,"43.040998,-76.143554","Syracuse, NY",FHFA,NY
+Auburn,"42.93371,-76.567342","Syracuse, NY",FHFA,NY
+Tallahassee,"30.455109,-84.253419","Tallahassee, FL",FHFA,FL
+Tampa,"27.970086,-82.479673","Tampa-St. Petersburg-Clearwater, FL",FHFA,FL
+St. Petersburg,"27.761976,-82.644055","Tampa-St. Petersburg-Clearwater, FL",FHFA,FL
+Clearwater,"27.979475,-82.766265","Tampa-St. Petersburg-Clearwater, FL",FHFA,FL
+Terre Haute,"39.465542,-87.375924","Terre Haute, IN",FHFA,IN
+Texarkana,"33.448105,-94.081217","Texarkana, TX-Texarkana, AR",FHFA,TX
+Texarkana,"33.448105,-94.081217","Texarkana, TX-Texarkana, AR",FHFA,TX
+Toledo,"41.664071,-83.581861","Toledo, OH",FHFA,OH
+Bowling Green,"41.377677,-83.649584","Toledo, OH",FHFA,OH
+Topeka,"39.03617,-95.694826","Topeka, KS",FHFA,KS
+Tucson,"32.154289,-110.871062","Tucson, AZ",FHFA,AZ
+Tulsa,"36.127949,-95.902316","Tulsa, OK",FHFA,OK
+Tuscaloosa,"33.233083,-87.525798","Tuscaloosa, AL",FHFA,AL
+Tyler,"32.314954,-95.304631","Tyler, TX",FHFA,TX
+Utica,"43.096382,-75.225983","Utica-Rome, NY",FHFA,NY
+Rome,"43.227233,-75.491712","Utica-Rome, NY",FHFA,NY
+Victoria,"28.826891,-96.98541","Victoria, TX",FHFA,TX
+Visalia,"36.327154,-119.323409",,,CA
+Tulare,"36.197436,-119.337407",,,CA
+Porterville,"36.063255,-119.033522",,,CA
+Waco,"31.560111,-97.186027","Waco, TX",FHFA,TX
+Baltimore,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Annapolis,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Hagerstown,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Washington,"38.904149,-77.017094","Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Arlington,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Frederick,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Fredericksburg,,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",FHFA,DC
+Waterloo,"42.492327,-92.351947","Waterloo-Cedar Falls, IA",FHFA,IA
+Cedar Falls,"42.519402,-92.452656","Waterloo-Cedar Falls, IA",FHFA,IA
+Wausau,"44.961866,-89.643486","Wausau, WI",FHFA,WI
+West Palm Beach,"26.748301,-80.126608","West Palm Beach-Boca Raton-Boynton Beach, FL (MSAD)",FHFA,FL
+Boca Raton,"26.372855,-80.106292","West Palm Beach-Boca Raton-Boynton Beach, FL (MSAD)",FHFA,FL
+Wheeling,"40.073906,-80.69537","Wheeling, WV-OH",FHFA,WV
+Wichita,"37.690694,-97.342678","Wichita, KS",FHFA,KS
+Wichita Falls,"33.906699,-98.525854","Wichita Falls, TX",FHFA,TX
+Williamsport,"41.240019,-77.035591","Williamsport, PA",FHFA,PA
+Wilmington,"34.209225,-77.885767","Wilmington, NC",FHFA,NC
+Yakima,"46.592211,-120.546838","Yakima, WA",FHFA,WA
+York,"39.964798,-76.73184","York-Hanover, PA",FHFA,PA
+Youngstown,"41.099095,-80.645902","Youngstown-Warren-Boardman, OH-PA",FHFA,OH
+Warren,"41.238256,-80.816725","Youngstown-Warren-Boardman, OH-PA",FHFA,OH
+Yuba City,"39.133855,-121.639031","Yuba City, CA",FHFA,CA
+Yuma,"32.516261,-114.521811","Yuma, AZ",FHFA,AZ
+San Francisco,"37.727239,-123.032229",SFXR-SA,CSI,CA
+Denver,"39.761849,-104.880625",DNXR-SA,CSI,CO
+Washington,"38.904149,-77.017094",WDXR-SA,CSI,DC
+Miami,"25.775163,-80.208615",MIXR-SA,CSI,FL
+Tampa,"27.970086,-82.479673",TPXR-SA,CSI,FL
+Atlanta,"33.762909,-84.422675",ATXR-SA,CSI,GA
+Chicago,"41.837551,-87.681844",CHXR-SA,CSI,IL
+Boston,"42.33196,-71.020173",BOXR-SA,CSI,MA
+Detroit,"42.383038,-83.102237",DEXR-SA,CSI,MI
+Minneapolis,"44.963324,-93.268284",MNXR-SA,CSI,MN
+Charlotte,"35.208707,-80.830739",CRXR-SA,CSI,NC
+Las Vegas,"36.227712,-115.264045",LVXR-SA,CSI,NV
+New York,"40.664274,-73.9385",NYXR-SA,CSI,NY
+Cleveland,"41.478138,-81.679486",CEXR-SA,CSI,OH
+Portland,"45.536951,-122.649971",POXR-SA,CSI,OR
+Dallas,"32.794176,-96.765503",DAXR-SA,CSI,TX
+Seattle,"47.620499,-122.350876",SEXR-SA,CSI,WA
+Sydney,"-33.8667,151.2000",A2333527V,ABS,NSW
+Melbourne,"-37.8333,144.9667",A2333535V,ABS,Victoria
+Brisbane,"-27.4667,153.0167",A2333543V,ABS,Queensland
+Adelaide,"-34.9167,138.6000",A2333551V,ABS,South Australia
+Perth,"-31.9500,115.8500",A2333559L,ABS,Western Australia
+Hobart,"-42.8833,147.2833",A2333567L,ABS,Tasmania
+Darwin,"-12.4500,130.8333",A2333575L,ABS,Northern Territory
+Canberra,"-35.3000,149.1333",A2333583L,ABS,ACT
+Sydney,"-33.8667,151.2000",A2333526T,ABS,NSW
+Melbourne,"-37.8333,144.9667",A2333534T,ABS,Victoria
+Brisbane,"-27.4667,153.0167",A2333542T,ABS,Queensland
+Adelaide,"-34.9167,138.6000",A2333550T,ABS,South Australia
+Perth,"-31.9500,115.8500",A2333558K,ABS,Western Australia
+Hobart,"-42.8833,147.2833",A2333566K,ABS,Tasmania
+Darwin,"-12.4500,130.8333",A2333574K,ABS,Northern Territory
+Canberra,"-35.3000,149.1333",A2333582K,ABS,ACT
+Sydney,"-33.8667,151.2000",Sydney Dwellings,Rismark,NSW
+Melbourne,"-37.8333,144.9667",Melbourne Dwellings,Rismark,Victoria
+Brisbane,"-27.4667,153.0167",Brisbane Dwellings,Rismark,Queensland
+Adelaide,"-34.9167,138.6000",Adelaide Dwellings,Rismark,South Australia
+Perth,"-31.9500,115.8500",Perth Dwellings,Rismark,Western Australia
+Hobart,"-42.8833,147.2833",Hobart Dwellings,Rismark,Tasmania
+Darwin,"-12.4500,130.8333",Darwin Dwellings,Rismark,Northern Territory
+Canberra,"-35.3000,149.1333",Canberra Dwellings,Rismark,ACT

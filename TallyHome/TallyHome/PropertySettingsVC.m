@@ -9,6 +9,9 @@
 #import "PropertySettingsVC.h"
 #import "DebugMacros.h"
 
+#define TH_PROPSETTINGS_LOCNENTRY_IX 0
+#define TH_PROPSETTINGS_PRICEENTRY_IX 2
+#define TH_PROPSETTINGS_LABELENTRY_IX 3
 
 @implementation PropertySettingsVC
 
@@ -75,7 +78,7 @@ static NSNumberFormatter *priceFormatter;
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
-    self.title = @"Property Settings";
+    self.title = @"Edit";
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
                                                                    style:UIBarButtonItemStylePlain 
@@ -147,7 +150,7 @@ static NSNumberFormatter *priceFormatter;
     // Configure the cell...
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Location";
+            cell.textLabel.text = @"City";
             cell.detailTextLabel.text = _location;
             break;
             
@@ -216,54 +219,117 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-//    TextEntryVC *locnEntryVC = nil;
-//    DateSelectorVC *buyDateEntryVC = nil;
-//    TextEntryVC *buyPriceEntryVC = nil;
-//    TextEntryVC *labelEntryVC = nil;
-//    
-//    switch (indexPath.row) {
-//        case 0:
-//            //Location, edit with text        
-//            locnEntryVC = [[TextEntryVC alloc] init];
-//            locnEntryVC.delegate = self;
-//            locnEntryVC.textField.text = _location;
-//            locnEntryVC.view.tag = 0;
-//            [self.navigationController pushViewController:locnEntryVC animated:YES];
-//            [locnEntryVC release];
-//            break;
-//            
-//        case 1:
-//            //Purchase date, edit with date control
-//            buyDateEntryVC = [[DateSelectorVC alloc] init];
-//            buyDateEntryVC.delegate = self;
-//            buyDateEntryVC.datePicker.date = _buyPrice.date;
-//            [self.navigationController pushViewController:buyDateEntryVC animated:YES];
-//            [buyDateEntryVC release];
-//            break;
-//            
-//        case 2:
-//            // buy price, edit with 
-//            buyPriceEntryVC = [[TextEntryVC alloc] init];
-//            buyPriceEntryVC.delegate = self;
-//            NSNumber *value = [NSNumber numberWithDouble:_buyPrice.val];
-//            buyPriceEntryVC.textField.text = [priceFormatter stringFromNumber:value];
-//            [self.navigationController pushViewController:buyPriceEntryVC animated:YES];
-//            [buyPriceEntryVC release];
-//            break;
-//            
-//        case 3:
-//            //Label, edit with text
-//            labelEntryVC = [[TextEntryVC alloc] init];
-//            labelEntryVC.delegate = self;
-//            labelEntryVC.textField.text = _propertyName;
-//            [self.navigationController pushViewController:labelEntryVC animated:YES];
-//            [labelEntryVC release];
-//            break;
-//            
-//        default:
-//            break;
-//    }
+    TextEntryVC *locnEntryVC = nil;
+    DateSelectorVC *buyDateEntryVC = nil;
+    TextEntryVC *buyPriceEntryVC = nil;
+    TextEntryVC *labelEntryVC = nil;
+    
+    switch (indexPath.row) {
+        case 0:
+            //Location, edit with text        
+            locnEntryVC = [[TextEntryVC alloc] init];
+            locnEntryVC.title = @"City";
+            locnEntryVC.delegate = self;
+            locnEntryVC.previousData = _location;
+            locnEntryVC.view.tag = TH_PROPSETTINGS_LOCNENTRY_IX;
+            [self.navigationController pushViewController:locnEntryVC animated:YES];
+            [locnEntryVC release];
+            break;
+            
+        case 1:
+            //Purchase date, edit with date control
+            buyDateEntryVC = [[DateSelectorVC alloc] init];
+            buyDateEntryVC.title = @"Purchase date";
+            buyDateEntryVC.delegate = self;
+            buyDateEntryVC.date = _buyPrice.date;
+            [self.navigationController pushViewController:buyDateEntryVC animated:YES];
+            [buyDateEntryVC release];
+            break;
+            
+        case 2:
+            // buy price, edit with text
+            buyPriceEntryVC = [[TextEntryVC alloc] init];
+            buyPriceEntryVC.title = @"Purchase price";
+            buyPriceEntryVC.delegate = self;
+            NSNumber *value = [NSNumber numberWithDouble:_buyPrice.val];
+            buyPriceEntryVC.keyboardType = UIKeyboardTypeDecimalPad;
+            buyPriceEntryVC.previousData = [priceFormatter stringFromNumber:value];
+            buyPriceEntryVC.view.tag = TH_PROPSETTINGS_PRICEENTRY_IX;
+            [self.navigationController pushViewController:buyPriceEntryVC animated:YES];
+            [buyPriceEntryVC release];
+            break;
+            
+        case 3:
+            //Label, edit with text
+            labelEntryVC = [[TextEntryVC alloc] init];
+            labelEntryVC.title = @"Name";
+            labelEntryVC.delegate = self;
+            labelEntryVC.previousData = _propertyName;
+            labelEntryVC.view.tag = TH_PROPSETTINGS_LABELENTRY_IX;
+            [self.navigationController pushViewController:labelEntryVC animated:YES];
+            [labelEntryVC release];
+            break;
+            
+        default:
+            break;
+    }
 
 }
+
+//@protocol TextEntryVCDelegate <NSObject>
+
+- (BOOL)textEntryShouldReturn:(TextEntryVC *)textEntry {
+    double val = 0.0;
+    THDateVal *bp = nil;
+    switch (textEntry.view.tag) {
+        case TH_PROPSETTINGS_LOCNENTRY_IX:
+            //accept anything
+            self.location = textEntry.textField.text;
+            break;
+            
+        case TH_PROPSETTINGS_PRICEENTRY_IX:
+            val = [textEntry.textField.text doubleValue];
+            //use now as default date
+            bp = [[THDateVal alloc] initWithVal:val
+                                             at:_buyPrice ? _buyPrice.date : [NSDate date]];
+            
+            self.buyPrice = bp;
+            [bp release];
+            break;
+
+            
+        case TH_PROPSETTINGS_LABELENTRY_IX:
+            self.propertyName = textEntry.textField.text;
+            break;
+
+            
+        default:
+            NSAssert(FALSE, @"Should not get here");
+            break;
+    }
+    
+    [self.tableView reloadData];
+    
+    return YES;
+}
+
+//@end
+
+
+//@protocol DateSelectorDelegate <NSObject>
+//@required
+- (BOOL)dateEntryShouldReturn:(DateSelectorVC *)dateEntry {
+    //accept anything... even future?
+    THDateVal *bp = [[THDateVal alloc] initWithVal:(_buyPrice ? _buyPrice.val : 0.0)
+                                                at:dateEntry.date];
+    
+    self.buyPrice = bp;
+    [bp release];
+    
+    [self.tableView reloadData];
+    
+    return YES;
+}
+//@end
 
 @end

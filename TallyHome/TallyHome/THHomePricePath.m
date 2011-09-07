@@ -211,6 +211,8 @@
     }
     
     do {
+        NSAssert(nexts.count == relevantIndexes.count, @"Not enough nexts");
+        
         //set next to be the earliest next dateval
         THDateVal *next = nil;
         for (THDateVal *v in nexts) {
@@ -231,20 +233,28 @@
         double numDays = [curr.date daysUntil:next.date];
         numDays = fmin(numDays, [curr.date daysUntil:finalDt]);
         double nextVal = curr.val * pow((1.0 + roc), numDays);
-        THDateVal *i = [[THDateVal alloc] initWithVal:nextVal at:[curr.date addDays:numDays]];
-        [pricePath addObject:i];
-        [i release];
+        THDateVal *nextCreated = [[THDateVal alloc] initWithVal:nextVal at:[curr.date addDays:numDays]];
+        [pricePath addObject:nextCreated];
         
-        THDateVal *nextNext = next.next;
-        if (nextNext == nil) {
-            nextNext = [next.ix calcValueAt:finalDt];
+        //replace any of the nexts that have the same or earlier date than next
+        //(mostly this should be where has same date)
+        NSMutableArray *removes = [[NSMutableArray alloc] init];
+        for (THDateVal *v in nexts) {
+            if ([v.date isBeforeOrEqualTo:next.date])
+                [removes addObject:v];
         }
+        for (THDateVal *v in removes) {
+            [nexts removeObject:v];
+            
+            THDateVal *vnext = (v.next != nil ? v.next : [v.ix calcValueAt:finalDt]);
+            NSAssert(vnext, @"should not be nil");
+            [nexts addObject:vnext];
+        }
+        [removes release];
         
-        NSAssert(nextNext, @"should not be nil");
-        [nexts removeObject:next];
-        [nexts addObject:nextNext];
         [curr release];
-        curr = [next retain];
+        curr = [nextCreated retain];
+        [nextCreated release];
         
     } while ([curr.date isBefore:finalDt]);
     

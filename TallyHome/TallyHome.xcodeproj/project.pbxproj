@@ -32,16 +32,15 @@
 		4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4DAABCC8139B2A1C00E868A7 /* price_events.xml */; };
 		4DAABCCC139B8ABF00E868A7 /* THHomePriceIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAABCCB139B8ABF00E868A7 /* THHomePriceIndex.m */; };
 		4DD54B8E13C037E800E6DE8E /* TextEntryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */; };
-		4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */; };
 		4DD54BDD13C07BF700E6DE8E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BDB13C07BF600E6DE8E /* RootViewController.m */; };
 		4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */; };
 		4DD54BE213C07DFC00E6DE8E /* PropertySettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE013C07DFC00E6DE8E /* PropertySettingsVC.m */; };
 		4DD54BE913C081B300E6DE8E /* TallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */; };
 		4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */; };
-		4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */; };
 		4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */; };
 		8F9527E1140A0368000F2780 /* ScrollWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9527E0140A0368000F2780 /* ScrollWheel.m */; };
 		8F9527E4140BB4BE000F2780 /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */; };
+		8FE870C914178F32008771AB /* SplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE870C814178F32008771AB /* SplashView.m */; };
 		8FEF28BA140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF28B9140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg */; };
 /* End PBXBuildFile section */
 
@@ -167,7 +166,6 @@
 		4DAABCCB139B8ABF00E868A7 /* THHomePriceIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHomePriceIndex.m; sourceTree = "<group>"; };
 		4DD54B8B13C037E700E6DE8E /* TextEntryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEntryVC.h; sourceTree = "<group>"; };
 		4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEntryVC.m; sourceTree = "<group>"; };
-		4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextEntryVC.xib; sourceTree = "<group>"; };
 		4DD54BDA13C07BF600E6DE8E /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		4DD54BDB13C07BF600E6DE8E /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		4DD54BDC13C07BF700E6DE8E /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
@@ -177,13 +175,14 @@
 		4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyDetailVC.m; sourceTree = "<group>"; };
 		4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectorVC.h; sourceTree = "<group>"; };
 		4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectorVC.m; sourceTree = "<group>"; };
-		4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateSelectorVC.xib; sourceTree = "<group>"; };
 		4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
 		4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
 		4DEEFDD513DD918500C9BA06 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
 		8F9527DF140A0368000F2780 /* ScrollWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollWheel.h; sourceTree = "<group>"; };
 		8F9527E0140A0368000F2780 /* ScrollWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollWheel.m; sourceTree = "<group>"; };
 		8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
+		8FE870C814178F32008771AB /* SplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashView.m; sourceTree = "<group>"; };
+		8FE870CB14178F61008771AB /* SplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashView.h; sourceTree = "<group>"; };
 		8FEF28B9140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "istockphoto_11457748-ivy-on-brick-wall.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -399,7 +398,6 @@
 				4D8F2A9A13B74536008EF6AF /* THURLCreator.m */,
 				4DD54B8B13C037E700E6DE8E /* TextEntryVC.h */,
 				4DD54B8C13C037E700E6DE8E /* TextEntryVC.m */,
-				4DD54B8D13C037E800E6DE8E /* TextEntryVC.xib */,
 				4D055A71139A1E0600F13781 /* TallyHomeAppDelegate.h */,
 				4D055A72139A1E0600F13781 /* TallyHomeAppDelegate.m */,
 				4D055A74139A1E0600F13781 /* MainWindow.xib */,
@@ -409,13 +407,14 @@
 				4DD54BE813C081B200E6DE8E /* TallyDetailVC.m */,
 				4DD54C1213C5C1BC00E6DE8E /* DateSelectorVC.h */,
 				4DD54C1313C5C1BD00E6DE8E /* DateSelectorVC.m */,
-				4DD54C1413C5C1BE00E6DE8E /* DateSelectorVC.xib */,
 				4DD54C1713C5C8F200E6DE8E /* ScrollingTallyDetailVC.h */,
 				4DD54C1813C5C8F300E6DE8E /* ScrollingTallyDetailVC.m */,
 				8F9527E3140BB4BE000F2780 /* ScrollingTallyDetailVC.xib */,
 				4D1A519113FD28860061D2B3 /* TallyHomeConstants.h */,
 				8F9527DF140A0368000F2780 /* ScrollWheel.h */,
 				8F9527E0140A0368000F2780 /* ScrollWheel.m */,
+				8FE870C814178F32008771AB /* SplashView.m */,
+				8FE870CB14178F61008771AB /* SplashView.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -491,9 +490,7 @@
 				4D055A76139A1E0600F13781 /* MainWindow.xib in Resources */,
 				4DAABCC9139B2A1C00E868A7 /* price_events.xml in Resources */,
 				4D8F2A9D13B74C3F008EF6AF /* AppDefaults.plist in Resources */,
-				4DD54B8F13C037E800E6DE8E /* TextEntryVC.xib in Resources */,
 				4DD54BDE13C07BF700E6DE8E /* RootViewController.xib in Resources */,
-				4DD54C1613C5C1C000E6DE8E /* DateSelectorVC.xib in Resources */,
 				8F9527E4140BB4BE000F2780 /* ScrollingTallyDetailVC.xib in Resources */,
 				8FEF28BA140CF18B00D8CA06 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */,
 			);
@@ -546,6 +543,7 @@
 				4DD54C1513C5C1C000E6DE8E /* DateSelectorVC.m in Sources */,
 				4DD54C1A13C5C8F700E6DE8E /* ScrollingTallyDetailVC.m in Sources */,
 				8F9527E1140A0368000F2780 /* ScrollWheel.m in Sources */,
+				8FE870C914178F32008771AB /* SplashView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

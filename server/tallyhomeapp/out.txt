@@ -1,0 +1,7 @@
+Name=Sydney, RSN=A2333527V, RNS=ABS, TCN=HousePriceIx 
+Name=Sydney, RSN=A2333526T, RNS=ABS, TCN=HousePriceIx 
+Name=Sydney, RSN=Sydney Dwellings, RNS=Rismark, TCN=HousePriceIx 
+Name=NSW, RSN=HNSW, RNS=Rismark, TCN=HousePriceIx 
+Name=Australia, RSN=Australia Dwellings, RNS=Rismark, TCN=HousePriceIx 
+Name=Australia, RSN=A2333590K, RNS=ABS, TCN=HousePriceIx 
+Name=Australia, RSN=A2333591L, RNS=ABS, TCN=HousePriceIx

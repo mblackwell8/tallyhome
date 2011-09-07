@@ -55,7 +55,7 @@
 }
 
 - (void)testTrendGrowthCalcs {
-    double trGr = [[testPath makePricePath] calcTrendGrowth];
+    double trGr = [[testPath makePricePath] calcDailyTrendGrowth];
     NSLog(@"Trend growth is %5.2f", trGr * 100.0);
     
 }
