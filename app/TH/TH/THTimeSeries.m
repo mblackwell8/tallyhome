@@ -13,6 +13,12 @@
 
 @synthesize innerIndex = _innerSeries, trendExtrapolationInterval;
 
+- (void)setTrendExtrapolationInterval:(NSTimeInterval)interval {
+    _fwdGrowthCalced = NO;
+    _backwardGrowthCalced = NO;
+    trendExtrapolationInterval = interval;
+}
+
 //- (id)init {
 //    if ((self = [super init])) {
 //        trendExtrapolationInterval = TH_FiveYearTimeInterval;
@@ -69,7 +75,15 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THTimeSeries *copy = [[THTimeSeries allocWithZone:zone] initWithValues:_innerSeries];
+    NSMutableArray *copyVals = [[NSMutableArray alloc] initWithCapacity:_innerSeries.count];
+    for (THDateVal *dv in _innerSeries) {
+        [copyVals addObject:[dv copyWithZone:zone]];
+    }
+    
+    //think i need to do the [self class] thing for subclasses that will call this method
+    THTimeSeries *copy = [[[self class] allocWithZone:zone] initWithValues:copyVals];
+    [copyVals release];
+
     copy.trendExtrapolationInterval = trendExtrapolationInterval;
     //don't worry about calced indices
     

@@ -2,9 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>serverURL</key>
-	<string>http://tallyho.me/data?</string>
+	<key>serverHostname</key>
+	<string>data.tallyho.me</string>
 	<key>dataInterfaceURL</key>
-	<string>http://data.tallyho.me/data?tallyID=%@&amp;userID=%@&amp;lat=%@&amp;lon=%@&amp;city=%@&amp;country=%@&amp;ctryCode=%@&amp;firstDt=%@&amp;lastDt=%@</string>
+	<string>http://data.tallyho.me/v1/data?tallyID=%@&amp;userID=%@&amp;lat=%@&amp;lon=%@&amp;city=%@&amp;country=%@&amp;ctryCode=%@&amp;firstDt=%@&amp;lastDt=%@</string>
+	<key>genericOzIndexFile</key>
+	<string>/AustraliaIndex.xml</string>
 </dict>
 </plist>

@@ -21,7 +21,10 @@ handlers:
   script: admin.py
   login: admin
 
-- url: /data
+- url: /v1/data
+  script: data.py
+
+- url: /avgPrice
   script: data.py
 
 - url: /.*

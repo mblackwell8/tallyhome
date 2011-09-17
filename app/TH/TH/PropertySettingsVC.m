@@ -9,13 +9,9 @@
 #import "PropertySettingsVC.h"
 #import "DebugMacros.h"
 
-#define TH_PROPSETTINGS_LOCNENTRY_IX 0
-#define TH_PROPSETTINGS_PRICEENTRY_IX 2
-#define TH_PROPSETTINGS_LABELENTRY_IX 3
-
 @implementation PropertySettingsVC
 
-@synthesize delegate = _delegate, location = _location, propertyName = _propertyName, buyPrice = _buyPrice;
+@synthesize delegate = _delegate, location = _location, propertyName = _propertyName, buyPrice = _buyPrice, proximitiesIncluded = _proximitiesIncluded, sourcesIncluded = _sourcesIncluded, forecastingTimeScale = _forecastingTimeScale;
 
 static NSDateFormatter *dateFormatter;
 static NSNumberFormatter *priceFormatter;
@@ -70,6 +66,128 @@ static NSNumberFormatter *priceFormatter;
         [_delegate propertySettingsWillFinishCancelled:self];
 }
 
+- (THHomePriceIndexProximity)proximities {
+    int p = 0;
+    for (NSString *prox in [_proximitiesIncluded componentsSeparatedByString:@","]) {
+        //#define TH_PROX_LIST @"City,State,Country,All"
+         
+        if ([prox isEqualToString:@"City"]) {
+            p |= THHomePriceIndexProximityCity;
+        }
+        else if ([prox isEqualToString:@"State"]) {
+            p |= THHomePriceIndexProximityState;
+        }
+        else if ([prox isEqualToString:@"Country"]) {
+            p |= THHomePriceIndexProximityCountry;
+        }
+        else if ([prox isEqualToString:@"All"]) {
+            p |= THHomePriceIndexProximityAllKnown;
+            break;
+        }
+    }
+    
+    return p;
+}
+
+- (void)setProximities:(THHomePriceIndexProximity)proximities {
+    NSMutableArray *proxs = [[NSMutableArray alloc] init];
+    //#define TH_PROX_LIST @"City,State,Country,All"    
+    if (proximities == THHomePriceIndexProximityAllKnown) {
+        [proxs addObject:@"All"];
+    }
+    else {
+        if (proximities & THHomePriceIndexProximityCity) {
+            [proxs addObject:@"City"];
+        }
+        if (proximities & THHomePriceIndexProximityState) {
+            [proxs addObject:@"State"];
+        }
+        if (proximities & THHomePriceIndexProximityCountry) {
+            [proxs addObject:@"Country"];
+        }
+    }
+    
+    self.proximitiesIncluded = [proxs componentsJoinedByString:@","];
+    [proxs release];
+}
+
+- (THHomePriceIndexSource)sources {
+    int s = 0;
+    for (NSString *prox in [_sourcesIncluded componentsSeparatedByString:@","]) {
+        //TH_SOURCE_LIST @"Government,Branded,Other,All"
+        
+        if ([prox isEqualToString:@"Government"]) {
+            s |= THHomePriceIndexSourceGovt;
+        }
+        else if ([prox isEqualToString:@"Branded"]) {
+            s |= THHomePriceIndexSourceBranded;
+        }
+        else if ([prox isEqualToString:@"Other"]) {
+            s |= THHomePriceIndexSourceOther;
+        }
+        else if ([prox isEqualToString:@"All"]) {
+            s |= THHomePriceIndexSourceAllKnown;
+            break;
+        }
+    }
+    
+    return s;
+
+}
+
+- (void)setSources:(THHomePriceIndexSource)sources {
+    NSMutableArray *srcs = [[NSMutableArray alloc] init];
+    //TH_SOURCE_LIST @"Government,Branded,Other,All"
+    if (sources == THHomePriceIndexSourceAllKnown) {
+        [srcs addObject:@"All"];
+    }
+    else {
+        if (sources & THHomePriceIndexSourceGovt) {
+            [srcs addObject:@"Government"];
+        }
+        if (sources & THHomePriceIndexSourceBranded) {
+            [srcs addObject:@"Branded"];
+        }
+        if (sources & THHomePriceIndexSourceOther) {
+            [srcs addObject:@"Other"];
+        }
+    }
+    
+    self.sourcesIncluded = [srcs componentsJoinedByString:@","];
+    [srcs release];
+}
+
+- (NSTimeInterval)trendExtrapolationInterval {
+    //#define TH_FORECASTTIME_LIST @"One year,Five years,Ten years"
+    if ([_forecastingTimeScale isEqualToString:@"One year"]) {
+        return TH_OneYearTimeInterval;
+    }
+    if ([_forecastingTimeScale isEqualToString:@"Five years"]) {
+        return TH_FiveYearTimeInterval;
+    }
+    if ([_forecastingTimeScale isEqualToString:@"Ten years"]) {
+        return TH_TenYearTimeInterval;
+    }
+    
+    NSAssert(NO, @"should not get here");
+    return 0;
+}
+
+- (void)setTrendExtrapolationInterval:(NSTimeInterval)interval {
+    if (interval == TH_OneYearTimeInterval) {
+        _forecastingTimeScale = @"One year";
+    }
+    else if (interval == TH_FiveYearTimeInterval) {
+        _forecastingTimeScale = @"Five years";
+    }
+    else if (interval == TH_TenYearTimeInterval) {
+        _forecastingTimeScale = @"Ten years";
+    }
+    else {
+        NSAssert(NO, @"should not get here");
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -78,10 +196,9 @@ static NSNumberFormatter *priceFormatter;
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
-    self.title = @"Edit";
-    
+        
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
-                                                                   style:UIBarButtonItemStylePlain 
+                                                                   style:UIBarButtonItemStyleDone 
                                                                   target:self 
                                                                   action:@selector(_done)]; 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" 
@@ -130,11 +247,41 @@ static NSNumberFormatter *priceFormatter;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Property settings";
+            
+        case 1:
+            return @"Advanced";
+            
+        default:
+            NSAssert(NO, @"should not get here");
+            return 0;
+    }
+    
+    NSAssert(NO, @"should not get here either");
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    switch (section) {
+        case 0:
+            return 4;
+            
+        case 1:
+            return 3;
+            
+        default:
+            NSAssert(NO, @"should not get here");
+            return 0;
+    }
+    
+    NSAssert(NO, @"should not get here either");
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView 
@@ -148,31 +295,60 @@ static NSNumberFormatter *priceFormatter;
     }
     
     // Configure the cell...
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = @"City";
-            cell.detailTextLabel.text = _location;
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Property name";
+                    cell.detailTextLabel.text = _propertyName;
+                    break;
+                    
+                case 1:
+                    cell.textLabel.text = @"City";
+                    cell.detailTextLabel.text = _location;
+                    break;
+                    
+                case 2:
+                    cell.textLabel.text = @"Purchase date";
+                    cell.detailTextLabel.text = [dateFormatter stringFromDate:_buyPrice.date];
+                    break;
+                    
+                case 3:
+                    cell.textLabel.text = @"Price";
+                    NSNumber *price = [[NSNumber alloc] initWithDouble:_buyPrice.val];
+                    cell.detailTextLabel.text = [priceFormatter stringFromNumber:price];
+                    [price release];
+                    break;
+                  
+                default:
+                    break;
+            }
             break;
-            
+        // advanced section
         case 1:
-            cell.textLabel.text = @"Purchase date";
-            cell.detailTextLabel.text = [dateFormatter stringFromDate:_buyPrice.date];
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Proximities";
+                    cell.detailTextLabel.text = _proximitiesIncluded;
+                    break;
+                    
+                case 1:
+                    cell.textLabel.text = @"Sources";
+                    cell.detailTextLabel.text = _sourcesIncluded;
+                    break;
+                    
+                case 2:
+                    cell.textLabel.text = @"Forecasting basis";
+                    cell.detailTextLabel.text = _forecastingTimeScale;
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
-            
-        case 2:
-            cell.textLabel.text = @"Price";
-            NSNumber *price = [[NSNumber alloc] initWithDouble:_buyPrice.val];
-            cell.detailTextLabel.text = [priceFormatter stringFromNumber:price];
-            [price release];
-            break;
-            
-        case 3:
-            cell.textLabel.text = @"Label";
-            cell.detailTextLabel.text = _propertyName;
-            break;
-
         default:
             break;
+            
     }
     
     return cell;
@@ -182,96 +358,139 @@ static NSNumberFormatter *priceFormatter;
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
+    
+    return (indexPath.row == 0);
 }
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 
+#define TH_PROPSETTINGS_LABELENTRY_IX 0
+#define TH_PROPSETTINGS_LOCNENTRY_IX 1
+#define TH_PROPSETTINGS_DATEENTRY_IX 2
+#define TH_PROPSETTINGS_PRICEENTRY_IX 3
+
+#define TH_PROPSETTINGS_PROX_IX 4
+#define TH_PROPSETTINGS_SOURCE_IX 5
+#define TH_PROPSETTINGS_FORECASTTIME_IX 6
+
+
+#define TH_AUSTRALIAN_CITYLIST @"Sydney,Melbourne,Brisbane,Perth,Adelaide,Darwin,Hobart,Canberra,Other"
+#define TH_PROX_LIST @"City,State,Country,All"
+#define TH_SOURCE_LIST @"Government,Branded,Other,All"
+#define TH_FORECASTTIME_LIST @"One year,Five years,Ten years"
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    TextEntryVC *locnEntryVC = nil;
-    DateSelectorVC *buyDateEntryVC = nil;
-    TextEntryVC *buyPriceEntryVC = nil;
-    TextEntryVC *labelEntryVC = nil;
+    TableSelectorVC *tableSelector = nil;
+    DateSelectorVC *dateSelector = nil;
+    TextEntryVC *textSelector = nil;
     
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
-            //Location, edit with text        
-            locnEntryVC = [[TextEntryVC alloc] init];
-            locnEntryVC.title = @"City";
-            locnEntryVC.delegate = self;
-            locnEntryVC.previousData = _location;
-            locnEntryVC.view.tag = TH_PROPSETTINGS_LOCNENTRY_IX;
-            [self.navigationController pushViewController:locnEntryVC animated:YES];
-            [locnEntryVC release];
+            switch (indexPath.row) {
+                case 0:
+                    //Label, edit with text
+                    textSelector = [[TextEntryVC alloc] init];
+                    textSelector.title = @"Property name";
+                    textSelector.delegate = self;
+                    textSelector.previousData = _propertyName;
+                    textSelector.view.tag = TH_PROPSETTINGS_LABELENTRY_IX;
+                    [self.navigationController pushViewController:textSelector animated:YES];
+                    [textSelector release];
+                    break;
+                    
+                case 1:
+                    //Location, edit with table selector for now        
+                    tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
+                    tableSelector.title = @"City";
+                    [tableSelector setOptionsUsingCSV:TH_AUSTRALIAN_CITYLIST];
+                    [tableSelector setSelectedOptionsUsingCSV:_location];
+                    tableSelector.delegate = self;
+                    //locnEntryVC.previousData = _location;
+                    tableSelector.view.tag = TH_PROPSETTINGS_LOCNENTRY_IX;
+                    [self.navigationController pushViewController:tableSelector animated:YES];
+                    [tableSelector release];
+                    break;
+                    
+                case 2:
+                    //Purchase date, edit with date control
+                    dateSelector = [[DateSelectorVC alloc] init];
+                    dateSelector.title = @"Purchase date";
+                    dateSelector.delegate = self;
+                    dateSelector.date = _buyPrice.date;
+                    dateSelector.view.tag = TH_PROPSETTINGS_DATEENTRY_IX;
+                    [self.navigationController pushViewController:dateSelector animated:YES];
+                    [dateSelector release];
+                    break;
+                    
+                case 3:
+                    // buy price, edit with text
+                    textSelector = [[TextEntryVC alloc] init];
+                    textSelector.title = @"Purchase price";
+                    textSelector.delegate = self;
+                    NSNumber *value = [NSNumber numberWithDouble:round(_buyPrice.val)];
+                    textSelector.keyboardType = UIKeyboardTypeDecimalPad;
+                    textSelector.previousData = [value stringValue];
+                    textSelector.view.tag = TH_PROPSETTINGS_PRICEENTRY_IX;
+                    [self.navigationController pushViewController:textSelector animated:YES];
+                    [textSelector release];
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
-            
         case 1:
-            //Purchase date, edit with date control
-            buyDateEntryVC = [[DateSelectorVC alloc] init];
-            buyDateEntryVC.title = @"Purchase date";
-            buyDateEntryVC.delegate = self;
-            buyDateEntryVC.date = _buyPrice.date;
-            [self.navigationController pushViewController:buyDateEntryVC animated:YES];
-            [buyDateEntryVC release];
-            break;
-            
-        case 2:
-            // buy price, edit with text
-            buyPriceEntryVC = [[TextEntryVC alloc] init];
-            buyPriceEntryVC.title = @"Purchase price";
-            buyPriceEntryVC.delegate = self;
-            NSNumber *value = [NSNumber numberWithDouble:_buyPrice.val];
-            buyPriceEntryVC.keyboardType = UIKeyboardTypeDecimalPad;
-            buyPriceEntryVC.previousData = [priceFormatter stringFromNumber:value];
-            buyPriceEntryVC.view.tag = TH_PROPSETTINGS_PRICEENTRY_IX;
-            [self.navigationController pushViewController:buyPriceEntryVC animated:YES];
-            [buyPriceEntryVC release];
-            break;
-            
-        case 3:
-            //Label, edit with text
-            labelEntryVC = [[TextEntryVC alloc] init];
-            labelEntryVC.title = @"Name";
-            labelEntryVC.delegate = self;
-            labelEntryVC.previousData = _propertyName;
-            labelEntryVC.view.tag = TH_PROPSETTINGS_LABELENTRY_IX;
-            [self.navigationController pushViewController:labelEntryVC animated:YES];
-            [labelEntryVC release];
-            break;
-            
-        default:
-            break;
+            switch (indexPath.row) {
+                case 0:
+                    //proximities
+                    tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
+                    tableSelector.title = @"Proximities";
+                    tableSelector.allowsNoSelection = NO;
+                    tableSelector.allowsMultipleSelections = YES;
+                    [tableSelector setOptionsUsingCSV:TH_PROX_LIST];
+                    [tableSelector setSelectedOptionsUsingCSV:_proximitiesIncluded];
+                    tableSelector.delegate = self;
+                    //locnEntryVC.previousData = _location;
+                    tableSelector.view.tag = TH_PROPSETTINGS_PROX_IX;
+                    [self.navigationController pushViewController:tableSelector animated:YES];
+                    [tableSelector release];
+                    break;
+                    
+                case 1:
+                    //sources        
+                    tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
+                    tableSelector.title = @"Sources";
+                    tableSelector.allowsNoSelection = NO;
+                    tableSelector.allowsMultipleSelections = YES;
+                    [tableSelector setOptionsUsingCSV:TH_SOURCE_LIST];
+                    [tableSelector setSelectedOptionsUsingCSV:_sourcesIncluded];
+                    tableSelector.delegate = self;
+                    //locnEntryVC.previousData = _location;
+                    tableSelector.view.tag = TH_PROPSETTINGS_SOURCE_IX;
+                    [self.navigationController pushViewController:tableSelector animated:YES];
+                    [tableSelector release];
+                    break;
+                    
+                case 2:
+                    //forecasting time scale
+                    tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
+                    tableSelector.title = @"Forecasting time scale";
+                    tableSelector.allowsNoSelection = NO;
+                    tableSelector.allowsMultipleSelections = NO;
+                    [tableSelector setOptionsUsingCSV:TH_FORECASTTIME_LIST];
+                    [tableSelector setSelectedOptionsUsingCSV:_forecastingTimeScale];
+                    tableSelector.delegate = self;
+                    //locnEntryVC.previousData = _location;
+                    tableSelector.view.tag = TH_PROPSETTINGS_FORECASTTIME_IX;
+                    [self.navigationController pushViewController:tableSelector animated:YES];
+                    [tableSelector release];
+                    break;
+                    
+                default:
+                    break;
+            }
+
     }
 
 }
@@ -288,6 +507,7 @@ static NSNumberFormatter *priceFormatter;
             break;
             
         case TH_PROPSETTINGS_PRICEENTRY_IX:
+            
             val = [textEntry.textField.text doubleValue];
             //use now as default date
             bp = [[THDateVal alloc] initWithVal:val
@@ -315,6 +535,83 @@ static NSNumberFormatter *priceFormatter;
 
 //@end
 
+- (void)tableSelectorDidSelect:(TableSelectorVC *)tableSelector itemNumber:(NSUInteger)num {
+    switch (tableSelector.view.tag) {
+        case TH_PROPSETTINGS_LOCNENTRY_IX:
+            self.location = [[TH_AUSTRALIAN_CITYLIST componentsSeparatedByString:@","] objectAtIndex:num];
+            break;
+            
+        case TH_PROPSETTINGS_PROX_IX:
+            //multiple selections so wait for finished
+            return;
+            
+        case TH_PROPSETTINGS_SOURCE_IX:
+            //multiple selections so wait for finished
+            return;
+                
+        case TH_PROPSETTINGS_FORECASTTIME_IX:
+            self.forecastingTimeScale = [[TH_FORECASTTIME_LIST componentsSeparatedByString:@","] objectAtIndex:num];
+            break;
+            
+        default:
+            NSAssert(FALSE, @"should not get here");
+            break;
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.tableView reloadData];
+}
+
+- (void)tableSelectorDidUnSelect:(TableSelectorVC *)tableSelector itemNumber:(NSUInteger)num {
+    switch (tableSelector.view.tag) {
+        case TH_PROPSETTINGS_LOCNENTRY_IX:
+            self.location = [[TH_AUSTRALIAN_CITYLIST componentsSeparatedByString:@","] objectAtIndex:num];
+            break;
+            
+        case TH_PROPSETTINGS_PROX_IX:
+            break;
+            
+        case TH_PROPSETTINGS_SOURCE_IX:
+            break;
+            
+        case TH_PROPSETTINGS_FORECASTTIME_IX:
+            break;
+            
+        default:
+            NSAssert(FALSE, @"Should not get here");
+            break;
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.tableView reloadData];
+}
+
+- (void)tableSelectorWillFinishDone:(TableSelectorVC *)tableSelector {
+    switch (tableSelector.view.tag) {
+        case TH_PROPSETTINGS_LOCNENTRY_IX:
+            //has been handled above
+            return;
+            
+        case TH_PROPSETTINGS_PROX_IX:
+            self.proximitiesIncluded = tableSelector.selectedOptionUsingCSV;            
+            break;
+            
+        case TH_PROPSETTINGS_SOURCE_IX:
+            self.sourcesIncluded = tableSelector.selectedOptionUsingCSV;
+            break;
+            
+        case TH_PROPSETTINGS_FORECASTTIME_IX:
+            //has been handled above
+            return;
+            
+        default:
+            NSAssert(FALSE, @"should not get here");
+            break;
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.tableView reloadData];
+}
 
 //@protocol DateSelectorDelegate <NSObject>
 //@required

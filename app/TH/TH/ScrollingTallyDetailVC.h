@@ -14,6 +14,7 @@
 #import "PropertySettingsVC.h"
 #import "TallyHomeConstants.h"
 #import "ScrollWheel.h"
+#import "InfoViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 //#define TH_FIRST_RGB_STEP_IX 0
@@ -21,54 +22,59 @@
 //#define TH_LAST_RGB_STEP_IX 20
 
 
-@interface ScrollingTallyDetailVC : TallyDetailVC <ScrollWheelDelegate, PropertySettingsDelegate, NSCoding> {
+@interface ScrollingTallyDetailVC : TallyDetailVC <ScrollWheelDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
     
-    UIImageView *_customizeAlertImage;
-    UIActivityIndicatorView *_waitingForDataIndicator;
-    
-    UILabel *_currentValueLbl;
-    UILabel *_currentDateLbl;
-    UILabel *_commentLbl;
-    THDateVal *_displayedValue;
-    THDateVal *_nowValue;
-    THDateVal *_nowValueToEncode;
-    THDateVal *_lastNowValue;
+    UIImageView *_settingsNotSetAlertView;   
     UIView *_backgroundRect;
+    UILabel *_currentDateLbl;
+    UILabel *_currentValueLbl;
+    UILabel *_commentLbl;
+    ScrollWheel *_scroller;
+    UIToolbar *_bottomToolbar;                                               
+    UIBarButtonItem *_infoButton;
+    UILabel *_statusLabel;
+    UIBarButtonItem *_refreshButton;
+    UIActivityIndicatorView *_waitingForDataIndicator;
+
+    NSTimer *_autoUpdateTimer;
+    
     NSNumberFormatter *_valueFormatter;
     NSNumberFormatter *_commentValueFormatter;
-    ScrollWheel *_scroller;
-    
-    UIActivityIndicatorView *_activityIndicator;
         
-    //NSMutableArray *_displayedDateVals;
+    THDateVal *_displayedValue;
+    THDateVal *_nowValue;
+//    THDateVal *_nowValueToEncode;
+    THDateVal *_lastNowValue;
     
     NSString *_city, *_country;
     NSString *_propertyName;
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
-    
-    NSTimer *_autoUpdateTimer;
-    
+
+    BOOL _isInitingPricePath;
+    BOOL _forceInitPricePath;
+    BOOL _isSettingsSet;
 }
 
-@property (nonatomic, retain) IBOutlet UIImageView *customizeAlertImage;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *waitingForDataIndicator;
+@property (nonatomic, retain) IBOutlet UILabel *currentValueLabel;
+@property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
+@property (nonatomic, retain) IBOutlet UILabel *commentLabel;
+@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
+@property (nonatomic, retain) IBOutlet ScrollWheel *scroller;
+@property (nonatomic, retain) IBOutlet UIImageView *settingsNotSetAlertView;
+@property (nonatomic, retain) UILabel *statusLabel;
+@property (nonatomic, retain) UIBarButtonItem *infoButton, *refreshButton;
+@property (nonatomic, retain) UIActivityIndicatorView *waitingForDataIndicator;
+@property (nonatomic, retain) IBOutlet UIToolbar *bottomToolbar;
 
 @property (nonatomic, copy) NSString *city, *country;
 @property (nonatomic, copy) NSString *propertyName;
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
-@property (nonatomic, retain) IBOutlet UILabel *currentValueLabel;
-@property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
-@property (nonatomic, retain) IBOutlet UILabel *commentLabel;
-@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet ScrollWheel *scroller;
-@property (nonatomic, retain) THDateVal *currentValue;
+@property (nonatomic, retain) THDateVal *displayedValue;
+@property (nonatomic, retain) THDateVal *nowValue;
 
-- (void)_initPricePath;
-//- (void)_applyData:(THDateVal *)data toTallyViewCell:(UIView *)cell atIndex:(NSInteger)ix;
-- (void)_editProperty;
+
 
 
 @end

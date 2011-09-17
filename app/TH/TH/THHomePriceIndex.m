@@ -39,10 +39,12 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THHomePriceIndex *copy = [[THHomePriceIndex allocWithZone:zone] initWithValues:_innerSeries];
-    copy.trendExtrapolationInterval = trendExtrapolationInterval;
+    THHomePriceIndex *copy = [super copyWithZone:zone];
     copy.prox = prox;
     copy.src = src;
+    
+    //has copy semantics
+    copy.averagePrice = _avgPrice;
     
     return copy;
 }
@@ -71,6 +73,7 @@
     else
         prox = THHomePriceIndexProximityUnknown;
 }
+
 
 - (void)setSourceTypeStr:(NSString *)srcStr {
     if (sourceTypeStr)

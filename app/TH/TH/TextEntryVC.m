@@ -38,9 +38,13 @@
     
     CGRect screenRect = CGRectMake(0.0, 0.0, 320.0, screenHt);
     UIView *v = [[UIView alloc] initWithFrame:screenRect];
+    v.backgroundColor = [UIColor grayColor];
     
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 116.0, 280.0, 131.0)];
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 116.0, 280.0, 31.0)];
     _textField.font = [UIFont systemFontOfSize:16.0];
+    _textField.borderStyle = UITextBorderStyleBezel;
+    _textField.clearButtonMode = UITextFieldViewModeAlways;
+    _textField.backgroundColor = [UIColor whiteColor];
     [_textField addTarget:self 
                    action:@selector(textFieldEditingDidEnd:) 
          forControlEvents:UIControlEventEditingDidEnd];

@@ -78,4 +78,34 @@
     [super dealloc];
 }
 
+- (BOOL)isEqual:(id)other{
+    if (other == self)
+        return YES;
+    if (!other || ![other isKindOfClass:[self class]])
+        return NO;
+    return [self isEqualToDateVal:other];
+}
+
+- (BOOL)isEqualToDateVal:(THDateVal *)other {
+    if (self == other)
+        return YES;
+    //5 sig digits on valu
+    if (round(val * 10e5) != round(other.val * 10e5))
+        return NO;
+    if (![_date isEqualToDate:other.date])
+        return NO;
+    return YES;
+}
+
+- (NSUInteger)hash {
+    int prime = 31;
+    NSUInteger result = 1;
+    
+    //5 sig digits on val
+    result = prime * result + round(val * 10e5);
+    result = prime * result + [_date hash];
+    
+    return result;
+}
+
 @end

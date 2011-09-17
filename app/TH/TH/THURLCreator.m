@@ -7,6 +7,7 @@
 //
 
 #import "THURLCreator.h"
+#import "THAppDelegate.h"
 
 
 @implementation THURLCreator
@@ -33,9 +34,8 @@
 //    NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/price_events.xml"];    
 //    NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AppDefaults" ofType:@"plist"];
-    NSDictionary *defaults = [[[NSDictionary alloc] initWithContentsOfFile:path] autorelease];
-    NSString *cgiURLformat = [defaults objectForKey:@"dataInterfaceURL"];
+    THAppDelegate *appD = [[UIApplication sharedApplication] delegate];
+    NSString *cgiURLformat = [appD.appDefaults objectForKey:@"dataInterfaceURL"];
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
@@ -57,7 +57,7 @@
                         
     NSURL *url = [NSURL URLWithString:urlStr];
         
-    return [url autorelease];
+    return url;
 }
 
 @end

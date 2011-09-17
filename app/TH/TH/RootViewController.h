@@ -15,4 +15,8 @@
 
 @property (nonatomic, retain) TallyVCArray *detailControllers;
 
+- (void)navigateToTallyViewAtIndex:(NSUInteger)index animated:(BOOL)anim;
+- (void)addButtonPressed:(id)sender;
+- (void)addNewScrollingTallyDetailVC;
+
 @end

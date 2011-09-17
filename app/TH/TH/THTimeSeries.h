@@ -27,7 +27,7 @@
 
 @property (retain, nonatomic) NSArray *innerIndex;
 //@property NSTimeInterval backwardsExtrapolationInterval;
-@property NSTimeInterval trendExtrapolationInterval;
+@property (nonatomic, assign) NSTimeInterval trendExtrapolationInterval;
 
 - (id)initWithValues:(NSArray *)indices;
 

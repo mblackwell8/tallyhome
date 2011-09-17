@@ -12,6 +12,9 @@ transformers:
   connector_options:
   property_map:
 
+    - property: Class
+      external_name: Class
+
     - property: Name
       external_name: State
 

@@ -15,6 +15,12 @@
 @property (nonatomic, retain) NSMutableArray *xmlIndices;
 @property (nonatomic, retain) THDateVal *xmlAveragePrice;
 @property (nonatomic, retain) NSDateFormatter *xmlDateFormatter;
+@property (nonatomic, readwrite, retain) NSDate *lastServerUpdate;
+
+- (THTimeSeries *)makePricePathFromSources:(int)sources 
+                               proximities:(int)proximities 
+                                usingRawIx:(THTimeSeries *)ix 
+                              withBuyPrice:(THDateVal *)bp;
     
 @end
 
@@ -23,16 +29,17 @@
 @synthesize sources;
 @synthesize proximities;
 @synthesize innerSerieses = _serieses;
-@synthesize manualPriceAdjustments = _manualPriceAdjustments;
 @synthesize buyPrice = _buyPrice;
+//@synthesize trendExtrapolationInterval = _trendExtrapolationInterval;
 
 
-@synthesize xmlCurrentIxName = _xmlCurrentIxName, xmlCurrentIxProx = _xmlCurrentIxProx, xmlCurrentIxSource = _xmlCurrentIxSource, xmlIndices = _xmlIndices, xmlAveragePrice = _xmlAveragePrice, xmlDateFormatter = _xmlDateFormatter;
+@synthesize xmlCurrentIxName = _xmlCurrentIxName, xmlCurrentIxProx = _xmlCurrentIxProx, xmlCurrentIxSource = _xmlCurrentIxSource, xmlIndices = _xmlIndices, xmlAveragePrice = _xmlAveragePrice, xmlDateFormatter = _xmlDateFormatter, lastServerUpdate = _lastServerUpdate;
 
 - (id) init {
     if ((self = [super init])) {
         sources = THHomePriceIndexSourceAllKnown;
         proximities = THHomePriceIndexProximityAllKnown;
+//        _trendExtrapolationInterval = TH_FiveYearTimeInterval;
         _serieses = [[NSMutableArray alloc] init];
         _buyPrice = nil;
     }
@@ -44,18 +51,21 @@
 #define kBuyPriceCoder  @"BuyPrice"
 #define kSrcsCoder      @"Srcs"
 #define kProxsCoder     @"Proxs"
+#define kLastUpdate     @"LastUpdate"
 
 - (id)initWithCoder:(NSCoder *)decoder {
     NSArray *s = [decoder decodeObjectForKey:kSeriesesCoder];
     THDateVal *dv = [decoder decodeObjectForKey:kBuyPriceCoder];
     int srcs = [decoder decodeIntForKey:kSrcsCoder];
     int proxs = [decoder decodeIntForKey:kProxsCoder];
+    NSDate *lstUpdate = [decoder decodeObjectForKey:kLastUpdate];
     
     if ((self = [super init])) {
         _serieses = [s retain];
         _buyPrice = [dv retain];
         sources = srcs;
         proximities = proxs;
+        _lastServerUpdate = [lstUpdate retain];
     }
     
     return self;
@@ -66,6 +76,7 @@
     [encoder encodeInt:proximities forKey:kProxsCoder];
     [encoder encodeObject:_serieses forKey:kSeriesesCoder];
     [encoder encodeObject:_buyPrice forKey:kBuyPriceCoder];
+    [encoder encodeObject:_lastServerUpdate forKey:kLastUpdate];
 }
 
 - (id) initWithXmlString:(NSString *)xml {
@@ -76,7 +87,8 @@
         [parser setDelegate:self];
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        //[df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        [df setDateFormat:@"yyyy'-'MM'-'dd"];
         [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         self.xmlDateFormatter = df;
         [df release];
@@ -93,12 +105,12 @@
 - (id) initWithURL:(NSURL *)url {
     if ((self = [self init])) {
         
-        //NSLog(@"Commencing XML parse from %@", url);
+        DLog(@"Commencing XML parse from %@", url);
         NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
         [parser setDelegate:self];
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        [df setDateFormat:@"yyyy'-'MM'-'dd"];
         [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         self.xmlDateFormatter = df;
         [df release];
@@ -106,6 +118,8 @@
         [parser parse]; // return value not used
         // if not successful, delegate is informed of error
         [parser release];
+        
+        self.lastServerUpdate = [NSDate date];
     }
     
     return self;
@@ -210,7 +224,7 @@
     THDateVal *best = nil;
     int currBestScore = INT32_MAX;
     for (THHomePriceIndex *hpi in _serieses) {
-        DLog(@"count = %d, src: %@, prox: %@", hpi.count, hpi.sourceTypeStr, hpi.proximityStr);
+        //DLog(@"count = %d, src: %@, prox: %@", hpi.count, hpi.sourceTypeStr, hpi.proximityStr);
         if (hpi.count > 0 &&
            (hpi.src & srcs) &&
            (hpi.prox & proxs)) {
@@ -241,8 +255,12 @@
     if (!_buyPrice)
         _buyPrice = [[THDateVal alloc] initWithVal:100.0 at:[NSDate date]];
 
-    if (_serieses.count == 1)
-        return [[[_serieses objectAtIndex:0] copy] autorelease];
+    if (_serieses.count == 1) {
+        return [self makePricePathFromSources:srcs 
+                                  proximities:proxs 
+                                   usingRawIx:[_serieses objectAtIndex:0]
+                                 withBuyPrice:_buyPrice];
+    }
     
     NSDate *firstDt = nil, *finalDt = nil;
     NSMutableArray *relevantIndexes = [[NSMutableArray alloc] initWithCapacity:_serieses.count];
@@ -258,10 +276,20 @@
         }
     }
     
-    if (relevantIndexes.count == 0)
+    if (relevantIndexes.count == 0) {
+        [relevantIndexes release];
         return nil;
-    if (relevantIndexes.count == 1) 
-        return [[[relevantIndexes objectAtIndex:0] copy] autorelease];
+    }
+    if (relevantIndexes.count == 1) {
+        THTimeSeries *finalPP = [self makePricePathFromSources:srcs 
+                                                   proximities:proxs 
+                                                    usingRawIx:[relevantIndexes objectAtIndex:0]
+                                                  withBuyPrice:_buyPrice];
+        
+        [relevantIndexes release];
+        
+        return finalPP;
+    }
     
     NSAssert(firstDt, @"First date not set");
     NSAssert(finalDt, @"Last date not set");
@@ -335,80 +363,46 @@
         [nextCreated release];
         
     } while ([curr.date isBefore:finalDt]);
-            
-    // adjust the series to reflect the users buy price
-    THHomePriceIndex *tmpPP = [[THHomePriceIndex alloc] initWithValues:pricePath];
-    [pricePath removeAllObjects];
-    THDateVal *ixValAtBuyDate = [tmpPP calcValueAt:_buyPrice.date];
-    for (THDateVal *dv in tmpPP) {
-        double val = _buyPrice.val * dv.val / ixValAtBuyDate.val;
-        THDateVal *i = [[THDateVal alloc] initWithVal:val at:dv.date];
-        [pricePath addObject:i];
-        [i release];
-    }
-    [tmpPP release];
-    
-    //insert buy price
-    [pricePath addObject:[_buyPrice copy]];    
-    THHomePriceIndex *finalPP = [[THHomePriceIndex alloc] initWithValues:pricePath];
-    finalPP.prox = proxs;
-    finalPP.src = srcs;
-    
-    //TODO: apply manual price adjustments
+       
+    THTimeSeries *rawIx = [[THTimeSeries alloc] initWithValues:pricePath];
+    THTimeSeries *finalPP = [self makePricePathFromSources:srcs 
+                                               proximities:proxs 
+                                                usingRawIx:rawIx 
+                                              withBuyPrice:_buyPrice];
     
     [pricePath release];
     [nexts release];
     [curr release]; 
     [relevantIndexes release];
      
-    return [finalPP autorelease];
+    return finalPP;
 }
     
-//    NSMutableArray *subset = [[NSMutableArray alloc] init];
-//    NSDate *currDt = firstDt;
-//    double ixVal = 100.0;
-//    NSDate *lastIxDt = firstDt;
-//    double roc = 0.0;
-//    do {
-//        NSDate *tmDt = [currDt addOneDay];
-//        double tmRoc = 0.0;
-//        for (THHomePriceIndex *hpi in relevantIndexes) {
-//            double thisRoc = [hpi dailyRateOfChangeAt:tmDt];
-//            //NSLog(@"RoC is %5.5f\%", thisRoc * 100.0);
-//            tmRoc += thisRoc;
-//        }  
-//        NSAssert(relevantIndexes.count > 0, @"Should have been checked above");
-//        tmRoc /= relevantIndexes.count;
-//        //NSLog(@"Av RoC is %5.5f\%", tmRoc * 100.0);
-//        if ([currDt isEqualToDate:firstDt] || 
-//            [currDt isEqualToDate:finalDt] ||
-//            tmRoc != roc) {
-//            double numDays = [lastIxDt daysUntil:currDt];
-//            NSAssert([currDt isEqualToDate:firstDt] || numDays > 0.0, @"ERROR");
-//            ixVal = ixVal * pow((1.0 + roc), numDays);
-//            THDateVal *i = [[THDateVal alloc] initWithVal:ixVal at:currDt];
-//            [subset addObject:i];
-//            [i release];
-//            
-//            lastIxDt = currDt;
-//        }
-//        currDt = tmDt;
-//        roc = tmRoc;
-//    } while ([currDt isBeforeOrEqualTo:finalDt]);
-//    
-//    //TODO: apply manual price adjustments
-//    
-//    //TODO: appy buy price
-//        
-//    THHomePriceIndex *retVal = [[THHomePriceIndex alloc] initWithValues:subset];
-//    [subset release];
-//    
-//    retVal.prox = proxs;
-//    retVal.src = srcs;
-//    
-//    return [retVal autorelease];
-//}
-
+- (THTimeSeries *)makePricePathFromSources:(int)srcs 
+                               proximities:(int)proxs 
+                                usingRawIx:(THTimeSeries *)pricePath 
+                              withBuyPrice:(THDateVal *)bp {
+    // adjust the series to reflect the users buy price
+    NSMutableArray *newDVs = [[NSMutableArray alloc] initWithCapacity:pricePath.count];
+    THDateVal *ixValAtBuyDate = [pricePath calcValueAt:bp.date];
+    for (THDateVal *dv in pricePath) {
+        double val = bp.val * dv.val / ixValAtBuyDate.val;
+        THDateVal *i = [[THDateVal alloc] initWithVal:val at:dv.date];
+        [newDVs addObject:i];
+        [i release];
+    }
+    
+    //insert buy price
+    [newDVs addObject:[bp copy]];    
+    THHomePriceIndex *finalPP = [[THHomePriceIndex alloc] initWithValues:newDVs];
+    [newDVs release];
+    
+    finalPP.prox = proxs;
+    finalPP.src = srcs;
+//    finalPP.trendExtrapolationInterval = _trendExtrapolationInterval;
+    
+    return [finalPP autorelease];
+}
 
 
 @end

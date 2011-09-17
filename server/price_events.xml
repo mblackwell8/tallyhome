@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TallyHomeDataFile version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <AverageHousePrice>
-        <Indice date="2010-02-15T00:00:00Z" value="2320000" />
+        <Indice date="2010-02-15T00:00:00Z" value="650000" />
     </AverageHousePrice>
     <Indexes>
         <Index name="ABS House Price Index (Sydney, Established homes)" prox="City" sourceType="Government">

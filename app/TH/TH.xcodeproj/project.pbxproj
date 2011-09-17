@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0DB41E141F084600023D8E /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB41D141F084600023D8E /* InfoViewController.m */; };
+		8F0DB420141F0F4D00023D8E /* InfoButtonText.html in Resources */ = {isa = PBXBuildFile; fileRef = 8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */; };
+		8F0DB423141F174400023D8E /* TableSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB422141F174400023D8E /* TableSelectorVC.m */; };
 		8F3E662B141C8F1400712C42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E662A141C8F1400712C42 /* UIKit.framework */; };
 		8F3E662D141C8F1400712C42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E662C141C8F1400712C42 /* Foundation.framework */; };
 		8F3E662F141C8F1400712C42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E662E141C8F1400712C42 /* CoreGraphics.framework */; };
@@ -39,9 +42,11 @@
 		8F3E668F141C91D200712C42 /* TextEntryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E6687141C91D200712C42 /* TextEntryVC.m */; };
 		8F3E6692141C926F00712C42 /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E6690141C926F00712C42 /* AppDefaults.plist */; };
 		8F3E6693141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E6691141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg */; };
-		8F3E6696141C993A00712C42 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E6695141C993A00712C42 /* CoreLocation.framework */; };
 		8F3E6698141C994400712C42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E6697141C994400712C42 /* QuartzCore.framework */; };
 		8F3E66A4141CCA4000712C42 /* TallyVCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E66A3141CCA4000712C42 /* TallyVCArray.m */; };
+		8FCD231614245B230097DE52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD231314245B210097DE52 /* Reachability.m */; };
+		8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */; };
+		8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD23201424CF690097DE52 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F0DB41C141F084600023D8E /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		8F0DB41D141F084600023D8E /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoButtonText.html; sourceTree = "<group>"; };
+		8F0DB421141F174400023D8E /* TableSelectorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableSelectorVC.h; sourceTree = "<group>"; };
+		8F0DB422141F174400023D8E /* TableSelectorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableSelectorVC.m; sourceTree = "<group>"; };
 		8F3E6626141C8F1400712C42 /* TH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3E662A141C8F1400712C42 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8F3E662C141C8F1400712C42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -106,10 +116,13 @@
 		8F3E6690141C926F00712C42 /* AppDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppDefaults.plist; sourceTree = "<group>"; };
 		8F3E6691141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "istockphoto_11457748-ivy-on-brick-wall.jpg"; sourceTree = "<group>"; };
 		8F3E6694141C928500712C42 /* DebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
-		8F3E6695141C993A00712C42 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8F3E6697141C994400712C42 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8F3E66A2141CCA4000712C42 /* TallyVCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyVCArray.h; sourceTree = "<group>"; };
 		8F3E66A3141CCA4000712C42 /* TallyVCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyVCArray.m; sourceTree = "<group>"; };
+		8FCD231214245B210097DE52 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		8FCD231314245B210097DE52 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AustraliaIndex.xml; sourceTree = "<group>"; };
+		8FCD23201424CF690097DE52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +131,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F3E6698141C994400712C42 /* QuartzCore.framework in Frameworks */,
-				8F3E6696141C993A00712C42 /* CoreLocation.framework in Frameworks */,
 				8F3E662B141C8F1400712C42 /* UIKit.framework in Frameworks */,
 				8F3E662D141C8F1400712C42 /* Foundation.framework in Frameworks */,
 				8F3E662F141C8F1400712C42 /* CoreGraphics.framework in Frameworks */,
+				8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,8 +174,8 @@
 		8F3E6629141C8F1400712C42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FCD23201424CF690097DE52 /* SystemConfiguration.framework */,
 				8F3E6697141C994400712C42 /* QuartzCore.framework */,
-				8F3E6695141C993A00712C42 /* CoreLocation.framework */,
 				8F3E662A141C8F1400712C42 /* UIKit.framework */,
 				8F3E662C141C8F1400712C42 /* Foundation.framework */,
 				8F3E662E141C8F1400712C42 /* CoreGraphics.framework */,
@@ -185,12 +198,14 @@
 		8F3E6631141C8F1400712C42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */,
 				8F3E6690141C926F00712C42 /* AppDefaults.plist */,
 				8F3E6691141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg */,
 				8F3E6632141C8F1400712C42 /* TH-Info.plist */,
 				8F3E6633141C8F1400712C42 /* InfoPlist.strings */,
 				8F3E6636141C8F1400712C42 /* main.m */,
 				8F3E6638141C8F1400712C42 /* TH-Prefix.pch */,
+				8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -217,22 +232,26 @@
 		8F3E6664141C90F200712C42 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				8F3E6678141C91D200712C42 /* DateSelectorVC.h */,
-				8F3E6679141C91D200712C42 /* DateSelectorVC.m */,
-				8F3E667A141C91D200712C42 /* PropertySettingsVC.h */,
-				8F3E667B141C91D200712C42 /* PropertySettingsVC.m */,
+				8FCD231214245B210097DE52 /* Reachability.h */,
+				8FCD231314245B210097DE52 /* Reachability.m */,
 				8F3E667C141C91D200712C42 /* ScrollingTallyDetailVC.xib */,
 				8F3E667D141C91D200712C42 /* ScrollingTallyDetailVC.h */,
 				8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */,
 				8F3E667F141C91D200712C42 /* ScrollWheel.h */,
 				8F3E6680141C91D200712C42 /* ScrollWheel.m */,
+				8F3E667A141C91D200712C42 /* PropertySettingsVC.h */,
+				8F3E667B141C91D200712C42 /* PropertySettingsVC.m */,
+				8F3E6678141C91D200712C42 /* DateSelectorVC.h */,
+				8F3E6679141C91D200712C42 /* DateSelectorVC.m */,
+				8F3E6686141C91D200712C42 /* TextEntryVC.h */,
+				8F3E6687141C91D200712C42 /* TextEntryVC.m */,
+				8F0DB421141F174400023D8E /* TableSelectorVC.h */,
+				8F0DB422141F174400023D8E /* TableSelectorVC.m */,
 				8F3E6681141C91D200712C42 /* SplashView.h */,
 				8F3E6682141C91D200712C42 /* SplashView.m */,
 				8F3E6683141C91D200712C42 /* TallyDetailVC.h */,
 				8F3E6684141C91D200712C42 /* TallyDetailVC.m */,
 				8F3E6685141C91D200712C42 /* TallyHomeConstants.h */,
-				8F3E6686141C91D200712C42 /* TextEntryVC.h */,
-				8F3E6687141C91D200712C42 /* TextEntryVC.m */,
 				8F3E6639141C8F1400712C42 /* THAppDelegate.h */,
 				8F3E663A141C8F1400712C42 /* THAppDelegate.m */,
 				8F3E663C141C8F1400712C42 /* MainWindow.xib */,
@@ -241,6 +260,8 @@
 				8F3E6642141C8F1400712C42 /* RootViewController.xib */,
 				8F3E66A2141CCA4000712C42 /* TallyVCArray.h */,
 				8F3E66A3141CCA4000712C42 /* TallyVCArray.m */,
+				8F0DB41C141F084600023D8E /* InfoViewController.h */,
+				8F0DB41D141F084600023D8E /* InfoViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -337,6 +358,8 @@
 				8F3E668A141C91D200712C42 /* ScrollingTallyDetailVC.xib in Resources */,
 				8F3E6692141C926F00712C42 /* AppDefaults.plist in Resources */,
 				8F3E6693141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */,
+				8F0DB420141F0F4D00023D8E /* InfoButtonText.html in Resources */,
+				8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +412,9 @@
 				8F3E668E141C91D200712C42 /* TallyDetailVC.m in Sources */,
 				8F3E668F141C91D200712C42 /* TextEntryVC.m in Sources */,
 				8F3E66A4141CCA4000712C42 /* TallyVCArray.m in Sources */,
+				8F0DB41E141F084600023D8E /* InfoViewController.m in Sources */,
+				8F0DB423141F174400023D8E /* TableSelectorVC.m in Sources */,
+				8FCD231614245B230097DE52 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,11 +518,17 @@
 		8F3E665F141C8F1400712C42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
 				INFOPLIST_FILE = "TH/TH-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -504,11 +536,17 @@
 		8F3E6660141C8F1400712C42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
 				INFOPLIST_FILE = "TH/TH-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

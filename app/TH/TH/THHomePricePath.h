@@ -17,8 +17,10 @@
     THDateVal *_buyPrice;
     
     //bitmasked
-    int sources;
-    int proximities;
+    THHomePriceIndexSource sources;
+    THHomePriceIndexProximity proximities;
+    
+    //NSTimeInterval _trendExtrapolationInterval;
     
     NSString *_xmlCurrentIxName;
     NSString *_xmlCurrentIxProx;
@@ -27,13 +29,15 @@
     THDateVal *_xmlAveragePrice;
     NSDateFormatter *_xmlDateFormatter;
     BOOL isReadingAvgPrice;
+    NSDate *_lastServerUpdate;
 }
 
 @property (nonatomic, retain) NSArray *innerSerieses;
-@property int sources;
-@property int proximities;
-@property (nonatomic, retain) NSArray *manualPriceAdjustments;
+@property (nonatomic, assign) THHomePriceIndexSource sources;
+@property (nonatomic, assign) THHomePriceIndexProximity proximities;
+//@property (nonatomic, assign) NSTimeInterval trendExtrapolationInterval;
 @property (nonatomic, retain) THDateVal *buyPrice;
+@property (nonatomic, readonly, retain) NSDate *lastServerUpdate;
 
 -(id)initWithXmlString:(NSString *)xml;
 -(id)initWithURL:(NSURL *)url;

@@ -23,4 +23,8 @@
 
 - (void)dealloc;
 
+- (BOOL)isEqual:(id)anObject;
+- (BOOL)isEqualToDateVal:(THDateVal *)dateVal;
+- (NSUInteger)hash;
+
 @end

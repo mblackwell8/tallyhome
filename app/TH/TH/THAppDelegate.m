@@ -10,17 +10,40 @@
 #import "DebugMacros.h"
 #import "RootViewController.h"
 #import "TallyVCArray.h"
+#import "Reachability.h"
 
 //put in a . directory in the documents folder
-#define kUseArchive                 NO
+#define kUseArchive                 YES
 #define kTallyHomeArchivePath       @".tallyhome.archive"
 #define kTallyHomeSettingsPath      @".settings.plist"
 
+@interface THAppDelegate ()
+
+@property (nonatomic, retain, readwrite) Reachability *serverReachability;
+@property (nonatomic, retain, readwrite) NSDictionary *appDefaults;
+
+- (void)unArchive;
+- (void)doArchive;
+- (RootViewController *)getRVC;
+
+@end
 
 @implementation THAppDelegate
 
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
+@synthesize serverReachability = _hostReach;
+@synthesize appDefaults = _appDefaults;
+
+- (RootViewController *)getRVC {
+    return [self.navigationController.viewControllers objectAtIndex:0];
+}
+
+- (NSString *)getUUID {
+    return [TallyVCArray uniqueUserId];
+}
+
+#pragma Archiving
 
 + (NSString *)dataFilePath {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -41,7 +64,7 @@
         
         @try {
             TallyVCArray *detailControllers = [NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
-            RootViewController *rvc = (RootViewController *)self.navigationController.topViewController;
+            RootViewController *rvc = [self getRVC];
             rvc.detailControllers = detailControllers;
         } 
         @catch ( NSException *e ) {
@@ -57,7 +80,7 @@
 	
 	DLog(@"Archiving...");
 	
-    TallyVCArray *rvc = (TallyVCArray *)self.navigationController.topViewController;
+    RootViewController *rvc = [self getRVC];
 	NSString *archivePath = [THAppDelegate dataFilePath];
 	NSString *archivePath_TMP = [archivePath stringByAppendingString:@".tmp"];
 	BOOL wasSuccess = [NSKeyedArchiver archiveRootObject:rvc.detailControllers toFile:archivePath_TMP];
@@ -77,26 +100,88 @@
     
 }
 
+#pragma Reachability
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (void)startReachability {
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called. 
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    NSString *serverURLstr = [_appDefaults objectForKey:@"serverHostname"];
+	_hostReach = [[Reachability reachabilityWithHostName:serverURLstr] retain];
+	[_hostReach startNotifier];
+}
+
+//Called by Reachability whenever status changes.
+- (void) reachabilityChanged: (NSNotification* )note {
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    
+    // Reachability seems to be either a hostname (www.xyz.com), an IP or
+    // one of two static strings (kInternetConnection or kLocalWiFiConnection)
+    self.serverReachability = curReach;
+}
+
+
+//- (void) updateInterfaceWithReachability: (Reachability*) curReach {
+//    if(curReach == hostReach)
+//	{
+//		[self configureTextField: remoteHostStatusField imageView: remoteHostIcon reachability: curReach];
+//        NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//        BOOL connectionRequired= [curReach connectionRequired];
+//        
+//        summaryLabel.hidden = (netStatus != ReachableViaWWAN);
+//        NSString* baseLabel=  @"";
+//        if(connectionRequired)
+//        {
+//            baseLabel=  @"Cellular data network is available.\n  Internet traffic will be routed through it after a connection is established.";
+//        }
+//        else
+//        {
+//            baseLabel=  @"Cellular data network is active.\n  Internet traffic will be routed through it.";
+//        }
+//        summaryLabel.text= baseLabel;
+//    }
+//	if(curReach == internetReach)
+//	{	
+//		[self configureTextField: internetConnectionStatusField imageView: internetConnectionIcon reachability: curReach];
+//	}
+//	if(curReach == wifiReach)
+//	{	
+//		[self configureTextField: localWiFiConnectionStatusField imageView: localWiFiConnectionIcon reachability: curReach];
+//	}
+//	
+//}
+//
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"AppDefaults" ofType:@"plist"];
+    NSDictionary *defaults = [[NSDictionary alloc] initWithContentsOfFile:path];
+    self.appDefaults = defaults;
+    [defaults release];
+    
+    [self startReachability];
+    
+    [self unArchive];
+        
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
     /*
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    DLog(@"applicationDidEnterBackground called...");
+    [self doArchive];
+    
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -119,6 +204,9 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    DLog(@"applicationWillTerminate called...");
+    [self doArchive];
+    
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
@@ -126,10 +214,12 @@
      */
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_window release];
     [_navigationController release];
+    [_hostReach release];
+    [_appDefaults release];
+    
     [super dealloc];
 }
 
