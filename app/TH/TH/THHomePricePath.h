@@ -35,7 +35,6 @@
 @property (nonatomic, retain) NSArray *innerSerieses;
 @property (nonatomic, assign) THHomePriceIndexSource sources;
 @property (nonatomic, assign) THHomePriceIndexProximity proximities;
-//@property (nonatomic, assign) NSTimeInterval trendExtrapolationInterval;
 @property (nonatomic, retain) THDateVal *buyPrice;
 @property (nonatomic, readonly, retain) NSDate *lastServerUpdate;
 

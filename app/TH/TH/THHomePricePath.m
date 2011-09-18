@@ -30,7 +30,6 @@
 @synthesize proximities;
 @synthesize innerSerieses = _serieses;
 @synthesize buyPrice = _buyPrice;
-//@synthesize trendExtrapolationInterval = _trendExtrapolationInterval;
 
 
 @synthesize xmlCurrentIxName = _xmlCurrentIxName, xmlCurrentIxProx = _xmlCurrentIxProx, xmlCurrentIxSource = _xmlCurrentIxSource, xmlIndices = _xmlIndices, xmlAveragePrice = _xmlAveragePrice, xmlDateFormatter = _xmlDateFormatter, lastServerUpdate = _lastServerUpdate;
@@ -39,7 +38,6 @@
     if ((self = [super init])) {
         sources = THHomePriceIndexSourceAllKnown;
         proximities = THHomePriceIndexProximityAllKnown;
-//        _trendExtrapolationInterval = TH_FiveYearTimeInterval;
         _serieses = [[NSMutableArray alloc] init];
         _buyPrice = nil;
     }
@@ -87,7 +85,6 @@
         [parser setDelegate:self];
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        //[df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
         [df setDateFormat:@"yyyy'-'MM'-'dd"];
         [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         self.xmlDateFormatter = df;
@@ -158,6 +155,7 @@
         
         NSMutableArray *indices = [[NSMutableArray alloc] init];
         self.xmlIndices = indices;
+        [indices release];
         self.xmlAveragePrice = nil;
         
         return;
@@ -171,7 +169,6 @@
         double val = [valStr doubleValue];
         THDateVal *i = [[THDateVal alloc] initWithVal:val at:date];
         if (isReadingAvgPrice) {
-            //HACK: clumsy mem mgt
             self.xmlAveragePrice = i;
             isReadingAvgPrice = NO;
         }
@@ -190,6 +187,11 @@
   namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     //NSLog(@"Found end element: %@", elementName);
     // ignore root and empty elements
+    if ([elementName isEqualToString:@"AverageHousePrice"]) {
+        isReadingAvgPrice = NO;
+        return;
+    }
+    
     if ([elementName isEqualToString:@"Index"]) {
         THHomePriceIndex *hpi = [[THHomePriceIndex alloc] initWithValues:_xmlIndices];
         hpi.proximityStr = _xmlCurrentIxProx;

@@ -20,6 +20,9 @@
 #define kDefaultPropertyName @"Not set"
 #define TH_AUTO_UPDATE_HZ 60.0
 //#define MAX_TIMEINTERVAL_UNTIL_SERVER_UPDATE 30*24*60*60
+#define kServerUpdateAlert  @"Getting data from server..."
+#define kCalcPriceIxAlert   @"Calculating price index..."
+#define kUpdatedAlert       @"Updated."
 
 
 @interface ScrollingTallyDetailVC ()
@@ -29,7 +32,8 @@
 @property (nonatomic, retain) NSNumberFormatter *commentValueFormatter;
 
 - (void)initPricePath;
-- (void)initPricePathWorker;
+- (void)updatePricePath;
+- (void)updatePricePathWorker;
 - (void)editProperty;
 - (void)setDisplayedDateValueTo:(NSDate *)date;
 - (void)updateStatusLabel:(NSString *)newText;
@@ -56,6 +60,7 @@
 @synthesize scroller = _scroller;
 @synthesize displayedValue = _displayedValue;
 @synthesize nowValue = _nowValue;
+@synthesize nowValueToEncode = _nowValueToEncode;
 @synthesize currentDateLabel = _currentDateLbl;
 @synthesize commentLabel = _commentLbl;
 @synthesize backgroundRect = _backgroundRect;
@@ -96,8 +101,15 @@
     [encoder encodeObject:_country forKey:kCountry];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
-    [encoder encodeObject:_nowValue forKey:kLastNowValue];
     [encoder encodeBool:_isSettingsSet forKey:kIsSettingsSet];
+    
+    //only encode a now value that was actually shown, otherwise just
+    //encode the last now value
+    if (_nowValueToEncode)
+        [encoder encodeObject:_nowValueToEncode forKey:kLastNowValue];
+    else
+        [encoder encodeObject:_lastNowValue forKey:kLastNowValue];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -147,7 +159,7 @@
 
     [_displayedValue release];
     [_nowValue release];
-//    [_nowValueToEncode release];
+    [_nowValueToEncode release];
     [_lastNowValue release];
     
     [_city release];
@@ -165,7 +177,7 @@
         return;
     }
     
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
@@ -176,7 +188,7 @@
 }
 
 - (void)setDisplayedDateValueTo:(NSDate *)date {
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
@@ -220,7 +232,7 @@
 //@required
 
 - (void)scrollWheel:(ScrollWheel *)sw didRotate:(NSInteger)years {   
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
@@ -229,7 +241,7 @@
     [self setDisplayedDateValueTo:[_displayedValue.date addDays:years * 365]];
 }
 - (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
@@ -243,7 +255,7 @@
 #pragma mark TallyDetailVC
 
 - (NSString *)rowLatestData {
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return @"n/a";
     }
@@ -273,7 +285,7 @@
 }
 
 - (void)editProperty {
-    if (_isInitingPricePath || !_pricePath || !_displayedData) {
+    if (_isUpdatingPricePath || !_pricePath || !_displayedData) {
         DLog(@"Cannot do");
         return;
     }
@@ -318,7 +330,7 @@
     }
     
     if (![propSettings.buyPrice isEqual:_pricePath.buyPrice]) {
-        NSAssert(!_isInitingPricePath, @"cannot init price path and edit settings");
+        NSAssert(!_isUpdatingPricePath, @"cannot init price path and edit settings");
         _pricePath.buyPrice = propSettings.buyPrice;
         reMakePP = YES;
         recalcCurrentVal = NO; //will happen after thread finishes
@@ -345,12 +357,13 @@
     }
     
     if (reInit) {
-        _forceInitPricePath = YES;
-        [self initPricePath];
+        [self updatePricePath];
     }
     else if (reMakePP) {
+        [self updateStatusLabel:kCalcPriceIxAlert];
         self.displayedData = [_pricePath makePricePath];
         self.nowValue = [_displayedData calcValueAt:[NSDate date]];
+        [self updateStatusLabel:kUpdatedAlert];
     }
     
     if (recalcCurrentVal) {
@@ -363,7 +376,7 @@
 }
 
 - (void)infoButtonTapped:(id)sender {
-    if (_isInitingPricePath) {
+    if (_isUpdatingPricePath) {
         DLog(@"Cannot do");
         return;
     }
@@ -387,7 +400,7 @@
 }
 
 - (void)refreshButtonTapped:(id)sender {
-    [self initPricePath];
+    [self updatePricePath];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -471,7 +484,24 @@
     
     _settingsNotSetAlertView.hidden = _isSettingsSet;
     
-    [self initPricePath];
+    if (!_pricePath) {
+        [self initPricePath];
+    }
+    else  if (_pricePath.innerSerieses.count == 0 ||
+              !_pricePath.lastServerUpdate ||
+              ABS([_pricePath.lastServerUpdate timeIntervalSinceNow]) > TH_OneDayInSecs * 30.0) {
+        [self updatePricePath];
+    }
+    else {
+        self.displayedData = [_pricePath makePricePath];
+        self.nowValue = [_displayedData calcValueAt:[NSDate date]]; 
+    }
+    
+#ifdef DEBUG
+    //wait for reachability to become available
+    //[self updatePricePath];
+#endif
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -483,6 +513,9 @@
                                                        selector:@selector(updateCurrentValueAuto) 
                                                        userInfo:nil 
                                                         repeats:YES] retain];
+    
+    //only encode the new now value if it was actually shown
+    self.nowValueToEncode = _nowValue;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -490,9 +523,6 @@
     [_autoUpdateTimer release];
     _autoUpdateTimer = nil;
     
-    //    _nowValueToEncode = [_nowValue retain];
-    //    [_nowValue release];
-
 }
 
 - (void)viewDidUnload {
@@ -513,7 +543,27 @@
     
 }
 
-- (void)initPricePath {   
+#pragma Price Path init and update
+
+- (void)initPricePath {
+    //longer term want to put in files for all major markets (US, UK, Japan etc)
+    
+    THAppDelegate *appD = (THAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *file = [appD.appDefaults objectForKey:@"genericOzIndexFile"];
+    NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:file];    
+    //NSString *xml = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
+    THHomePricePath *ozPP = [[THHomePricePath alloc] initWithURL:url];
+    
+    self.pricePath = ozPP;
+    [ozPP release];
+    
+    self.displayedData = [_pricePath makePricePath];
+    self.nowValue = [_displayedData calcValueAt:[NSDate date]];
+}
+
+- (void)updatePricePath {   
     NSMutableArray *items = [_bottomToolbar.items mutableCopy];
     [items removeObjectAtIndex:0];
     
@@ -527,12 +577,12 @@
     
     [_waitingForDataIndicator startAnimating];
     //self.buyPriceLocalCopy = bp;
-    [self performSelectorInBackground:@selector(initPricePathWorker) withObject:nil];
+    [self performSelectorInBackground:@selector(updatePricePathWorker) withObject:nil];
 }
 
-- (void)initPricePathWorker {
+- (void)updatePricePathWorker {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    _isInitingPricePath = YES;
+    _isUpdatingPricePath = YES;
     
     THDateVal *oldBP = nil;
     int sources = 0;
@@ -549,72 +599,42 @@
         fcTI = _displayedData.trendExtrapolationInterval;
     }
     
-    NSString *update = @"Getting data from server...";
-    [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:update waitUntilDone:NO];
-#ifdef DEBUG
-    _forceInitPricePath = YES;
-#endif
-    if (_forceInitPricePath ||
-        !_pricePath ||
-        _pricePath.innerSerieses.count == 0 ||
-        !_pricePath.lastServerUpdate ||
-        ABS([_pricePath.lastServerUpdate timeIntervalSinceNow]) > TH_OneDayInSecs * 30.0) {
-        
-        THAppDelegate *appD = (THAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        if (! TH_CHECK_REACHABILITY || 
-            [appD.serverReachability isReachable]) {
-            DLog(@"reinitializing _pricePath");
-            THURLCreator *urlCreator = [[THURLCreator alloc] init];
-            urlCreator.tallyId = @"HousePriceIx";
-            urlCreator.city = _city;
-            urlCreator.country = _country;
-            urlCreator.userId = [appD getUUID];
-                        
-            THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
-            if (wasOldPP) {
-                newPP.buyPrice = oldBP;
-                newPP.sources = sources;
-                newPP.proximities = proxs;
-            }
-            self.pricePath = newPP;
-            [newPP release];
-            [urlCreator release];
+    [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:kServerUpdateAlert waitUntilDone:NO];
+    
+    THAppDelegate *appD = (THAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (! TH_CHECK_REACHABILITY || 
+        [appD.serverReachability isReachable]) {
+        DLog(@"reinitializing _pricePath");
+        THURLCreator *urlCreator = [[THURLCreator alloc] init];
+        urlCreator.tallyId = @"HousePriceIx";
+        urlCreator.city = _city;
+        urlCreator.country = _country;
+        urlCreator.userId = [appD getUUID];
+                    
+        THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
+        if (wasOldPP) {
+            newPP.buyPrice = oldBP;
+            newPP.sources = sources;
+            newPP.proximities = proxs;
         }
-        else {
-            //if we don't have any price path, then just use a generic Australian PP
-            //from file and tell the user
-            NSString *msg = @"";
-            if (!_pricePath ||
-                _pricePath.innerSerieses.count == 0) {
-                msg = @"Cannot contact TallyHome server. TallyHome will use a generic Australian price index that may not reflect your locality.\n\nPlease use the refresh button on lower right when next you have internet access";
-                
-                NSString *file = [appD.appDefaults objectForKey:@"genericOzIndex"];
-                NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:file];    
-                NSString *xml = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-                THHomePricePath *ozPP = [[THHomePricePath alloc] initWithXmlString:xml];
-                self.pricePath = ozPP;
-                [ozPP release];
-            }
-            //if the only issue is an old price path, then just tell the user
-            else {
-                msg = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower right when next you have internet access";
-            }
-            UIAlertView *alert = [[UIAlertView alloc] 
-                                  initWithTitle:@"Network connection error"
-                                  message:msg
-                                  delegate:nil 
-                                  cancelButtonTitle:@"OK" 
-                                  otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
-        
-        _forceInitPricePath = NO;
+        self.pricePath = newPP;
+        [newPP release];
+        [urlCreator release];
+    }
+    else {
+        NSString *msg = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower right when next you have internet access";
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Network connection error"
+                              message:msg
+                              delegate:nil 
+                              cancelButtonTitle:@"OK" 
+                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
     }
     
-    update = @"Calculating price index...";
-    [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:update waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:kCalcPriceIxAlert waitUntilDone:NO];
     DLog(@"making price path...");
     self.displayedData = [_pricePath makePricePath];
     if (wasOldDD) {
@@ -623,15 +643,16 @@
     
     DLog(@"calculating now value...");
     self.nowValue = [_displayedData calcValueAt:[NSDate date]];
+    self.nowValueToEncode = _nowValue;
     
-    _isInitingPricePath = NO;
+    _isUpdatingPricePath = NO;
     
     DLog(@"finsihing init...");
     [self performSelectorOnMainThread:@selector(setDisplayedDateValueTo:) 
                            withObject:[NSDate date] 
                         waitUntilDone:NO];
     
-    [self performSelectorOnMainThread:@selector(finishInitializingOnMainThread) 
+    [self performSelectorOnMainThread:@selector(finishUpdatingOnMainThread) 
                            withObject:nil 
                         waitUntilDone:NO];
     
@@ -639,7 +660,7 @@
     [pool release];
 }
 
-- (void)finishInitializingOnMainThread {
+- (void)finishUpdatingOnMainThread {
     NSMutableArray *items = [_bottomToolbar.items mutableCopy];
     [items removeObjectAtIndex:0];
     
@@ -652,7 +673,7 @@
     [items release];
     
     [_waitingForDataIndicator stopAnimating];
-    [self updateStatusLabel:@"Updated."];
+    [self updateStatusLabel:kUpdatedAlert];
 }
 
 - (void)updateStatusLabel:(NSString *)newText {

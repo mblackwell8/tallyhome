@@ -44,6 +44,7 @@
 		8F3E6693141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E6691141C926F00712C42 /* istockphoto_11457748-ivy-on-brick-wall.jpg */; };
 		8F3E6698141C994400712C42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E6697141C994400712C42 /* QuartzCore.framework */; };
 		8F3E66A4141CCA4000712C42 /* TallyVCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E66A3141CCA4000712C42 /* TallyVCArray.m */; };
+		8F86C928142617CC0021D2A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F86C927142617CC0021D2A8 /* AudioToolbox.framework */; };
 		8FCD231614245B230097DE52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD231314245B210097DE52 /* Reachability.m */; };
 		8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */; };
 		8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD23201424CF690097DE52 /* SystemConfiguration.framework */; };
@@ -119,6 +120,7 @@
 		8F3E6697141C994400712C42 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8F3E66A2141CCA4000712C42 /* TallyVCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyVCArray.h; sourceTree = "<group>"; };
 		8F3E66A3141CCA4000712C42 /* TallyVCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyVCArray.m; sourceTree = "<group>"; };
+		8F86C927142617CC0021D2A8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8FCD231214245B210097DE52 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		8FCD231314245B210097DE52 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AustraliaIndex.xml; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				8F3E662D141C8F1400712C42 /* Foundation.framework in Frameworks */,
 				8F3E662F141C8F1400712C42 /* CoreGraphics.framework in Frameworks */,
 				8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */,
+				8F86C928142617CC0021D2A8 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +177,7 @@
 		8F3E6629141C8F1400712C42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F86C927142617CC0021D2A8 /* AudioToolbox.framework */,
 				8FCD23201424CF690097DE52 /* SystemConfiguration.framework */,
 				8F3E6697141C994400712C42 /* QuartzCore.framework */,
 				8F3E662A141C8F1400712C42 /* UIKit.framework */,
@@ -536,7 +540,7 @@
 		8F3E6660141C8F1400712C42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

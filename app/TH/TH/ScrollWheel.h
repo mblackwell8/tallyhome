@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioServices.h>
 
 typedef enum  {
     //Upper/Lower is the MSB
@@ -20,8 +21,16 @@ typedef enum  {
 
 typedef enum {
     ScrollWheelTapAreaDead = 0, // outside the scroller, but inside CGRect
-    ScrollWheelTapAreaScroller = 1,
-    ScrollWheelTapAreaButton = 2
+    
+    //bitmask on 8 identifies any scroller tap
+    ScrollWheelTapAreaScroller = 8,
+    ScrollWhellTapAreaScroller_Left = 9, //used for directional taps
+    ScrollWheelTapAreaScroller_Right = 10,
+    ScrollWheelTapAreaScroller_Bottom = 11,
+    ScrollWheelTapAreaScroller_Top = 12,
+    ScrollWheelTapAreaScroller_Other = 13,
+    
+    ScrollWheelTapAreaButton = 16
 } ScrollWheelTapArea;
 
 @class ScrollWheel;
@@ -31,6 +40,10 @@ typedef enum {
 @required
 - (void)scrollWheel:(ScrollWheel *)sw didRotate:(NSInteger)rotationSteps;
 - (void)scrollWheelButtonPressed:(ScrollWheel *)sw;
+
+@optional
+- (void)scrollWheelLeftTap:(ScrollWheel *)sw;
+- (void)scrollWheelRightTap:(ScrollWheel *)sw;
 
 @end
 
@@ -58,6 +71,8 @@ typedef enum {
     CGFloat _fullCircleScale;
     CGFloat _stepScale; //will call delegate method every step, zero for every touchMoved
     CGFloat _radiansSinceLastStep;
+    
+    SystemSoundID tockSoundID;
 }
 
 @property (readonly) CGFloat lastRotation, lastRotationVelocity;

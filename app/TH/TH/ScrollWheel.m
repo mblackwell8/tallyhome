@@ -10,6 +10,7 @@
 #import "DebugMacros.h"
 #import "TallyHomeConstants.h"
 
+
 @interface ScrollWheel ()
 
 @property (retain, nonatomic) UIBezierPath *scrollCircle, *buttonCircle;
@@ -27,6 +28,9 @@
     _radiansSinceLastStep = 0.0;
     _buttonLabel = @"Now";
     _isRotating = NO;
+    
+    NSString *path = [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] pathForResource:@"Tock" ofType:@"aiff"];
+    AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:path], &tockSoundID);
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -53,6 +57,7 @@
 
     [_delegate release];
     
+    AudioServicesDisposeSystemSoundID(tockSoundID);
 }
 
 @synthesize lastRotation = _lastRotation, lastRotationVelocity = _lastRotationVelocity;
@@ -80,8 +85,10 @@
     if ([_buttonCircle containsPoint:touch])
         return ScrollWheelTapAreaButton;
     
-    if ([_scrollCircle containsPoint:touch])
+    if ([_scrollCircle containsPoint:touch]) {
+        
         return ScrollWheelTapAreaScroller;
+    }
     
     return ScrollWheelTapAreaDead;
 }
@@ -145,6 +152,7 @@
         CGFloat steps = _radiansSinceLastStep * _fullCircleScale / (M_PI * 2.0);
         if (_stepScale <= 0.0 || ABS(steps) >= _stepScale) {
             [_delegate scrollWheel:self didRotate:(NSInteger)steps];
+            AudioServicesPlaySystemSound(tockSoundID);
             _radiansSinceLastStep = 0.0;
         }
         
@@ -161,6 +169,7 @@
     if (_isSingleTap && 
         [self calcTapAreaOfPoint:_lastTouch] == ScrollWheelTapAreaButton) {
         [_delegate scrollWheelButtonPressed:self];
+        AudioServicesPlaySystemSound(tockSoundID);
     }
     
     _isRotating = NO;

@@ -43,7 +43,7 @@
         
     THDateVal *_displayedValue;
     THDateVal *_nowValue;
-//    THDateVal *_nowValueToEncode;
+    THDateVal *_nowValueToEncode;
     THDateVal *_lastNowValue;
     
     NSString *_city, *_country;
@@ -51,8 +51,8 @@
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
 
-    BOOL _isInitingPricePath;
-    BOOL _forceInitPricePath;
+    BOOL _isUpdatingPricePath;
+    //BOOL _forceInitPricePath;
     BOOL _isSettingsSet;
 }
 
@@ -72,7 +72,7 @@
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 @property (nonatomic, retain) THDateVal *displayedValue;
-@property (nonatomic, retain) THDateVal *nowValue;
+@property (nonatomic, retain) THDateVal *nowValue, *nowValueToEncode;
 
 
 

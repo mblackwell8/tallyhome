@@ -3,7 +3,7 @@
     <Indexes>
         <Index name="Price Index of Established Houses" prox="Country" sourceType="Govt">
             <AverageHousePrice>
-                <Indice date="2010-12-31"value="500000" />
+                <Indice date="2010-12-31" value="500000" />
             </AverageHousePrice>
             <Indice date="1992-09-30" value="66.2" />
             <Indice date="1993-09-30" value="68.1" />
