@@ -11,7 +11,9 @@
 #import "TextEntryVC.h"
 #import "DateSelectorVC.h"
 #import "TableSelectorVC.h"
+#import "SearchSelectorVC.h"
 #import "THHomePriceIndex.h"
+#import "THPlaceName.h"
 
 @class PropertySettingsVC;
 
@@ -24,10 +26,10 @@
 
 @end
 
-@interface PropertySettingsVC : UITableViewController <TextEntryVCDelegate, DateSelectorDelegate, TableSelectorDelegate> {
+@interface PropertySettingsVC : UITableViewController <TextEntryVCDelegate, DateSelectorDelegate, TableSelectorDelegate, SearchBarSelectorDelegate> {
     id <PropertySettingsDelegate> _delegate;
     
-    NSString *_location;
+    THPlaceName *_location;
     NSString *_propertyName;
     THDateVal *_buyPrice;
     
@@ -35,15 +37,19 @@
     NSString *_proximitiesIncluded;
     NSString *_sourcesIncluded;
     NSString *_forecastingTimeScale;
+    
+    NSIndexPath *_selectedIndexPath;
 }
 
 @property (assign, nonatomic) id <PropertySettingsDelegate> delegate;
-@property (copy, nonatomic) NSString *location, *propertyName;
+@property (copy, nonatomic) NSString *propertyName;
+@property (nonatomic, retain) THPlaceName *location;
 @property (copy, nonatomic) NSString *proximitiesIncluded, *sourcesIncluded, *forecastingTimeScale;
 @property (nonatomic, assign) THHomePriceIndexSource sources;
 @property (nonatomic, assign) THHomePriceIndexProximity proximities;
 @property (nonatomic, assign) NSTimeInterval trendExtrapolationInterval;
 @property (retain, nonatomic) THDateVal *buyPrice;
+@property (retain, nonatomic) NSIndexPath *selectedIndexPath;
 
 - (void)_done;
 - (void)_cancel;

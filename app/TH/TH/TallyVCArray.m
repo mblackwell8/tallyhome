@@ -9,6 +9,8 @@
 #import "TallyVCArray.h"
 #import "DebugMacros.h"
 
+@class TallyDetailVC;
+
 @implementation TallyVCArray
 
 @synthesize detailControllers = _tallyViewDetailControllers;
@@ -89,11 +91,53 @@ static NSString *_uuid;
     [_tallyViewDetailControllers release];
 }
 
+- (void)swapObjectAtIndex:(NSUInteger)i1 withObjectAtIndex:(NSUInteger)i2 {
+    if (i1 == i2 || 
+        i1 >= _tallyViewDetailControllers.count || 
+        i2 >= _tallyViewDetailControllers.count )
+        return;
+    if (i1 > i2) {
+        NSUInteger tmp = i2;
+        i2 = i1;
+        i1 = tmp;
+    }
+    
+    NSAssert(i1 + 1 < _tallyViewDetailControllers.count, 
+             @"if i1 != i2 and i2 < count, i1 + 1 s/be less than count");
+    
+    //remove the higher index object (i2)...
+    id t2 = [[_tallyViewDetailControllers objectAtIndex:i2] retain];
+    [_tallyViewDetailControllers removeObjectAtIndex:i2];
+    
+    //put it into the lower index spot...
+    [_tallyViewDetailControllers insertObject:t2 atIndex:i1];
+    
+    //remove the lower index object, which will now be shuffled one space along
+    id t1 = [[_tallyViewDetailControllers objectAtIndex:i1 + 1] retain];
+    [_tallyViewDetailControllers removeObjectAtIndex:i1 + 1];
+    
+    //put it into the higher index spot
+    [_tallyViewDetailControllers insertObject:t1 atIndex:i2];
+    
+    NSAssert([_tallyViewDetailControllers objectAtIndex:i2] == t1, @"should be true");
+    NSAssert([_tallyViewDetailControllers objectAtIndex:i1] == t2, @"should be true");
+    
+    //really did not think it was necessary to retain then release within
+    //a method call, but caused nasty mem bug without...
+    [t2 release];
+    [t1 release];
+    
+}
+
 - (void)addObject:(id)anObject {
     [_tallyViewDetailControllers addObject:anObject];
 }
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
     [_tallyViewDetailControllers insertObject:anObject atIndex:index];
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)ix {
+    [_tallyViewDetailControllers removeObjectAtIndex:ix];
 }
 
 - (NSUInteger)count {

@@ -37,4 +37,11 @@
 
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    //do nothing
+}
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    //do nothing
+}
+
 @end

@@ -20,4 +20,8 @@
 - (NSString *)rowLatestData;
 - (NSString *)rowTitle;
 
+- (void)applicationWillEnterForeground:(UIApplication *)application;
+- (void)applicationDidEnterBackground:(UIApplication *)application;
+
+
 @end

@@ -41,13 +41,7 @@
 -(id)initWithXmlString:(NSString *)xml;
 -(id)initWithURL:(NSURL *)url;
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
-    attributes:(NSDictionary *)attributeDict;
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
-//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
-
+- (THHomePriceIndex *)calcBestIndex;
 - (THDateVal *)calcBestAveragePrice;
 - (THDateVal *)calcBestAveragePriceFromSources:(int) srcs proximities:(int) proxs;
 - (THTimeSeries *) makePricePath;

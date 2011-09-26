@@ -44,6 +44,8 @@ typedef enum {
 @optional
 - (void)scrollWheelLeftTap:(ScrollWheel *)sw;
 - (void)scrollWheelRightTap:(ScrollWheel *)sw;
+- (void)scrollWheelBottomTap:(ScrollWheel *)sw;
+- (void)scrollWheelTopTap:(ScrollWheel *)sw;
 
 @end
 

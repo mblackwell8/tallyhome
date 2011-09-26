@@ -16,11 +16,13 @@
 
 @end
 
-@interface TextEntryVC : UIViewController <UITextFieldDelegate> {  
+@interface TextEntryVC : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {  
+    UITableView *_textTableView;
     UITextField *_textField;
     id <TextEntryVCDelegate> _delegate;
     
-    NSString *_guidanceMsg, *_preData;
+    NSString *_headerText;
+    NSString *_commentText;
     UIKeyboardType _kbdType;
     
 }

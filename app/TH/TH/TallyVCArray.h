@@ -16,9 +16,12 @@
 
 + (NSString *)uniqueUserId;
 
+- (void)swapObjectAtIndex:(NSUInteger)i1 withObjectAtIndex:(NSUInteger)i2;
+
 // funnel through to the underlying array
 - (void)addObject:(id)anObject;
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
+- (void)removeObjectAtIndex:(NSUInteger)ix;
 - (NSUInteger)count;
 - (id)lastObject;
 - (id)objectAtIndex:(NSUInteger)index;

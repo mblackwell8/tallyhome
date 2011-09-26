@@ -43,6 +43,7 @@ class UserInteraction(db.Model):
 
 class ResultCache(db.Model):
     City = db.StringProperty()
+    State = db.StringProperty()
     Country = db.StringProperty()
     TallyClassName = db.StringProperty()
     DateCached = db.DateTimeProperty(auto_now=True)
@@ -54,59 +55,31 @@ class ResultLog(db.Model):
     Response = db.TextProperty()
 
 class GetTally(webapp.RequestHandler):
-    def get_response(self,city,country,tallyID):
+    def get_response(self,city,state,country,tallyID):
         
         self.response.out.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         self.response.out.write('<TallyHomeDataFile version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n')
 
-        if city == 'Unknown':
-            city = 'Sydney'
-
-        #look up city in PlaceMap table names
-        cityPMs = PlaceMap.all().filter('Class =', 'City').filter('Name =', city)
-
-        #select from returned records vs provided lat/long, state and country
-        #if in doubt, return all and let the client side remove excess
-
-        #ignore for v1, Oz only
-        #if len(cityPMs.get()) == 0: 
-        #    self.response.out.write('Error!')
-        #    #ui.Response = 'Error'
-        #    #ui.put()
-        #    return
-
         placeMaps = []
 
-        # look up city and its associated states and countries
-        # this will create repeated states and countries, but will remove below
+        #look up city in PlaceMap table names
+        cityPMs = PlaceMap.all().filter('Class =', 'City').filter('Name =',
+                city).filter('ParentPlaceName =', state)
         for cityPM in cityPMs:
-            if cityPM.RegionSeriesName is not None and \
-               cityPM.RegionNameSource is not None:
+            if cityPM.RegionSeriesName is not None and cityPM.RegionNameSource is not None:
                 placeMaps.append(cityPM)
 
-            statePMs = PlaceMap.all().filter('Class =', 'State').filter('Name =', cityPM.ParentPlaceName)
-            for statePM in statePMs:
-                if statePM.RegionSeriesName is not None and \
-                   statePM.RegionNameSource is not None:
-                    placeMaps.append(statePM)
+        statePMs = PlaceMap.all().filter('Class =', 'State').filter('Name =',
+                state).filter('ParentPlaceName =', country) 
+        for statePM in statePMs:
+            if statePM.RegionSeriesName is not None and statePM.RegionNameSource is not None:
+                placeMaps.append(statePM)
 
-                ctryPMs = PlaceMap.all().filter('Class =', 'Country').filter('Name =', statePM.ParentPlaceName)
-                for ctryPM in ctryPMs:
-                    if ctryPM.RegionSeriesName is not None and \
-                       ctryPM.RegionNameSource is not None:
-                        # if the country place map reference this country, then
-                        # add, but if not then don't, and remove any associated
-                        # states and cities. NB: cannot just not append them
-                        # along the way, because their may not be any state or
-                        # country PMs
-                        if ctryPM.Name == country:
-                            placeMaps.append(ctryPM)
-                        else:
-                            if statePM in placeMaps:
-                                placeMaps.remove(statePM)
-                            if cityPM in placeMaps:
-                                placeMaps.remove(cityPM)
-        
+        ctryPMs = PlaceMap.all().filter('Class =', 'Country').filter('Name =',
+                country)
+        for ctryPM in ctryPMs:
+            if ctryPM.RegionSeriesName is not None and ctryPM.RegionNameSource is not None:
+                placeMaps.append(ctryPM) 
         
         #for each PlaceMap, look up Tally
         talliesDone = []
@@ -166,10 +139,12 @@ class GetTally(webapp.RequestHandler):
 
 
             city = self.request.get('city')
+            state = self.request.get('state')
             country = self.request.get('country')
             tallyID = self.request.get('tallyID')
 
             cachedResults = ResultCache.all().filter('City =', city) \
+                                            .filter('State =', state) \
                                             .filter('Country =', country) \
                                             .filter('tallyID =', tallyID)
 
@@ -193,10 +168,11 @@ class GetTally(webapp.RequestHandler):
                 for res in cachedResults:
                     res.delete()
 
-                self.get_response(city,country,tallyID)
+                self.get_response(city,state,country,tallyID)
 
                 cr = ResultCache()
                 cr.City = city
+                cr.State = state
                 cr.Country = country
                 cr.TallyClassName = tallyID
                 cr.Response = self.response.out.getvalue()

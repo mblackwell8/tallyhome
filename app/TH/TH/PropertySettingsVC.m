@@ -11,7 +11,7 @@
 
 @implementation PropertySettingsVC
 
-@synthesize delegate = _delegate, location = _location, propertyName = _propertyName, buyPrice = _buyPrice, proximitiesIncluded = _proximitiesIncluded, sourcesIncluded = _sourcesIncluded, forecastingTimeScale = _forecastingTimeScale;
+@synthesize delegate = _delegate, location = _location, propertyName = _propertyName, buyPrice = _buyPrice, proximitiesIncluded = _proximitiesIncluded, sourcesIncluded = _sourcesIncluded, forecastingTimeScale = _forecastingTimeScale, selectedIndexPath = _selectedIndexPath;
 
 static NSDateFormatter *dateFormatter;
 static NSNumberFormatter *priceFormatter;
@@ -69,7 +69,7 @@ static NSNumberFormatter *priceFormatter;
 - (THHomePriceIndexProximity)proximities {
     int p = 0;
     for (NSString *prox in [_proximitiesIncluded componentsSeparatedByString:@","]) {
-        //#define TH_PROX_LIST @"City,State,Country,All"
+        //#define TH_PROX_LIST @"City,State,Country"
          
         if ([prox isEqualToString:@"City"]) {
             p |= THHomePriceIndexProximityCity;
@@ -80,10 +80,6 @@ static NSNumberFormatter *priceFormatter;
         else if ([prox isEqualToString:@"Country"]) {
             p |= THHomePriceIndexProximityCountry;
         }
-        else if ([prox isEqualToString:@"All"]) {
-            p |= THHomePriceIndexProximityAllKnown;
-            break;
-        }
     }
     
     return p;
@@ -91,20 +87,16 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)setProximities:(THHomePriceIndexProximity)proximities {
     NSMutableArray *proxs = [[NSMutableArray alloc] init];
-    //#define TH_PROX_LIST @"City,State,Country,All"    
-    if (proximities == THHomePriceIndexProximityAllKnown) {
-        [proxs addObject:@"All"];
+    //#define TH_PROX_LIST @"City,State,Country"    
+
+    if (proximities & THHomePriceIndexProximityCity) {
+        [proxs addObject:@"City"];
     }
-    else {
-        if (proximities & THHomePriceIndexProximityCity) {
-            [proxs addObject:@"City"];
-        }
-        if (proximities & THHomePriceIndexProximityState) {
-            [proxs addObject:@"State"];
-        }
-        if (proximities & THHomePriceIndexProximityCountry) {
-            [proxs addObject:@"Country"];
-        }
+    if (proximities & THHomePriceIndexProximityState) {
+        [proxs addObject:@"State"];
+    }
+    if (proximities & THHomePriceIndexProximityCountry) {
+        [proxs addObject:@"Country"];
     }
     
     self.proximitiesIncluded = [proxs componentsJoinedByString:@","];
@@ -114,7 +106,7 @@ static NSNumberFormatter *priceFormatter;
 - (THHomePriceIndexSource)sources {
     int s = 0;
     for (NSString *prox in [_sourcesIncluded componentsSeparatedByString:@","]) {
-        //TH_SOURCE_LIST @"Government,Branded,Other,All"
+        //TH_SOURCE_LIST @"Government,Branded,Other"
         
         if ([prox isEqualToString:@"Government"]) {
             s |= THHomePriceIndexSourceGovt;
@@ -125,10 +117,6 @@ static NSNumberFormatter *priceFormatter;
         else if ([prox isEqualToString:@"Other"]) {
             s |= THHomePriceIndexSourceOther;
         }
-        else if ([prox isEqualToString:@"All"]) {
-            s |= THHomePriceIndexSourceAllKnown;
-            break;
-        }
     }
     
     return s;
@@ -137,20 +125,15 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)setSources:(THHomePriceIndexSource)sources {
     NSMutableArray *srcs = [[NSMutableArray alloc] init];
-    //TH_SOURCE_LIST @"Government,Branded,Other,All"
-    if (sources == THHomePriceIndexSourceAllKnown) {
-        [srcs addObject:@"All"];
+    //TH_SOURCE_LIST @"Government,Branded,Other"
+    if (sources & THHomePriceIndexSourceGovt) {
+        [srcs addObject:@"Government"];
     }
-    else {
-        if (sources & THHomePriceIndexSourceGovt) {
-            [srcs addObject:@"Government"];
-        }
-        if (sources & THHomePriceIndexSourceBranded) {
-            [srcs addObject:@"Branded"];
-        }
-        if (sources & THHomePriceIndexSourceOther) {
-            [srcs addObject:@"Other"];
-        }
+    if (sources & THHomePriceIndexSourceBranded) {
+        [srcs addObject:@"Branded"];
+    }
+    if (sources & THHomePriceIndexSourceOther) {
+        [srcs addObject:@"Other"];
     }
     
     self.sourcesIncluded = [srcs componentsJoinedByString:@","];
@@ -220,13 +203,14 @@ static NSNumberFormatter *priceFormatter;
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self.tableView deselectRowAtIndexPath:_selectedIndexPath animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -304,17 +288,17 @@ static NSNumberFormatter *priceFormatter;
                     break;
                     
                 case 1:
-                    cell.textLabel.text = @"City";
-                    cell.detailTextLabel.text = _location;
+                    cell.textLabel.text = @"Location";
+                    cell.detailTextLabel.text = [_location shortDescription];
                     break;
                     
                 case 2:
-                    cell.textLabel.text = @"Purchase date";
+                    cell.textLabel.text = @"Valuaton date";
                     cell.detailTextLabel.text = [dateFormatter stringFromDate:_buyPrice.date];
                     break;
                     
                 case 3:
-                    cell.textLabel.text = @"Price";
+                    cell.textLabel.text = @"Valuation";
                     NSNumber *price = [[NSNumber alloc] initWithDouble:_buyPrice.val];
                     cell.detailTextLabel.text = [priceFormatter stringFromNumber:price];
                     [price release];
@@ -374,16 +358,19 @@ static NSNumberFormatter *priceFormatter;
 #define TH_PROPSETTINGS_FORECASTTIME_IX 6
 
 
-#define TH_AUSTRALIAN_CITYLIST @"Sydney,Melbourne,Brisbane,Perth,Adelaide,Darwin,Hobart,Canberra,Other"
-#define TH_PROX_LIST @"City,State,Country,All"
-#define TH_SOURCE_LIST @"Government,Branded,Other,All"
+//#define TH_AUSTRALIAN_CITYLIST @"Sydney,Melbourne,Brisbane,Perth,Adelaide,Darwin,Hobart,Canberra,Other"
+#define TH_PROX_LIST @"City,State,Country"
+#define TH_SOURCE_LIST @"Government,Branded,Other"
 #define TH_FORECASTTIME_LIST @"One year,Five years,Ten years"
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     TableSelectorVC *tableSelector = nil;
+    SearchSelectorVC *searchSelector = nil;
     DateSelectorVC *dateSelector = nil;
     TextEntryVC *textSelector = nil;
+    
+    self.selectedIndexPath = indexPath;
     
     switch (indexPath.section) {
         case 0:
@@ -401,21 +388,29 @@ static NSNumberFormatter *priceFormatter;
                     
                 case 1:
                     //Location, edit with table selector for now        
-                    tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
-                    tableSelector.title = @"City";
-                    [tableSelector setOptionsUsingCSV:TH_AUSTRALIAN_CITYLIST];
-                    [tableSelector setSelectedOptionsUsingCSV:_location];
-                    tableSelector.delegate = self;
+                    searchSelector = [[SearchSelectorVC alloc] init];
+                    searchSelector.title = @"Location";
+                    searchSelector.listContent = [THPlaceName sharedPlaceNames];
+//                    NSString *cityList = TH_AUSTRALIAN_CITYLIST;
+//                    searchSelector.listContent = [cityList componentsSeparatedByString:@","];
+                    searchSelector.delegate = self;
                     //locnEntryVC.previousData = _location;
-                    tableSelector.view.tag = TH_PROPSETTINGS_LOCNENTRY_IX;
-                    [self.navigationController pushViewController:tableSelector animated:YES];
-                    [tableSelector release];
+                    searchSelector.view.tag = TH_PROPSETTINGS_LOCNENTRY_IX;
+                    [self.navigationController pushViewController:searchSelector animated:YES];
+                    
+                    //HACK: the UISearchDisplayController appears to take a reference to the
+                    //view controller, then releases it... but i can't see where it is taking
+                    //a reference... so the object is over-released and crashes
+                    
+                    //this is just a convenient place to stop the over-release, by not releasing in my code
+                    
+                    //[searchSelector release];
                     break;
                     
                 case 2:
                     //Purchase date, edit with date control
                     dateSelector = [[DateSelectorVC alloc] init];
-                    dateSelector.title = @"Purchase date";
+                    dateSelector.title = @"Valuation date";
                     dateSelector.delegate = self;
                     dateSelector.date = _buyPrice.date;
                     dateSelector.view.tag = TH_PROPSETTINGS_DATEENTRY_IX;
@@ -426,7 +421,7 @@ static NSNumberFormatter *priceFormatter;
                 case 3:
                     // buy price, edit with text
                     textSelector = [[TextEntryVC alloc] init];
-                    textSelector.title = @"Purchase price";
+                    textSelector.title = @"Valuation";
                     textSelector.delegate = self;
                     NSNumber *value = [NSNumber numberWithDouble:round(_buyPrice.val)];
                     textSelector.keyboardType = UIKeyboardTypeDecimalPad;
@@ -446,6 +441,7 @@ static NSNumberFormatter *priceFormatter;
                     //proximities
                     tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
                     tableSelector.title = @"Proximities";
+                    tableSelector.commentText = @"Select indices to include in your valuation estimate (eg. 'City' means only indices that track prices in your city)";
                     tableSelector.allowsNoSelection = NO;
                     tableSelector.allowsMultipleSelections = YES;
                     [tableSelector setOptionsUsingCSV:TH_PROX_LIST];
@@ -461,6 +457,7 @@ static NSNumberFormatter *priceFormatter;
                     //sources        
                     tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
                     tableSelector.title = @"Sources";
+                    tableSelector.commentText = @"Select the index sources to include in your valuation estimate (eg. 'Government' means only indices published by government)";
                     tableSelector.allowsNoSelection = NO;
                     tableSelector.allowsMultipleSelections = YES;
                     [tableSelector setOptionsUsingCSV:TH_SOURCE_LIST];
@@ -476,6 +473,7 @@ static NSNumberFormatter *priceFormatter;
                     //forecasting time scale
                     tableSelector = [[TableSelectorVC alloc] initWithStyle:UITableViewStyleGrouped];
                     tableSelector.title = @"Forecasting time scale";
+                    tableSelector.commentText = @"Select the time duration that TallyHome should use to calculate a trend for forecasting purposes (eg. 'Five years' means TallyHome will use the past five years of price data to forecast price growth rates)";
                     tableSelector.allowsNoSelection = NO;
                     tableSelector.allowsMultipleSelections = NO;
                     [tableSelector setOptionsUsingCSV:TH_FORECASTTIME_LIST];
@@ -501,11 +499,6 @@ static NSNumberFormatter *priceFormatter;
     double val = 0.0;
     THDateVal *bp = nil;
     switch (textEntry.view.tag) {
-        case TH_PROPSETTINGS_LOCNENTRY_IX:
-            //accept anything
-            self.location = textEntry.textField.text;
-            break;
-            
         case TH_PROPSETTINGS_PRICEENTRY_IX:
             
             val = [textEntry.textField.text doubleValue];
@@ -537,10 +530,6 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)tableSelectorDidSelect:(TableSelectorVC *)tableSelector itemNumber:(NSUInteger)num {
     switch (tableSelector.view.tag) {
-        case TH_PROPSETTINGS_LOCNENTRY_IX:
-            self.location = [[TH_AUSTRALIAN_CITYLIST componentsSeparatedByString:@","] objectAtIndex:num];
-            break;
-            
         case TH_PROPSETTINGS_PROX_IX:
             //multiple selections so wait for finished
             return;
@@ -564,10 +553,6 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)tableSelectorDidUnSelect:(TableSelectorVC *)tableSelector itemNumber:(NSUInteger)num {
     switch (tableSelector.view.tag) {
-        case TH_PROPSETTINGS_LOCNENTRY_IX:
-            self.location = [[TH_AUSTRALIAN_CITYLIST componentsSeparatedByString:@","] objectAtIndex:num];
-            break;
-            
         case TH_PROPSETTINGS_PROX_IX:
             break;
             
@@ -588,10 +573,6 @@ static NSNumberFormatter *priceFormatter;
 
 - (void)tableSelectorWillFinishDone:(TableSelectorVC *)tableSelector {
     switch (tableSelector.view.tag) {
-        case TH_PROPSETTINGS_LOCNENTRY_IX:
-            //has been handled above
-            return;
-            
         case TH_PROPSETTINGS_PROX_IX:
             self.proximitiesIncluded = tableSelector.selectedOptionUsingCSV;            
             break;
@@ -610,6 +591,15 @@ static NSNumberFormatter *priceFormatter;
     }
     [self.navigationController popViewControllerAnimated:YES];
     
+    [self.tableView reloadData];
+}
+
+- (void)searchSelectorDidSelect:(SearchSelectorVC *)searcher place:(THPlaceName *)place {
+    THPlaceName *copy = [place copy];
+    self.location = place;
+    [copy release];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     [self.tableView reloadData];
 }
 

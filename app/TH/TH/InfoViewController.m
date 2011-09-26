@@ -11,11 +11,11 @@
 @implementation InfoViewController
 
 @synthesize delegate = _delegate;
-@synthesize resourceFileName = _resourceFileName;
+@synthesize resource = _resource;
 
 - (void)dealloc {
     [_contentWebView release];
-    [_resourceFileName release];
+    [_resource release];
     
     [super dealloc];
 }
@@ -44,6 +44,10 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+//    UIView *theView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.view = theView;
+//    [theView release];
+//    
     CGFloat screenHt = 480.0 - 20.0; //allow for status bar
     if (self.navigationController)
         screenHt -= 44;
@@ -58,7 +62,7 @@
     [v addSubview:_contentWebView];
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
-                                                                   style:UIBarButtonItemStylePlain 
+                                                                   style:UIBarButtonItemStyleDone 
                                                                   target:self 
                                                                   action:@selector(done)]; 
     
@@ -68,10 +72,7 @@
     self.view = v;
     [v release];
     
-    NSString *urlAddress = [[NSBundle mainBundle] pathForResource:_resourceFileName ofType:@"html"];
-
-    NSURL *url = [NSURL fileURLWithPath:urlAddress];
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	NSURLRequest *request = [NSURLRequest requestWithURL:_resource];
 	//[[contentWebView mainFrame] loadRequest:request];
 	[_contentWebView loadRequest:request];
 	

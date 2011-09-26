@@ -13,14 +13,20 @@
 @interface TableSelectorVC : UITableViewController {
     NSArray *_options;
     NSMutableArray *_selectedOptions;
+    NSString *_headerText;
+    NSString *_commentText;
+    
     BOOL _allowsMultipleSelections;
     BOOL _allowsNoSelection;
     
+    
     id <TableSelectorDelegate> _delegate;
+    
 }
 
 @property (retain, nonatomic) NSArray *options;
 @property (retain, nonatomic) NSArray *selectedOptions;
+@property (nonatomic, copy) NSString *headerText, *commentText;
 @property (nonatomic, assign) BOOL allowsMultipleSelections;
 @property (nonatomic, assign) BOOL allowsNoSelection;
 @property (nonatomic, assign) id <TableSelectorDelegate> delegate;

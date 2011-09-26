@@ -5,8 +5,12 @@
 	<key>serverHostname</key>
 	<string>data.tallyho.me</string>
 	<key>dataInterfaceURL</key>
-	<string>http://data.tallyho.me/v1/data?tallyID=%@&amp;userID=%@&amp;lat=%@&amp;lon=%@&amp;city=%@&amp;country=%@&amp;ctryCode=%@&amp;firstDt=%@&amp;lastDt=%@</string>
+	<string>http://data.tallyho.me/v1/data?tallyID=%@&amp;userID=%@&amp;lat=%@&amp;lon=%@&amp;city=%@&amp;state=%@&amp;country=%@&amp;ctryCode=%@&amp;firstDt=%@&amp;lastDt=%@</string>
 	<key>genericOzIndexFile</key>
 	<string>/AustraliaIndex.xml</string>
+	<key>placeNamesFile</key>
+	<string>/PlaceNames_Oz.csv</string>
+	<key>infoURL</key>
+	<string>http://www.tallyho.me/appstuff/info.html</string>
 </dict>
 </plist>

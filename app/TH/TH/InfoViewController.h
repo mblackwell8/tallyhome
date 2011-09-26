@@ -14,10 +14,10 @@
 	id <InfoViewControllerDelegate> _delegate;
 	
     UIWebView *_contentWebView;
-	NSString *_resourceFileName;
+	NSURL *_resource;
 }
 
-@property (retain, nonatomic) NSString *resourceFileName;
+@property (retain, nonatomic) NSURL *resource;
 
 @property (nonatomic, assign) id <InfoViewControllerDelegate> delegate;
 

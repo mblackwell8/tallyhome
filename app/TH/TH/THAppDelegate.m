@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "TallyVCArray.h"
 #import "Reachability.h"
+#import "SplashView.h"
 
 //put in a . directory in the documents folder
 #define kUseArchive                 YES
@@ -123,37 +124,6 @@
 }
 
 
-//- (void) updateInterfaceWithReachability: (Reachability*) curReach {
-//    if(curReach == hostReach)
-//	{
-//		[self configureTextField: remoteHostStatusField imageView: remoteHostIcon reachability: curReach];
-//        NetworkStatus netStatus = [curReach currentReachabilityStatus];
-//        BOOL connectionRequired= [curReach connectionRequired];
-//        
-//        summaryLabel.hidden = (netStatus != ReachableViaWWAN);
-//        NSString* baseLabel=  @"";
-//        if(connectionRequired)
-//        {
-//            baseLabel=  @"Cellular data network is available.\n  Internet traffic will be routed through it after a connection is established.";
-//        }
-//        else
-//        {
-//            baseLabel=  @"Cellular data network is active.\n  Internet traffic will be routed through it.";
-//        }
-//        summaryLabel.text= baseLabel;
-//    }
-//	if(curReach == internetReach)
-//	{	
-//		[self configureTextField: internetConnectionStatusField imageView: internetConnectionIcon reachability: curReach];
-//	}
-//	if(curReach == wifiReach)
-//	{	
-//		[self configureTextField: localWiFiConnectionStatusField imageView: localWiFiConnectionIcon reachability: curReach];
-//	}
-//	
-//}
-//
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AppDefaults" ofType:@"plist"];
@@ -164,6 +134,9 @@
     [self startReachability];
     
     [self unArchive];
+    
+    SplashView *splash = [[SplashView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [splash startSplash];
         
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
@@ -171,34 +144,50 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    /*
-     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-     */
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    DLog(@"applicationDidEnterBackground called...");
-    [self doArchive];
-    
-    /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-     If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-     */
-}
-
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    //not called on first load...
+    
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    //[self unArchive];
+    
+    RootViewController *rvc = [self getRVC];
+    if (rvc.activeTally)
+        [rvc.activeTally applicationWillEnterForeground:application];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+    [_hostReach startNotifier];
+}
+
+
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    /*
+     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+     */
+    [_hostReach stopNotifier];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    DLog(@"applicationDidEnterBackground called...");
+    
+    RootViewController *rvc = [self getRVC];
+    if (rvc.activeTally)
+        [rvc.activeTally applicationDidEnterBackground:application];
+    
+    [self doArchive];
+    
+    /*
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
 }
 

@@ -11,6 +11,7 @@
 #import "THHomePricePath.h"
 #import "THTimeSeries.h"
 #import "THURLCreator.h"
+#import "THPlaceName.h"
 #import "PropertySettingsVC.h"
 #import "TallyHomeConstants.h"
 #import "ScrollWheel.h"
@@ -24,7 +25,8 @@
 
 @interface ScrollingTallyDetailVC : TallyDetailVC <ScrollWheelDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
     
-    UIImageView *_settingsNotSetAlertView;   
+    UIImageView *_helpStepOneView, *_helpStepTwoView, *_helpStepThreeView;
+    
     UIView *_backgroundRect;
     UILabel *_currentDateLbl;
     UILabel *_currentValueLbl;
@@ -46,14 +48,18 @@
     THDateVal *_nowValueToEncode;
     THDateVal *_lastNowValue;
     
-    NSString *_city, *_country;
+    //NSString *_city, *_country;
+    THPlaceName *_location;
     NSString *_propertyName;
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
+    NSTimeInterval _decodedOrDefaultTrendInterval;
 
     BOOL _isUpdatingPricePath;
     //BOOL _forceInitPricePath;
-    BOOL _isSettingsSet;
+    BOOL _isHelpStepOneDone, _isHelpStepTwoDone, _isHelpStepThreeDone;
+    
+    NSString *_updateWorkerErrorMessage;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *currentValueLabel;
@@ -61,20 +67,21 @@
 @property (nonatomic, retain) IBOutlet UILabel *commentLabel;
 @property (nonatomic, retain) IBOutlet UIView *backgroundRect;
 @property (nonatomic, retain) IBOutlet ScrollWheel *scroller;
-@property (nonatomic, retain) IBOutlet UIImageView *settingsNotSetAlertView;
+@property (nonatomic, retain) IBOutlet UIImageView *helpStepOneView;
+@property (nonatomic, retain) IBOutlet UIImageView *helpStepTwoView;
+@property (nonatomic, retain) IBOutlet UIImageView *helpStepThreeView;
 @property (nonatomic, retain) UILabel *statusLabel;
 @property (nonatomic, retain) UIBarButtonItem *infoButton, *refreshButton;
 @property (nonatomic, retain) UIActivityIndicatorView *waitingForDataIndicator;
 @property (nonatomic, retain) IBOutlet UIToolbar *bottomToolbar;
 
-@property (nonatomic, copy) NSString *city, *country;
+//@property (nonatomic, copy) NSString *city, *country;
+@property (nonatomic, retain) THPlaceName *location;
 @property (nonatomic, copy) NSString *propertyName;
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 @property (nonatomic, retain) THDateVal *displayedValue;
 @property (nonatomic, retain) THDateVal *nowValue, *nowValueToEncode;
-
-
 
 
 @end

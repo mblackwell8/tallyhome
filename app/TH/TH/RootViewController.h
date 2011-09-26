@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "TallyVCArray.h"
 
+@class  TallyDetailVC;
+
 @interface RootViewController : UITableViewController {    
-    TallyVCArray *_tallyViewDetailControllers;
+    TallyVCArray *_tallies;
+    TallyDetailVC *_activeTally;
 }
 
 @property (nonatomic, retain) TallyVCArray *detailControllers;
+@property (nonatomic, readonly, retain) TallyDetailVC *activeTally;
 
 - (void)navigateToTallyViewAtIndex:(NSUInteger)index animated:(BOOL)anim;
 - (void)addButtonPressed:(id)sender;

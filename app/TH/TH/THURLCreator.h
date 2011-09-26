@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "THPlaceName.h"
 
 // the server side responds to an HTTP GET
 // query string may include:
@@ -16,12 +17,11 @@
 // lat=
 // long=
 // city=
+// state=
 // ctry=
 // ctryCode=
 // firstDt=
 // lastDt=
-
-//http://tallyho.me/data?tallyID=%@&userID=%@&lat=%@&lon=%@&city=%@&country=%@&ctryCode=%@&firstDt=%@&lastDt=%@
 
 // this URL can be sent to the THPricePath initializer
 
@@ -34,8 +34,7 @@
     
     BOOL shouldLocate;
     
-    NSString *_city;
-    NSString *_country;
+    THPlaceName *_location;
     int countryCode;
     
     NSDate *_firstDt, *_lastDt;
@@ -44,8 +43,7 @@
 
 @property (nonatomic, copy) NSString *tallyId;
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *city;
-@property (nonatomic, copy) NSString *country;
+@property (nonatomic, retain) THPlaceName *location;
 @property int countryCode;
 @property BOOL shouldLocate;
 @property (nonatomic, copy) NSDate *firstDate, *lastDate;

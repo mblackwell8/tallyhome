@@ -15,21 +15,25 @@
 
 #define TH_CHECK_REACHABILITY YES
 
-#define kUnknownCity @"Unknown"
+//#define kUnknownCity @"Unknown"
+
 #define kDefaultCountry @"Australia"
-#define kDefaultPropertyName @"Not set"
+#define kDefaultLocation [[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry]
+#define kDefaultPropertyName @"Average house"
 #define TH_AUTO_UPDATE_HZ 60.0
 //#define MAX_TIMEINTERVAL_UNTIL_SERVER_UPDATE 30*24*60*60
 #define kServerUpdateAlert  @"Getting data from server..."
 #define kCalcPriceIxAlert   @"Calculating price index..."
 #define kUpdatedAlert       @"Updated."
-
+#define kRefreshingAlert    @"     Refreshing. Please wait...     "
 
 @interface ScrollingTallyDetailVC ()
 
 @property (nonatomic, retain, readwrite) THTimeSeries *displayedData;
 @property (nonatomic, retain) NSNumberFormatter *valueFormatter;
 @property (nonatomic, retain) NSNumberFormatter *commentValueFormatter;
+
+@property (nonatomic, retain) NSString *updateWorkerErrorMessage;
 
 - (void)initPricePath;
 - (void)updatePricePath;
@@ -45,7 +49,9 @@
 
 @implementation ScrollingTallyDetailVC
 
-@synthesize settingsNotSetAlertView = _settingsNotSetAlertView;
+@synthesize helpStepOneView = _helpStepOneView;
+@synthesize helpStepTwoView = _helpStepTwoView;
+@synthesize helpStepThreeView = _helpStepThreeView;
 @synthesize statusLabel = _statusLabel;
 @synthesize infoButton = _infoButton;
 @synthesize refreshButton = _refreshButton;
@@ -53,8 +59,7 @@
 @synthesize bottomToolbar = _bottomToolbar;
 @synthesize propertyName = _propertyName;
 @synthesize pricePath = _pricePath;
-@synthesize city = _city;
-@synthesize country = _country;
+@synthesize location = _location;
 @synthesize displayedData = _displayedData;
 @synthesize currentValueLabel = _currentValueLbl;
 @synthesize scroller = _scroller;
@@ -66,6 +71,7 @@
 @synthesize backgroundRect = _backgroundRect;
 @synthesize valueFormatter = _valueFormatter;
 @synthesize commentValueFormatter = _commentValueFormatter;
+@synthesize updateWorkerErrorMessage = _updateWorkerErrorMessage;
 
 - (id)init {
     return [self initWithNibName:@"ScrollingTallyDetailVC" bundle:nil];
@@ -74,11 +80,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //HACK: these are released... problematic?
-        _city = kUnknownCity;
-        _country = kDefaultCountry;
+        _location = kDefaultLocation;
         _propertyName = kDefaultPropertyName;
 
+        _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
     }
     return self;
 }
@@ -86,22 +91,29 @@
 #pragma mark NSCoding
 
 #define kVerNoCoding    @"VerNo"
-#define kCity           @"City"
-#define kCountry        @"Country"
+#define kLocation       @"Location"
 #define kPropertyName   @"PropName"
 #define kPricePath      @"PricePath"
+#define kTrendInterval  @"TrendInterval"
 #define kLastNowValue   @"LastNowValue"
 #define kIsSettingsSet  @"IsSettingsSet"
+#define kIsHelpStepOneDone  @"IsHelpStepOneDone"
+#define kIsHelpStepTwoDone  @"IsHelpStepTwoDone"
+#define kIsHelpStepThreeDone  @"IsHelpStepThreeDone"
+
 
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     DLog(@"Encoding ScrollingTallyDetailVC");
     [encoder encodeObject:GetTallyHomeVersionNum forKey:kVerNoCoding];
-    [encoder encodeObject:_city forKey:kCity];
-    [encoder encodeObject:_country forKey:kCountry];
+    [encoder encodeObject:_location forKey:kLocation];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
-    [encoder encodeBool:_isSettingsSet forKey:kIsSettingsSet];
+    [encoder encodeBool:_isHelpStepOneDone forKey:kIsHelpStepOneDone];
+    [encoder encodeBool:_isHelpStepTwoDone forKey:kIsHelpStepTwoDone];
+    [encoder encodeBool:_isHelpStepThreeDone forKey:kIsHelpStepThreeDone];
+    
+    [encoder encodeDouble:_displayedData.trendExtrapolationInterval forKey:kTrendInterval];
     
     //only encode a now value that was actually shown, otherwise just
     //encode the last now value
@@ -116,11 +128,8 @@
     
     if ((self = [self init])) {
         DLog(@"Decoding ScrollingTallyDetailVC");
-        if (!(_city = [[decoder decodeObjectForKey:kCity] retain])) {
-            _city = kUnknownCity;
-        }
-        if (!(_country = [[decoder decodeObjectForKey:kCountry] retain])) {
-            _country = kDefaultCountry;
+        if (!(_location = [[decoder decodeObjectForKey:kLocation] retain])) {
+            _propertyName = kDefaultLocation;
         }
         if (!(_propertyName = [[decoder decodeObjectForKey:kPropertyName] retain])) {
             _propertyName = kDefaultPropertyName;
@@ -131,8 +140,17 @@
         if (!(_lastNowValue = [[decoder decodeObjectForKey:kLastNowValue] retain])) {
             _lastNowValue = nil;
         }
-        if (!(_isSettingsSet = [decoder decodeBoolForKey:kIsSettingsSet])) {
-            _isSettingsSet = NO;
+        if (!(_isHelpStepOneDone = [decoder decodeBoolForKey:kIsHelpStepOneDone])) {
+            _isHelpStepOneDone = NO;
+        }
+        if (!(_isHelpStepTwoDone = [decoder decodeBoolForKey:kIsHelpStepTwoDone])) {
+            _isHelpStepTwoDone = NO;
+        }
+        if (!(_isHelpStepThreeDone = [decoder decodeBoolForKey:kIsHelpStepThreeDone])) {
+            _isHelpStepThreeDone = NO;
+        }
+        if (!(_decodedOrDefaultTrendInterval = [decoder decodeDoubleForKey:kTrendInterval])) {
+            _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
         }
     }
     
@@ -140,7 +158,9 @@
 }
 
 - (void)dealloc {
-    [_settingsNotSetAlertView release];
+    [_helpStepOneView release];
+    [_helpStepTwoView release];
+    [_helpStepThreeView release];
     [_backgroundRect release];
     [_currentDateLbl release];
     [_currentValueLbl release];
@@ -162,8 +182,7 @@
     [_nowValueToEncode release];
     [_lastNowValue release];
     
-    [_city release];
-    [_country release];
+    [_location release];
     [_propertyName release];
     [_pricePath release];
     [_displayedData release];
@@ -227,7 +246,7 @@
     }
 }
 
-//@protocol ScrollWheelDelegate <NSObject>
+#pragma ScrollWheelDelegate
 
 //@required
 
@@ -236,6 +255,9 @@
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
+    
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
     
     DLog(@"scrolling %d years", years);
     [self setDisplayedDateValueTo:[_displayedValue.date addDays:years * 365]];
@@ -246,7 +268,35 @@
         return;
     }
     
+    _isHelpStepThreeDone = YES;
+    _helpStepThreeView.hidden = YES;
+    
     [self setDisplayedDateValueTo:[NSDate date]];
+}
+
+//@optional
+- (void)scrollWheelRightTap:(ScrollWheel *)sw {
+    if (_isUpdatingPricePath) {
+        DLog(@"Cannot use price path data. Ignoring");
+        return;
+    }
+    
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
+    
+    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+}
+
+- (void)scrollWheelLeftTap:(ScrollWheel *)sw {
+    if (_isUpdatingPricePath) {
+        DLog(@"Cannot use price path data. Ignoring");
+        return;
+    }
+    
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
+    
+    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
 }
 
 //@end
@@ -294,7 +344,7 @@
     propSettings.title = @"Settings";
     propSettings.delegate = self;
     propSettings.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    propSettings.location = _city;
+    propSettings.location = _location;
     propSettings.propertyName = _propertyName;
     propSettings.buyPrice = _pricePath.buyPrice;
     propSettings.sources = _pricePath.sources;
@@ -314,18 +364,19 @@
 }
 
 - (void)propertySettingsWillFinishDone:(PropertySettingsVC *)propSettings {
-    _isSettingsSet = YES;
-    _settingsNotSetAlertView.hidden = YES;
     
-    [self dismissModalViewControllerAnimated:YES];
+    _isHelpStepOneDone = YES;
+    _helpStepOneView.hidden = YES;
     
     self.propertyName = propSettings.propertyName;
+
+    [self dismissModalViewControllerAnimated:YES];
     
     BOOL reInit = NO;
     BOOL reMakePP = NO;
     BOOL recalcCurrentVal = NO;
-    if (![self.city isEqualToString:propSettings.location]) {
-        self.city = propSettings.location;
+    if (![self.location isEqual:propSettings.location]) {
+        self.location = propSettings.location;
         reInit = YES;
     }
     
@@ -381,8 +432,11 @@
         return;
     }
     
+    THAppDelegate *appD = [[UIApplication sharedApplication] delegate];
+    NSString *urlStr = [appD.appDefaults objectForKey:@"infoURL"];
+    
     InfoViewController *ivc = [[InfoViewController alloc] init];
-    ivc.resourceFileName = @"InfoButtonText";
+    ivc.resource = [NSURL URLWithString:urlStr];
     ivc.delegate = self;
     
     UINavigationController *navCtrlr = [[UINavigationController alloc]
@@ -482,7 +536,15 @@
                                                       alpha:1.0];
     _backgroundRect.layer.cornerRadius = 5.0;
     
-    _settingsNotSetAlertView.hidden = _isSettingsSet;
+#ifdef DEBUG
+    _helpStepOneView.hidden = NO;
+    _helpStepTwoView.hidden = NO;
+    _helpStepThreeView.hidden = NO;
+#else
+    _helpStepOneView.hidden = _isHelpStepOneDone;
+    _helpStepTwoView.hidden = _isHelpStepTwoDone;
+    _helpStepThreeView.hidden = _isHelpStepThreeDone;
+#endif
     
     if (!_pricePath) {
         [self initPricePath];
@@ -497,11 +559,19 @@
         self.nowValue = [_displayedData calcValueAt:[NSDate date]]; 
     }
     
+    _displayedData.trendExtrapolationInterval = _decodedOrDefaultTrendInterval;
+    
 #ifdef DEBUG
     //wait for reachability to become available
     //[self updatePricePath];
 #endif
 
+}
+
+//when app comes back from background, viewWillAppear is not called
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    [self setDisplayedDateValueTo:[NSDate date]];
+    self.nowValueToEncode = _nowValue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -526,7 +596,9 @@
 }
 
 - (void)viewDidUnload {
-    [self setSettingsNotSetAlertView:nil];
+    [self setHelpStepOneView:nil];
+    [self setHelpStepTwoView:nil];
+    [self setHelpStepThreeView:nil];
     [self setStatusLabel:nil];
     [self setBottomToolbar:nil];
     
@@ -556,6 +628,9 @@
     NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
     THHomePricePath *ozPP = [[THHomePricePath alloc] initWithURL:url];
     
+    ozPP.sources = THHomePriceIndexSourceGovt | THHomePriceIndexSourceBranded;
+    ozPP.proximities = THHomePriceIndexProximityCountry;
+    
     self.pricePath = ozPP;
     [ozPP release];
     
@@ -580,9 +655,13 @@
     [self performSelectorInBackground:@selector(updatePricePathWorker) withObject:nil];
 }
 
+
+
 - (void)updatePricePathWorker {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     _isUpdatingPricePath = YES;
+    
+    _currentValueLbl.text = kRefreshingAlert;
     
     THDateVal *oldBP = nil;
     int sources = 0;
@@ -608,30 +687,37 @@
         DLog(@"reinitializing _pricePath");
         THURLCreator *urlCreator = [[THURLCreator alloc] init];
         urlCreator.tallyId = @"HousePriceIx";
-        urlCreator.city = _city;
-        urlCreator.country = _country;
+        urlCreator.location = _location;
         urlCreator.userId = [appD getUUID];
                     
         THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
-        if (wasOldPP) {
-            newPP.buyPrice = oldBP;
-            newPP.sources = sources;
-            newPP.proximities = proxs;
+        if (newPP.innerSerieses.count > 0) {
+            THHomePriceIndex *bestIx = [newPP calcBestIndex];
+            newPP.sources = [bestIx src];
+            newPP.proximities = [bestIx prox];
+            
+            if (wasOldPP) {
+                newPP.buyPrice = oldBP;
+                
+                //TODO: need to find a better way to combine any existing prefs
+                //with a potentially limited set of updated sources
+                //eg. what if user has specified city, but the indices only have
+                //a country index in the set??
+                //newPP.sources |= sources;
+                //newPP.proximities |= proxs;
+                self.pricePath = newPP;
+            }
         }
-        self.pricePath = newPP;
+        else {
+            self.updateWorkerErrorMessage = 
+                [NSString stringWithFormat:@"Tally Home does not have any data for the '%@', '%@' in '%@'\n\nPlease try again", _location.city, _location.state, _location.country];
+        }
+        
         [newPP release];
         [urlCreator release];
     }
     else {
-        NSString *msg = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower right when next you have internet access";
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Network connection error"
-                              message:msg
-                              delegate:nil 
-                              cancelButtonTitle:@"OK" 
-                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
+        self.updateWorkerErrorMessage = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower right when next you have internet access";
     }
     
     [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:kCalcPriceIxAlert waitUntilDone:NO];
@@ -661,6 +747,18 @@
 }
 
 - (void)finishUpdatingOnMainThread {
+    if (_updateWorkerErrorMessage != nil) {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Error"
+                              message:_updateWorkerErrorMessage
+                              delegate:nil 
+                              cancelButtonTitle:@"OK" 
+                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        self.updateWorkerErrorMessage = nil;
+    }
+    
     NSMutableArray *items = [_bottomToolbar.items mutableCopy];
     [items removeObjectAtIndex:0];
     

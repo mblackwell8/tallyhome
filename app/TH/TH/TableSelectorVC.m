@@ -20,6 +20,7 @@
 @implementation TableSelectorVC
 
 @synthesize options = _options, delegate = _delegate, allowsMultipleSelections = _allowsMultipleSelections, selectedOptions = _selectedOptions, allowsNoSelection = _allowsNoSelection;
+@synthesize commentText = _commentText, headerText = _headerText;
 
 - (void)setOptionsUsingCSV:(NSString *)csv {
     self.options = [csv componentsSeparatedByString:@","];
@@ -120,6 +121,15 @@
     // Return the number of sections.
     return 1;
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return _headerText;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return _commentText;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

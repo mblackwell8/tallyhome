@@ -15,6 +15,9 @@
 
 @property (retain, nonatomic) UIBezierPath *scrollCircle, *buttonCircle;
 
+- (CGFloat)calcRadiansAroundOriginForPoint:(CGPoint)pt;
+- (ScrollWheelQuadrant)calcQuadrantOfPoint:(CGPoint)touch;
+
 @end
 
 @implementation ScrollWheel
@@ -29,8 +32,15 @@
     _buttonLabel = @"Now";
     _isRotating = NO;
     
-    NSString *path = [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] pathForResource:@"Tock" ofType:@"aiff"];
-    AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:path], &tockSoundID);
+    NSString *tockpath = [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] pathForResource:@"Tock" ofType:@"aiff"];
+    AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:tockpath], &tockSoundID);
+    
+//    NSString *imgpath = [[NSBundle mainBundle] pathForResource:@"Wheel" ofType:@"png"];
+//    UIImage *img = [[UIImage alloc] initWithContentsOfFile:imgpath];
+//    UIImageView *bgrdImgView = [[UIImageView alloc] initWithImage:img];
+//    [self addSubview:bgrdImgView];
+//    [img release];
+//    [bgrdImgView release];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -81,13 +91,55 @@
     return qr;
 }
 
+#define TH_ButtonHalfRadians M_PI/10.0
+//static double 
+
 - (ScrollWheelTapArea)calcTapAreaOfPoint:(CGPoint)touch {
     if ([_buttonCircle containsPoint:touch])
         return ScrollWheelTapAreaButton;
     
     if ([_scrollCircle containsPoint:touch]) {
+        CGFloat radians = [self calcRadiansAroundOriginForPoint:touch];
+        ScrollWheelQuadrant quad = [self calcQuadrantOfPoint:touch];
+        switch (quad) {
+            case ScrollWheelQuadrantUpperLeft:
+                //from -PI to -PI/2
+                if (radians + M_PI < TH_ButtonHalfRadians &&
+                    radians + M_PI > 0)
+                    return ScrollWhellTapAreaScroller_Left;
+                if (ABS(radians + M_PI_2) < TH_ButtonHalfRadians &&
+                    ABS(radians + M_PI_2) > 0)
+                    return ScrollWheelTapAreaScroller_Top;
+            case ScrollWheelQuadrantUpperRight:
+                //from -PI/2 to 0
+                if (radians + M_PI_2 < TH_ButtonHalfRadians &&
+                    radians + M_PI_2 > 0)
+                    return ScrollWheelTapAreaScroller_Top;
+                if (ABS(radians) < TH_ButtonHalfRadians &&
+                    ABS(radians) > 0)
+                    return ScrollWheelTapAreaScroller_Right;
+            case ScrollWheelQuadrantLowerRight:
+                //from 0 to PI/2
+                if (radians < TH_ButtonHalfRadians &&
+                    radians > 0)
+                    return ScrollWheelTapAreaScroller_Right;
+                if (ABS(radians - M_PI_2) < TH_ButtonHalfRadians &&
+                    ABS(radians - M_PI_2) > 0)
+                    return ScrollWheelTapAreaScroller_Bottom;
+            case ScrollWheelQuadrantLowerLeft:
+                //from PI/2 to PI
+                if (radians - M_PI_2 < TH_ButtonHalfRadians &&
+                    radians - M_PI_2 > 0)
+                    return ScrollWheelTapAreaScroller_Bottom;
+                if (ABS(radians - M_PI) < TH_ButtonHalfRadians &&
+                    ABS(radians - M_PI) > 0)
+                    return ScrollWhellTapAreaScroller_Left;
+                
+            default:
+                return ScrollWheelTapAreaScroller;
+        }
         
-        return ScrollWheelTapAreaScroller;
+        NSAssert(NO, @"should not get here");
     }
     
     return ScrollWheelTapAreaDead;
@@ -123,8 +175,8 @@
     NSTimeInterval movedTime = [NSDate timeIntervalSinceReferenceDate];
     ScrollWheelTapArea tapArea = [self calcTapAreaOfPoint:movedPoint];
     
-    if (_lastTapArea == ScrollWheelTapAreaScroller &&
-        tapArea == ScrollWheelTapAreaScroller) {
+    if (_lastTapArea & ScrollWheelTapAreaScroller &&
+        tapArea & ScrollWheelTapAreaScroller) {
         _isRotating = YES;
         
         _lastRadians = [self calcRadiansAroundOriginForPoint:_lastTouch];
@@ -166,10 +218,43 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_isSingleTap && 
-        [self calcTapAreaOfPoint:_lastTouch] == ScrollWheelTapAreaButton) {
-        [_delegate scrollWheelButtonPressed:self];
-        AudioServicesPlaySystemSound(tockSoundID);
+    if (_isSingleTap) { 
+        ScrollWheelTapArea tap = [self calcTapAreaOfPoint:_lastTouch];
+        DLog(@"tap: %d", tap);
+        switch (tap) {
+            case ScrollWheelTapAreaButton:
+                AudioServicesPlaySystemSound(tockSoundID);
+                [_delegate scrollWheelButtonPressed:self];
+                break;
+                
+            case ScrollWhellTapAreaScroller_Left:
+                if ([_delegate respondsToSelector:@selector(scrollWheelLeftTap:)]) {
+                    AudioServicesPlaySystemSound(tockSoundID);
+                    [_delegate scrollWheelLeftTap:self];
+                }
+                break;
+            case ScrollWheelTapAreaScroller_Right:
+                if ([_delegate respondsToSelector:@selector(scrollWheelRightTap:)]) {
+                    AudioServicesPlaySystemSound(tockSoundID);
+                    [_delegate scrollWheelRightTap:self];
+                }
+                break;
+            case ScrollWheelTapAreaScroller_Bottom:
+                if ([_delegate respondsToSelector:@selector(scrollWheelBottomTap:)]) {
+                    AudioServicesPlaySystemSound(tockSoundID);
+                    [_delegate scrollWheelBottomTap:self];
+                }
+                break;
+            case ScrollWheelTapAreaScroller_Top:
+                if ([_delegate respondsToSelector:@selector(scrollWheelTopTap:)]) {
+                    AudioServicesPlaySystemSound(tockSoundID);
+                    [_delegate scrollWheelTopTap:self];
+                }
+                break;
+                
+            default:
+                break;
+        }
     }
     
     _isRotating = NO;
@@ -219,6 +304,7 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+/*
 - (void)drawRect:(CGRect)rect {
     
 //    [[UIColor colorWithRed:1.0/255.0 green:10.0/255.0 blue:22.0/255.0 alpha:1.0] setStroke];
@@ -258,6 +344,6 @@
     [_buttonLabel drawAtPoint:btnLblPt withFont:btnLblFont];
 
 }
-
+*/
 
 @end

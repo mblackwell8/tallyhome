@@ -12,7 +12,7 @@
 
 @implementation THURLCreator
 
-@synthesize tallyId = _tallyId, userId = _userId, city = _city, country = _country, countryCode, 
+@synthesize tallyId = _tallyId, userId = _userId, location = _location, countryCode, 
     shouldLocate, firstDate = _firstDt, lastDate = _lastDt;
 
 - (id) init {
@@ -20,8 +20,7 @@
         shouldLocate = NO;
         _tallyId = @"";
         _userId = @"";
-        _city = @"";
-        _country = @"";
+        _location = [[THPlaceName alloc] initWithCity:@"" state:@"" country:@""];
         countryCode = 0;
         
     }
@@ -35,13 +34,15 @@
 //    NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
     
     THAppDelegate *appD = [[UIApplication sharedApplication] delegate];
+    
+    //http://data.tallyho.me/v1/data?tallyID=%@&userID=%@&lat=%@&lon=%@&city=%@&state=%@&country=%@&ctryCode=%@&firstDt=%@&lastDt=%@
     NSString *cgiURLformat = [appD.appDefaults objectForKey:@"dataInterfaceURL"];
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    NSString *firstDtStr = [dateFormatter stringFromDate:_firstDt];
-    NSString *lastDtStr = [dateFormatter stringFromDate:_lastDt];
+    NSString *firstDtStr = _firstDt ? [dateFormatter stringFromDate:_firstDt] : @"";
+    NSString *lastDtStr = _lastDt ? [dateFormatter stringFromDate:_lastDt] : @"";
     
     //don't do core location yet...
     NSString *lat = @"", *lon = @"";
@@ -50,12 +51,13 @@
                         _tallyId,
                         _userId,
                         lat, lon,
-                        _city,
-                        _country,
+                        _location.city,
+                        _location.state,
+                        _location.country,
                         countryCode > 0 ? [NSString stringWithFormat:@"%d", countryCode] : @"",
                         firstDtStr, lastDtStr];
                         
-    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
     return url;
 }

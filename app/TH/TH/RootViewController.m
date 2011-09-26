@@ -10,14 +10,20 @@
 #import "ScrollingTallyDetailVC.h"
 #import "DebugMacros.h"
 
+@interface RootViewController ()
+
+@property (nonatomic, readwrite, retain) TallyDetailVC *activeTally;
+
+@end
+
 @implementation RootViewController
 
-@synthesize detailControllers = _tallyViewDetailControllers;
+@synthesize detailControllers = _tallies, activeTally = _activeTally;
 
 - (void)viewDidLoad {
     self.title = @"TallyHome";
     
-    if (!_tallyViewDetailControllers) {
+    if (!_tallies) {
         DLog(@"_tallyViewDataControllers nil, creating new object");
         TallyVCArray *dcs = [[TallyVCArray alloc] init];
         self.detailControllers = dcs;
@@ -25,12 +31,12 @@
     }
     
     // if there are no detail controllers, then create a PropertyDetailVC for current locn
-    if (_tallyViewDetailControllers.count == 0) {
+    if (_tallies.count == 0) {
         DLog(@"_tallyViewDetailControllers.count == 0, creating default");
         [self addNewScrollingTallyDetailVC];
     }
     
-    if (_tallyViewDetailControllers.count == 1) {
+    if (_tallies.count == 1) {
         [self navigateToTallyViewAtIndex:0 animated:NO];
     }
     
@@ -41,6 +47,8 @@
     self.navigationItem.rightBarButtonItem  = addButton;
     [addButton release];
     
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
     [super viewDidLoad];
 }
 
@@ -50,7 +58,7 @@
 
 - (void)addNewScrollingTallyDetailVC {
     ScrollingTallyDetailVC *vc = [[ScrollingTallyDetailVC alloc] init];
-    [_tallyViewDetailControllers addObject:vc];
+    [_tallies addObject:vc];
     [vc release];
 
     [self.tableView reloadData];
@@ -92,7 +100,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _tallyViewDetailControllers.count;
+    return _tallies.count;
 }
 
 // Customize the appearance of table view cells.
@@ -108,7 +116,7 @@
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    TallyDetailVC *ctrlr = [_tallyViewDetailControllers objectAtIndex:indexPath.row];
+    TallyDetailVC *ctrlr = [_tallies objectAtIndex:indexPath.row];
     cell.textLabel.text = ctrlr.rowTitle;
     cell.imageView.image = ctrlr.rowImage;
     cell.detailTextLabel.text = ctrlr.rowLatestData;
@@ -117,46 +125,48 @@
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    //return (indexPath.row != 0);
+    return _tallies.count > 1;
+}
 
-/*
+
+
  // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete)
- {
- // Delete the row from the data source.
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert)
- {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
- }   
- }
- */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        // Delete the row from the data source.
+        DLog(@"deleting row at index %d", indexPath.row);
+        [_tallies removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                         withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert)
+    {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        DLog(@"insert row called...");
+    }   
+}
+ 
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath 
+      toIndexPath:(NSIndexPath *)toIndexPath {
+    [_tallies swapObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
+}
+
+
+
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,9 +183,15 @@
          
 - (void)navigateToTallyViewAtIndex:(NSUInteger)index animated:(BOOL)anim {
     if (self.navigationController) {
-        [self.navigationController 
-            pushViewController:[_tallyViewDetailControllers objectAtIndex:index] 
-                      animated:anim];
+        self.activeTally = [_tallies objectAtIndex:index];
+        if (_activeTally) {
+            [self.navigationController 
+                pushViewController:_activeTally 
+                          animated:anim];
+        }
+        else {
+            DLog(@"ERROR: no tally at index %d", index);
+        }
     }
     else {
         DLog(@"ERROR: No nav controller!")

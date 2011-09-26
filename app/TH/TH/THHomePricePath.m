@@ -17,6 +17,14 @@
 @property (nonatomic, retain) NSDateFormatter *xmlDateFormatter;
 @property (nonatomic, readwrite, retain) NSDate *lastServerUpdate;
 
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
+    attributes:(NSDictionary *)attributeDict;
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
+//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
+
+
 - (THTimeSeries *)makePricePathFromSources:(int)sources 
                                proximities:(int)proximities 
                                 usingRawIx:(THTimeSeries *)ix 
@@ -213,6 +221,25 @@
     }
     
     return;
+}
+
+- (THHomePriceIndex *)calcBestIndex {
+    if (_serieses.count == 1)
+        return [_serieses objectAtIndex:0];
+    
+    THHomePriceIndex *best = nil;
+    int currBestScore = INT32_MAX;
+    for (THHomePriceIndex *hpi in _serieses) {
+        if (hpi.count > 0) {
+            int relevance = hpi.relevanceScore;
+            if (currBestScore == INT32_MAX || relevance < currBestScore) {
+                currBestScore = relevance;
+                best = hpi;
+            }
+        }
+    }
+    
+    return best;
 }
 
 - (THDateVal *)calcBestAveragePrice {
