@@ -190,34 +190,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "575"
-         endingLineNumber = "575"
-         landmarkName = "-applicationWillEnterForeground:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "620"
-         endingLineNumber = "620"
-         landmarkName = "-initPricePath"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "TH/THHomePricePath.m"
          timestampString = "338219417.586791"
          startingColumnNumber = "9223372036854775807"
@@ -336,20 +308,6 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "77"
          endingLineNumber = "77"
-         landmarkName = "-initWithCoder:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "128"
-         endingLineNumber = "128"
          landmarkName = "-initWithCoder:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -498,34 +456,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
-         landmarkName = "-encodeWithCoder:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "467"
-         endingLineNumber = "467"
-         landmarkName = "@implementation ScrollingTallyDetailVC"
-         landmarkType = "3">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "TH/THAppDelegate.m"
          timestampString = "338646560.226648"
          startingColumnNumber = "9223372036854775807"
@@ -533,34 +463,6 @@
          startingLineNumber = "180"
          endingLineNumber = "180"
          landmarkName = "-applicationDidEnterBackground:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "408"
-         endingLineNumber = "408"
-         landmarkName = "-propertySettingsWillFinishDone:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338647765.356541"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "705"
-         endingLineNumber = "705"
-         landmarkName = "-updatePricePathWorker"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -764,13 +666,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338646560.226648"
+         filePath = "TH/TickingValueLabel.m"
+         timestampString = "339507676.623093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "661"
-         endingLineNumber = "661"
-         landmarkName = "-updatePricePathWorker"
+         startingLineNumber = "156"
+         endingLineNumber = "156"
+         landmarkName = "-setValue:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -778,13 +680,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338647765.356541"
+         filePath = "TH/TickingValueLabel.m"
+         timestampString = "339507676.623093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "708"
-         endingLineNumber = "708"
-         landmarkName = "-updatePricePathWorker"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
+         landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -792,13 +694,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/ScrollingTallyDetailVC.m"
-         timestampString = "338647765.356541"
+         filePath = "TH/TickingValueLabel.m"
+         timestampString = "339507676.623093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "693"
-         endingLineNumber = "693"
-         landmarkName = "-updatePricePathWorker"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
+         landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -806,13 +708,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TH/THURLCreator.m"
-         timestampString = "338623810.316645"
+         filePath = "TH/TickingValueLabel.m"
+         timestampString = "339507676.623093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "50"
-         endingLineNumber = "50"
-         landmarkName = "-makeURL"
+         startingLineNumber = "163"
+         endingLineNumber = "163"
+         landmarkName = "-setValue:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

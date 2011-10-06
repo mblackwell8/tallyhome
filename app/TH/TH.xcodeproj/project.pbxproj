@@ -61,11 +61,13 @@
 		8FB5D373142F44740035B15B /* HelpBubble2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB5D370142F44730035B15B /* HelpBubble2@2x.png */; };
 		8FB5D374142F44740035B15B /* HelpBubble3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB5D371142F44740035B15B /* HelpBubble3@2x.png */; };
 		8FB5D376142F4D380035B15B /* PlaceNames_Oz.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8FB5D375142F4D380035B15B /* PlaceNames_Oz.csv */; };
-		8FB5D379142F577A0035B15B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB5D377142F57790035B15B /* Default.png */; };
-		8FB5D37A142F577A0035B15B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB5D378142F57790035B15B /* Default@2x.png */; };
+		8FB5D37C14308F100035B15B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB5D37B14308F100035B15B /* CoreLocation.framework */; };
 		8FCD231614245B230097DE52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD231314245B210097DE52 /* Reachability.m */; };
 		8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */; };
 		8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD23201424CF690097DE52 /* SystemConfiguration.framework */; };
+		8FE109B31431F6D900A48B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109B11431F6D900A48B0B /* Default.png */; };
+		8FE109B41431F6D900A48B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109B21431F6D900A48B0B /* Default@2x.png */; };
+		8FE109B7143348C800A48B0B /* THLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE109B6143348C800A48B0B /* THLocator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,12 +160,15 @@
 		8FB5D370142F44730035B15B /* HelpBubble2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HelpBubble2@2x.png"; sourceTree = "<group>"; };
 		8FB5D371142F44740035B15B /* HelpBubble3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HelpBubble3@2x.png"; sourceTree = "<group>"; };
 		8FB5D375142F4D380035B15B /* PlaceNames_Oz.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlaceNames_Oz.csv; sourceTree = "<group>"; };
-		8FB5D377142F57790035B15B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		8FB5D378142F57790035B15B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		8FB5D37B14308F100035B15B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8FCD231214245B210097DE52 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		8FCD231314245B210097DE52 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AustraliaIndex.xml; sourceTree = "<group>"; };
 		8FCD23201424CF690097DE52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8FE109B11431F6D900A48B0B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		8FE109B21431F6D900A48B0B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		8FE109B5143348C800A48B0B /* THLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLocator.h; sourceTree = "<group>"; };
+		8FE109B6143348C800A48B0B /* THLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLocator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +182,7 @@
 				8F3E662F141C8F1400712C42 /* CoreGraphics.framework in Frameworks */,
 				8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */,
 				8F86C928142617CC0021D2A8 /* AudioToolbox.framework in Frameworks */,
+				8FB5D37C14308F100035B15B /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +222,7 @@
 		8F3E6629141C8F1400712C42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FB5D37B14308F100035B15B /* CoreLocation.framework */,
 				8F86C927142617CC0021D2A8 /* AudioToolbox.framework */,
 				8FCD23201424CF690097DE52 /* SystemConfiguration.framework */,
 				8F3E6697141C994400712C42 /* QuartzCore.framework */,
@@ -241,8 +248,8 @@
 		8F3E6631141C8F1400712C42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8FB5D377142F57790035B15B /* Default.png */,
-				8FB5D378142F57790035B15B /* Default@2x.png */,
+				8FE109B11431F6D900A48B0B /* Default.png */,
+				8FE109B21431F6D900A48B0B /* Default@2x.png */,
 				8FB5D375142F4D380035B15B /* PlaceNames_Oz.csv */,
 				8F5FA73E142D95F400FB3A52 /* PlaceNames.csv */,
 				8FB5D36F142F44730035B15B /* HelpBubble1@2x.png */,
@@ -345,6 +352,8 @@
 				8F3E666F141C915600712C42 /* THTimeSeries.m */,
 				8F5FA73B142D8FBB00FB3A52 /* THPlaceName.h */,
 				8F5FA73C142D8FBB00FB3A52 /* THPlaceName.m */,
+				8FE109B5143348C800A48B0B /* THLocator.h */,
+				8FE109B6143348C800A48B0B /* THLocator.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -437,8 +446,8 @@
 				8FB5D373142F44740035B15B /* HelpBubble2@2x.png in Resources */,
 				8FB5D374142F44740035B15B /* HelpBubble3@2x.png in Resources */,
 				8FB5D376142F4D380035B15B /* PlaceNames_Oz.csv in Resources */,
-				8FB5D379142F577A0035B15B /* Default.png in Resources */,
-				8FB5D37A142F577A0035B15B /* Default@2x.png in Resources */,
+				8FE109B31431F6D900A48B0B /* Default.png in Resources */,
+				8FE109B41431F6D900A48B0B /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +506,7 @@
 				8F5FA716142A0BBE00FB3A52 /* TickingValueLabel.m in Sources */,
 				8F5FA73D142D8FBB00FB3A52 /* THPlaceName.m in Sources */,
 				8FB5D35E142EF1140035B15B /* SearchSelectorVC.m in Sources */,
+				8FE109B7143348C800A48B0B /* THLocator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

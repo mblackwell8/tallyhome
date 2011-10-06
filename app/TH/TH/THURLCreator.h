@@ -28,24 +28,27 @@
 
 
 
-@interface THURLCreator : NSObject {
+@interface THURLCreator : NSObject <CLLocationManagerDelegate> {
     NSString *_tallyId;
     NSString *_userId;
-    
-    BOOL shouldLocate;
     
     THPlaceName *_location;
     int countryCode;
     
     NSDate *_firstDt, *_lastDt;
-    
+
+//    BOOL shouldLocate;    
+//    CLLocationManager *_locnMgr;
+//    NSCondition *_locationFoundCondition;
+//    BOOL _isLocationFound, _isLocationError;
+    CLLocationCoordinate2D _coordinate;
 }
 
 @property (nonatomic, copy) NSString *tallyId;
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, retain) THPlaceName *location;
 @property int countryCode;
-@property BOOL shouldLocate;
+//@property BOOL shouldLocate;
 @property (nonatomic, copy) NSDate *firstDate, *lastDate;
 
 - (NSURL *)makeURL;

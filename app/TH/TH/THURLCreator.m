@@ -8,16 +8,15 @@
 
 #import "THURLCreator.h"
 #import "THAppDelegate.h"
-
+#import "DebugMacros.h"
 
 @implementation THURLCreator
 
 @synthesize tallyId = _tallyId, userId = _userId, location = _location, countryCode, 
-    shouldLocate, firstDate = _firstDt, lastDate = _lastDt;
+    firstDate = _firstDt, lastDate = _lastDt;
 
 - (id) init {
     if ((self = [super init])) {
-        shouldLocate = NO;
         _tallyId = @"";
         _userId = @"";
         _location = [[THPlaceName alloc] initWithCity:@"" state:@"" country:@""];
@@ -44,8 +43,9 @@
     NSString *firstDtStr = _firstDt ? [dateFormatter stringFromDate:_firstDt] : @"";
     NSString *lastDtStr = _lastDt ? [dateFormatter stringFromDate:_lastDt] : @"";
     
-    //don't do core location yet...
     NSString *lat = @"", *lon = @"";
+    lat = [NSString stringWithFormat:@"%7.5f", _coordinate.latitude];
+    lon = [NSString stringWithFormat:@"%7.5f", _coordinate.longitude];
     
     NSString *urlStr = [NSString stringWithFormat:cgiURLformat,
                         _tallyId,
@@ -63,3 +63,4 @@
 }
 
 @end
+

@@ -16,6 +16,7 @@
 #import "TallyHomeConstants.h"
 #import "ScrollWheel.h"
 #import "InfoViewController.h"
+#import "TickingValueLabel.h"
 #import <QuartzCore/QuartzCore.h>
 
 //#define TH_FIRST_RGB_STEP_IX 0
@@ -29,7 +30,8 @@
     
     UIView *_backgroundRect;
     UILabel *_currentDateLbl;
-    UILabel *_currentValueLbl;
+    TickingValueLabel *_currentValueLbl;
+    UILabel *_currentValueRefreshingLbl;
     UILabel *_commentLbl;
     ScrollWheel *_scroller;
     UIToolbar *_bottomToolbar;                                               
@@ -49,7 +51,8 @@
     THDateVal *_lastNowValue;
     
     //NSString *_city, *_country;
-    THPlaceName *_location;
+    THPlaceName *_locationName;
+    CLLocationCoordinate2D _coords;
     NSString *_propertyName;
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
@@ -62,7 +65,9 @@
     NSString *_updateWorkerErrorMessage;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *currentValueLabel;
+
+@property (nonatomic, retain) IBOutlet TickingValueLabel *currentValueLabel;
+@property (nonatomic, retain) IBOutlet UILabel *currentValueRefreshingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *commentLabel;
 @property (nonatomic, retain) IBOutlet UIView *backgroundRect;

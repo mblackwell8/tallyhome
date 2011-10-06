@@ -59,9 +59,10 @@
 @synthesize bottomToolbar = _bottomToolbar;
 @synthesize propertyName = _propertyName;
 @synthesize pricePath = _pricePath;
-@synthesize location = _location;
+@synthesize location = _locationName;
 @synthesize displayedData = _displayedData;
 @synthesize currentValueLabel = _currentValueLbl;
+@synthesize currentValueRefreshingLabel = _currentValueRefreshingLbl;
 @synthesize scroller = _scroller;
 @synthesize displayedValue = _displayedValue;
 @synthesize nowValue = _nowValue;
@@ -80,7 +81,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _location = kDefaultLocation;
+        _locationName = kDefaultLocation;
         _propertyName = kDefaultPropertyName;
 
         _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
@@ -106,7 +107,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     DLog(@"Encoding ScrollingTallyDetailVC");
     [encoder encodeObject:GetTallyHomeVersionNum forKey:kVerNoCoding];
-    [encoder encodeObject:_location forKey:kLocation];
+    [encoder encodeObject:_locationName forKey:kLocation];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
     [encoder encodeBool:_isHelpStepOneDone forKey:kIsHelpStepOneDone];
@@ -128,7 +129,7 @@
     
     if ((self = [self init])) {
         DLog(@"Decoding ScrollingTallyDetailVC");
-        if (!(_location = [[decoder decodeObjectForKey:kLocation] retain])) {
+        if (!(_locationName = [[decoder decodeObjectForKey:kLocation] retain])) {
             _propertyName = kDefaultLocation;
         }
         if (!(_propertyName = [[decoder decodeObjectForKey:kPropertyName] retain])) {
@@ -164,6 +165,7 @@
     [_backgroundRect release];
     [_currentDateLbl release];
     [_currentValueLbl release];
+    [_currentValueRefreshingLbl release];
     [_commentLbl release];
     [_scroller release];
     [_bottomToolbar release];
@@ -182,7 +184,7 @@
     [_nowValueToEncode release];
     [_lastNowValue release];
     
-    [_location release];
+    [_locationName release];
     [_propertyName release];
     [_pricePath release];
     [_displayedData release];
@@ -212,9 +214,12 @@
         return;
     }
     
+    _currentValueRefreshingLbl.hidden = YES;
+    _currentValueLbl.hidden = NO;
     self.displayedValue = [_displayedData calcValueAt:date];
-    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_displayedValue.val]];
-    _currentValueLbl.text = valueText;
+//    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_displayedValue.val]];
+//    _currentValueRefreshingLbl.text = valueText;
+    _currentValueLbl.value = _displayedValue.val;
     _currentDateLbl.text = [_displayedValue.date fuzzyRelativeDateString];
     
     double diff = 0.0;
@@ -344,7 +349,7 @@
     propSettings.title = @"Settings";
     propSettings.delegate = self;
     propSettings.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    propSettings.location = _location;
+    propSettings.location = _locationName;
     propSettings.propertyName = _propertyName;
     propSettings.buyPrice = _pricePath.buyPrice;
     propSettings.sources = _pricePath.sources;
@@ -522,6 +527,7 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
     self.valueFormatter = nf;
+    [nf release];
     
     nf = [[NSNumberFormatter alloc] init]; 
     [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -529,6 +535,7 @@
     [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
     [nf setMaximumFractionDigits:0];
     self.commentValueFormatter = nf;
+    [nf release];
     
     _backgroundRect.backgroundColor = [UIColor colorWithRed:10.0/255.0 
                                                       green:68.0/255.0 
@@ -536,7 +543,7 @@
                                                       alpha:1.0];
     _backgroundRect.layer.cornerRadius = 5.0;
     
-#ifdef DEBUG
+#ifdef DEBUG__avoidForNow
     _helpStepOneView.hidden = NO;
     _helpStepTwoView.hidden = NO;
     _helpStepThreeView.hidden = NO;
@@ -608,6 +615,7 @@
     self.waitingForDataIndicator = nil;
     self.backgroundRect = nil;
     self.currentValueLabel = nil;
+    self.currentValueRefreshingLabel = nil;
     self.currentDateLabel = nil;
     self.commentLabel = nil;
     
@@ -652,6 +660,11 @@
     
     [_waitingForDataIndicator startAnimating];
     //self.buyPriceLocalCopy = bp;
+    
+    _currentValueRefreshingLbl.text = kRefreshingAlert;
+    _currentValueRefreshingLbl.hidden = NO;
+    _currentValueLbl.hidden = YES;
+    
     [self performSelectorInBackground:@selector(updatePricePathWorker) withObject:nil];
 }
 
@@ -660,8 +673,6 @@
 - (void)updatePricePathWorker {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     _isUpdatingPricePath = YES;
-    
-    _currentValueLbl.text = kRefreshingAlert;
     
     THDateVal *oldBP = nil;
     int sources = 0;
@@ -687,7 +698,7 @@
         DLog(@"reinitializing _pricePath");
         THURLCreator *urlCreator = [[THURLCreator alloc] init];
         urlCreator.tallyId = @"HousePriceIx";
-        urlCreator.location = _location;
+        urlCreator.location = _locationName;
         urlCreator.userId = [appD getUUID];
                     
         THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
@@ -710,14 +721,14 @@
         }
         else {
             self.updateWorkerErrorMessage = 
-                [NSString stringWithFormat:@"Tally Home does not have any data for the '%@', '%@' in '%@'\n\nPlease try again", _location.city, _location.state, _location.country];
+                [NSString stringWithFormat:@"Tally Home does not have any data for the '%@', '%@' in '%@'\n\nPlease try again", _locationName.city, _locationName.state, _locationName.country];
         }
         
         [newPP release];
         [urlCreator release];
     }
     else {
-        self.updateWorkerErrorMessage = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower right when next you have internet access";
+        self.updateWorkerErrorMessage = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower left when next you have internet access";
     }
     
     [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:kCalcPriceIxAlert waitUntilDone:NO];
@@ -757,6 +768,11 @@
         [alert show];
         [alert release];
         self.updateWorkerErrorMessage = nil;
+        _currentValueRefreshingLbl.text = @"Not available";
+    }
+    else {
+        _currentValueRefreshingLbl.hidden = YES;
+        _currentValueLbl.hidden = NO;
     }
     
     NSMutableArray *items = [_bottomToolbar.items mutableCopy];
