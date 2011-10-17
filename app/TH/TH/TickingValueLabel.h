@@ -15,7 +15,7 @@
     UIFont *_font;
     UIColor *_textColor;
     
-    NSMutableArray *_centLabels, *_tenCentLabels;
+    NSMutableArray *_centLabels;
 }
 
 @property (nonatomic, assign) double value;

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0B5163143DBD3F00D1B1A9 /* DoubleSidedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */; };
+		8F0B5166144A816D00D1B1A9 /* Rotor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B5165144A816D00D1B1A9 /* Rotor.m */; };
 		8F0DB41E141F084600023D8E /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB41D141F084600023D8E /* InfoViewController.m */; };
 		8F0DB420141F0F4D00023D8E /* InfoButtonText.html in Resources */ = {isa = PBXBuildFile; fileRef = 8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */; };
 		8F0DB423141F174400023D8E /* TableSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB422141F174400023D8E /* TableSelectorVC.m */; };
@@ -43,6 +45,7 @@
 		8F3E6692141C926F00712C42 /* AppDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E6690141C926F00712C42 /* AppDefaults.plist */; };
 		8F3E6698141C994400712C42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E6697141C994400712C42 /* QuartzCore.framework */; };
 		8F3E66A4141CCA4000712C42 /* TallyVCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E66A3141CCA4000712C42 /* TallyVCArray.m */; };
+		8F53B67B144ADB1900992D48 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B67A144ADB1900992D48 /* notes */; };
 		8F5FA716142A0BBE00FB3A52 /* TickingValueLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */; };
 		8F5FA722142A2A7600FB3A52 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA71E142A2A7600FB3A52 /* background.png */; };
 		8F5FA723142A2A7600FB3A52 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA71F142A2A7600FB3A52 /* background@2x.png */; };
@@ -81,6 +84,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F0B5161143DBD3F00D1B1A9 /* DoubleSidedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleSidedLabel.h; sourceTree = "<group>"; };
+		8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleSidedLabel.m; sourceTree = "<group>"; };
+		8F0B5164144A816C00D1B1A9 /* Rotor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotor.h; sourceTree = "<group>"; };
+		8F0B5165144A816D00D1B1A9 /* Rotor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rotor.m; sourceTree = "<group>"; };
 		8F0DB41C141F084600023D8E /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		8F0DB41D141F084600023D8E /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoButtonText.html; sourceTree = "<group>"; };
@@ -139,6 +146,7 @@
 		8F3E6697141C994400712C42 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8F3E66A2141CCA4000712C42 /* TallyVCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyVCArray.h; sourceTree = "<group>"; };
 		8F3E66A3141CCA4000712C42 /* TallyVCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyVCArray.m; sourceTree = "<group>"; };
+		8F53B67A144ADB1900992D48 /* notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
 		8F5FA714142A0BBE00FB3A52 /* TickingValueLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickingValueLabel.h; sourceTree = "<group>"; };
 		8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickingValueLabel.m; sourceTree = "<group>"; };
 		8F5FA71E142A2A7600FB3A52 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -270,6 +278,7 @@
 				8F3E6636141C8F1400712C42 /* main.m */,
 				8F3E6638141C8F1400712C42 /* TH-Prefix.pch */,
 				8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */,
+				8F53B67A144ADB1900992D48 /* notes */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -303,6 +312,8 @@
 				8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */,
 				8F3E667F141C91D200712C42 /* ScrollWheel.h */,
 				8F3E6680141C91D200712C42 /* ScrollWheel.m */,
+				8F0B5164144A816C00D1B1A9 /* Rotor.h */,
+				8F0B5165144A816D00D1B1A9 /* Rotor.m */,
 				8F3E667A141C91D200712C42 /* PropertySettingsVC.h */,
 				8F3E667B141C91D200712C42 /* PropertySettingsVC.m */,
 				8F3E6678141C91D200712C42 /* DateSelectorVC.h */,
@@ -331,6 +342,8 @@
 				8F0DB41D141F084600023D8E /* InfoViewController.m */,
 				8F5FA714142A0BBE00FB3A52 /* TickingValueLabel.h */,
 				8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */,
+				8F0B5161143DBD3F00D1B1A9 /* DoubleSidedLabel.h */,
+				8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -402,6 +415,9 @@
 /* Begin PBXProject section */
 		8F3E661D141C8F1400712C42 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 8F3E6620141C8F1400712C42 /* Build configuration list for PBXProject "TH" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -448,6 +464,7 @@
 				8FB5D376142F4D380035B15B /* PlaceNames_Oz.csv in Resources */,
 				8FE109B31431F6D900A48B0B /* Default.png in Resources */,
 				8FE109B41431F6D900A48B0B /* Default@2x.png in Resources */,
+				8F53B67B144ADB1900992D48 /* notes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +524,8 @@
 				8F5FA73D142D8FBB00FB3A52 /* THPlaceName.m in Sources */,
 				8FB5D35E142EF1140035B15B /* SearchSelectorVC.m in Sources */,
 				8FE109B7143348C800A48B0B /* THLocator.m in Sources */,
+				8F0B5163143DBD3F00D1B1A9 /* DoubleSidedLabel.m in Sources */,
+				8F0B5166144A816D00D1B1A9 /* Rotor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +629,10 @@
 		8F3E665F141C8F1400712C42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -617,6 +640,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TH/TH-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -635,6 +659,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TH/TH-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -653,6 +678,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "THTests/THTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -670,6 +696,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "THTests/THTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -708,6 +735,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TH/TH-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -727,6 +755,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "THTests/THTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";

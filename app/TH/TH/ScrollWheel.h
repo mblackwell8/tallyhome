@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
+#import <QuartzCore/QuartzCore.h>
 
 typedef enum  {
     //Upper/Lower is the MSB

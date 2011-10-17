@@ -1,0 +1,3 @@
+As of xCode 4.2 the default architecture is armv7... which doesn't work on my iPhone 3G.  Consequently I've set the debug build to be armv6, but not sure what I should do about the distribution builds...
+see: https://plus.google.com/100698161235046113452/posts/1dmnW8LNsVe
+see:  http://stackoverflow.com/questions/3310907/what-are-the-advantages-of-armv7-over-armv6-when-compiling-iphone-apps

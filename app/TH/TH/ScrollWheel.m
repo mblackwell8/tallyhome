@@ -41,6 +41,7 @@
 //    [self addSubview:bgrdImgView];
 //    [img release];
 //    [bgrdImgView release];
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {

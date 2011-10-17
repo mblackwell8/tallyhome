@@ -255,7 +255,7 @@
 
 //@required
 
-- (void)scrollWheel:(ScrollWheel *)sw didRotate:(NSInteger)years {   
+- (void)rotor:(Rotor *)rotor didRotate:(NSInteger)years { 
     if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
@@ -267,42 +267,49 @@
     DLog(@"scrolling %d years", years);
     [self setDisplayedDateValueTo:[_displayedValue.date addDays:years * 365]];
 }
-- (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
-    if (_isUpdatingPricePath) {
-        DLog(@"Cannot use price path data. Ignoring");
-        return;
-    }
-    
-    _isHelpStepThreeDone = YES;
-    _helpStepThreeView.hidden = YES;
-    
-    [self setDisplayedDateValueTo:[NSDate date]];
+- (NSUInteger)numberOfSectionsForRotor:(Rotor *)rotor {
+    return 8;
 }
-
-//@optional
-- (void)scrollWheelRightTap:(ScrollWheel *)sw {
-    if (_isUpdatingPricePath) {
-        DLog(@"Cannot use price path data. Ignoring");
-        return;
-    }
-    
-    _isHelpStepTwoDone = YES;
-    _helpStepTwoView.hidden = YES;
-    
-    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+- (NSString *)labelForSectionNumber:(NSUInteger)section {
+    //HACK: temporary hack
+    return [NSString stringWithFormat:@"%d", (2011 - 4) + section];
 }
-
-- (void)scrollWheelLeftTap:(ScrollWheel *)sw {
-    if (_isUpdatingPricePath) {
-        DLog(@"Cannot use price path data. Ignoring");
-        return;
-    }
-    
-    _isHelpStepTwoDone = YES;
-    _helpStepTwoView.hidden = YES;
-    
-    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
-}
+//- (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
+//    if (_isUpdatingPricePath) {
+//        DLog(@"Cannot use price path data. Ignoring");
+//        return;
+//    }
+//    
+//    _isHelpStepThreeDone = YES;
+//    _helpStepThreeView.hidden = YES;
+//    
+//    [self setDisplayedDateValueTo:[NSDate date]];
+//}
+//
+////@optional
+//- (void)scrollWheelRightTap:(ScrollWheel *)sw {
+//    if (_isUpdatingPricePath) {
+//        DLog(@"Cannot use price path data. Ignoring");
+//        return;
+//    }
+//    
+//    _isHelpStepTwoDone = YES;
+//    _helpStepTwoView.hidden = YES;
+//    
+//    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+//}
+//
+//- (void)scrollWheelLeftTap:(ScrollWheel *)sw {
+//    if (_isUpdatingPricePath) {
+//        DLog(@"Cannot use price path data. Ignoring");
+//        return;
+//    }
+//    
+//    _isHelpStepTwoDone = YES;
+//    _helpStepTwoView.hidden = YES;
+//    
+//    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
+//}
 
 //@end
 
@@ -518,8 +525,8 @@
     self.waitingForDataIndicator = ai;
     [ai release];
         
-    _scroller.fullCircleScale = 20.0;
-    _scroller.stepScale = 1.0;
+//    _scroller.fullCircleScale = 20.0;
+//    _scroller.stepScale = 1.0;
     _scroller.delegate = self;
 
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 

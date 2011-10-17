@@ -14,7 +14,7 @@
 #import "THPlaceName.h"
 #import "PropertySettingsVC.h"
 #import "TallyHomeConstants.h"
-#import "ScrollWheel.h"
+#import "Rotor.h"
 #import "InfoViewController.h"
 #import "TickingValueLabel.h"
 #import <QuartzCore/QuartzCore.h>
@@ -24,7 +24,7 @@
 //#define TH_LAST_RGB_STEP_IX 20
 
 
-@interface ScrollingTallyDetailVC : TallyDetailVC <ScrollWheelDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
+@interface ScrollingTallyDetailVC : TallyDetailVC <RotorDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
     
     UIImageView *_helpStepOneView, *_helpStepTwoView, *_helpStepThreeView;
     
@@ -33,7 +33,7 @@
     TickingValueLabel *_currentValueLbl;
     UILabel *_currentValueRefreshingLbl;
     UILabel *_commentLbl;
-    ScrollWheel *_scroller;
+    Rotor *_scroller;
     UIToolbar *_bottomToolbar;                                               
     UIBarButtonItem *_infoButton;
     UILabel *_statusLabel;
@@ -71,7 +71,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *commentLabel;
 @property (nonatomic, retain) IBOutlet UIView *backgroundRect;
-@property (nonatomic, retain) IBOutlet ScrollWheel *scroller;
+@property (nonatomic, retain) IBOutlet Rotor *scroller;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepOneView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepTwoView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepThreeView;
