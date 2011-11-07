@@ -14,7 +14,7 @@
 #import "THPlaceName.h"
 #import "PropertySettingsVC.h"
 #import "TallyHomeConstants.h"
-#import "Rotor.h"
+#import "ArrowScroller.h"
 #import "InfoViewController.h"
 #import "TickingValueLabel.h"
 #import <QuartzCore/QuartzCore.h>
@@ -24,16 +24,18 @@
 //#define TH_LAST_RGB_STEP_IX 20
 
 
-@interface ScrollingTallyDetailVC : TallyDetailVC <RotorDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
+@interface ScrollingTallyDetailVC : TallyDetailVC <ArrowScrollerDelegate, PropertySettingsDelegate, InfoViewControllerDelegate, NSCoding> {
     
     UIImageView *_helpStepOneView, *_helpStepTwoView, *_helpStepThreeView;
     
-    UIView *_backgroundRect;
+//    UIView *_backgroundRect;
     UILabel *_currentDateLbl;
     TickingValueLabel *_currentValueLbl;
     UILabel *_currentValueRefreshingLbl;
     UILabel *_commentLbl;
-    Rotor *_scroller;
+    ArrowScroller *_forwardScroller;
+    ArrowScroller *_backwardScroller;
+    
     UIToolbar *_bottomToolbar;                                               
     UIBarButtonItem *_infoButton;
     UILabel *_statusLabel;
@@ -70,8 +72,11 @@
 @property (nonatomic, retain) IBOutlet UILabel *currentValueRefreshingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *commentLabel;
-@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
-@property (nonatomic, retain) IBOutlet Rotor *scroller;
+//@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
+@property (nonatomic, retain) IBOutlet ArrowScroller *forwardScroller;
+@property (retain, nonatomic) IBOutlet UIImageView *topRightArrow;
+@property (nonatomic, retain) IBOutlet ArrowScroller *backwardScroller;
+@property (retain, nonatomic) IBOutlet UIImageView *bottomLeftArrow;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepOneView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepTwoView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepThreeView;
@@ -87,6 +92,8 @@
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 @property (nonatomic, retain) THDateVal *displayedValue;
 @property (nonatomic, retain) THDateVal *nowValue, *nowValueToEncode;
+
+- (IBAction)nowButtonTouchUpInside:(id)sender;
 
 
 @end

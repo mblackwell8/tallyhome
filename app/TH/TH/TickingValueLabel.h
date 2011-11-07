@@ -7,17 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlipLabel.h"
 
 @interface TickingValueLabel : UIView {
     NSNumberFormatter *_valueFormatter;
     double _value;
-    NSString *_valueStr;
+//    NSString *_valueStr;
+    UILabel *_dollarLabel;
     UIFont *_font;
     UIColor *_textColor;
     
-    NSMutableArray *_centLabels;
+    FlipLabel *_tenCentLabel, *_centLabel;
 }
 
+@property (nonatomic, retain) UILabel *dollarLabel;
 @property (nonatomic, assign) double value;
 @property (nonatomic, assign) UIFont *font;
 @property (nonatomic, assign) UIColor *textColor;

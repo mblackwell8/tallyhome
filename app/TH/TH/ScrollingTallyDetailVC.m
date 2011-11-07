@@ -63,13 +63,16 @@
 @synthesize displayedData = _displayedData;
 @synthesize currentValueLabel = _currentValueLbl;
 @synthesize currentValueRefreshingLabel = _currentValueRefreshingLbl;
-@synthesize scroller = _scroller;
+@synthesize forwardScroller = _forwardScroller;
+@synthesize topRightArrow = _topRightArrow;
+@synthesize backwardScroller = _backwardScroller;
+@synthesize bottomLeftArrow = _bottomLeftArrow;
 @synthesize displayedValue = _displayedValue;
 @synthesize nowValue = _nowValue;
 @synthesize nowValueToEncode = _nowValueToEncode;
 @synthesize currentDateLabel = _currentDateLbl;
 @synthesize commentLabel = _commentLbl;
-@synthesize backgroundRect = _backgroundRect;
+//@synthesize backgroundRect = _backgroundRect;
 @synthesize valueFormatter = _valueFormatter;
 @synthesize commentValueFormatter = _commentValueFormatter;
 @synthesize updateWorkerErrorMessage = _updateWorkerErrorMessage;
@@ -162,12 +165,13 @@
     [_helpStepOneView release];
     [_helpStepTwoView release];
     [_helpStepThreeView release];
-    [_backgroundRect release];
+//    [_backgroundRect release];
     [_currentDateLbl release];
     [_currentValueLbl release];
     [_currentValueRefreshingLbl release];
     [_commentLbl release];
-    [_scroller release];
+    [_forwardScroller release];
+    [_backwardScroller release];
     [_bottomToolbar release];
     [_infoButton release];
     [_statusLabel release];
@@ -189,11 +193,13 @@
     [_pricePath release];
     [_displayedData release];
     
+    [_topRightArrow release];
+    [_bottomLeftArrow release];
     [super dealloc];
 }
 
 - (void)updateCurrentValueAuto {
-    if (_scroller.isRotating) {
+    if (_forwardScroller.isScrolling || _backwardScroller.isScrolling) {
         DLog(@"Cannot update current value right now. Ignoring");
         return;
     }
@@ -217,6 +223,7 @@
     _currentValueRefreshingLbl.hidden = YES;
     _currentValueLbl.hidden = NO;
     self.displayedValue = [_displayedData calcValueAt:date];
+    
 //    NSString *valueText = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:_displayedValue.val]];
 //    _currentValueRefreshingLbl.text = valueText;
     _currentValueLbl.value = _displayedValue.val;
@@ -251,11 +258,9 @@
     }
 }
 
-#pragma ScrollWheelDelegate
+#pragma ArrowScrollerDelegate
 
-//@required
-
-- (void)rotor:(Rotor *)rotor didRotate:(NSInteger)years { 
+- (void)arrowScroller:(ArrowScroller *)scroller didScroll:(NSInteger)years {
     if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
@@ -264,55 +269,59 @@
     _isHelpStepTwoDone = YES;
     _helpStepTwoView.hidden = YES;
     
+    if (scroller == _backwardScroller) {
+        years *= -1;
+    }
+    
     DLog(@"scrolling %d years", years);
     [self setDisplayedDateValueTo:[_displayedValue.date addDays:years * 365]];
 }
-- (NSUInteger)numberOfSectionsForRotor:(Rotor *)rotor {
-    return 8;
-}
-- (NSString *)labelForSectionNumber:(NSUInteger)section {
-    //HACK: temporary hack
-    return [NSString stringWithFormat:@"%d", (2011 - 4) + section];
-}
-//- (void)scrollWheelButtonPressed:(ScrollWheel *)sw {
-//    if (_isUpdatingPricePath) {
-//        DLog(@"Cannot use price path data. Ignoring");
-//        return;
-//    }
-//    
-//    _isHelpStepThreeDone = YES;
-//    _helpStepThreeView.hidden = YES;
-//    
-//    [self setDisplayedDateValueTo:[NSDate date]];
-//}
-//
-////@optional
-//- (void)scrollWheelRightTap:(ScrollWheel *)sw {
-//    if (_isUpdatingPricePath) {
-//        DLog(@"Cannot use price path data. Ignoring");
-//        return;
-//    }
-//    
-//    _isHelpStepTwoDone = YES;
-//    _helpStepTwoView.hidden = YES;
-//    
-//    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
-//}
-//
-//- (void)scrollWheelLeftTap:(ScrollWheel *)sw {
-//    if (_isUpdatingPricePath) {
-//        DLog(@"Cannot use price path data. Ignoring");
-//        return;
-//    }
-//    
-//    _isHelpStepTwoDone = YES;
-//    _helpStepTwoView.hidden = YES;
-//    
-//    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
-//}
 
-//@end
+- (void)arrowScrollerTapped:(ArrowScroller *)scroller {
+    if (_isUpdatingPricePath) {
+        DLog(@"Cannot use price path data. Ignoring");
+        return;
+    }
+    
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    anim.duration = 0.125;
+    anim.repeatCount = 1;
+    anim.autoreverses = YES;
+    anim.removedOnCompletion = YES;
+    
+    
+    if (scroller == _forwardScroller) {
+        anim.toValue = [NSValue valueWithCATransform3D:
+                        CATransform3DScale(_topRightArrow.layer.transform, 1.2, 1.2, 1.0)];
+        [_topRightArrow.layer addAnimation:anim forKey:nil];
+        
+        [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+    }
+    else {
+        anim.toValue = [NSValue valueWithCATransform3D:
+                        CATransform3DScale(_bottomLeftArrow.layer.transform, 1.2, 1.2, 1.0)];
+        
+        [_bottomLeftArrow.layer addAnimation:anim forKey:nil];
+        
+        [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
+    }
+}
 
+- (IBAction)nowButtonTouchUpInside:(id)sender {
+    if (_isUpdatingPricePath) {
+        DLog(@"Cannot use price path data. Ignoring");
+        return;
+    }
+    
+    _isHelpStepThreeDone = YES;
+    _helpStepThreeView.hidden = YES;
+    
+    [self setDisplayedDateValueTo:[NSDate date]];
+}
 
 #pragma mark TallyDetailVC
 
@@ -527,7 +536,7 @@
         
 //    _scroller.fullCircleScale = 20.0;
 //    _scroller.stepScale = 1.0;
-    _scroller.delegate = self;
+//    _scroller.delegate = self;
 
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 
     [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -544,11 +553,26 @@
     self.commentValueFormatter = nf;
     [nf release];
     
-    _backgroundRect.backgroundColor = [UIColor colorWithRed:10.0/255.0 
-                                                      green:68.0/255.0 
-                                                       blue:151.0/255.0 
-                                                      alpha:1.0];
-    _backgroundRect.layer.cornerRadius = 5.0;
+//    _backgroundRect.backgroundColor = [UIColor colorWithRed:10.0/255.0 
+//                                                      green:68.0/255.0 
+//                                                       blue:151.0/255.0 
+//                                                      alpha:1.0];
+//    _backgroundRect.layer.cornerRadius = 5.0;
+    
+    _forwardScroller.scrollDirection = ArrowScrollDirectionRight;
+    _forwardScroller.delegate = self;
+    _forwardScroller.fullScale = 10.0;
+    _forwardScroller.stepScale = 1.0;
+    _backwardScroller.scrollDirection = ArrowScrollDirectionLeft;
+    _backwardScroller.delegate = self;
+    _backwardScroller.fullScale = 10.0;
+    _backwardScroller.stepScale = 1.0;
+    
+    _currentValueLbl.font = [UIFont fontWithName:@"Futura-Medium" size:40.0];
+    _currentValueLbl.textColor = [UIColor colorWithRed:0.0 green:146.0 blue:200.0 alpha:1.0];
+    
+    _bottomLeftArrow.transform = CGAffineTransformMakeRotation(M_PI);
+    
     
 #ifdef DEBUG__avoidForNow
     _helpStepOneView.hidden = NO;
@@ -616,16 +640,19 @@
     [self setStatusLabel:nil];
     [self setBottomToolbar:nil];
     
-    self.scroller = nil;
+    self.forwardScroller = nil;
+    self.backwardScroller = nil;
     self.infoButton = nil;
     self.refreshButton = nil;
     self.waitingForDataIndicator = nil;
-    self.backgroundRect = nil;
+//    self.backgroundRect = nil;
     self.currentValueLabel = nil;
     self.currentValueRefreshingLabel = nil;
     self.currentDateLabel = nil;
     self.commentLabel = nil;
     
+    [self setTopRightArrow:nil];
+    [self setBottomLeftArrow:nil];
     [super viewDidUnload];
     
 }
@@ -674,8 +701,6 @@
     
     [self performSelectorInBackground:@selector(updatePricePathWorker) withObject:nil];
 }
-
-
 
 - (void)updatePricePathWorker {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -808,5 +833,4 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }     
      
-
 @end

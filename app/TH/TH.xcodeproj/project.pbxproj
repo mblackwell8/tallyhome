@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F0B5163143DBD3F00D1B1A9 /* DoubleSidedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */; };
-		8F0B5166144A816D00D1B1A9 /* Rotor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B5165144A816D00D1B1A9 /* Rotor.m */; };
 		8F0DB41E141F084600023D8E /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB41D141F084600023D8E /* InfoViewController.m */; };
 		8F0DB420141F0F4D00023D8E /* InfoButtonText.html in Resources */ = {isa = PBXBuildFile; fileRef = 8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */; };
 		8F0DB423141F174400023D8E /* TableSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0DB422141F174400023D8E /* TableSelectorVC.m */; };
@@ -38,7 +36,6 @@
 		8F3E6689141C91D200712C42 /* PropertySettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E667B141C91D200712C42 /* PropertySettingsVC.m */; };
 		8F3E668A141C91D200712C42 /* ScrollingTallyDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E667C141C91D200712C42 /* ScrollingTallyDetailVC.xib */; };
 		8F3E668B141C91D200712C42 /* ScrollingTallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */; };
-		8F3E668C141C91D200712C42 /* ScrollWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E6680141C91D200712C42 /* ScrollWheel.m */; };
 		8F3E668D141C91D200712C42 /* SplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E6682141C91D200712C42 /* SplashView.m */; };
 		8F3E668E141C91D200712C42 /* TallyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E6684141C91D200712C42 /* TallyDetailVC.m */; };
 		8F3E668F141C91D200712C42 /* TextEntryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E6687141C91D200712C42 /* TextEntryVC.m */; };
@@ -46,9 +43,14 @@
 		8F3E6698141C994400712C42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E6697141C994400712C42 /* QuartzCore.framework */; };
 		8F3E66A4141CCA4000712C42 /* TallyVCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E66A3141CCA4000712C42 /* TallyVCArray.m */; };
 		8F53B67B144ADB1900992D48 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B67A144ADB1900992D48 /* notes */; };
+		8F53B72B1456B9B100992D48 /* ArrowScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F53B72A1456B9B100992D48 /* ArrowScroller.m */; };
+		8F53B76014581BCC00992D48 /* FlipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F53B75F14581BCC00992D48 /* FlipLabel.m */; };
+		8F53B766145C090E00992D48 /* Flipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F53B765145C090E00992D48 /* Flipper.m */; };
+		8F53B76914629C6900992D48 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76714629C6900992D48 /* background@2x.png */; };
+		8F53B76A14629C6900992D48 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76814629C6900992D48 /* Default@2x.png */; };
+		8F53B76C14662C9900992D48 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76B14662C9900992D48 /* arrow@2x.png */; };
 		8F5FA716142A0BBE00FB3A52 /* TickingValueLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */; };
 		8F5FA722142A2A7600FB3A52 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA71E142A2A7600FB3A52 /* background.png */; };
-		8F5FA723142A2A7600FB3A52 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA71F142A2A7600FB3A52 /* background@2x.png */; };
 		8F5FA729142A2A9D00FB3A52 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA727142A2A9D00FB3A52 /* icon@2x.png */; };
 		8F5FA72B142B666200FB3A52 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA72A142B666200FB3A52 /* icon.png */; };
 		8F5FA73D142D8FBB00FB3A52 /* THPlaceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5FA73C142D8FBB00FB3A52 /* THPlaceName.m */; };
@@ -69,7 +71,6 @@
 		8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */; };
 		8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD23201424CF690097DE52 /* SystemConfiguration.framework */; };
 		8FE109B31431F6D900A48B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109B11431F6D900A48B0B /* Default.png */; };
-		8FE109B41431F6D900A48B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109B21431F6D900A48B0B /* Default@2x.png */; };
 		8FE109B7143348C800A48B0B /* THLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE109B6143348C800A48B0B /* THLocator.m */; };
 /* End PBXBuildFile section */
 
@@ -84,10 +85,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8F0B5161143DBD3F00D1B1A9 /* DoubleSidedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleSidedLabel.h; sourceTree = "<group>"; };
-		8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleSidedLabel.m; sourceTree = "<group>"; };
-		8F0B5164144A816C00D1B1A9 /* Rotor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotor.h; sourceTree = "<group>"; };
-		8F0B5165144A816D00D1B1A9 /* Rotor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rotor.m; sourceTree = "<group>"; };
 		8F0DB41C141F084600023D8E /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		8F0DB41D141F084600023D8E /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		8F0DB41F141F0F4D00023D8E /* InfoButtonText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoButtonText.html; sourceTree = "<group>"; };
@@ -132,8 +129,6 @@
 		8F3E667C141C91D200712C42 /* ScrollingTallyDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollingTallyDetailVC.xib; sourceTree = "<group>"; };
 		8F3E667D141C91D200712C42 /* ScrollingTallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTallyDetailVC.h; sourceTree = "<group>"; };
 		8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTallyDetailVC.m; sourceTree = "<group>"; };
-		8F3E667F141C91D200712C42 /* ScrollWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollWheel.h; sourceTree = "<group>"; };
-		8F3E6680141C91D200712C42 /* ScrollWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollWheel.m; sourceTree = "<group>"; };
 		8F3E6681141C91D200712C42 /* SplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashView.h; sourceTree = "<group>"; };
 		8F3E6682141C91D200712C42 /* SplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashView.m; sourceTree = "<group>"; };
 		8F3E6683141C91D200712C42 /* TallyDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyDetailVC.h; sourceTree = "<group>"; };
@@ -147,10 +142,18 @@
 		8F3E66A2141CCA4000712C42 /* TallyVCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TallyVCArray.h; sourceTree = "<group>"; };
 		8F3E66A3141CCA4000712C42 /* TallyVCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TallyVCArray.m; sourceTree = "<group>"; };
 		8F53B67A144ADB1900992D48 /* notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
+		8F53B7291456B9B000992D48 /* ArrowScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowScroller.h; sourceTree = "<group>"; };
+		8F53B72A1456B9B100992D48 /* ArrowScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowScroller.m; sourceTree = "<group>"; };
+		8F53B75E14581BCB00992D48 /* FlipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipLabel.h; sourceTree = "<group>"; };
+		8F53B75F14581BCC00992D48 /* FlipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipLabel.m; sourceTree = "<group>"; };
+		8F53B764145C090E00992D48 /* Flipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flipper.h; sourceTree = "<group>"; };
+		8F53B765145C090E00992D48 /* Flipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flipper.m; sourceTree = "<group>"; };
+		8F53B76714629C6900992D48 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		8F53B76814629C6900992D48 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		8F53B76B14662C9900992D48 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		8F5FA714142A0BBE00FB3A52 /* TickingValueLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickingValueLabel.h; sourceTree = "<group>"; };
 		8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickingValueLabel.m; sourceTree = "<group>"; };
 		8F5FA71E142A2A7600FB3A52 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		8F5FA71F142A2A7600FB3A52 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		8F5FA727142A2A9D00FB3A52 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		8F5FA72A142B666200FB3A52 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
 		8F5FA73B142D8FBB00FB3A52 /* THPlaceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPlaceName.h; sourceTree = "<group>"; };
@@ -174,7 +177,6 @@
 		8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AustraliaIndex.xml; sourceTree = "<group>"; };
 		8FCD23201424CF690097DE52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FE109B11431F6D900A48B0B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		8FE109B21431F6D900A48B0B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		8FE109B5143348C800A48B0B /* THLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLocator.h; sourceTree = "<group>"; };
 		8FE109B6143348C800A48B0B /* THLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLocator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,8 +258,10 @@
 		8F3E6631141C8F1400712C42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8F53B76B14662C9900992D48 /* arrow@2x.png */,
+				8F53B76714629C6900992D48 /* background@2x.png */,
+				8F53B76814629C6900992D48 /* Default@2x.png */,
 				8FE109B11431F6D900A48B0B /* Default.png */,
-				8FE109B21431F6D900A48B0B /* Default@2x.png */,
 				8FB5D375142F4D380035B15B /* PlaceNames_Oz.csv */,
 				8F5FA73E142D95F400FB3A52 /* PlaceNames.csv */,
 				8FB5D36F142F44730035B15B /* HelpBubble1@2x.png */,
@@ -270,7 +274,6 @@
 				8F5FA72A142B666200FB3A52 /* icon.png */,
 				8F5FA727142A2A9D00FB3A52 /* icon@2x.png */,
 				8F5FA71E142A2A7600FB3A52 /* background.png */,
-				8F5FA71F142A2A7600FB3A52 /* background@2x.png */,
 				8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */,
 				8F3E6690141C926F00712C42 /* AppDefaults.plist */,
 				8F3E6632141C8F1400712C42 /* TH-Info.plist */,
@@ -310,10 +313,8 @@
 				8F3E667C141C91D200712C42 /* ScrollingTallyDetailVC.xib */,
 				8F3E667D141C91D200712C42 /* ScrollingTallyDetailVC.h */,
 				8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */,
-				8F3E667F141C91D200712C42 /* ScrollWheel.h */,
-				8F3E6680141C91D200712C42 /* ScrollWheel.m */,
-				8F0B5164144A816C00D1B1A9 /* Rotor.h */,
-				8F0B5165144A816D00D1B1A9 /* Rotor.m */,
+				8F53B7291456B9B000992D48 /* ArrowScroller.h */,
+				8F53B72A1456B9B100992D48 /* ArrowScroller.m */,
 				8F3E667A141C91D200712C42 /* PropertySettingsVC.h */,
 				8F3E667B141C91D200712C42 /* PropertySettingsVC.m */,
 				8F3E6678141C91D200712C42 /* DateSelectorVC.h */,
@@ -342,8 +343,10 @@
 				8F0DB41D141F084600023D8E /* InfoViewController.m */,
 				8F5FA714142A0BBE00FB3A52 /* TickingValueLabel.h */,
 				8F5FA715142A0BBE00FB3A52 /* TickingValueLabel.m */,
-				8F0B5161143DBD3F00D1B1A9 /* DoubleSidedLabel.h */,
-				8F0B5162143DBD3F00D1B1A9 /* DoubleSidedLabel.m */,
+				8F53B75E14581BCB00992D48 /* FlipLabel.h */,
+				8F53B75F14581BCC00992D48 /* FlipLabel.m */,
+				8F53B764145C090E00992D48 /* Flipper.h */,
+				8F53B765145C090E00992D48 /* Flipper.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -449,7 +452,6 @@
 				8F0DB420141F0F4D00023D8E /* InfoButtonText.html in Resources */,
 				8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */,
 				8F5FA722142A2A7600FB3A52 /* background.png in Resources */,
-				8F5FA723142A2A7600FB3A52 /* background@2x.png in Resources */,
 				8F5FA729142A2A9D00FB3A52 /* icon@2x.png in Resources */,
 				8F5FA72B142B666200FB3A52 /* icon.png in Resources */,
 				8F5FA73F142D95F400FB3A52 /* PlaceNames.csv in Resources */,
@@ -463,8 +465,10 @@
 				8FB5D374142F44740035B15B /* HelpBubble3@2x.png in Resources */,
 				8FB5D376142F4D380035B15B /* PlaceNames_Oz.csv in Resources */,
 				8FE109B31431F6D900A48B0B /* Default.png in Resources */,
-				8FE109B41431F6D900A48B0B /* Default@2x.png in Resources */,
 				8F53B67B144ADB1900992D48 /* notes in Resources */,
+				8F53B76914629C6900992D48 /* background@2x.png in Resources */,
+				8F53B76A14629C6900992D48 /* Default@2x.png in Resources */,
+				8F53B76C14662C9900992D48 /* arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,7 +516,6 @@
 				8F3E6688141C91D200712C42 /* DateSelectorVC.m in Sources */,
 				8F3E6689141C91D200712C42 /* PropertySettingsVC.m in Sources */,
 				8F3E668B141C91D200712C42 /* ScrollingTallyDetailVC.m in Sources */,
-				8F3E668C141C91D200712C42 /* ScrollWheel.m in Sources */,
 				8F3E668D141C91D200712C42 /* SplashView.m in Sources */,
 				8F3E668E141C91D200712C42 /* TallyDetailVC.m in Sources */,
 				8F3E668F141C91D200712C42 /* TextEntryVC.m in Sources */,
@@ -524,8 +527,9 @@
 				8F5FA73D142D8FBB00FB3A52 /* THPlaceName.m in Sources */,
 				8FB5D35E142EF1140035B15B /* SearchSelectorVC.m in Sources */,
 				8FE109B7143348C800A48B0B /* THLocator.m in Sources */,
-				8F0B5163143DBD3F00D1B1A9 /* DoubleSidedLabel.m in Sources */,
-				8F0B5166144A816D00D1B1A9 /* Rotor.m in Sources */,
+				8F53B72B1456B9B100992D48 /* ArrowScroller.m in Sources */,
+				8F53B76014581BCC00992D48 /* FlipLabel.m in Sources */,
+				8F53B766145C090E00992D48 /* Flipper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,7 @@
     _radiansSinceLastStep = 0.0;
     _isRotating = NO;
     _shouldReload = YES;
+    _currentStep = 0;
     
     NSString *tockpath = [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] pathForResource:@"Tock" ofType:@"aiff"];
     AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:tockpath], &tockSoundID);
@@ -93,23 +94,28 @@
     
     // Calculate the angle between each label based on the number of labels.
     _nSteps = [_delegate numberOfSectionsForRotor:self];
-    CGFloat angleSize = 2.0 * M_PI / _nSteps;
     
     // Each label gets the exact same inital frame, 
     // but a different transform is applied to space them around the circle.
     for (int i = 0; i < _nSteps; ++i) {
-        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _halfWidth, 25.0f)];
-        sectionLabel.text = [_delegate labelForSectionNumber:i];;
+        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(_halfWidth, 0.0f, _halfWidth, 25.0f)];
+        
+        //want i = 0 to be the far right horizontal slot
+        NSAssert(_nSteps % 2 == 0, @"currently need _nSteps to be round");
+        NSInteger posnNumber = i - _nSteps / 2 + 1;
+        sectionLabel.text = [_delegate labelForSectionNumber:posnNumber];
+        sectionLabel.textAlignment = UITextAlignmentRight;
         sectionLabel.font = [UIFont systemFontOfSize:25.0];
         sectionLabel.textColor = [UIColor whiteColor];
         //sectionLabel.backgroundColor = [UIColor clearColor];
         sectionLabel.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.2f alpha:0.5f];
         
-        // anchor point on right middle...
-        sectionLabel.layer.anchorPoint = CGPointMake(1.0f, 0.5f);
+        // anchor point on left middle...
+        sectionLabel.layer.anchorPoint = CGPointMake(0.0f, 0.5f);
         // places anchorPoint of each label directly in the center of the circle.
         sectionLabel.layer.position = CGPointMake(_halfWidth, _halfHeight); 
-        sectionLabel.transform = CGAffineTransformMakeRotation(angleSize * i);
+        CGFloat angleSize = 2.0 * M_PI / _nSteps;
+        sectionLabel.transform = CGAffineTransformMakeRotation(angleSize * posnNumber * -1);
         [container addSubview:sectionLabel];
         [sectionLabel release];
     }
@@ -149,6 +155,10 @@
     //at the top, so stop the atan2 from flipping from +2pi to -2pi in that instance
     CGFloat adjY = (pt.y == _halfHeight ? -0.01 : pt.y - _halfHeight);
     return atan2f(adjY, pt.x - _halfWidth);
+}
+
+- (CGFloat)calcCurrentStep {
+    
 }
 
 
@@ -210,6 +220,7 @@
         CGFloat steps = _radiansSinceLastStep * _nSteps / (M_PI * 2.0);
         if (ABS(steps) >= 1.0) {
             [_delegate rotor:self didRotate:(NSInteger)steps];
+            _currentStep += (NSInteger)steps;
             AudioServicesPlaySystemSound(tockSoundID);
             _radiansSinceLastStep = 0.0;
         }
@@ -241,17 +252,19 @@
         CGFloat stepRadians = (M_PI * 2.0) / _nSteps;
         CGFloat currentRadians = atan2f(_wheel.transform.b, _wheel.transform.a);
         // _radiansSinceLastStep seems to suffer from rounding problems
-        CGFloat actStepNum = currentRadians / stepRadians;
-        CGFloat roundStepNum = round(actStepNum);
-        NSNumber *roundingSteps = [NSNumber numberWithInt:(int)(roundStepNum - (int)actStepNum)];
-//        if (roundStepNum > floor(actStepNum))
-//            roundingSteps = [NSNumber numberWithInt:1];
-//        else if (roundStepNum < floor(actStepNum))
-//            roundingSteps = [NSNumber numberWithInt:-1];
-//        else
-//            roundingSteps = [NSNumber numberWithInt:0];
         
-        [UIView beginAnimations:nil context:roundingSteps];
+        //need to adjust the angle depending on whether we crossed from -PI to PI
+        
+        CGFloat roundStepNum = round(currentRadians / stepRadians);
+        
+        //painfully (?) -1 % 8 = 7... not sure how this makes sense, but it is what it is
+        //happily -1 % -8 = -1, which is what I want
+        NSInteger currentStepNum = _currentStep % (_currentStep < 0 ? -_nSteps : _nSteps);
+        NSInteger steps = (int)roundStepNum - currentStepNum;
+        NSNumber *roundingSteps = [NSNumber numberWithInt:steps];
+        
+        //the context does not appear to be retained by the animation object?
+        [UIView beginAnimations:nil context:[roundingSteps retain]];
         [UIView setAnimationDuration:0.25];
         [UIView setAnimationDelegate:self];
         [UIView setAnimationDidStopSelector:@selector(wheelAnimationDidStop:finished:context:)];
@@ -267,6 +280,8 @@
 - (void)wheelAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     NSNumber *steps = (NSNumber *)context;
     [_delegate rotor:self didRotate:[steps integerValue]];
+    _currentStep += [steps integerValue];
+    [steps release];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {

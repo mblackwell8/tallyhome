@@ -56,6 +56,7 @@ typedef enum {
     BOOL _shouldReload;
     
     NSUInteger _nSteps;
+    NSInteger _currentStep;
     CGFloat _beginRadians, _radiansSinceLastStep;
     
     SystemSoundID tockSoundID;
