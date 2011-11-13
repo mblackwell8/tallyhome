@@ -138,7 +138,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DateCellIdentifier];
     if (cell == nil) 
     {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:DateCellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DateCellIdentifier] autorelease];
         cell.textLabel.font = [UIFont systemFontOfSize:17.0];
         cell.textLabel.textColor = [UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0];
     }

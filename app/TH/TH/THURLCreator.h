@@ -47,7 +47,8 @@
 @property (nonatomic, copy) NSString *tallyId;
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, retain) THPlaceName *location;
-@property int countryCode;
+@property (nonatomic, assign) int countryCode;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinates;
 //@property BOOL shouldLocate;
 @property (nonatomic, copy) NSDate *firstDate, *lastDate;
 

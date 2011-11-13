@@ -45,6 +45,8 @@
 - (void)infoButtonTapped:(id)sender;
 - (void)refreshButtonTapped:(id)sender;
 
+- (THPlaceName *)findPlaceNameOfCurrentLocation;
+
 @end
 
 @implementation ScrollingTallyDetailVC
@@ -59,13 +61,14 @@
 @synthesize bottomToolbar = _bottomToolbar;
 @synthesize propertyName = _propertyName;
 @synthesize pricePath = _pricePath;
-@synthesize location = _locationName;
+@synthesize placeName = _placeName;
+@synthesize location = _location;
 @synthesize displayedData = _displayedData;
 @synthesize currentValueLabel = _currentValueLbl;
 @synthesize currentValueRefreshingLabel = _currentValueRefreshingLbl;
 @synthesize forwardScroller = _forwardScroller;
-@synthesize topRightArrow = _topRightArrow;
 @synthesize backwardScroller = _backwardScroller;
+@synthesize topRightArrow = _topRightArrow;
 @synthesize bottomLeftArrow = _bottomLeftArrow;
 @synthesize displayedValue = _displayedValue;
 @synthesize nowValue = _nowValue;
@@ -84,7 +87,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _locationName = kDefaultLocation;
+        _placeName = kDefaultLocation;
         _propertyName = kDefaultPropertyName;
 
         _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
@@ -110,7 +113,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     DLog(@"Encoding ScrollingTallyDetailVC");
     [encoder encodeObject:GetTallyHomeVersionNum forKey:kVerNoCoding];
-    [encoder encodeObject:_locationName forKey:kLocation];
+    [encoder encodeObject:_placeName forKey:kLocation];
     [encoder encodeObject:_propertyName forKey:kPropertyName];
     [encoder encodeObject:_pricePath forKey:kPricePath];
     [encoder encodeBool:_isHelpStepOneDone forKey:kIsHelpStepOneDone];
@@ -132,7 +135,7 @@
     
     if ((self = [self init])) {
         DLog(@"Decoding ScrollingTallyDetailVC");
-        if (!(_locationName = [[decoder decodeObjectForKey:kLocation] retain])) {
+        if (!(_placeName = [[decoder decodeObjectForKey:kLocation] retain])) {
             _propertyName = kDefaultLocation;
         }
         if (!(_propertyName = [[decoder decodeObjectForKey:kPropertyName] retain])) {
@@ -165,7 +168,6 @@
     [_helpStepOneView release];
     [_helpStepTwoView release];
     [_helpStepThreeView release];
-//    [_backgroundRect release];
     [_currentDateLbl release];
     [_currentValueLbl release];
     [_currentValueRefreshingLbl release];
@@ -188,13 +190,15 @@
     [_nowValueToEncode release];
     [_lastNowValue release];
     
-    [_locationName release];
+    [_placeName release];
     [_propertyName release];
     [_pricePath release];
     [_displayedData release];
     
     [_topRightArrow release];
     [_bottomLeftArrow release];
+    [_bottomLeftArrow release];
+    [_topRightArrow release];
     [super dealloc];
 }
 
@@ -258,6 +262,38 @@
     }
 }
 
+- (THPlaceName *)findPlaceNameOfCurrentLocation {
+    // simple, inefficient implementation... for now... right mark?
+    CLLocation *currLocn = [[CLLocation alloc] initWithLatitude:_location.latitude longitude:_location.longitude];
+    
+    NSArray *placeNames = [THPlaceName sharedPlaceNames];
+    THPlaceName *closest = nil;
+    CLLocationDistance closestDist = 0.0;
+    for (THPlaceName *pn in placeNames) {
+        if (!pn.location)
+            continue;
+        
+        CLLocationDistance dist = [currLocn distanceFromLocation:pn.location];
+        if (dist >= 0 && (closest == nil || dist < closestDist)) {
+            closest = pn;
+            closestDist = dist;
+        }
+    }
+    
+    [currLocn release];
+    
+    // if more than 1000km away then disregard the city and state
+    if (closestDist > 1000000) {
+        closest = [[[THPlaceName alloc] initWithCity:@"" state:@"" country:closest.country] autorelease];
+    }
+    // if more than 100km away, then disregard the city
+    else if (closestDist > 100000) {
+        closest = [[[THPlaceName alloc] initWithCity:@"" state:closest.state country:closest.country] autorelease];
+    }
+                                   
+    return closest;
+}
+
 #pragma ArrowScrollerDelegate
 
 - (void)arrowScroller:(ArrowScroller *)scroller didScroll:(NSInteger)years {
@@ -278,6 +314,52 @@
 }
 
 - (void)arrowScrollerTapped:(ArrowScroller *)scroller {
+//    if (_isUpdatingPricePath) {
+//        DLog(@"Cannot use price path data. Ignoring");
+//        return;
+//    }
+//    
+//    _isHelpStepTwoDone = YES;
+//    _helpStepTwoView.hidden = YES;
+//    
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    anim.duration = 0.125;
+//    anim.repeatCount = 1;
+//    anim.autoreverses = YES;
+//    anim.removedOnCompletion = YES;
+//    
+//    
+//    if (scroller == _forwardScroller) {
+//        anim.toValue = [NSValue valueWithCATransform3D:
+//                        CATransform3DScale(_topRightArrow.layer.transform, 1.2, 1.2, 1.0)];
+//        [_topRightArrow.layer addAnimation:anim forKey:nil];
+//        
+//        [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+//    }
+//    else {
+//        anim.toValue = [NSValue valueWithCATransform3D:
+//                        CATransform3DScale(_bottomLeftArrow.layer.transform, 1.2, 1.2, 1.0)];
+//        
+//        [_bottomLeftArrow.layer addAnimation:anim forKey:nil];
+//        
+//        [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
+//    }
+}
+
+- (IBAction)rightArrowTouchUpInside:(id)sender {    
+    if (_isUpdatingPricePath) {
+        DLog(@"Cannot use price path data. Ignoring");
+        return;
+    }
+    
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
+        
+    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
+}
+
+- (IBAction)leftArrowTouchUpInside:(id)sender {
     if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
@@ -286,29 +368,7 @@
     _isHelpStepTwoDone = YES;
     _helpStepTwoView.hidden = YES;
     
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    anim.duration = 0.125;
-    anim.repeatCount = 1;
-    anim.autoreverses = YES;
-    anim.removedOnCompletion = YES;
-    
-    
-    if (scroller == _forwardScroller) {
-        anim.toValue = [NSValue valueWithCATransform3D:
-                        CATransform3DScale(_topRightArrow.layer.transform, 1.2, 1.2, 1.0)];
-        [_topRightArrow.layer addAnimation:anim forKey:nil];
-        
-        [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
-    }
-    else {
-        anim.toValue = [NSValue valueWithCATransform3D:
-                        CATransform3DScale(_bottomLeftArrow.layer.transform, 1.2, 1.2, 1.0)];
-        
-        [_bottomLeftArrow.layer addAnimation:anim forKey:nil];
-        
-        [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
-    }
+    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
 }
 
 - (IBAction)nowButtonTouchUpInside:(id)sender {
@@ -365,7 +425,7 @@
     propSettings.title = @"Settings";
     propSettings.delegate = self;
     propSettings.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    propSettings.location = _locationName;
+    propSettings.location = _placeName;
     propSettings.propertyName = _propertyName;
     propSettings.buyPrice = _pricePath.buyPrice;
     propSettings.sources = _pricePath.sources;
@@ -396,8 +456,8 @@
     BOOL reInit = NO;
     BOOL reMakePP = NO;
     BOOL recalcCurrentVal = NO;
-    if (![self.location isEqual:propSettings.location]) {
-        self.location = propSettings.location;
+    if (![self.placeName isEqual:propSettings.location]) {
+        self.placeName = propSettings.location;
         reInit = YES;
     }
     
@@ -573,6 +633,8 @@
     
     _bottomLeftArrow.transform = CGAffineTransformMakeRotation(M_PI);
     
+    if (!_placeName || [_placeName isEqual:kDefaultLocation])
+        self.placeName = [self findPlaceNameOfCurrentLocation];
     
 #ifdef DEBUG__avoidForNow
     _helpStepOneView.hidden = NO;
@@ -653,6 +715,8 @@
     
     [self setTopRightArrow:nil];
     [self setBottomLeftArrow:nil];
+    [self setBottomLeftArrow:nil];
+    [self setTopRightArrow:nil];
     [super viewDidUnload];
     
 }
@@ -730,7 +794,8 @@
         DLog(@"reinitializing _pricePath");
         THURLCreator *urlCreator = [[THURLCreator alloc] init];
         urlCreator.tallyId = @"HousePriceIx";
-        urlCreator.location = _locationName;
+        urlCreator.location = _placeName;
+        urlCreator.coordinates = _location;
         urlCreator.userId = [appD getUUID];
                     
         THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
@@ -753,7 +818,7 @@
         }
         else {
             self.updateWorkerErrorMessage = 
-                [NSString stringWithFormat:@"Tally Home does not have any data for the '%@', '%@' in '%@'\n\nPlease try again", _locationName.city, _locationName.state, _locationName.country];
+                [NSString stringWithFormat:@"Tally Home does not have any data for the '%@', '%@' in '%@'\n\nPlease try again", _placeName.city, _placeName.state, _placeName.country];
         }
         
         [newPP release];
@@ -833,4 +898,5 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }     
      
+
 @end

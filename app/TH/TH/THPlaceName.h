@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface THPlaceName : NSObject <NSCoding> {
+@interface THPlaceName : NSObject <NSCoding, NSCopying> {
     NSString *_city, *_state, *_country;
+    CLLocation* _location;
 }
 
 @property (nonatomic, retain, readonly) NSString *city, *state, *country;
+@property (nonatomic, retain) CLLocation *location;
 
 - (id)initWithCity:(NSString *)city state:(NSString *)state country:(NSString *)country;
 - (BOOL)hasOneOrMoreNamesMatching:(NSString *)place;

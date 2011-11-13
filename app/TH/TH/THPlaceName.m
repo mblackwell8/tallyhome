@@ -21,10 +21,22 @@
         NSArray *parts = [line componentsSeparatedByString:@","];
         // has city, state, country, latlon
         if (parts.count >= 3) {
-            THPlaceName *pn = [[THPlaceName alloc] initWithCity:[[parts objectAtIndex:0]
-                                                                 stringByReplacingOccurrencesOfString:@"\"" withString:@""] 
-                                                          state:[[parts objectAtIndex:1] stringByReplacingOccurrencesOfString:@"\"" withString:@""]
-                                                        country:[[parts objectAtIndex:2] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+            THPlaceName *pn = [[THPlaceName alloc] initWithCity:[parts objectAtIndex:0]
+                                                          state:[parts objectAtIndex:1]
+                                                        country:[parts objectAtIndex:2]];
+            if (parts.count > 3) {
+                // -33.8667;151.2000
+                NSArray *locnParts = [[parts objectAtIndex:3] componentsSeparatedByString:@";"];
+                
+                if (locnParts.count == 2) {
+                    CLLocationDegrees lat = [[locnParts objectAtIndex:0] doubleValue];
+                    CLLocationDegrees lon = [[locnParts objectAtIndex:1] doubleValue];
+                    CLLocation *locn = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+                    pn.location = locn;
+                    [locn release];
+                }
+            }
+            
             [placeNames addObject:pn];
             [pn release];
         }
@@ -52,6 +64,7 @@ static NSArray *placeNamesFromFile;
 
 
 @synthesize city = _city, state = _state, country = _country;
+@synthesize location = _location;
 
 
 - (id)initWithCity:(NSString *)city state:(NSString *)state country:(NSString *)country {
@@ -96,7 +109,6 @@ static NSArray *placeNamesFromFile;
     THPlaceName *copy = [[THPlaceName allocWithZone:zone] initWithCity:self.city 
                                                                  state:self.state 
                                                                country:self.country];
-    //don't copy first, last or ix... these are mutable
     return copy;
 }
 
@@ -157,7 +169,6 @@ static NSArray *placeNamesFromFile;
     
     return @"Unknown";
 }
-
 
 - (BOOL)isEqual:(id)other{
     if (other == self)

@@ -42,7 +42,7 @@
 
 @synthesize xmlCurrentIxName = _xmlCurrentIxName, xmlCurrentIxProx = _xmlCurrentIxProx, xmlCurrentIxSource = _xmlCurrentIxSource, xmlIndices = _xmlIndices, xmlAveragePrice = _xmlAveragePrice, xmlDateFormatter = _xmlDateFormatter, lastServerUpdate = _lastServerUpdate;
 
-- (id) init {
+- (id)init {
     if ((self = [super init])) {
         sources = THHomePriceIndexSourceAllKnown;
         proximities = THHomePriceIndexProximityAllKnown;
@@ -67,7 +67,7 @@
     NSDate *lstUpdate = [decoder decodeObjectForKey:kLastUpdate];
     
     if ((self = [super init])) {
-        _serieses = [s retain];
+        _serieses = [[NSMutableArray alloc] initWithArray:s];
         _buyPrice = [dv retain];
         sources = srcs;
         proximities = proxs;
@@ -85,7 +85,7 @@
     [encoder encodeObject:_lastServerUpdate forKey:kLastUpdate];
 }
 
-- (id) initWithXmlString:(NSString *)xml {
+- (id)initWithXmlString:(NSString *)xml {
     if ((self = [self init])) {
     
         NSData* data = [xml dataUsingEncoding:NSUTF8StringEncoding];
@@ -107,7 +107,7 @@
     return self;
 }
 
-- (id) initWithURL:(NSURL *)url {
+- (id)initWithURL:(NSURL *)url {
     if ((self = [self init])) {
         
         DLog(@"Commencing XML parse from %@", url);
@@ -130,7 +130,7 @@
     return self;
 }
 
-- (void) dealloc {
+- (void)dealloc {
     [_serieses release];
     [_buyPrice release];
     [_xmlDateFormatter release];

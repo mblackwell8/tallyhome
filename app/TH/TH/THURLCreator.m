@@ -13,7 +13,7 @@
 @implementation THURLCreator
 
 @synthesize tallyId = _tallyId, userId = _userId, location = _location, countryCode, 
-    firstDate = _firstDt, lastDate = _lastDt;
+    firstDate = _firstDt, lastDate = _lastDt, coordinates = _coordinate;
 
 - (id) init {
     if ((self = [super init])) {

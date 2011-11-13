@@ -15,7 +15,7 @@
 
 @property (nonatomic, assign) UIFont *font;
 @property (nonatomic, assign) UIColor *textColor;
-//@property (nonatomic, retain, readonly) UILabel *visibleLabel, *nextLabel;
+@property (nonatomic, assign) UIColor *highlightColor;
 @property (nonatomic, assign) NSUInteger digit;
 
 - (void)flipForwardTo:(NSUInteger)digit withAnimation:(BOOL)animated;

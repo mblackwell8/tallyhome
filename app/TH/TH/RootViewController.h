@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TallyVCArray.h"
+#import <CoreLocation/CoreLocation.h>
 
 @class  TallyDetailVC;
 
-@interface RootViewController : UITableViewController {    
+@interface RootViewController : UITableViewController <CLLocationManagerDelegate> {    
     TallyVCArray *_tallies;
     TallyDetailVC *_activeTally;
 }

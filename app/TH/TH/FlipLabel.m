@@ -12,14 +12,13 @@
 
 @interface FlipLabel ()
 
+@property (nonatomic, retain) UILabel *visibleLabel;
 @property (nonatomic, retain) NSMutableArray *bottomHalves, *topHalves;
 @property (nonatomic, retain) NSArray *flips;
 
 - (void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
 
 - (void)createFlipImages;
-- (void)incrementDigit;
-- (void)decrementDigit;
 
 - (void)flipForwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration;
 - (void)flipBackwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration;
@@ -31,9 +30,10 @@
 static const int kFlipImagesTag = 99;
 static const double kAnimationDuration = 0.5;
 
-@synthesize font = _font, textColor = _textColor;
+@synthesize font = _font, textColor = _textColor, highlightColor = _highlightColor;
 @synthesize bottomHalves = _bottomHalves, topHalves = _topHalves, flips = _flips;
 @synthesize digit = _digit;
+@synthesize visibleLabel = _visibleLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -50,31 +50,27 @@ static const double kAnimationDuration = 0.5;
     [_bottomHalves release];
     [_topHalves release];
     [_flips release];
+    [_visibleLabel release];
 }
 
 - (void)reload {
     _shouldReload = YES;
-    [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 - (void)setDigit:(NSUInteger)digit {
     [self flipForwardTo:digit withAnimation:NO];
-    
+    _visibleLabel.text = [NSString stringWithFormat:@"%d", digit];
     _digit = digit;
-}
-
-- (void)incrementDigit {
-    _digit = (_digit == 9 ? 0 : _digit + 1);
-}
-- (void)decrementDigit {
-    _digit = (_digit == 0 ? 9 : _digit - 1);
 }
 
 - (void)layoutSubviews {
     if (!_shouldReload)
         return;
     
+    NSUInteger digit = _digit;
     [self createFlipImages];
+    self.digit = digit;
     
     _shouldReload = NO;
 }
@@ -93,11 +89,11 @@ static const double kAnimationDuration = 0.5;
 - (void)createFlipImages {
     CGRect frame = self.frame;
     CGSize flipSz = CGSizeMake(frame.size.width, frame.size.height / 2.0);
-    UILabel *sample = [[UILabel alloc] initWithFrame:frame];
+    UILabel *sample = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height)];
     sample.font = _font;
     sample.numberOfLines = 1;
     sample.minimumFontSize = _font.pointSize;
-    sample.textColor = _textColor;
+    sample.textColor = _highlightColor;
     sample.backgroundColor = [UIColor clearColor];
     
     NSMutableArray *bottoms = [[NSMutableArray alloc] initWithCapacity:10];
@@ -162,8 +158,17 @@ static const double kAnimationDuration = 0.5;
     [_bottomHalves makeObjectsPerformSelector:@selector(flipForward)];
         
     self.flips = [NSArray arrayWithArray:flips];
+    
+    self.visibleLabel = sample;
+    _visibleLabel.textColor = _textColor;
+    _visibleLabel.text = [NSString stringWithFormat:@"%d", 0];
+    
+    //needs to be in front of the flipper
+    _visibleLabel.layer.zPosition = 0.0015;
+    [self addSubview:_visibleLabel];
     _digit = 0;
     
+    [sample release];
     [bottoms release];
     [tops release];
     [flips release];
@@ -207,32 +212,49 @@ static const double kAnimationDuration = 0.5;
 
 - (void)flipForwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration {
     DLog(@"FWD flipping from %d to %d", _digit, (_digit == 9 ? 0 : _digit + 1));
+        
+    _visibleLabel.hidden = YES;
     
     //take the front most of the topHalves
     Flipper *flipView = [_topHalves objectAtIndex:0];
     [self bringSubviewToFront:flipView];
     
-    [self incrementDigit];
+    if (animated) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(flipAnimationDidStop:finished:context:)];
+        [UIView setAnimationDuration:duration];
+    }
     
-    //flip the flipper
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:duration];
-    
+    _digit = (_digit == 9 ? 0 : _digit + 1);
     [flipView flipForward];
     
-    [UIView commitAnimations];
+    if (animated) {
+        [UIView commitAnimations];
+    }
     
-    [_bottomHalves addObject:flipView];
     [_topHalves removeObject:flipView];
+    [_bottomHalves addObject:flipView];
     
     Flipper *backFlipView = [_bottomHalves objectAtIndex:0];
     [self sendSubviewToBack:backFlipView];
     [backFlipView flipBackward];
     [_topHalves addObject:backFlipView];
     [_bottomHalves removeObject:backFlipView];
-
+    
+    if (!animated) {
+        _visibleLabel.hidden = NO;
+        [self bringSubviewToFront:_visibleLabel];
+        _visibleLabel.text = [NSString stringWithFormat:@"%d", _digit];
+    }
 }
+
+- (void)flipAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    _visibleLabel.hidden = NO;
+    [self bringSubviewToFront:_visibleLabel];
+    _visibleLabel.text = [NSString stringWithFormat:@"%d", _digit];
+}
+        
          
 - (void)flipBackwardTo:(NSUInteger)digit withAnimation:(BOOL)animated {
     NSUInteger nFlips = (digit <= _digit ? _digit - digit : _digit - digit + 10);
@@ -254,14 +276,18 @@ static const double kAnimationDuration = 0.5;
 - (void)flipBackwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration {
     DLog(@"BACK flipping from %d to %d", _digit, (_digit == 0 ? 9 : _digit - 1));
     
+    if (animated)
+        _visibleLabel.hidden = YES;
+    
     //take the back most of the bottomHalves
     Flipper *flipView = [_bottomHalves lastObject];
     
-    [self decrementDigit];
+    _digit = (_digit == 0 ? 9 : _digit - 1);
     
     //flip the flipper
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(flipAnimationDidStop:finished:context:)];
     [UIView setAnimationDuration:duration];
     
     [flipView flipBackward];

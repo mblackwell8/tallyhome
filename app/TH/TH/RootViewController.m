@@ -10,15 +10,97 @@
 #import "ScrollingTallyDetailVC.h"
 #import "DebugMacros.h"
 
+
+#if TARGET_IPHONE_SIMULATOR
+
+@implementation CLLocationManager (Simulator)
+
++ (BOOL)locationServicesEnabled {
+    return YES;
+}
+- (void)hackLocationFix {
+    //sydney is -33.8667,151.2000
+    DLog(@"hackLocation fix called...");
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:-33.8667 longitude:151.2];
+    [[self delegate] locationManager:self didUpdateToLocation:location fromLocation:nil];     
+}
+- (void)startUpdatingLocation {
+    [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
+}
+@end
+
+#endif
+
+
 @interface RootViewController ()
 
 @property (nonatomic, readwrite, retain) TallyDetailVC *activeTally;
+@property (nonatomic, retain) CLLocationManager *locnMgr;
+@property (nonatomic, retain) ScrollingTallyDetailVC *unlocatedTally;
 
 @end
 
 @implementation RootViewController
 
-@synthesize detailControllers = _tallies, activeTally = _activeTally;
+@synthesize detailControllers = _tallies, activeTally = _activeTally, 
+            locnMgr = _locnMgr, unlocatedTally = _unlocatedTally;
+
+- (void)addButtonPressed:(id)sender {
+    [self addNewScrollingTallyDetailVC];
+}
+
+- (void)addNewScrollingTallyDetailVC {
+    ScrollingTallyDetailVC *vc = [[ScrollingTallyDetailVC alloc] init];
+    
+    //use the current location to provide a starting guess for the correct placename
+    if ([CLLocationManager locationServicesEnabled]) {
+        CLLocationManager *lm = [[CLLocationManager alloc] init];
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        
+        self.locnMgr = lm;
+        [lm release];
+        
+        self.unlocatedTally = vc;
+        
+        [_locnMgr startUpdatingLocation];
+    }
+    
+    
+    [_tallies addObject:vc];
+    [vc release];
+    
+    [self.tableView reloadData];
+}
+
+- (void)locationManager:(CLLocationManager *)manager 
+    didUpdateToLocation:(CLLocation *)newLocation 
+           fromLocation:(CLLocation *)oldLocation {
+    //if the time interval returned from core location is more than two minutes we ignore it because it might be from an old session
+    if (abs([newLocation.timestamp timeIntervalSinceDate:[NSDate date]]) < 120) {     
+        _unlocatedTally.location = newLocation.coordinate;
+        [self.locnMgr stopUpdatingLocation];
+        self.locnMgr = nil;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    //kCLErrorDenied message...
+    
+    
+    UIAlertView *alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+                                       message:[error description] 
+                                      delegate:nil cancelButtonTitle:@"OK" 
+                             otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    
+    [self.locnMgr stopUpdatingLocation];
+    self.locnMgr = nil;
+}
+
+
 
 - (void)viewDidLoad {
     self.title = @"TallyHome";
@@ -52,17 +134,6 @@
     [super viewDidLoad];
 }
 
-- (void)addButtonPressed:(id)sender {
-    [self addNewScrollingTallyDetailVC];
-}
-
-- (void)addNewScrollingTallyDetailVC {
-    ScrollingTallyDetailVC *vc = [[ScrollingTallyDetailVC alloc] init];
-    [_tallies addObject:vc];
-    [vc release];
-
-    [self.tableView reloadData];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

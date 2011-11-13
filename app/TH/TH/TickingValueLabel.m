@@ -22,7 +22,7 @@
 
 @implementation TickingValueLabel
 
-@synthesize value = _value, valueFormatter = _valueFormatter, dollarLabel = _dollarLabel, font = _font, textColor = _textColor, tenCentLabel = _tenCentLabel, centLabel = _centLabel;
+@synthesize value = _value, valueFormatter = _valueFormatter, dollarLabel = _dollarLabel, font = _font, textColor = _textColor, highlightColor = _highlightColor, tenCentLabel = _tenCentLabel, centLabel = _centLabel;
 
 - (void)doInit {
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 
@@ -35,6 +35,7 @@
     
     _font = [[UIFont systemFontOfSize:40.0] retain];
     _textColor = [[UIColor whiteColor] retain];
+    _highlightColor = [[UIColor redColor] retain];
 }
 
 - (id)init {
@@ -66,6 +67,7 @@
     
     [_font release];
     [_textColor release];
+    [_highlightColor release];
 //    [_valueStr release];
     [_valueFormatter release];
     [_centLabel release];
@@ -80,14 +82,15 @@
         
     if (_dollarLabel == nil) {
         [self layoutLabel];
-        return;
+//        return;
     }
-    
-    NSString *newVal = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:floor(_value)]];
-    if (![newVal isEqualToString:_dollarLabel.text]) {
-        _dollarLabel.text = newVal;
+    else {
+        NSString *newVal = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:floor(_value)]];
+        if (![newVal isEqualToString:_dollarLabel.text]) {
+            _dollarLabel.text = newVal;
+        } 
     }
-    
+
     //scroll the decimal places
     double oldCents, newCents;
     
@@ -108,19 +111,32 @@
         [_tenCentLabel flipBackwardTo:9 withAnimation:YES];
         [_centLabel flipBackwardTo:9 withAnimation:YES];
     }
-    else if (floor(newCents / 10.0) > floor(oldCents / 10.0)) {
-        [_tenCentLabel flipForwardTo:newCents / 10.0 withAnimation:YES];
-        [_centLabel flipForwardTo:0 withAnimation:YES];            
-    }
-    else if (floor(newCents / 10.0) < floor(oldCents / 10.0)) {
-        [_tenCentLabel flipBackwardTo:newCents / 10.0 withAnimation:YES];
-        [_centLabel flipBackwardTo:9 withAnimation:YES];
-    }
-    else if ((int)newCents % 10 > (int)oldCents % 10) {
-        [_centLabel flipForwardTo:(int)newCents % 10 withAnimation:YES];
-    }
-    else if ((int)newCents % 10 < (int)oldCents % 10) {
-        [_centLabel flipBackwardTo:(int)newCents % 10 withAnimation:YES];
+    else {
+        if (floor(newCents / 10.0) == 0.0 && floor(oldCents / 10.0) == 9.0) {
+            [_tenCentLabel flipForwardTo:0 withAnimation:YES];
+        }
+        else if (floor(newCents / 10.0) == 9.0 && floor(oldCents / 10.0) == 0.0) {
+            [_tenCentLabel flipBackwardTo:9.0 withAnimation:YES];
+        }
+        else if (floor(newCents / 10.0) > floor(oldCents / 10.0)) {
+            [_tenCentLabel flipForwardTo:newCents / 10.0 withAnimation:YES];
+        }
+        else if (floor(newCents / 10.0) < floor(oldCents / 10.0)) {
+            [_tenCentLabel flipBackwardTo:newCents / 10.0 withAnimation:YES];
+        }
+        
+        if ((int)newCents % 10 == 0 && (int)oldCents % 10 == 9) {
+            [_centLabel flipForwardTo:0 withAnimation:YES];
+        }
+        else if ((int)newCents % 10 == 9 && (int)oldCents % 10 == 0) {
+            [_centLabel flipBackwardTo:9 withAnimation:YES];
+        }
+        else if ((int)newCents % 10 > (int)oldCents % 10) {
+            [_centLabel flipForwardTo:(int)newCents % 10 withAnimation:YES];
+        }
+        else if ((int)newCents % 10 < (int)oldCents % 10) {
+            [_centLabel flipBackwardTo:(int)newCents % 10 withAnimation:YES];
+        }
     }
 }
 
@@ -131,67 +147,76 @@
     //DLog(@"doing...");
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    //create a UILabel for the non-decimal part, 
-    
-    
-    //round down the value otherwise the dollar ticks over at 0.50
-    NSString *newVal = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:floor(_value)]];
-    
-    NSString *fullLabel = [newVal stringByAppendingString:@"00"];
+    //create a UILabel for the non-decimal part
+    NSString *dollarLblSample = [_valueFormatter stringFromNumber:[NSNumber numberWithInt:9999999]];
     CGSize frameSz = self.frame.size;
-    CGSize fullLblSz = [fullLabel sizeWithFont:_font 
-                             constrainedToSize:frameSz
-                                 lineBreakMode:UILineBreakModeMiddleTruncation];
+    CGSize dollarLblSz = [dollarLblSample sizeWithFont:_font 
+                                     constrainedToSize:frameSz
+                                         lineBreakMode:UILineBreakModeMiddleTruncation];
     
-    CGPoint dollarlblPt = CGPointMake((frameSz.width - fullLblSz.width) / 2.0, 
-                                      (frameSz.height - fullLblSz.height) / 2.0);
+    
+    CGPoint dollarlblPt = CGPointMake(0.0, (frameSz.height - dollarLblSz.height) / 2.0);
     //NSString *dollarLblStr = [_valueStr stringByAppendingString:@"."];
-    CGSize dollarLblSz = [newVal sizeWithFont:_font
-                                  constrainedToSize:fullLblSz
-                                      lineBreakMode:UILineBreakModeMiddleTruncation];
     CGRect dollarLblFr = CGRectMake(dollarlblPt.x, dollarlblPt.y, dollarLblSz.width, dollarLblSz.height);
     UILabel *dollarLbl = [[UILabel alloc] initWithFrame:dollarLblFr];
-    dollarLbl.text = newVal;
+    
+    //round down the value otherwise the dollar ticks over at 0.50
+    dollarLbl.text = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:floor(_value)]];
     dollarLbl.textColor = _textColor;
     dollarLbl.backgroundColor = [UIColor clearColor];
     dollarLbl.font = _font;
     dollarLbl.alpha = 1.0;
     dollarLbl.adjustsFontSizeToFitWidth = YES;
-    [self addSubview:dollarLbl];
+    dollarLbl.textAlignment = UITextAlignmentRight;
+    dollarLbl.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
     self.dollarLabel = dollarLbl;
     [dollarLbl release];
     
     //have separate labels for the the two decimal places,
-    UIFont *_centFont = [_font fontWithSize:_font.pointSize * 0.6];
-    CGSize digitSz = [@"0" sizeWithFont:_centFont];
+    UIFont *centFont = [_font fontWithSize:_font.pointSize * 0.6];
+    CGSize digitSz = [@"0" sizeWithFont:centFont];
     
     double cents = floor((_value - floor(_value)) * 100.0);
     //DLog(@"cents is %2.2f", cents);
     //NSString *centsStr = [NSString stringWithFormat:@"%02.f", cents];
     //DLog(@"or %@", centsStr);
-    CGPoint digitPt = CGPointMake(dollarlblPt.x + dollarLblSz.width + 7.0, dollarlblPt.y + 3.0);
+    CGPoint digitPt = CGPointMake(dollarlblPt.x + dollarLblSz.width + 7.0, dollarlblPt.y + 5.0);
     int posn;
-    for (posn = 1; posn >= 0; posn--) {
+    for (posn = 0; posn < 2; posn++) {
         CGRect r = CGRectMake(digitPt.x + posn * digitSz.width, 
                               digitPt.y, digitSz.width, digitSz.height);
         
         FlipLabel *digitLbl = [[FlipLabel alloc] initWithFrame:r];
-        digitLbl.font = _centFont;
+        digitLbl.font = centFont;
         digitLbl.textColor = _textColor;
+        digitLbl.highlightColor = _highlightColor;
         
         digitLbl.backgroundColor = [UIColor blackColor];
         
-        digitLbl.digit = floor(cents / pow(10.0, posn));
-        cents -= digitLbl.digit * pow(10.0, posn);
-        
-        [self addSubview:digitLbl];
-        if (posn == 0)
+        if (posn == 0) {
+            digitLbl.digit = floor(cents / 10.0);
             self.tenCentLabel = digitLbl;
-        else
+        }
+        else {
+            digitLbl.digit = (int)cents % 10;
             self.centLabel = digitLbl;
+        }
         [digitLbl release];
         //DLog(@"Digit label '%@' at %@", digitLbl.text, NSStringFromCGRect(r));
     }
+    
+    //now centre the combined labels
+    CGFloat usedWidth = _centLabel.frame.origin.x + _centLabel.frame.size.width - dollarLblFr.origin.x;
+    CGFloat rightShift = MAX((frameSz.width - usedWidth) / 2.0, 0.0);
+    if (rightShift > 0.0) {
+        dollarLbl.frame = CGRectOffset(dollarLblFr, rightShift, 0.0);
+        _tenCentLabel.frame = CGRectOffset(_tenCentLabel.frame, rightShift, 0.0);
+        _centLabel.frame = CGRectOffset(_centLabel.frame, rightShift, 0.0);
+    }
+    
+    [self addSubview:_dollarLabel];
+    [self addSubview:_tenCentLabel];
+    [self addSubview:_centLabel];
 }
 
 //- (void)drawRect:(CGRect)rect {

@@ -53,8 +53,8 @@
     THDateVal *_lastNowValue;
     
     //NSString *_city, *_country;
-    THPlaceName *_locationName;
-    CLLocationCoordinate2D _coords;
+    THPlaceName *_placeName;
+    CLLocationCoordinate2D _location;
     NSString *_propertyName;
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
@@ -68,15 +68,16 @@
 }
 
 
+
 @property (nonatomic, retain) IBOutlet TickingValueLabel *currentValueLabel;
 @property (nonatomic, retain) IBOutlet UILabel *currentValueRefreshingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *currentDateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *commentLabel;
 //@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
 @property (nonatomic, retain) IBOutlet ArrowScroller *forwardScroller;
-@property (retain, nonatomic) IBOutlet UIImageView *topRightArrow;
 @property (nonatomic, retain) IBOutlet ArrowScroller *backwardScroller;
-@property (retain, nonatomic) IBOutlet UIImageView *bottomLeftArrow;
+@property (retain, nonatomic) IBOutlet UIButton *bottomLeftArrow;
+@property (retain, nonatomic) IBOutlet UIButton *topRightArrow;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepOneView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepTwoView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepThreeView;
@@ -86,12 +87,16 @@
 @property (nonatomic, retain) IBOutlet UIToolbar *bottomToolbar;
 
 //@property (nonatomic, copy) NSString *city, *country;
-@property (nonatomic, retain) THPlaceName *location;
+@property (nonatomic, retain) THPlaceName *placeName;
+@property (nonatomic, assign) CLLocationCoordinate2D location;
 @property (nonatomic, copy) NSString *propertyName;
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 @property (nonatomic, retain) THDateVal *displayedValue;
 @property (nonatomic, retain) THDateVal *nowValue, *nowValueToEncode;
+
+- (IBAction)rightArrowTouchUpInside:(id)sender;
+- (IBAction)leftArrowTouchUpInside:(id)sender;
 
 - (IBAction)nowButtonTouchUpInside:(id)sender;
 

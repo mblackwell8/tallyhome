@@ -35,7 +35,7 @@
 }
 - (void)addBackView:(UIView *)back {
     back.layer.transform = CATransform3DMakeRotation(M_PI, 1.0f, 0.0f, 0.0f);
-    back.layer.zPosition = -0.01;
+    back.layer.zPosition = -0.001;
     
     [self addSubview:back];
 }
