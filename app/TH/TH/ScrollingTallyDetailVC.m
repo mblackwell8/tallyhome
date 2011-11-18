@@ -18,7 +18,7 @@
 //#define kUnknownCity @"Unknown"
 
 #define kDefaultCountry @"Australia"
-#define kDefaultLocation [[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry]
+//#define kDefaultLocation [[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry]
 #define kDefaultPropertyName @"Average house"
 #define TH_AUTO_UPDATE_HZ 60.0
 //#define MAX_TIMEINTERVAL_UNTIL_SERVER_UPDATE 30*24*60*60
@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSNumberFormatter *commentValueFormatter;
 
 @property (nonatomic, retain) NSString *updateWorkerErrorMessage;
+@property (nonatomic, retain) THDateVal *lastNowValue;
 
 - (void)initPricePath;
 - (void)updatePricePath;
@@ -68,10 +69,9 @@
 @synthesize currentValueRefreshingLabel = _currentValueRefreshingLbl;
 @synthesize forwardScroller = _forwardScroller;
 @synthesize backwardScroller = _backwardScroller;
-@synthesize topRightArrow = _topRightArrow;
-@synthesize bottomLeftArrow = _bottomLeftArrow;
 @synthesize displayedValue = _displayedValue;
 @synthesize nowValue = _nowValue;
+@synthesize lastNowValue = _lastNowValue;
 @synthesize nowValueToEncode = _nowValueToEncode;
 @synthesize currentDateLabel = _currentDateLbl;
 @synthesize commentLabel = _commentLbl;
@@ -87,7 +87,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _placeName = kDefaultLocation;
+        _placeName = [[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry];
         _propertyName = kDefaultPropertyName;
 
         _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
@@ -135,11 +135,18 @@
     
     if ((self = [self init])) {
         DLog(@"Decoding ScrollingTallyDetailVC");
-        if (!(_placeName = [[decoder decodeObjectForKey:kLocation] retain])) {
-            _propertyName = kDefaultLocation;
+        
+        //place name from init method above leaks if follow usual idiom here
+        THPlaceName *decPN = nil;
+        if ((decPN = [decoder decodeObjectForKey:kLocation])) {
+            self.placeName = decPN;
         }
+        
         if (!(_propertyName = [[decoder decodeObjectForKey:kPropertyName] retain])) {
             _propertyName = kDefaultPropertyName;
+        }
+        if (!(_decodedOrDefaultTrendInterval = [decoder decodeDoubleForKey:kTrendInterval])) {
+            _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
         }
         if (!(_pricePath = [[decoder decodeObjectForKey:kPricePath] retain])) {
             _pricePath = nil;
@@ -156,9 +163,7 @@
         if (!(_isHelpStepThreeDone = [decoder decodeBoolForKey:kIsHelpStepThreeDone])) {
             _isHelpStepThreeDone = NO;
         }
-        if (!(_decodedOrDefaultTrendInterval = [decoder decodeDoubleForKey:kTrendInterval])) {
-            _decodedOrDefaultTrendInterval = TH_FiveYearTimeInterval;
-        }
+        
     }
     
     return self;
@@ -195,10 +200,6 @@
     [_pricePath release];
     [_displayedData release];
     
-    [_topRightArrow release];
-    [_bottomLeftArrow release];
-    [_bottomLeftArrow release];
-    [_topRightArrow release];
     [super dealloc];
 }
 
@@ -233,29 +234,33 @@
     _currentValueLbl.value = _displayedValue.val;
     _currentDateLbl.text = [_displayedValue.date fuzzyRelativeDateString];
     
-    double diff = 0.0;
+    double diff = 0.0, diffPerDay = 0.0;
     NSString *comparator = nil;
     // if in future or past, then tell user how much more/less than now
     if (ABS([_displayedValue.date daysSince:_nowValue.date]) >= (365.0/2.0)) {
         diff = _displayedValue.val - _nowValue.val;
+        diffPerDay = diff / [_displayedValue.date daysSince:_nowValue.date];
         comparator = @"now";
     }
     // otherwise, tell user change since last check in
     else {
         if (_lastNowValue) {
             diff = _displayedValue.val - _lastNowValue.val;
+            diffPerDay = diff / [_displayedValue.date daysSince:_lastNowValue.date];
         }
         // else diff will be zero
         comparator = @"last check in";
     }
     
     NSString *diffStr = [_commentValueFormatter stringFromNumber:[NSNumber numberWithDouble:ABS(diff)]];
+    NSString *diffPerDayStr = [_commentValueFormatter stringFromNumber:[NSNumber numberWithDouble:ABS(diffPerDay)]];
 
     if (diff != 0.0) {
-        _commentLbl.text = [NSString stringWithFormat:@"%@ %@ than %@",
+        _commentLbl.text = [NSString stringWithFormat:@"%@ %@ than %@ (%@ per day)",
                             diffStr,
                             diff > 0.0 ? @"higher" : @"lower",
-                            comparator];
+                            comparator,
+                            diffPerDayStr];
     }
     else {
         _commentLbl.text = [NSString stringWithFormat:@"Same as %@", comparator];;
@@ -264,7 +269,8 @@
 
 - (THPlaceName *)findPlaceNameOfCurrentLocation {
     // simple, inefficient implementation... for now... right mark?
-    CLLocation *currLocn = [[CLLocation alloc] initWithLatitude:_location.latitude longitude:_location.longitude];
+    if (!_location)
+        return [[[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry] autorelease];
     
     NSArray *placeNames = [THPlaceName sharedPlaceNames];
     THPlaceName *closest = nil;
@@ -273,14 +279,12 @@
         if (!pn.location)
             continue;
         
-        CLLocationDistance dist = [currLocn distanceFromLocation:pn.location];
+        CLLocationDistance dist = [_location distanceFromLocation:pn.location];
         if (dist >= 0 && (closest == nil || dist < closestDist)) {
             closest = pn;
             closestDist = dist;
         }
     }
-    
-    [currLocn release];
     
     // if more than 1000km away then disregard the city and state
     if (closestDist > 1000000) {
@@ -302,8 +306,8 @@
         return;
     }
     
-    _isHelpStepTwoDone = YES;
-    _helpStepTwoView.hidden = YES;
+    _isHelpStepThreeDone = YES;
+    _helpStepThreeView.hidden = YES;
     
     if (scroller == _backwardScroller) {
         years *= -1;
@@ -314,61 +318,20 @@
 }
 
 - (void)arrowScrollerTapped:(ArrowScroller *)scroller {
-//    if (_isUpdatingPricePath) {
-//        DLog(@"Cannot use price path data. Ignoring");
-//        return;
-//    }
-//    
-//    _isHelpStepTwoDone = YES;
-//    _helpStepTwoView.hidden = YES;
-//    
-//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    anim.duration = 0.125;
-//    anim.repeatCount = 1;
-//    anim.autoreverses = YES;
-//    anim.removedOnCompletion = YES;
-//    
-//    
-//    if (scroller == _forwardScroller) {
-//        anim.toValue = [NSValue valueWithCATransform3D:
-//                        CATransform3DScale(_topRightArrow.layer.transform, 1.2, 1.2, 1.0)];
-//        [_topRightArrow.layer addAnimation:anim forKey:nil];
-//        
-//        [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
-//    }
-//    else {
-//        anim.toValue = [NSValue valueWithCATransform3D:
-//                        CATransform3DScale(_bottomLeftArrow.layer.transform, 1.2, 1.2, 1.0)];
-//        
-//        [_bottomLeftArrow.layer addAnimation:anim forKey:nil];
-//        
-//        [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
-//    }
-}
-
-- (IBAction)rightArrowTouchUpInside:(id)sender {    
     if (_isUpdatingPricePath) {
         DLog(@"Cannot use price path data. Ignoring");
         return;
     }
     
-    _isHelpStepTwoDone = YES;
-    _helpStepTwoView.hidden = YES;
+    _isHelpStepThreeDone = YES;
+    _helpStepThreeView.hidden = YES;
         
-    [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
-}
-
-- (IBAction)leftArrowTouchUpInside:(id)sender {
-    if (_isUpdatingPricePath) {
-        DLog(@"Cannot use price path data. Ignoring");
-        return;
+    if (scroller == _forwardScroller) {
+        [self setDisplayedDateValueTo:[_displayedValue.date addDays:365]];
     }
-    
-    _isHelpStepTwoDone = YES;
-    _helpStepTwoView.hidden = YES;
-    
-    [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
+    else {
+        [self setDisplayedDateValueTo:[_displayedValue.date addDays:-365]];
+    }
 }
 
 - (IBAction)nowButtonTouchUpInside:(id)sender {
@@ -377,8 +340,8 @@
         return;
     }
     
-    _isHelpStepThreeDone = YES;
-    _helpStepThreeView.hidden = YES;
+    _isHelpStepTwoDone = YES;
+    _helpStepTwoView.hidden = YES;
     
     [self setDisplayedDateValueTo:[NSDate date]];
 }
@@ -400,10 +363,10 @@
     }
     
     if (latestVal) {
-        NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 
+        NSNumberFormatter *nf = [[[NSNumberFormatter alloc] init] autorelease]; 
         [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
         [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-        [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
+        [nf setRoundingIncrement:[[[NSNumber alloc] initWithDouble:1.0] autorelease]];
         [nf setMaximumFractionDigits:0];
 
         return [nf stringFromNumber:[NSNumber numberWithDouble:latestVal.val]];
@@ -419,6 +382,11 @@
     if (_isUpdatingPricePath || !_pricePath || !_displayedData) {
         DLog(@"Cannot do");
         return;
+    }
+    
+    if (_location && 
+        (!_placeName || [_placeName isEqual:[[[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry] autorelease]])) {
+        self.placeName = [self findPlaceNameOfCurrentLocation];
     }
     
     PropertySettingsVC *propSettings = [[PropertySettingsVC alloc] initWithStyle:UITableViewStyleGrouped];
@@ -465,7 +433,8 @@
         NSAssert(!_isUpdatingPricePath, @"cannot init price path and edit settings");
         _pricePath.buyPrice = propSettings.buyPrice;
         reMakePP = YES;
-        recalcCurrentVal = NO; //will happen after thread finishes
+//        recalcCurrentVal = NO; //will happen after thread finishes
+        recalcCurrentVal = YES;
     }
     
     if (propSettings.sources != _pricePath.sources) {
@@ -494,12 +463,14 @@
     else if (reMakePP) {
         [self updateStatusLabel:kCalcPriceIxAlert];
         self.displayedData = [_pricePath makePricePath];
-        self.nowValue = [_displayedData calcValueAt:[NSDate date]];
         [self updateStatusLabel:kUpdatedAlert];
     }
     
     if (recalcCurrentVal) {
         [self setDisplayedDateValueTo:[NSDate date]];
+        self.nowValue = _displayedValue;
+        self.lastNowValue = _displayedValue;
+        self.nowValueToEncode = _displayedValue;
     }
 }
 
@@ -601,14 +572,14 @@
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 
     [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:0.01]];
+    [nf setRoundingIncrement:[[[NSNumber alloc] initWithDouble:0.01] autorelease]];
     self.valueFormatter = nf;
     [nf release];
     
     nf = [[NSNumberFormatter alloc] init]; 
     [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
+    [nf setRoundingIncrement:[[[NSNumber alloc] initWithDouble:1.0] autorelease]];
     [nf setMaximumFractionDigits:0];
     self.commentValueFormatter = nf;
     [nf release];
@@ -630,13 +601,13 @@
     
     _currentValueLbl.font = [UIFont fontWithName:@"Futura-Medium" size:40.0];
     _currentValueLbl.textColor = [UIColor colorWithRed:0.0 green:146.0 blue:200.0 alpha:1.0];
-    
-    _bottomLeftArrow.transform = CGAffineTransformMakeRotation(M_PI);
-    
-    if (!_placeName || [_placeName isEqual:kDefaultLocation])
+        
+    if (!_placeName || 
+        [_placeName isEqual:[[[THPlaceName alloc] initWithCity:@"" state:@"" country:kDefaultCountry] autorelease]]) {
         self.placeName = [self findPlaceNameOfCurrentLocation];
+    }
     
-#ifdef DEBUG__avoidForNow
+#ifdef DEBUG
     _helpStepOneView.hidden = NO;
     _helpStepTwoView.hidden = NO;
     _helpStepThreeView.hidden = NO;
@@ -713,10 +684,6 @@
     self.currentDateLabel = nil;
     self.commentLabel = nil;
     
-    [self setTopRightArrow:nil];
-    [self setBottomLeftArrow:nil];
-    [self setBottomLeftArrow:nil];
-    [self setTopRightArrow:nil];
     [super viewDidUnload];
     
 }
@@ -739,6 +706,7 @@
     
     self.pricePath = ozPP;
     [ozPP release];
+    [url release];
     
     self.displayedData = [_pricePath makePricePath];
     self.nowValue = [_displayedData calcValueAt:[NSDate date]];
@@ -795,7 +763,7 @@
         THURLCreator *urlCreator = [[THURLCreator alloc] init];
         urlCreator.tallyId = @"HousePriceIx";
         urlCreator.location = _placeName;
-        urlCreator.coordinates = _location;
+        urlCreator.coordinates = _location.coordinate;
         urlCreator.userId = [appD getUUID];
                     
         THHomePricePath *newPP = [[THHomePricePath alloc] initWithURL:[urlCreator makeURL]];
@@ -825,7 +793,7 @@
         [urlCreator release];
     }
     else {
-        self.updateWorkerErrorMessage = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower left when next you have internet access";
+        _updateWorkerErrorMessage = @"Cannot contact TallyHome server to update the current price index.\n\nPlease use the refresh button on lower left when next you have internet access";
     }
     
     [self performSelectorOnMainThread:@selector(updateStatusLabel:) withObject:kCalcPriceIxAlert waitUntilDone:NO];

@@ -19,7 +19,7 @@
 
 @implementation TextEntryVC
 
-@synthesize textField = _textField, guidanceMessage = _guidanceMsg, previousData = _preData, keyboardType = _kbdType, delegate = _delegate, textTableView = _textTableView;
+@synthesize textField = _textField, guidanceMessage = _guidanceMsg, previousData = _preData, keyboardType = _kbdType, delegate = _delegate, textTableView = _textTableView, commentText = _commentText;
 
 - (id)init {
     self = [super init];
@@ -82,38 +82,12 @@
     self.textField = txtField;    
     [txtField release];
 
-
-    
-//    CGFloat screenHt = 480.0 - 20.0; //allow for status bar
-//    if (self.navigationController)
-//        screenHt -= 44;
-//    if (self.tabBarController)
-//        screenHt -= 49;
-//    
-//    CGRect screenRect = CGRectMake(0.0, 0.0, 320.0, screenHt);
-//    UIView *v = [[UIView alloc] initWithFrame:screenRect];
-//    v.backgroundColor = [UIColor grayColor];
-//    
-//    _textField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 116.0, 280.0, 31.0)];
-//    _textField.font = [UIFont systemFontOfSize:16.0];
-//    _textField.borderStyle = UITextBorderStyleBezel;
-//    _textField.clearButtonMode = UITextFieldViewModeAlways;
-//    _textField.backgroundColor = [UIColor whiteColor];
-//    [_textField addTarget:self 
-//                   action:@selector(textFieldEditingDidEnd:) 
-//         forControlEvents:UIControlEventEditingDidEnd];
-//    
-//    _textField.delegate = self;
-//    
-//    _textField.text = _preData;
-//    _textField.keyboardType = _kbdType;
-//    
-//    [v addSubview:_textField];
-//    
-//    self.view = v;
-//    
-//    [v release];
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return _commentText;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
@@ -123,26 +97,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                        reuseIdentifier:textCellIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryNone;
-        
-//        UITextField *txtField = [[UITextField alloc] initWithFrame:CGRectMake(20, 10, 275, 30)];
-//        txtField.adjustsFontSizeToFitWidth = YES;
-//        txtField.font = [UIFont systemFontOfSize:16.0];
-//        txtField.textColor = [UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0];
-//        txtField.placeholder = @"Required";
-//        txtField.keyboardType = _kbdType;
-//        txtField.backgroundColor = [UIColor whiteColor];
-//        txtField.autocorrectionType = UITextAutocorrectionTypeNo; // no auto correction support
-//        txtField.autocapitalizationType = UITextAutocapitalizationTypeNone; // no auto capitalization support
-//        txtField.textAlignment = UITextAlignmentLeft;
-//        txtField.tag = 0;
-//        [txtField addTarget:self 
-//                     action:@selector(textFieldEditingDidEnd:) 
-//           forControlEvents:UIControlEventEditingDidEnd];
-//        txtField.delegate = self;
-//        
-//        txtField.clearButtonMode = UITextFieldViewModeNever;
-//        [txtField setEnabled: YES];
-        
+                
         [cell addSubview:_textField];
         
     }

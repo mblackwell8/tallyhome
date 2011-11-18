@@ -14,7 +14,7 @@
     CLLocation* _location;
 }
 
-@property (nonatomic, retain, readonly) NSString *city, *state, *country;
+@property (nonatomic, copy, readonly) NSString *city, *state, *country;
 @property (nonatomic, retain) CLLocation *location;
 
 - (id)initWithCity:(NSString *)city state:(NSString *)state country:(NSString *)country;

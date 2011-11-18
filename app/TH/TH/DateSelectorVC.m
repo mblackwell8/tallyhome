@@ -16,6 +16,7 @@
 @synthesize dateTableView;
 @synthesize date = _date;
 @synthesize delegate = _delegate;
+@synthesize commentText = _commentText;
 
 -(IBAction)dateChanged {
     self.date = [datePicker date];
@@ -131,6 +132,11 @@
 
 #pragma mark -
 #pragma mark Table View Methods
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return _commentText;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
     static NSString *DateCellIdentifier = @"DateCellIdentifier";

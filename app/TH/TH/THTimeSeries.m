@@ -77,7 +77,9 @@
 - (id)copyWithZone:(NSZone *)zone {
     NSMutableArray *copyVals = [[NSMutableArray alloc] initWithCapacity:_innerSeries.count];
     for (THDateVal *dv in _innerSeries) {
-        [copyVals addObject:[dv copyWithZone:zone]];
+        THDateVal *copy = [dv copyWithZone:zone];
+        [copyVals addObject:copy];
+        [copy release];
     }
     
     //think i need to do the [self class] thing for subclasses that will call this method
@@ -246,8 +248,10 @@
     THDateVal *current = first;
     while (current.next && current != last) {
         double days = [current.date daysUntil:current.next.date];
-        sum += pow(current.next.val / current.val, 1.0 / days) - 1.0;
-        n += 1.0;
+        if (days > 0.0) {
+            sum += pow(current.next.val / current.val, 1.0 / days) - 1.0;
+            n += 1.0;
+        }
         current = current.next;
     }
     

@@ -15,6 +15,7 @@
 @interface RootViewController : UITableViewController <CLLocationManagerDelegate> {    
     TallyVCArray *_tallies;
     TallyDetailVC *_activeTally;
+    BOOL _isLocating, _isLocated;
 }
 
 @property (nonatomic, retain) TallyVCArray *detailControllers;

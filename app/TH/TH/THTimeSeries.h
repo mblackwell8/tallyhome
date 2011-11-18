@@ -64,6 +64,6 @@
 - (id)objectAtIndex:(NSUInteger)index;
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len;
 
-- (void) dealloc;
+- (void)dealloc;
 
 @end

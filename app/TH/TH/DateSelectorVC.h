@@ -20,6 +20,7 @@
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UITableView  *dateTableView;
     NSDate *_date;
+    NSString *_commentText;
     
     id <DateSelectorDelegate> _delegate;   // weak ref
 }
@@ -28,6 +29,8 @@
 @property (nonatomic, retain) UITableView *dateTableView;
 @property (nonatomic, retain) NSDate *date;
 @property (nonatomic, assign)  id <DateSelectorDelegate> delegate;
+@property (nonatomic, retain) NSString *commentText;
+
 -(IBAction)dateChanged;
 
 @end

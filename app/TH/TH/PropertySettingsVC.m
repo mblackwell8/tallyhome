@@ -379,6 +379,7 @@ static NSNumberFormatter *priceFormatter;
                     //Label, edit with text
                     textSelector = [[TextEntryVC alloc] init];
                     textSelector.title = @"Property name";
+                    textSelector.commentText = @"Choose a name for this property... it doesn't matter what, but try to keep it less than 15 characters";
                     textSelector.delegate = self;
                     textSelector.previousData = _propertyName;
                     textSelector.view.tag = TH_PROPSETTINGS_LABELENTRY_IX;
@@ -411,6 +412,7 @@ static NSNumberFormatter *priceFormatter;
                     //Purchase date, edit with date control
                     dateSelector = [[DateSelectorVC alloc] init];
                     dateSelector.title = @"Valuation date";
+                    dateSelector.commentText = @"Enter the date of your valuation... today is fine if you like";
                     dateSelector.delegate = self;
                     dateSelector.date = _buyPrice.date;
                     dateSelector.view.tag = TH_PROPSETTINGS_DATEENTRY_IX;
@@ -422,6 +424,7 @@ static NSNumberFormatter *priceFormatter;
                     // buy price, edit with text
                     textSelector = [[TextEntryVC alloc] init];
                     textSelector.title = @"Valuation";
+                    textSelector.commentText = @"Enter a recent valuation, whatever you think (or perhaps some other expert thinks) the property is worth";
                     textSelector.delegate = self;
                     NSNumber *value = [NSNumber numberWithDouble:round(_buyPrice.val)];
                     textSelector.keyboardType = UIKeyboardTypeDecimalPad;

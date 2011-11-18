@@ -398,7 +398,7 @@
                                                proximities:proxs 
                                                 usingRawIx:rawIx 
                                               withBuyPrice:_buyPrice];
-    
+    [rawIx release];
     [pricePath release];
     [nexts release];
     [curr release]; 
@@ -422,7 +422,9 @@
     }
     
     //insert buy price
-    [newDVs addObject:[bp copy]];    
+    THDateVal *copy = [bp copy];
+    [newDVs addObject:copy];
+    [copy release];
     THHomePriceIndex *finalPP = [[THHomePriceIndex alloc] initWithValues:newDVs];
     [newDVs release];
     

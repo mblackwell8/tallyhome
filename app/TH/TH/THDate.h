@@ -12,19 +12,19 @@
 
 @interface NSDate (THDate)
 
-- (BOOL) isBefore:(NSDate *)date;
-- (BOOL) isAfter:(NSDate *)date;
-- (BOOL) isBeforeOrEqualTo:(NSDate *)date;
-- (BOOL) isAfterOrEqualTo:(NSDate *)date;
+- (BOOL)isBefore:(NSDate *)date;
+- (BOOL)isAfter:(NSDate *)date;
+- (BOOL)isBeforeOrEqualTo:(NSDate *)date;
+- (BOOL)isAfterOrEqualTo:(NSDate *)date;
 
-- (NSDate *) addDays:(double)days;
-- (NSDate *) addOneDay;
-- (NSDate *) subtractOneDay;
+- (NSDate *)addDays:(double)days;
+- (NSDate *)addOneDay;
+- (NSDate *)subtractOneDay;
 
-- (double) daysSince:(NSDate *)date;
-- (double) daysUntil:(NSDate *)date;
+- (double)daysSince:(NSDate *)date;
+- (double)daysUntil:(NSDate *)date;
 
-+ (NSDate *) localDateFromString:(NSString *)dateStr;
++ (NSDate *)localDateFromString:(NSString *)dateStr;
 
 @end
 

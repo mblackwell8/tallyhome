@@ -28,7 +28,7 @@
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init]; 
     [nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [nf setRoundingIncrement:[[NSNumber alloc] initWithDouble:1.0]];
+    [nf setRoundingIncrement:[[[NSNumber alloc] initWithDouble:1.0] autorelease]];
     [nf setMaximumFractionDigits:0];
     self.valueFormatter = nf;
     [nf release];
@@ -82,7 +82,6 @@
         
     if (_dollarLabel == nil) {
         [self layoutLabel];
-//        return;
     }
     else {
         NSString *newVal = [_valueFormatter stringFromNumber:[NSNumber numberWithDouble:floor(_value)]];
@@ -90,7 +89,7 @@
             _dollarLabel.text = newVal;
         } 
     }
-
+    
     //scroll the decimal places
     double oldCents, newCents;
     
@@ -112,30 +111,33 @@
         [_centLabel flipBackwardTo:9 withAnimation:YES];
     }
     else {
+        //only animate if diff is less than 2
+        BOOL animate = ABS(newCents - oldCents) < 2.0;
+        
         if (floor(newCents / 10.0) == 0.0 && floor(oldCents / 10.0) == 9.0) {
-            [_tenCentLabel flipForwardTo:0 withAnimation:YES];
+            [_tenCentLabel flipForwardTo:0 withAnimation:animate];
         }
         else if (floor(newCents / 10.0) == 9.0 && floor(oldCents / 10.0) == 0.0) {
-            [_tenCentLabel flipBackwardTo:9.0 withAnimation:YES];
+            [_tenCentLabel flipBackwardTo:9.0 withAnimation:animate];
         }
         else if (floor(newCents / 10.0) > floor(oldCents / 10.0)) {
-            [_tenCentLabel flipForwardTo:newCents / 10.0 withAnimation:YES];
+            [_tenCentLabel flipForwardTo:newCents / 10.0 withAnimation:animate];
         }
         else if (floor(newCents / 10.0) < floor(oldCents / 10.0)) {
-            [_tenCentLabel flipBackwardTo:newCents / 10.0 withAnimation:YES];
+            [_tenCentLabel flipBackwardTo:newCents / 10.0 withAnimation:animate];
         }
         
         if ((int)newCents % 10 == 0 && (int)oldCents % 10 == 9) {
-            [_centLabel flipForwardTo:0 withAnimation:YES];
+            [_centLabel flipForwardTo:0 withAnimation:animate];
         }
         else if ((int)newCents % 10 == 9 && (int)oldCents % 10 == 0) {
-            [_centLabel flipBackwardTo:9 withAnimation:YES];
+            [_centLabel flipBackwardTo:9 withAnimation:animate];
         }
         else if ((int)newCents % 10 > (int)oldCents % 10) {
-            [_centLabel flipForwardTo:(int)newCents % 10 withAnimation:YES];
+            [_centLabel flipForwardTo:(int)newCents % 10 withAnimation:animate];
         }
         else if ((int)newCents % 10 < (int)oldCents % 10) {
-            [_centLabel flipBackwardTo:(int)newCents % 10 withAnimation:YES];
+            [_centLabel flipBackwardTo:(int)newCents % 10 withAnimation:animate];
         }
     }
 }

@@ -78,6 +78,7 @@
                                                                 target:self 
                                                                 action:@selector(doneButtonTapped:)];
         self.navigationItem.rightBarButtonItem = done;
+        [done release];
     }
 }
 

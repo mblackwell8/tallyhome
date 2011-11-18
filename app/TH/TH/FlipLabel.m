@@ -211,7 +211,7 @@ static const double kAnimationDuration = 0.5;
 }
 
 - (void)flipForwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration {
-    DLog(@"FWD flipping from %d to %d", _digit, (_digit == 9 ? 0 : _digit + 1));
+//    DLog(@"FWD flipping from %d to %d", _digit, (_digit == 9 ? 0 : _digit + 1));
         
     _visibleLabel.hidden = YES;
     
@@ -274,7 +274,7 @@ static const double kAnimationDuration = 0.5;
 }
 
 - (void)flipBackwardWithAnimation:(BOOL)animated duration:(NSTimeInterval)duration {
-    DLog(@"BACK flipping from %d to %d", _digit, (_digit == 0 ? 9 : _digit - 1));
+//    DLog(@"BACK flipping from %d to %d", _digit, (_digit == 0 ? 9 : _digit - 1));
     
     if (animated)
         _visibleLabel.hidden = YES;

@@ -31,6 +31,7 @@
 @property (nonatomic, readonly, retain) UITextField *textField;
 @property (nonatomic, copy) NSString *guidanceMessage, *previousData;
 @property (nonatomic, assign) UIKeyboardType keyboardType;
+@property (nonatomic, retain) NSString *commentText;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 

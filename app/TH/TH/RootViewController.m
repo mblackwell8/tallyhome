@@ -21,11 +21,11 @@
 - (void)hackLocationFix {
     //sydney is -33.8667,151.2000
     DLog(@"hackLocation fix called...");
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:-33.8667 longitude:151.2];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:-33.8667 longitude:151.2]; 
     [[self delegate] locationManager:self didUpdateToLocation:location fromLocation:nil];     
 }
 - (void)startUpdatingLocation {
-    [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:3.0];
 }
 @end
 
@@ -36,14 +36,14 @@
 
 @property (nonatomic, readwrite, retain) TallyDetailVC *activeTally;
 @property (nonatomic, retain) CLLocationManager *locnMgr;
+@property (nonatomic, retain) CLLocation *currentLocn;
 @property (nonatomic, retain) ScrollingTallyDetailVC *unlocatedTally;
 
 @end
 
 @implementation RootViewController
 
-@synthesize detailControllers = _tallies, activeTally = _activeTally, 
-            locnMgr = _locnMgr, unlocatedTally = _unlocatedTally;
+@synthesize detailControllers = _tallies, activeTally = _activeTally, unlocatedTally = _unlocatedTally, locnMgr = _locnMgr, currentLocn = _currentLocn;
 
 - (void)addButtonPressed:(id)sender {
     [self addNewScrollingTallyDetailVC];
@@ -63,7 +63,11 @@
         
         self.unlocatedTally = vc;
         
-        [_locnMgr startUpdatingLocation];
+        _isLocating = YES;
+        _isLocated = NO;
+        [lm startUpdatingLocation];
+        
+        [self performSelector:@selector(locatorTimeOut) withObject:nil afterDelay:10];
     }
     
     
@@ -77,27 +81,46 @@
     didUpdateToLocation:(CLLocation *)newLocation 
            fromLocation:(CLLocation *)oldLocation {
     //if the time interval returned from core location is more than two minutes we ignore it because it might be from an old session
-    if (abs([newLocation.timestamp timeIntervalSinceDate:[NSDate date]]) < 120) {     
-        _unlocatedTally.location = newLocation.coordinate;
-        [self.locnMgr stopUpdatingLocation];
-        self.locnMgr = nil;
+    DLog(@"found location %@", [newLocation description]);
+    self.currentLocn = newLocation;
+    if (newLocation.horizontalAccuracy < 50000 &&
+        ABS([newLocation.timestamp timeIntervalSinceDate:[NSDate date]]) < 120) {   
+        _isLocated = YES;
+        [manager stopUpdatingLocation];
+        _isLocating = NO;
+        _unlocatedTally.location = newLocation;
+        
+        // for some fucking reason, nil-ing the location manager causes an EXC_BAD_ACCESS error...
+//        self.locnMgr = nil;
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    //kCLErrorDenied message...
+    DLog(@"location error %@", [error description]);
+    if(error.code == kCLErrorDenied) {
+        _isLocated = NO;
+        [manager stopUpdatingLocation];
+        _isLocating = NO;
+    } else if(error.code == kCLErrorLocationUnknown) {
+        // retry
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error retrieving location"
+                                                        message:[error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        //keep trying to locate until the timeout...
+    }
+}
+
+- (void)locatorTimeOut {
+    if (!_isLocating)
+        return;
     
-    
-    UIAlertView *alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-                                       message:[error description] 
-                                      delegate:nil cancelButtonTitle:@"OK" 
-                             otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-    
-    [self.locnMgr stopUpdatingLocation];
-    self.locnMgr = nil;
+    DLog(@"Locator timed out...");
+    [_locnMgr stopUpdatingLocation];
 }
 
 

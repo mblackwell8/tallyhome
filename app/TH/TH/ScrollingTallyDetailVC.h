@@ -54,7 +54,7 @@
     
     //NSString *_city, *_country;
     THPlaceName *_placeName;
-    CLLocationCoordinate2D _location;
+    CLLocation *_location;
     NSString *_propertyName;
     THHomePricePath *_pricePath;
     THTimeSeries *_displayedData;
@@ -76,8 +76,6 @@
 //@property (nonatomic, retain) IBOutlet UIView *backgroundRect;
 @property (nonatomic, retain) IBOutlet ArrowScroller *forwardScroller;
 @property (nonatomic, retain) IBOutlet ArrowScroller *backwardScroller;
-@property (retain, nonatomic) IBOutlet UIButton *bottomLeftArrow;
-@property (retain, nonatomic) IBOutlet UIButton *topRightArrow;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepOneView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepTwoView;
 @property (nonatomic, retain) IBOutlet UIImageView *helpStepThreeView;
@@ -88,15 +86,12 @@
 
 //@property (nonatomic, copy) NSString *city, *country;
 @property (nonatomic, retain) THPlaceName *placeName;
-@property (nonatomic, assign) CLLocationCoordinate2D location;
+@property (nonatomic, retain) CLLocation *location;
 @property (nonatomic, copy) NSString *propertyName;
 @property (nonatomic, retain) THHomePricePath *pricePath;
 @property (nonatomic, retain, readonly) THTimeSeries *displayedData;
 @property (nonatomic, retain) THDateVal *displayedValue;
 @property (nonatomic, retain) THDateVal *nowValue, *nowValueToEncode;
-
-- (IBAction)rightArrowTouchUpInside:(id)sender;
-- (IBAction)leftArrowTouchUpInside:(id)sender;
 
 - (IBAction)nowButtonTouchUpInside:(id)sender;
 

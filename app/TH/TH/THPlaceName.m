@@ -70,9 +70,9 @@ static NSArray *placeNamesFromFile;
 - (id)initWithCity:(NSString *)city state:(NSString *)state country:(NSString *)country {
     self = [super init];
     if (self) {
-        _city = [city retain];
-        _state = [state retain];
-        _country = [country retain];
+        _city = [city copy];
+        _state = [state copy];
+        _country = [country copy];
     }
     
     return self;
@@ -89,15 +89,14 @@ static NSArray *placeNamesFromFile;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    
-    if ((self = [self init])) {
-        if (!(_city = [[decoder decodeObjectForKey:kCity] retain])) {
+    if ((self = [super init])) {
+        if (!(_city = [[decoder decodeObjectForKey:kCity] copy])) {
             _city = @"";
         }
-        if (!(_state = [[decoder decodeObjectForKey:kState] retain])) {
+        if (!(_state = [[decoder decodeObjectForKey:kState] copy])) {
             _state = @"";
         }
-        if (!(_country = [[decoder decodeObjectForKey:kCountry] retain])) {
+        if (!(_country = [[decoder decodeObjectForKey:kCountry] copy])) {
             _country = @"";
         }
     }
@@ -113,11 +112,15 @@ static NSArray *placeNamesFromFile;
 }
 
 - (void)dealloc {
-    [super dealloc];
-    
     [_city release];
     [_state release];
     [_country release];
+    
+    [_location release];
+    
+    //hmmm... for some FUCKING reason, putting the super dealloc call first in the method over-releases
+    //the city (and potentially the others)... appears to be only for objects init-ed via initWithCoder??
+    [super dealloc];
 }
 
 

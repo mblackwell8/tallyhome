@@ -35,9 +35,11 @@ typedef enum {
     ArrowScrollDirection _scrollDirection;
     
     CGFloat _pixelsSinceLastStep;
-    
+    UIImageView *_leftArrow, *_rightArrow, *_arrowInUse;
     
     SystemSoundID tockSoundID;
+    
+    CGFloat _maxScrollVelocity;
 }
 
 @property (readonly) CGFloat lastScroll, lastScrollVelocity;
@@ -47,5 +49,6 @@ typedef enum {
 @property (nonatomic, readonly, retain) UILabel *textLabel;
 @property (nonatomic, assign) ArrowScrollDirection scrollDirection;
 
+- (void)doSteps;
 
 @end
