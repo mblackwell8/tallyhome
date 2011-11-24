@@ -198,7 +198,25 @@ class GetTally(webapp.RequestHandler):
 
 class TallyDataPointLoader(webapp.RequestHandler):
     def get(self):
-        pass
+        isUpdate = self.request.get('isUpdate')
+        ixDate = datetime.strptime(self.request.get('dateTime'), '%Y-%m-%d %H:%M:%S'))
+        ixVal = float(self.request.get('val'))
+        ixTallyId = datastore.Key.from_path('Tally', self.request.get('tallyId'))
+        
+        dp = None
+        if isUpdate == 'true':
+            dps = TallyDataPoint.all().filter('Date =', ixDate).filter('Tally_ID = ', ixTallyId)
+            if dps.count(2) == 1:
+                dp = dps[0]
+        if not dp:
+            dp = TallyDataPoint()
+            dp.Date = ixDate
+            dp.Tally_ID = ixTallyId
+        
+        dp.IxVal = ixVal
+        dp.put()
+
+        ui.Response = '200'
 
 class AveragePriceLoader(webapp.RequestHandler):
     def get(self):

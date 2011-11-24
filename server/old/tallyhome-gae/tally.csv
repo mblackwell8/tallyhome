@@ -1,0 +1,499 @@
+ClassName,RegionSeriesName,RegionType,Source,SourceType,IxName,key
+HousePriceIx,"Abilene, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),1
+HousePriceIx,"Akron, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),2
+HousePriceIx,"Albany, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),3
+HousePriceIx,"Albany-Schenectady-Troy, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),4
+HousePriceIx,"Albuquerque, NM",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),5
+HousePriceIx,"Alexandria, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),6
+HousePriceIx,"Allentown-Bethlehem-Easton, PA-NJ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),7
+HousePriceIx,"Altoona, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),8
+HousePriceIx,"Amarillo, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),9
+HousePriceIx,"Ames, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),10
+HousePriceIx,"Anchorage, AK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),11
+HousePriceIx,"Anderson, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),12
+HousePriceIx,"Anderson, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),13
+HousePriceIx,"Ann Arbor, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),14
+HousePriceIx,"Anniston-Oxford, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),15
+HousePriceIx,"Appleton, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),16
+HousePriceIx,"Asheville, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),17
+HousePriceIx,"Athens-Clarke County, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),18
+HousePriceIx,"Atlanta-Sandy Springs-Marietta, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),19
+HousePriceIx,"Atlantic City-Hammonton, NJ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),20
+HousePriceIx,"Auburn-Opelika, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),21
+HousePriceIx,"Augusta-Richmond County, GA-SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),22
+HousePriceIx,"Austin-Round Rock-San Marcos, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),23
+HousePriceIx,"Bakersfield-Delano, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),24
+HousePriceIx,"Baltimore-Towson, MD",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),25
+HousePriceIx,"Bangor, ME",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),26
+HousePriceIx,"Barnstable Town, MA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),27
+HousePriceIx,"Baton Rouge, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),28
+HousePriceIx,"Battle Creek, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),29
+HousePriceIx,"Bay City, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),30
+HousePriceIx,"Beaumont-Port Arthur, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),31
+HousePriceIx,"Bellingham, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),32
+HousePriceIx,"Bend, OR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),33
+HousePriceIx,"Bethesda-Rockville-Frederick, MD  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),34
+HousePriceIx,"Billings, MT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),35
+HousePriceIx,"Binghamton, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),36
+HousePriceIx,"Birmingham-Hoover, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),37
+HousePriceIx,"Bismarck, ND",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),38
+HousePriceIx,"Blacksburg-Christiansburg-Radford, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),39
+HousePriceIx,"Bloomington, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),40
+HousePriceIx,"Bloomington-Normal, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),41
+HousePriceIx,"Boise City-Nampa, ID",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),42
+HousePriceIx,"Boston-Quincy, MA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),43
+HousePriceIx,"Boulder, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),44
+HousePriceIx,"Bowling Green, KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),45
+HousePriceIx,"Bremerton-Silverdale, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),46
+HousePriceIx,"Bridgeport-Stamford-Norwalk, CT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),47
+HousePriceIx,"Brownsville-Harlingen, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),48
+HousePriceIx,"Brunswick, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),49
+HousePriceIx,"Buffalo-Niagara Falls, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),50
+HousePriceIx,"Burlington, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),51
+HousePriceIx,"Burlington-South Burlington, VT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),52
+HousePriceIx,"Cambridge-Newton-Framingham, MA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),53
+HousePriceIx,"Camden, NJ  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),54
+HousePriceIx,"Canton-Massillon, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),55
+HousePriceIx,"Cape Coral-Fort Myers, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),56
+HousePriceIx,"Cape Girardeau-Jackson, MO-IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),57
+HousePriceIx,"Carson City, NV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),58
+HousePriceIx,"Casper, WY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),59
+HousePriceIx,"Cedar Rapids, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),60
+HousePriceIx,"Champaign-Urbana, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),61
+HousePriceIx,"Charleston, WV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),62
+HousePriceIx,"Charleston-North Charleston-Summerville, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),63
+HousePriceIx,"Charlotte-Gastonia-Rock Hill, NC-SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),64
+HousePriceIx,"Charlottesville, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),65
+HousePriceIx,"Chattanooga, TN-GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),66
+HousePriceIx,"Cheyenne, WY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),67
+HousePriceIx,"Chicago-Joliet-Naperville, IL  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),68
+HousePriceIx,"Chico, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),69
+HousePriceIx,"Cincinnati-Middletown, OH-KY-IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),70
+HousePriceIx,"Clarksville, TN-KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),71
+HousePriceIx,"Cleveland, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),72
+HousePriceIx,"Cleveland-Elyria-Mentor, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),73
+HousePriceIx,"Coeur d'Alene, ID",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),74
+HousePriceIx,"College Station-Bryan, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),75
+HousePriceIx,"Colorado Springs, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),76
+HousePriceIx,"Columbia, MO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),77
+HousePriceIx,"Columbia, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),78
+HousePriceIx,"Columbus, GA-AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),79
+HousePriceIx,"Columbus, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),80
+HousePriceIx,"Columbus, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),81
+HousePriceIx,"Corpus Christi, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),82
+HousePriceIx,"Corvallis, OR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),83
+HousePriceIx,"Crestview-Fort Walton Beach-Destin, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),84
+HousePriceIx,"Cumberland, MD-WV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),85
+HousePriceIx,"Dallas-Plano-Irving, TX  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),86
+HousePriceIx,"Dalton, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),87
+HousePriceIx,"Danville, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),88
+HousePriceIx,"Danville, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),89
+HousePriceIx,"Davenport-Moline-Rock Island, IA-IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),90
+HousePriceIx,"Dayton, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),91
+HousePriceIx,"Decatur, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),92
+HousePriceIx,"Decatur, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),93
+HousePriceIx,"Deltona-Daytona Beach-Ormond Beach, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),94
+HousePriceIx,"Denver-Aurora-Broomfield, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),95
+HousePriceIx,"Des Moines-West Des Moines, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),96
+HousePriceIx,"Detroit-Livonia-Dearborn, MI  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),97
+HousePriceIx,"Dothan, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),98
+HousePriceIx,"Dover, DE",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),99
+HousePriceIx,"Dubuque, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),100
+HousePriceIx,"Duluth, MN-WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),101
+HousePriceIx,"Durham-Chapel Hill, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),102
+HousePriceIx,"Eau Claire, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),103
+HousePriceIx,"Edison-New Brunswick, NJ  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),104
+HousePriceIx,"El Centro, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),105
+HousePriceIx,"Elizabethtown, KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),106
+HousePriceIx,"Elkhart-Goshen, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),107
+HousePriceIx,"Elmira, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),108
+HousePriceIx,"El Paso, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),109
+HousePriceIx,"Erie, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),110
+HousePriceIx,"Eugene-Springfield, OR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),111
+HousePriceIx,"Evansville, IN-KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),112
+HousePriceIx,"Fairbanks, AK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),113
+HousePriceIx,"Fargo, ND-MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),114
+HousePriceIx,"Farmington, NM",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),115
+HousePriceIx,"Fayetteville, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),116
+HousePriceIx,"Fayetteville-Springdale-Rogers, AR-MO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),117
+HousePriceIx,"Flagstaff, AZ-UT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),118
+HousePriceIx,"Flint, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),119
+HousePriceIx,"Florence, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),120
+HousePriceIx,"Florence-Muscle Shoals, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),121
+HousePriceIx,"Fond du Lac, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),122
+HousePriceIx,"Fort Collins-Loveland, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),123
+HousePriceIx,"Ft. Lauderdale-Pompano Bch.-Deerfield Bch., FL(MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),124
+HousePriceIx,"Fort Smith, AR-OK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),125
+HousePriceIx,"Fort Wayne, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),126
+HousePriceIx,"Fort Worth-Arlington, TX  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),127
+HousePriceIx,"Fresno, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),128
+HousePriceIx,"Gadsden, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),129
+HousePriceIx,"Gainesville, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),130
+HousePriceIx,"Gainesville, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),131
+HousePriceIx,"Gary, IN  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),132
+HousePriceIx,"Glens Falls, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),133
+HousePriceIx,"Goldsboro, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),134
+HousePriceIx,"Grand Forks, ND-MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),135
+HousePriceIx,"Grand Junction, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),136
+HousePriceIx,"Grand Rapids-Wyoming, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),137
+HousePriceIx,"Great Falls, MT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),138
+HousePriceIx,"Greeley, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),139
+HousePriceIx,"Green Bay, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),140
+HousePriceIx,"Greensboro-High Point, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),141
+HousePriceIx,"Greenville, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),142
+HousePriceIx,"Greenville-Mouldin-Easley, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),143
+HousePriceIx,"Gulfport-Biloxi, MS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),144
+HousePriceIx,"Hagerstown-Martinsburg, MD-WV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),145
+HousePriceIx,"Hanford-Corcoran, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),146
+HousePriceIx,"Harrisburg-Carlisle, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),147
+HousePriceIx,"Harrisonburg, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),148
+HousePriceIx,"Hartford-West Hartford-East Hartford, CT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),149
+HousePriceIx,"Hattiesburg, MS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),150
+HousePriceIx,"Hickory-Lenoir-Morganton, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),151
+HousePriceIx,"Hinesville-Fort Stewart, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),152
+HousePriceIx,"Holland-Grand Haven, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),153
+HousePriceIx,"Honolulu, HI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),154
+HousePriceIx,"Hot Springs, AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),155
+HousePriceIx,"Houma-Bayou Cane-Thibodaux, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),156
+HousePriceIx,"Houston-Sugar Land-Baytown, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),157
+HousePriceIx,"Huntington-Ashland, WV-KY-OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),158
+HousePriceIx,"Huntsville, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),159
+HousePriceIx,"Idaho Falls, ID",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),160
+HousePriceIx,"Indianapolis-Carmel, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),161
+HousePriceIx,"Iowa City, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),162
+HousePriceIx,"Ithaca, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),163
+HousePriceIx,"Jackson, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),164
+HousePriceIx,"Jackson, MS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),165
+HousePriceIx,"Jackson, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),166
+HousePriceIx,"Jacksonville, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),167
+HousePriceIx,"Jacksonville, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),168
+HousePriceIx,"Janesville, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),169
+HousePriceIx,"Jefferson City, MO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),170
+HousePriceIx,"Johnson City, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),171
+HousePriceIx,"Johnstown, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),172
+HousePriceIx,"Jonesboro, AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),173
+HousePriceIx,"Joplin, MO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),174
+HousePriceIx,"Kalamazoo-Portage, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),175
+HousePriceIx,"Kankakee-Bradley, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),176
+HousePriceIx,"Kansas City, MO-KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),177
+HousePriceIx,"Kennewick-Pasco-Richland, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),178
+HousePriceIx,"Killeen-Temple-Fort Hood, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),179
+HousePriceIx,"Kingsport-Bristol-Bristol, TN-VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),180
+HousePriceIx,"Kingston, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),181
+HousePriceIx,"Knoxville, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),182
+HousePriceIx,"Kokomo, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),183
+HousePriceIx,"La Crosse, WI-MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),184
+HousePriceIx,"Lafayette, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),185
+HousePriceIx,"Lafayette, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),186
+HousePriceIx,"Lake Charles, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),187
+HousePriceIx,"Lake County-Kenosha County, IL-WI  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),188
+HousePriceIx,"Lake Havasu City-Kingman, AZ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),189
+HousePriceIx,"Lakeland-Winter Haven, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),190
+HousePriceIx,"Lancaster, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),191
+HousePriceIx,"Lansing-East Lansing, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),192
+HousePriceIx,"Laredo, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),193
+HousePriceIx,"Las Cruces, NM",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),194
+HousePriceIx,"Las Vegas-Paradise, NV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),195
+HousePriceIx,"Lawrence, KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),196
+HousePriceIx,"Lawton, OK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),197
+HousePriceIx,"Lebanon, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),198
+HousePriceIx,"Lewiston, ID-WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),199
+HousePriceIx,"Lewiston-Auburn, ME",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),200
+HousePriceIx,"Lexington-Fayette, KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),201
+HousePriceIx,"Lima, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),202
+HousePriceIx,"Lincoln, NE",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),203
+HousePriceIx,"Little Rock-North Little Rock-Conway, AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),204
+HousePriceIx,"Logan, UT-ID",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),205
+HousePriceIx,"Longview, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),206
+HousePriceIx,"Longview, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),207
+HousePriceIx,"Los Angeles-Long Beach-Glendale, CA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),208
+HousePriceIx,"Louisville-Jefferson County, KY-IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),209
+HousePriceIx,"Lubbock, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),210
+HousePriceIx,"Lynchburg, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),211
+HousePriceIx,"Macon, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),212
+HousePriceIx,"Madera-Chowchilla, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),213
+HousePriceIx,"Madison, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),214
+HousePriceIx,"Manchester-Nashua, NH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),215
+HousePriceIx,"Manhattan, KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),216
+HousePriceIx,"Mankato-North Mankato, MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),217
+HousePriceIx,"Mansfield, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),218
+HousePriceIx,"McAllen-Edinburg-Mission, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),219
+HousePriceIx,"Medford, OR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),220
+HousePriceIx,"Memphis, TN-MS-AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),221
+HousePriceIx,"Merced, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),222
+HousePriceIx,"Miami-Miami Beach-Kendall, FL  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),223
+HousePriceIx,"Michigan City-La Porte, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),224
+HousePriceIx,"Midland, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),225
+HousePriceIx,"Milwaukee-Waukesha-West Allis, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),226
+HousePriceIx,"Minneapolis-St. Paul-Bloomington, MN-WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),227
+HousePriceIx,"Missoula, MT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),228
+HousePriceIx,"Mobile, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),229
+HousePriceIx,"Modesto, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),230
+HousePriceIx,"Monroe, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),231
+HousePriceIx,"Monroe, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),232
+HousePriceIx,"Montgomery, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),233
+HousePriceIx,"Morgantown, WV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),234
+HousePriceIx,"Morristown, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),235
+HousePriceIx,"Mount Vernon-Anacortes, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),236
+HousePriceIx,"Muncie, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),237
+HousePriceIx,"Muskegon-North Shores, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),238
+HousePriceIx,"Myrtle Beach-North Myrtle Beach-Conway, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),239
+HousePriceIx,"Napa, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),240
+HousePriceIx,"Naples-Marco Island, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),241
+HousePriceIx,"Nashville-Davidson--Murfreesboro--Franklin, TN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),242
+HousePriceIx,"Nassau-Suffolk, NY  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),243
+HousePriceIx,"Newark-Union, NJ-PA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),244
+HousePriceIx,"New Haven-Milford, CT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),245
+HousePriceIx,"New Orleans-Metairie-Kenner, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),246
+HousePriceIx,"New York-White Plains-Wayne, NY-NJ  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),247
+HousePriceIx,"Niles-Benton Harbor, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),248
+HousePriceIx,"North Port-Bradenton-Sarasota, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),249
+HousePriceIx,"Norwich-New London, CT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),250
+HousePriceIx,"Oakland-Fremont-Hayward, CA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),251
+HousePriceIx,"Ocala, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),252
+HousePriceIx,"Ocean City, NJ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),253
+HousePriceIx,"Odessa, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),254
+HousePriceIx,"Ogden-Clearfield, UT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),255
+HousePriceIx,"Oklahoma City, OK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),256
+HousePriceIx,"Olympia, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),257
+HousePriceIx,"Omaha-Council Bluffs, NE-IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),258
+HousePriceIx,"Orlando-Kissimmee-Sanford, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),259
+HousePriceIx,"Oshkosh-Neenah, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),260
+HousePriceIx,"Owensboro, KY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),261
+HousePriceIx,"Oxnard-Thousand Oaks-Ventura, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),262
+HousePriceIx,"Palm Bay-Melbourne-Titusville, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),263
+HousePriceIx,"Palm Coast, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),264
+HousePriceIx,"Panama City-Lynn Haven-Panama City Beach, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),265
+HousePriceIx,"Parkersburg-Marietta-Vienna, WV-OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),266
+HousePriceIx,"Pascagoula, MS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),267
+HousePriceIx,"Peabody, MA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),268
+HousePriceIx,"Pensacola-Ferry Pass-Brent, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),269
+HousePriceIx,"Peoria, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),270
+HousePriceIx,"Philadelphia, PA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),271
+HousePriceIx,"Phoenix-Mesa-Glendale, AZ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),272
+HousePriceIx,"Pine Bluff, AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),273
+HousePriceIx,"Pittsburgh, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),274
+HousePriceIx,"Pittsfield, MA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),275
+HousePriceIx,"Pocatello, ID",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),276
+HousePriceIx,"Portland-South Portland-Biddeford, ME",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),277
+HousePriceIx,"Portland-Vancouver-Hillsboro, OR-WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),278
+HousePriceIx,"Port St. Lucie, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),279
+HousePriceIx,"Poughkeepsie-Newburgh-Middletown, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),280
+HousePriceIx,"Prescott, AZ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),281
+HousePriceIx,"Providence-New Bedford-Fall River, RI-MA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),282
+HousePriceIx,"Provo-Orem, UT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),283
+HousePriceIx,"Pueblo, CO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),284
+HousePriceIx,"Punta Gorda, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),285
+HousePriceIx,"Racine, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),286
+HousePriceIx,"Raleigh-Cary, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),287
+HousePriceIx,"Rapid City, SD",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),288
+HousePriceIx,"Reading, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),289
+HousePriceIx,"Redding, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),290
+HousePriceIx,"Reno-Sparks, NV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),291
+HousePriceIx,"Richmond, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),292
+HousePriceIx,"Riverside-San Bernardino-Ontario, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),293
+HousePriceIx,"Roanoke, VA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),294
+HousePriceIx,"Rochester, MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),295
+HousePriceIx,"Rochester, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),296
+HousePriceIx,"Rockford, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),297
+HousePriceIx,"Rockingham County-Strafford County, NH  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),298
+HousePriceIx,"Rocky Mount, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),299
+HousePriceIx,"Rome, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),300
+HousePriceIx,"Sacramento-Arden-Arcade-Roseville, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),301
+HousePriceIx,"Saginaw-Saginaw Township North, MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),302
+HousePriceIx,"St. Cloud, MN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),303
+HousePriceIx,"St. George, UT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),304
+HousePriceIx,"St. Joseph, MO-KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),305
+HousePriceIx,"St. Louis, MO-IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),306
+HousePriceIx,"Salem, OR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),307
+HousePriceIx,"Salinas, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),308
+HousePriceIx,"Salisbury, MD",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),309
+HousePriceIx,"Salt Lake City, UT",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),310
+HousePriceIx,"San Angelo, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),311
+HousePriceIx,"San Antonio-New Braunfels, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),312
+HousePriceIx,"San Diego-Carlsbad-San Marcos, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),313
+HousePriceIx,"Sandusky, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),314
+HousePriceIx,"San Francisco-San Mateo-Redwood City, CA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),315
+HousePriceIx,"San Jose-Sunnyvale-Santa Clara, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),316
+HousePriceIx,"San Luis Obispo-Paso Robles, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),317
+HousePriceIx,"Santa Ana-Anaheim-Irvine, CA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),318
+HousePriceIx,"Santa Barbara-Santa Maria-Goleta, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),319
+HousePriceIx,"Santa Cruz-Watsonville, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),320
+HousePriceIx,"Santa Fe, NM",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),321
+HousePriceIx,"Santa Rosa-Petaluma, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),322
+HousePriceIx,"Savannah, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),323
+HousePriceIx,"Scranton-Wilkes-Barre, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),324
+HousePriceIx,"Seattle-Bellevue-Everett, WA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),325
+HousePriceIx,"Sebastian-Vero Beach, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),326
+HousePriceIx,"Sheboygan, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),327
+HousePriceIx,"Sherman-Denison, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),328
+HousePriceIx,"Shreveport-Bossier City, LA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),329
+HousePriceIx,"Sioux City, IA-NE-SD",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),330
+HousePriceIx,"Sioux Falls, SD",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),331
+HousePriceIx,"South Bend-Mishawaka, IN-MI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),332
+HousePriceIx,"Spartanburg, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),333
+HousePriceIx,"Spokane, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),334
+HousePriceIx,"Springfield, IL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),335
+HousePriceIx,"Springfield, MA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),336
+HousePriceIx,"Springfield, MO",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),337
+HousePriceIx,"Springfield, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),338
+HousePriceIx,"State College, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),339
+HousePriceIx,"Steubenville-Weirton, WV-OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),340
+HousePriceIx,"Stockton, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),341
+HousePriceIx,"Sumter, SC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),342
+HousePriceIx,"Syracuse, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),343
+HousePriceIx,"Tacoma, WA  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),344
+HousePriceIx,"Tallahassee, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),345
+HousePriceIx,"Tampa-St. Petersburg-Clearwater, FL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),346
+HousePriceIx,"Terre Haute, IN",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),347
+HousePriceIx,"Texarkana, TX-Texarkana, AR",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),348
+HousePriceIx,"Toledo, OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),349
+HousePriceIx,"Topeka, KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),350
+HousePriceIx,"Trenton-Ewing, NJ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),351
+HousePriceIx,"Tucson, AZ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),352
+HousePriceIx,"Tulsa, OK",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),353
+HousePriceIx,"Tuscaloosa, AL",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),354
+HousePriceIx,"Tyler, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),355
+HousePriceIx,"Utica-Rome, NY",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),356
+HousePriceIx,"Valdosta, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),357
+HousePriceIx,"Vallejo-Fairfield, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),358
+HousePriceIx,"Victoria, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),359
+HousePriceIx,"Vineland-Millville-Bridgeton, NJ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),360
+HousePriceIx,"Virginia Beach-Norfolk-Newport News, VA-NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),361
+HousePriceIx,"Visalia-Porterville, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),362
+HousePriceIx,"Waco, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),363
+HousePriceIx,"Warner Robins, GA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),364
+HousePriceIx,"Warren-Troy-Farmington Hills, MI  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),365
+HousePriceIx,"Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),366
+HousePriceIx,"Waterloo-Cedar Falls, IA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),367
+HousePriceIx,"Wausau, WI",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),368
+HousePriceIx,"Wenatchee-East Wenatchee, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),369
+HousePriceIx,"West Palm Beach-Boca Raton-Boynton Beach, FL (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),370
+HousePriceIx,"Wheeling, WV-OH",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),371
+HousePriceIx,"Wichita, KS",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),372
+HousePriceIx,"Wichita Falls, TX",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),373
+HousePriceIx,"Williamsport, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),374
+HousePriceIx,"Wilmington, DE-MD-NJ  (MSAD)",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),375
+HousePriceIx,"Wilmington, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),376
+HousePriceIx,"Winchester, VA-WV",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),377
+HousePriceIx,"Winston-Salem, NC",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),378
+HousePriceIx,"Worcester, MA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),379
+HousePriceIx,"Yakima, WA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),380
+HousePriceIx,"York-Hanover, PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),381
+HousePriceIx,"Youngstown-Warren-Boardman, OH-PA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),382
+HousePriceIx,"Yuba City, CA",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),383
+HousePriceIx,"Yuma, AZ",City,FHFA,Govt,All-Transactions HPI by MSA (NSA),384
+HousePriceIx,PHXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),385
+HousePriceIx,LXXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),386
+HousePriceIx,SDXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),387
+HousePriceIx,SFXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),388
+HousePriceIx,DNXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),389
+HousePriceIx,WDXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),390
+HousePriceIx,MIXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),391
+HousePriceIx,TPXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),392
+HousePriceIx,ATXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),393
+HousePriceIx,CHXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),394
+HousePriceIx,BOXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),395
+HousePriceIx,DEXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),396
+HousePriceIx,MNXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),397
+HousePriceIx,CRXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),398
+HousePriceIx,LVXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),399
+HousePriceIx,NYXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),400
+HousePriceIx,CEXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),401
+HousePriceIx,POXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),402
+HousePriceIx,DAXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),403
+HousePriceIx,SEXR-SA,City,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),404
+HousePriceIx,CSXR-SA,Country,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),405
+HousePriceIx,SPCS20R-SA,Country,Case-Shiller,Branded,Case-Shiller Home Price Index (SA),406
+HousePriceIx,East North Central(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),407
+HousePriceIx,East South Central(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),408
+HousePriceIx,Middle Atlantic(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),409
+HousePriceIx,Mountain(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),410
+HousePriceIx,New England(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),411
+HousePriceIx,Pacific(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),412
+HousePriceIx,South Atlantic(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),413
+HousePriceIx,West North Central(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),414
+HousePriceIx,West South Central(SA),State,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),415
+HousePriceIx,USA(SA),Country,FHFA,Govt,Purchase-Only Monthly HPI by Region (SA),416
+HousePriceIx,AK,State,FHFA,Govt,All-Transactions HPI by State (NSA),417
+HousePriceIx,AL,State,FHFA,Govt,All-Transactions HPI by State (NSA),418
+HousePriceIx,AR,State,FHFA,Govt,All-Transactions HPI by State (NSA),419
+HousePriceIx,AZ,State,FHFA,Govt,All-Transactions HPI by State (NSA),420
+HousePriceIx,CA,State,FHFA,Govt,All-Transactions HPI by State (NSA),421
+HousePriceIx,CO,State,FHFA,Govt,All-Transactions HPI by State (NSA),422
+HousePriceIx,CT,State,FHFA,Govt,All-Transactions HPI by State (NSA),423
+HousePriceIx,DC,State,FHFA,Govt,All-Transactions HPI by State (NSA),424
+HousePriceIx,DE,State,FHFA,Govt,All-Transactions HPI by State (NSA),425
+HousePriceIx,FL,State,FHFA,Govt,All-Transactions HPI by State (NSA),426
+HousePriceIx,GA,State,FHFA,Govt,All-Transactions HPI by State (NSA),427
+HousePriceIx,HI,State,FHFA,Govt,All-Transactions HPI by State (NSA),428
+HousePriceIx,IA,State,FHFA,Govt,All-Transactions HPI by State (NSA),429
+HousePriceIx,ID,State,FHFA,Govt,All-Transactions HPI by State (NSA),430
+HousePriceIx,IL,State,FHFA,Govt,All-Transactions HPI by State (NSA),431
+HousePriceIx,IN,State,FHFA,Govt,All-Transactions HPI by State (NSA),432
+HousePriceIx,KS,State,FHFA,Govt,All-Transactions HPI by State (NSA),433
+HousePriceIx,KY,State,FHFA,Govt,All-Transactions HPI by State (NSA),434
+HousePriceIx,LA,State,FHFA,Govt,All-Transactions HPI by State (NSA),435
+HousePriceIx,MA,State,FHFA,Govt,All-Transactions HPI by State (NSA),436
+HousePriceIx,MD,State,FHFA,Govt,All-Transactions HPI by State (NSA),437
+HousePriceIx,ME,State,FHFA,Govt,All-Transactions HPI by State (NSA),438
+HousePriceIx,MI,State,FHFA,Govt,All-Transactions HPI by State (NSA),439
+HousePriceIx,MN,State,FHFA,Govt,All-Transactions HPI by State (NSA),440
+HousePriceIx,MO,State,FHFA,Govt,All-Transactions HPI by State (NSA),441
+HousePriceIx,MS,State,FHFA,Govt,All-Transactions HPI by State (NSA),442
+HousePriceIx,MT,State,FHFA,Govt,All-Transactions HPI by State (NSA),443
+HousePriceIx,NC,State,FHFA,Govt,All-Transactions HPI by State (NSA),444
+HousePriceIx,ND,State,FHFA,Govt,All-Transactions HPI by State (NSA),445
+HousePriceIx,NE,State,FHFA,Govt,All-Transactions HPI by State (NSA),446
+HousePriceIx,NH,State,FHFA,Govt,All-Transactions HPI by State (NSA),447
+HousePriceIx,NJ,State,FHFA,Govt,All-Transactions HPI by State (NSA),448
+HousePriceIx,NM,State,FHFA,Govt,All-Transactions HPI by State (NSA),449
+HousePriceIx,NV,State,FHFA,Govt,All-Transactions HPI by State (NSA),450
+HousePriceIx,NY,State,FHFA,Govt,All-Transactions HPI by State (NSA),451
+HousePriceIx,OH,State,FHFA,Govt,All-Transactions HPI by State (NSA),452
+HousePriceIx,OK,State,FHFA,Govt,All-Transactions HPI by State (NSA),453
+HousePriceIx,OR,State,FHFA,Govt,All-Transactions HPI by State (NSA),454
+HousePriceIx,PA,State,FHFA,Govt,All-Transactions HPI by State (NSA),455
+HousePriceIx,RI,State,FHFA,Govt,All-Transactions HPI by State (NSA),456
+HousePriceIx,SC,State,FHFA,Govt,All-Transactions HPI by State (NSA),457
+HousePriceIx,SD,State,FHFA,Govt,All-Transactions HPI by State (NSA),458
+HousePriceIx,TN,State,FHFA,Govt,All-Transactions HPI by State (NSA),459
+HousePriceIx,TX,State,FHFA,Govt,All-Transactions HPI by State (NSA),460
+HousePriceIx,UT,State,FHFA,Govt,All-Transactions HPI by State (NSA),461
+HousePriceIx,VA,State,FHFA,Govt,All-Transactions HPI by State (NSA),462
+HousePriceIx,VT,State,FHFA,Govt,All-Transactions HPI by State (NSA),463
+HousePriceIx,WA,State,FHFA,Govt,All-Transactions HPI by State (NSA),464
+HousePriceIx,WI,State,FHFA,Govt,All-Transactions HPI by State (NSA),465
+HousePriceIx,WV,State,FHFA,Govt,All-Transactions HPI by State (NSA),466
+HousePriceIx,WY,State,FHFA,Govt,All-Transactions HPI by State (NSA),467
+HousePriceIx,A2333534T,City,ABS,Govt,Price Index of Project Homes,468
+HousePriceIx,A2333542T,City,ABS,Govt,Price Index of Project Homes,469
+HousePriceIx,A2333550T,City,ABS,Govt,Price Index of Project Homes,470
+HousePriceIx,A2333558K,City,ABS,Govt,Price Index of Project Homes,471
+HousePriceIx,A2333566K,City,ABS,Govt,Price Index of Project Homes,472
+HousePriceIx,A2333574K,City,ABS,Govt,Price Index of Project Homes,473
+HousePriceIx,A2333582K,City,ABS,Govt,Price Index of Project Homes,474
+HousePriceIx,A2333590K,City,ABS,Govt,Price Index of Project Homes,475
+HousePriceIx,A2333527V,City,ABS,Govt,Price Index of Established Houses,476
+HousePriceIx,A2333535V,City,ABS,Govt,Price Index of Established Houses,477
+HousePriceIx,A2333543V,City,ABS,Govt,Price Index of Established Houses,478
+HousePriceIx,A2333551V,City,ABS,Govt,Price Index of Established Houses,479
+HousePriceIx,A2333559L,City,ABS,Govt,Price Index of Established Houses,480
+HousePriceIx,A2333567L,City,ABS,Govt,Price Index of Established Houses,481
+HousePriceIx,A2333575L,City,ABS,Govt,Price Index of Established Houses,482
+HousePriceIx,A2333583L,City,ABS,Govt,Price Index of Established Houses,483
+HousePriceIx,A2333591L,City,ABS,Govt,Price Index of Established Houses,484
+HousePriceIx,Sydney Dwellings,City,Rismark,Branded,National City Dwelling Index,485
+HousePriceIx,Melbourne Dwellings,City,Rismark,Branded,National City Dwelling Index,486
+HousePriceIx,Brisbane Dwellings,City,Rismark,Branded,National City Dwelling Index,487
+HousePriceIx,Adelaide Dwellings,City,Rismark,Branded,National City Dwelling Index,488
+HousePriceIx,Perth Dwellings,City,Rismark,Branded,National City Dwelling Index,489
+HousePriceIx,Darwin Dwellings,City,Rismark,Branded,National City Dwelling Index,490
+HousePriceIx,Canberra Dwellings,City,Rismark,Branded,National City Dwelling Index,491
+HousePriceIx,Australia Dwellings,Country,Rismark,Branded,National City Dwelling Index,492
+HousePriceIx,Hobart Dwellings,City,Rismark,Branded,National City Dwelling Index,493
+HousePriceIx,HNSW,State,Rismark,Branded,National Rest of State House Index,494
+HousePriceIx,HVIC,State,Rismark,Branded,National Rest of State House Index,495
+HousePriceIx,HQLD,State,Rismark,Branded,National Rest of State House Index,496
+HousePriceIx,HSA,State,Rismark,Branded,National Rest of State House Index,497
+HousePriceIx,HWA,State,Rismark,Branded,National Rest of State House Index,498

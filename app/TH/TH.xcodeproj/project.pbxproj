@@ -47,9 +47,7 @@
 		8F53B76014581BCC00992D48 /* FlipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F53B75F14581BCC00992D48 /* FlipLabel.m */; };
 		8F53B766145C090E00992D48 /* Flipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F53B765145C090E00992D48 /* Flipper.m */; };
 		8F53B76914629C6900992D48 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76714629C6900992D48 /* background@2x.png */; };
-		8F53B76A14629C6900992D48 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76814629C6900992D48 /* Default@2x.png */; };
 		8F53B76C14662C9900992D48 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F53B76B14662C9900992D48 /* arrow@2x.png */; };
-		8F5A7AB11473C89D00641747 /* HelpPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A7AB01473C89D00641747 /* HelpPointer.m */; };
 		8F5A7AB51475111300641747 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A7AB41475111200641747 /* UIDeviceHardware.m */; };
 		8F5A7AB9147679DB00641747 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5A7AB7147679DA00641747 /* icon.png */; };
 		8F5A7ABA147679DB00641747 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5A7AB8147679DB00641747 /* icon@2x.png */; };
@@ -61,6 +59,8 @@
 		8F5FA73D142D8FBB00FB3A52 /* THPlaceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5FA73C142D8FBB00FB3A52 /* THPlaceName.m */; };
 		8F5FA73F142D95F400FB3A52 /* PlaceNames.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8F5FA73E142D95F400FB3A52 /* PlaceNames.csv */; };
 		8F86C928142617CC0021D2A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F86C927142617CC0021D2A8 /* AudioToolbox.framework */; };
+		8F8FDB6B147E53BC0085BD6E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F8FDB6A147E53BC0085BD6E /* Default.png */; };
+		8F8FDB6D147E53C20085BD6E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F8FDB6C147E53C20085BD6E /* Default@2x.png */; };
 		8F907B3E147277E00070DC51 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F907B3C147277E00070DC51 /* arrow.png */; };
 		8F907B3F147277E00070DC51 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F907B3D147277E00070DC51 /* background.png */; };
 		8FB5D35E142EF1140035B15B /* SearchSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D35C142EF1140035B15B /* SearchSelectorVC.m */; };
@@ -76,7 +76,6 @@
 		8FCD231614245B230097DE52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD231314245B210097DE52 /* Reachability.m */; };
 		8FCD231D1424C30E0097DE52 /* AustraliaIndex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */; };
 		8FCD23211424CF690097DE52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD23201424CF690097DE52 /* SystemConfiguration.framework */; };
-		8FE109B31431F6D900A48B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109B11431F6D900A48B0B /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,10 +153,7 @@
 		8F53B764145C090E00992D48 /* Flipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flipper.h; sourceTree = "<group>"; };
 		8F53B765145C090E00992D48 /* Flipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flipper.m; sourceTree = "<group>"; };
 		8F53B76714629C6900992D48 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
-		8F53B76814629C6900992D48 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		8F53B76B14662C9900992D48 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
-		8F5A7AAF1473C89D00641747 /* HelpPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpPointer.h; sourceTree = "<group>"; };
-		8F5A7AB01473C89D00641747 /* HelpPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpPointer.m; sourceTree = "<group>"; };
 		8F5A7AB31475111200641747 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		8F5A7AB41475111200641747 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		8F5A7AB7147679DA00641747 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -172,6 +168,8 @@
 		8F5FA73C142D8FBB00FB3A52 /* THPlaceName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPlaceName.m; sourceTree = "<group>"; };
 		8F5FA73E142D95F400FB3A52 /* PlaceNames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlaceNames.csv; sourceTree = "<group>"; };
 		8F86C927142617CC0021D2A8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8F8FDB6A147E53BC0085BD6E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		8F8FDB6C147E53C20085BD6E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		8F907B3C147277E00070DC51 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		8F907B3D147277E00070DC51 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		8FB5D35B142EF1140035B15B /* SearchSelectorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSelectorVC.h; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 		8FCD231314245B210097DE52 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8FCD231C1424C30E0097DE52 /* AustraliaIndex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AustraliaIndex.xml; sourceTree = "<group>"; };
 		8FCD23201424CF690097DE52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8FE109B11431F6D900A48B0B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +266,8 @@
 		8F3E6631141C8F1400712C42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8F8FDB6C147E53C20085BD6E /* Default@2x.png */,
+				8F8FDB6A147E53BC0085BD6E /* Default.png */,
 				8F5A7AB7147679DA00641747 /* icon.png */,
 				8F5A7AB8147679DB00641747 /* icon@2x.png */,
 				8F907B3C147277E00070DC51 /* arrow.png */,
@@ -279,8 +278,6 @@
 				8F5A7ABF14767C9600641747 /* rightArrow.png */,
 				8F5A7AC014767C9700641747 /* rightArrow@2x.png */,
 				8F53B76714629C6900992D48 /* background@2x.png */,
-				8F53B76814629C6900992D48 /* Default@2x.png */,
-				8FE109B11431F6D900A48B0B /* Default.png */,
 				8FB5D375142F4D380035B15B /* PlaceNames_Oz.csv */,
 				8F5FA73E142D95F400FB3A52 /* PlaceNames.csv */,
 				8FB5D36F142F44730035B15B /* HelpBubble1@2x.png */,
@@ -328,8 +325,6 @@
 				8F3E667C141C91D200712C42 /* ScrollingTallyDetailVC.xib */,
 				8F3E667D141C91D200712C42 /* ScrollingTallyDetailVC.h */,
 				8F3E667E141C91D200712C42 /* ScrollingTallyDetailVC.m */,
-				8F5A7AAF1473C89D00641747 /* HelpPointer.h */,
-				8F5A7AB01473C89D00641747 /* HelpPointer.m */,
 				8F53B7291456B9B000992D48 /* ArrowScroller.h */,
 				8F53B72A1456B9B100992D48 /* ArrowScroller.m */,
 				8F3E667A141C91D200712C42 /* PropertySettingsVC.h */,
@@ -477,10 +472,8 @@
 				8FB5D373142F44740035B15B /* HelpBubble2@2x.png in Resources */,
 				8FB5D374142F44740035B15B /* HelpBubble3@2x.png in Resources */,
 				8FB5D376142F4D380035B15B /* PlaceNames_Oz.csv in Resources */,
-				8FE109B31431F6D900A48B0B /* Default.png in Resources */,
 				8F53B67B144ADB1900992D48 /* notes in Resources */,
 				8F53B76914629C6900992D48 /* background@2x.png in Resources */,
-				8F53B76A14629C6900992D48 /* Default@2x.png in Resources */,
 				8F53B76C14662C9900992D48 /* arrow@2x.png in Resources */,
 				8F907B3E147277E00070DC51 /* arrow.png in Resources */,
 				8F907B3F147277E00070DC51 /* background.png in Resources */,
@@ -490,6 +483,8 @@
 				8F5A7AC214767C9700641747 /* leftArrow@2x.png in Resources */,
 				8F5A7AC314767C9700641747 /* rightArrow.png in Resources */,
 				8F5A7AC414767C9700641747 /* rightArrow@2x.png in Resources */,
+				8F8FDB6B147E53BC0085BD6E /* Default.png in Resources */,
+				8F8FDB6D147E53C20085BD6E /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +545,6 @@
 				8F53B72B1456B9B100992D48 /* ArrowScroller.m in Sources */,
 				8F53B76014581BCC00992D48 /* FlipLabel.m in Sources */,
 				8F53B766145C090E00992D48 /* Flipper.m in Sources */,
-				8F5A7AB11473C89D00641747 /* HelpPointer.m in Sources */,
 				8F5A7AB51475111300641747 /* UIDeviceHardware.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

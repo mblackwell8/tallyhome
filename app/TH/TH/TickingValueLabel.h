@@ -22,7 +22,7 @@
 
 @property (nonatomic, retain) UILabel *dollarLabel;
 @property (nonatomic, assign) double value;
-@property (nonatomic, assign) UIFont *font;
-@property (nonatomic, assign) UIColor *textColor, *highlightColor;
+@property (nonatomic, retain) UIFont *font;
+@property (nonatomic, retain) UIColor *textColor, *highlightColor;
 
 @end

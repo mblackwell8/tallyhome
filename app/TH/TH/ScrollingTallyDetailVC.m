@@ -454,7 +454,6 @@
         // no need to remake the price path... just change the current value
         recalcCurrentVal = YES;
         _displayedData.trendExtrapolationInterval = propSettings.trendExtrapolationInterval;
-        
     }
     
     if (reInit) {
@@ -467,10 +466,15 @@
     }
     
     if (recalcCurrentVal) {
-        [self setDisplayedDateValueTo:[NSDate date]];
-        self.nowValue = _displayedValue;
-        self.lastNowValue = _displayedValue;
-        self.nowValueToEncode = _displayedValue;
+        NSDate *now = [NSDate date];
+        THDateVal *nowVal = [_displayedData calcValueAt:now];
+        
+        //have to set these first, before calling setDisplayedDateValueTo
+        self.nowValue = nowVal;
+        self.lastNowValue = nowVal;
+        self.nowValueToEncode = nowVal;
+        
+        [self setDisplayedDateValueTo:now];
     }
 }
 
