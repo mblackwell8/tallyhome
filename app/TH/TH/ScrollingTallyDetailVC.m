@@ -809,6 +809,7 @@
     
     DLog(@"calculating now value...");
     self.nowValue = [_displayedData calcValueAt:[NSDate date]];
+    self.lastNowValue = _nowValue;
     self.nowValueToEncode = _nowValue;
     
     _isUpdatingPricePath = NO;

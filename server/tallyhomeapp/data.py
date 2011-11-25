@@ -199,20 +199,20 @@ class GetTally(webapp.RequestHandler):
 class TallyDataPointLoader(webapp.RequestHandler):
     def get(self):
         isUpdate = self.request.get('isUpdate')
-        ixDate = datetime.strptime(self.request.get('dateTime'), '%Y-%m-%d %H:%M:%S'))
-        ixVal = float(self.request.get('val'))
-        ixTallyId = datastore.Key.from_path('Tally', self.request.get('tallyId'))
-        
-        dp = None
-        if isUpdate == 'true':
-            dps = TallyDataPoint.all().filter('Date =', ixDate).filter('Tally_ID = ', ixTallyId)
+        ixDate = datetime.strptime(self.request.get('date'), '%Y-%m-%d %H:%M:%S')
+        ixVal = float(self.request.get('ixVal'))
+        tallyId = self.request.get('tallyId')
+
+        dp = nil
+        if isUpdate.lower() == 'true':
+            dps = TallyDataPoint.all().filter('Tally_ID =', tallyId).filter('Date = ', ixDate)
             if dps.count(2) == 1:
                 dp = dps[0]
         if not dp:
             dp = TallyDataPoint()
+            dp.Tally_ID = tallyId
             dp.Date = ixDate
-            dp.Tally_ID = ixTallyId
-        
+
         dp.IxVal = ixVal
         dp.put()
 
